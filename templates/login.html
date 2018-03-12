@@ -1,0 +1,42 @@
+<div style="overflow: auto; padding: 10px; padding-top: 60px;">
+  <style>
+  .material-icons {
+      font-size: 2rem;
+    }
+
+    .md-datepicker-calendar-pane {
+      z-index: 1200
+    }
+  }
+  </style>
+
+  <div class="container col-md-12" style="box-shadow: 0px 0px 1px grey; background-color: white;">
+
+    <center style="padding-top: 50px;">
+      Bienvenidos al sistema de gestión de solicitudes de <b><font color="#1b5362">Cobertec</font><font color="#6a975e">Salud</font></b>
+      </br>
+      </br>
+      <img src="images/logocobertec.png" width="200px">
+
+      <div class="container col-md-12" style="background-color: white;">
+
+      <form name="loginForm">
+        <div class="row" style="">
+          <md-input-container class="md-icon-float md-block col-md-4 col-md-offset-4" flex-gt-sm>
+            <label><i style="dark-color: grey;" class="material-icons">person</i> Usuario</label>
+            <input name="user" ng-model="user" required>
+          </md-input-container>
+        </div>
+
+        <div class="row" style="">
+          <md-input-container class="md-icon-float md-block col-md-4 col-md-offset-4" flex-gt-sm>
+            <label><i style="dark-color: grey;" class="material-icons">person_pin</i> Password</label>
+            <input type="password" ng-model="pass" required>
+          </md-input-container>
+        </div>
+        <md-button ng-click="ingresar()" ng-disabled="loginForm.$invalid" style="margin-bottom: 5%; " class="md-raised md-primary">Ingresar</md-button>
+        <p ng-show="loginError" md-colors="{color: 'red-500'}" class="warn" style=""><i>{{loginErrorMsg}}</i></p>
+      </form>
+
+
+  </div>

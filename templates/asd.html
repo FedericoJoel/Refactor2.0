@@ -1,0 +1,15 @@
+<div>
+<div class="BotonGeneral" ng-click="listar()"><center>LISTAR</center></div>
+
+</div>
+
+
+<table>
+<input style="" type="text" ng-model="filtro">
+  <tr ng-repeat="clinica in clinicas | filter:filtro">
+    <td>{{ clinica.NOMBRE }}</td>
+    <td>{{ clinica.DIRECCION }}</td>
+  </tr>
+</table>
+
+

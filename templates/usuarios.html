@@ -1,0 +1,77 @@
+<div style="padding: 10px; padding-top: 60px; margin-bottom: 5%;">
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row" style="vertical-align: middle;">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-users fa-2x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right" style="vertical-align: middle;">
+                                        <div style="vertical-align: middle; font-size: 16pt;">Gestión de Usuarios</div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="panel-footer">
+                                	<div class="row">
+	                                	<div class="col-md-5">
+			                                Alta Usuario
+			                                </br>
+			                                <div class="panel-footer">
+				                                <div class="form-group">
+					                                <div class="row">
+					                                	<div class="col-md-12">
+							                                <label><i class="fa fa-child"></i> Nombre de Usuario</label>
+							                                <input class="form-control" ng-model="usernew" ng-change="ComprobarUsername()">
+							                                <p class="help-block" id="comprobuser"></p>
+						                                </div>
+						                            </div>
+						                            <div class="row">
+					                                	<div class="col-md-12">
+					                                		<label><i class="fa fa-lock"></i> Contraseña</label>
+							                                <input class="form-control" type="password" ng-model="contranew">
+							                                <p></p>
+						                                </div>
+						                            </div>
+						                            <div class="row">
+					                                	<div class="col-md-12">
+					                                		<label><i class="fa fa-cubes"></i> Perfil</label>
+							                                <select class="form-control" ng-model="perfilnew" ng-options="x.NOMBRE for x in perfiles" ng-value="x.ID">
+							                                </select>
+
+						                                </div>
+						                            </div>
+						                            <div class="row" style="margin-top: 5px;">
+						                            	<div class="col-md-4 col-md-offset-8">
+					                                		<button ng-click="AltaUser()" style="width: 100%;" class="btn btn-primary"><i class="fa fa-caret-right"></i> ALTA</button>
+
+						                                </div>
+						                            </div>
+				                            	</div>
+			                                </div>
+			                            </div>
+			                            <div class="col-md-6 col-md-offset-1">
+			                            Modificar / Eliminar Usuario
+			                                </br>
+			                                <div class="panel-footer">
+				                                <div class="form-group">
+					                                <div class="row">
+					                                	<div class="col-md-12">
+							                                <label><i class="fa fa-search"></i> Usuario</label>
+							                                <input class="form-control" ng-model="buscauser" ng-change="">
+							                                <p class="help-block"></p>
+						                                </div>
+						                            </div>
+						                            <div class="row">
+						                            	<div id="BuscaUser2" class="col-md-12" style="overflow: auto; max-height: 200px;">
+						                            		<ul class="list-group">
+									                            <li ng-repeat="x in Usuarios | filter: buscauser" class="list-group-item">{{x.USUARIO}} <span style="float: right"><img src="images/modif.png" width="16px" height="16px" style="margin-right: 5px;"><img src="images/x.png" ng-click="EliminarUsuario(x.ID)" width="16px" height="16px"></span></li>
+                        									</ul>
+						                            	</div>
+						                            </div>
+				                            	</div>
+			                            </div>
+		                            </div>
+                                </div>
+                        </div>
+
+</div>

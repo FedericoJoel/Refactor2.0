@@ -1,0 +1,301 @@
+
+<div style="overflow: auto; padding: 10px; padding-top: 60px;">
+<style>
+  .material-icons{
+    font-size: 2rem;
+}
+  .md-datepicker-calendar-pane{
+z-index: 1200}
+
+  }
+</style>
+<md-content style="background-color: white; box-shadow: 0px 0px 1px grey; margin-bottom: 5%;">
+    <md-tabs md-dynamic-height md-border-bottom >
+      <md-tab label="Alta">
+        <md-content class="md-padding">
+
+
+
+<div class="container col-md-12" style="box-shadow: 0px 0px 1px grey; background-color: white;">
+
+  <div class="row" style="padding: 20px;">
+
+  <h3>Datos personales</h3>
+
+  </div>
+
+  <div class="row" style="padding: 10px;">
+
+          <div class="row">
+          <md-input-container class="md-icon-float md-block col-md-4 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: green;" class="material-icons">person</i> Nombre</label>
+            <input ng-model="nombrealta">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block col-md-4" flex-gt-sm>
+            <label><i style="color: lightblue;" class="material-icons">person_pin</i> Apellido</label>
+            <input type="text" ng-model="apellidoalta">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block col-md-3" flex-gt-sm>
+            <md-datepicker ng-model="nacimientoalta" md-placeholder="Nacimiento"></md-datepicker>
+          </md-input-container>
+          </div>
+          <div class="row">
+          <md-input-container style="" class="md-icon-float md-block col-md-3 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: blue;" class="material-icons">format_list_numbered</i> DNI</label>
+            <input type="number" ng-model="dnialta">
+          </md-input-container>
+          <md-input-container style="" class="md-icon-float md-block col-md-3 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: lightblue;" class="material-icons">recent_actors</i> Cuil</label>
+            <input ng-model="cuilalta">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block col-md-3 col-md-offset-1" flex-gt-sm>
+            <label>Obra Social</label>
+            <md-select ng-model="obrasocialalta">
+              <md-option ng-repeat="x in obrasSociales" ng-value="x.id" ng-disabled="$index === 1">
+                {{x.nombre}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          </div>
+
+          <div class="row">
+          <md-input-container style="" class="md-icon-float md-block col-md-5 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: blue;" class="material-icons">credit_card</i> Nº de Afiliado</label>
+            <input type="number" ng-model="nafiliadoalta">
+          </md-input-container>
+          </div>
+
+
+  </div>
+
+</div>
+
+
+<div class="container col-md-12" style="margin-top: 20px; box-shadow: 0px 0px 1px grey; background-color: white;">
+
+  <div class="row" style="padding: 10px;">
+
+  <h3>Datos de Contacto</h3>
+
+  </div>
+
+    <div class="row">
+          <md-input-container class="md-icon-float md-block col-md-6 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: #9033FF;" class="material-icons">place</i>Direccion</label>
+            <input ng-model="direccionalta">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block col-md-2" flex-gt-sm>
+            <label><i style="color: orange;" class="material-icons">clear_all</i> Piso</label>
+            <input ng-model="pisoalta">
+          </md-input-container>
+
+          <md-input-container class="md-icon-float md-block col-md-2" flex-gt-sm>
+            <label><i style="color: blue;" class="material-icons">dns</i> DPTO</label>
+            <input ng-model="dptoalta">
+          </md-input-container>
+    </div>
+
+        <div class="row" layout-align="center center">
+          <md-input-container class="md-icon-float md-block col-md-2 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: orange;" class="material-icons">phone</i> Teléfono</label>
+            <input type="number" ng-model="telefonoalta">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block col-md-2 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: purple;" class="material-icons">settings_cell</i> Celular</label>
+            <input type="number" ng-model="celularalta">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block col-md-4 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: green;" class="material-icons">contact_mail</i> Email</label>
+            <input ng-model="emailalta">
+          </md-input-container>
+        </div>
+
+</div>
+
+
+          <div class="row" layout-align="center center" ng-show="
+
+            nombrealta !== undefined && apellidoalta !== undefined && nacimientoalta !== undefined && dnialta !== undefined && cuilalta !== undefined && direccionalta !== undefined && pisoalta !== undefined && dptoalta !== undefined && telefonoalta !== undefined && celularalta !== undefined && emailalta !== undefined
+
+          ">
+          
+          <md-button ng-click="AltaMedico()" class="md-raised md-primary col-md-4 col-md-offset-4" >
+            <md-tooltip> 
+              ALTA DE AFILIADO
+            </md-tooltip>
+            ALTA
+          </md-button>
+         
+          </div>
+        </md-content>
+      </md-tab>
+      <md-tab label="Baja/Modificacion" ng-click="ListarMedicos()">
+        <md-content class="md-padding">
+          <div ng-if="Cargando !== ''" style="padding: 0px; border: 0px;" class="alert alert-warning"><md-progress-linear md-mode="indeterminate"></md-progress-linear></div>
+        <table id="ims" class="table table-bordered table-hover">
+                <tr>
+        <td>
+        <md-input-container  style="margin: 0px !important;" class="md-block">
+            <input type="text" ng-model="filtro.NOMBRE">
+        </md-input-container>
+        </td>
+        <td>
+          <md-input-container style="margin: 0px !important;" class="md-block">
+            <input type="text" ng-model="filtro.DIRECCION">
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container style="margin: 0px !important;" class="md-block">
+            <input type="text" ng-model="filtro.LOCALIDAD">
+          </md-input-container>
+        </td>
+        <td>
+          <md-select placeholder="{{placeselect}}" ng-model="filtro.EspeNom" md-on-open="" style="margin: 0px !important; min-width: 10%;">
+            <md-option ng-value="espe.NOMBRE" ng-repeat="espe in Especialidades">{{espe.NOMBRE}}</md-option>
+          </md-select>
+        </td>
+        </tr>
+        <tr style="background-color: rgb(61,81,181); color: white;">
+        <td>NOMBRE</td><td>APELLIDO</td><td>DNI</td>
+        </tr>
+          <tr ng-repeat="afiliado in afiliados | filter:filtro:strict">
+            <td>{{ afiliado.nombre }}</td>
+            <td>{{ afiliado.apellido }}</td>
+            <td>{{ afiliado.dni }}</td>
+            <td>
+
+          <md-button data-toggle="modal" ng-click="LlenarModal(afiliado.id)" data-target="#Modificar" aria-label="Twitter" class="md-fab md-icon-button md-raised md-mini">
+          <md-tooltip md-direction="top">
+              Modificar
+          </md-tooltip>
+          <i class="material-icons">edit</i>
+          </md-button>
+          <md-button ng-click="Eliminar(afiliado.id)" aria-label="Facebook" class="md-fab md-icon-button md-raised md-mini">
+          <md-tooltip md-direction="top">
+              Eliminar
+          </md-tooltip>
+          <i class="material-icons">delete</i>
+          </md-button>
+          </md-button>
+          </tr>
+    </table>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+</div>
+
+<div class="modal fade" id="Modificar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+
+
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Modificando Afiliado</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" data-dismiss="modal">
+          <i class="material-icons">close</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div ng-if="Cargando !== ''" style="padding-top: 5px; padding-bottom: 5px;"><md-progress-linear md-mode="indeterminate"></md-progress-linear></div>
+    <table id="ims" class="table table-bordered">        
+        </tr>
+         <div class="row" style="margin-top: 20px;">
+          <md-input-container class="md-icon-float md-block col-md-5 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: green;" class="material-icons">person</i> Nombre</label>
+            <input ng-model="nombremodi" style="color: #1A58B5;">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block col-md-5" flex-gt-sm>
+            <label><i style="color: lightblue;" class="material-icons">person_pin</i> Apellido</label>
+            <input type="text" ng-model="apellidomodi" style="color: #1A58B5;">
+          </md-input-container>
+          </div>
+         <div class="row" style="">
+          <md-input-container class="md-icon-float md-block col-md-5 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: green;" class="material-icons">credit_card</i> Nº de Afiliado</label>
+            <input ng-model="nafiliadomodi" style="color: #1A58B5;">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block col-md-3 col-md-offset-1" flex-gt-sm>
+            <label>Obra Social</label>
+            <md-select ng-model="obrasocialmodi">
+              <md-option ng-repeat="x in obrasSociales" ng-value="x.id" ng-selected="x.id == obrasocialmodi" ng-disabled="$index === 1">
+                {{x.nombre}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          </div>
+          <div class="row">
+          <md-input-container style="" class="md-icon-float md-block col-md-3 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: blue;" class="material-icons">format_list_numbered</i> DNI</label>
+            <input type="number" ng-model="dnimodi" style="color: #1A58B5;">
+          </md-input-container>
+          <md-input-container style="" class="md-icon-float md-block col-md-3" flex-gt-sm>
+            <label><i style="color: lightblue;" class="material-icons">recent_actors</i> Cuil</label>
+            <input ng-model="cuilmodi" style="color: #1A58B5;">
+            </md-input-container>
+          <md-input-container class="md-icon-float md-block col-md-5" flex-gt-sm>
+            <md-datepicker ng-model="nacimientomodi" md-placeholder="Nacimiento" style="color: #1A58B5;"></md-datepicker>
+          </md-input-container>
+          <div class="row">
+          <md-input-container class="md-icon-float md-block col-md-5 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: #9033FF;" class="material-icons">place</i>Direccion</label>
+            <input ng-model="direccionmodi" style="color: #1A58B5;">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block col-md-2 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: orange;" class="material-icons">clear_all</i> Piso</label>
+            <input ng-model="pisomodi" style="color: #1A58B5;">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block col-md-2" flex-gt-sm>
+            <label><i style="color: blue;" class="material-icons">dns</i> DPTO</label>
+            <input ng-model="dptomodi" style="color: #1A58B5;">
+          </md-input-container>
+          </div>
+          <div class="row">
+          <md-input-container class="md-icon-float md-block col-md-2 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: orange;" class="material-icons">phone</i> Teléfono</label>
+            <input type="number" ng-model="telefonomodi" style="color: #1A58B5;">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block col-md-2 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: purple;" class="material-icons">settings_cell</i> Celular</label>
+            <input type="number" ng-model="celularmodi" style="color: #1A58B5;">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block col-md-4 col-md-offset-1" flex-gt-sm>
+            <label><i style="color: green;" class="material-icons">contact_mail</i> Email</label>
+            <input ng-model="emailmodi" style="color: #1A58B5;">
+          </md-input-container>
+          </div>
+            
+      </table>
+
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions style="padding: 5px;" layout="row">
+
+      <span flex></span>
+      <md-button class="md-raised md-accent md-icon-button" data-dismiss="modal">
+       <md-tooltip md-direction="top">
+       CANCELAR
+       </md-tooltip>
+       <i class="material-icons">cancel</i>
+      </md-button>
+      <md-button class="md-raised md-primary md-icon-button" data-dismiss="modal" ng-click="Guardar(idafi)">
+       <md-tooltip>
+       GUARDAR
+       </md-tooltip>
+       <i class="material-icons">save</i>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+
+    </div>
+  </div>
+</div>
+</div>

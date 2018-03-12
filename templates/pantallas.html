@@ -1,0 +1,97 @@
+<div style="padding: 10px; padding-top: 60px; margin-bottom: 5%;">
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row" style="vertical-align: middle;">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-laptop fa-2x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right" style="vertical-align: middle;">
+                                        <div style="vertical-align: middle; font-size: 16pt;">Gestión de Perfiles</div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="panel-footer">
+
+
+
+
+<div class="row">
+	                                	<div class="col-md-6">
+			                                Alta Perfil
+			                                </br>
+			                                <div class="panel-footer">
+				                                <div class="form-group">
+					                                <div class="row">
+					                                	<div class="col-md-12">
+							                                <label><i class="fa fa-child"></i> Nombre del Perfil</label>
+							                                <input class="form-control" ng-model="perfilnew" ng-change="ComprobarPerfil()">
+							                                <p class="help-block" id="comprobperfil"></p>
+						                                </div>
+						                            </div>
+						                            <div class="row" style="margin-top: 10px;">
+					                                	<div class="col-md-12">
+					                                		<label><i class="fa fa-cubes"></i> Pantallas</label>
+													        <div id="collapseOne" class="panel-collapse collapse in">
+						                                		<ul class="list-group" style="border-radius: 5px; border-left: 1px solid #ddd !important; border-right: 1px solid #ddd !important;">
+						                                			<li ng-repeat="padre in pantallas" class="list-group-item"><input ng-model="checkpadre[padre.ID]" style="cursor: pointer;" type="checkbox" ng-click="MarcarPadre(padre.ID,padre.hijos)"> <b>{{padre.NOMBRE}}</b>
+								                                		<ul class="list">
+								                                		<ul class="list-group">
+										                                		<li ng-repeat="hijo in padre.hijos" class="list-group-item"><input type="checkbox" style="cursor: pointer;" ng-model="checkhijo[hijo.ID]" ng-click="MarcarHijo(hijo.IDPADRE,hijo.ID)"> {{hijo.NOMBRE}}
+										                                		</li>
+								                                		</ul>
+								                                		</ul>
+								                                	</li>
+						                                		</ul>
+						                                	</div>
+						                                </div>
+						                            </div>
+						                            <div class="row" style="margin-top: 5px;">
+						                            	<div class="col-md-6 col-md-offset-6">
+
+					                                		<button ng-click="CrearPerfil()" ng-model="btnCrearPerfil" style="width: 100%;" ng-disabled="btnCrearPerfil.isDisabled" class="btn btn-primary"><i class="fa fa-caret-right"></i> CREAR PERFIL</button>
+
+						                                </div>
+						                            </div>
+				                            	</div>
+			                                </div>
+			                            </div>
+			                            <div class="col-md-6">
+			                            Modificar / Eliminar Perfiles
+			                                </br>
+			                                <div class="panel-footer">
+				                                <div class="form-group">
+					                                <div class="row">
+					                                	<div class="col-md-12">
+							                                <label><i class="fa fa-search"></i> Perfil</label>
+							                                <input class="form-control" ng-model="buscaperfil" ng-change="">
+							                                <p class="help-block"></p>
+						                                </div>
+						                            </div>
+						                            <div class="row">
+						                            	<div id="BuscaUser2" class="col-md-12" style="overflow: auto; max-height: 400px;">
+						                            		<ul class="list-group">
+									                            <li ng-repeat="x in Perfiles | filter: buscaperfil" class="list-group-item">{{x.NOMBRE}} <span style="float: right"><img src="images/modif.png" width="16px" height="16px" style="margin-right: 5px; cursor: pointer;"><img src="images/x.png" style="cursor: pointer;" ng-click="EliminarPerfil(x.ID)" width="16px" height="16px"></span></li>
+                        									</ul>
+						                            	</div>
+						                            </div>
+				                            	</div>
+				                            </div>
+			                            </div>
+			                        </div>
+
+
+
+
+
+
+
+
+                                	
+
+
+                                	</div>
+                                </div>
+                        </div>
+
+</div>

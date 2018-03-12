@@ -1,0 +1,333 @@
+.angular-google-map-container {
+    height: 300px;
+}
+.angular-google-map {
+    height: 300px;
+}
+
+      #accordion .glyphicon { margin-right:10px; }
+      .panel-collapse>.list-group .list-group-item:first-child {border-top-right-radius: 0;border-top-left-radius: 0;}
+      .panel-collapse>.list-group .list-group-item {border-width: 1px 0;}
+      .panel-collapse>.list-group {margin-bottom: 0;}
+      .panel-collapse .list-group-item {border-radius:0;}
+
+      .panel-collapse .list-group .list-group {margin: 0;margin-top: 10px;}
+      .panel-collapse .list-group-item li.list-group-item {margin: 0 -15px;border-top: 1px solid #ddd !important;border-bottom: 0;padding-left: 30px;}
+      .panel-collapse .list-group-item li.list-group-item:last-child {padding-bottom: 0;}
+
+      .panel-collapse div.list-group div.list-group{margin: 0;}
+      .panel-collapse div.list-group .list-group a.list-group-item {border-top: 1px solid #ddd !important;border-bottom: 0;padding-left: 30px;}
+      .panel-collapse .list-group-item li.list-group-item {border-top: 1px solid #DDD !important;}
+
+.fadein,
+.fadeout {
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.fadein.ng-hide-remove,
+.fadeout.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+  display: block !important;
+}
+
+.fadeout.ng-hide-add,
+.fadein.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+  display: block !important;
+}
+
+.BotonGeneral{
+	border-radius: 5px;
+    text-decoration: none;
+	display: inline-block;
+	background-color: #0C678C;
+	color: white;
+	padding: 5px;
+	margin-bottom: 5px;
+    cursor: pointer;
+    -webkit-transition: .5s all;   
+    -webkit-transition-delay: 5s; 
+    -moz-transition: .5s all;   
+    -moz-transition-delay: 5s; 
+    -ms-transition: .5s all;   
+    -ms-transition-delay: 5s; 
+    -o-transition: .5s all;   
+    -o-transition-delay: 5s; 
+    transition: .7s all;   
+    transition-delay: .002s; 
+}
+
+.BotonGeneral:Hover { 
+	color: black;
+	background-color: #0DC691;
+    -webkit-transition-delay: 1s;
+    -moz-transition-delay: 0s;
+    -ms-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition-delay: 0s;
+}
+
+.BotonGeneralCancel{
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #5A0707;
+    color: white;
+    padding: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    -webkit-transition: .5s all;   
+    -webkit-transition-delay: 5s; 
+    -moz-transition: .5s all;   
+    -moz-transition-delay: 5s; 
+    -ms-transition: .5s all;   
+    -ms-transition-delay: 5s; 
+    -o-transition: .5s all;   
+    -o-transition-delay: 5s; 
+    transition: .7s all;   
+    transition-delay: .002s; 
+}
+
+.BotonGeneralCancel:Hover { 
+    color: white;
+    background-color: #A93434;
+    -webkit-transition-delay: 1s;
+    -moz-transition-delay: 0s;
+    -ms-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition-delay: 0s;
+}
+
+.selector:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+.selectored {
+  background-color: #193776;
+  color: white;
+}
+
+
+
+/* MAPA */
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 50%;
+        width: 50%;
+        margin-left: 25%;
+        margin-right: 25%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .controls {
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 300px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+
+.Brand{
+    color: #716aca;
+    border: 1px solid #716aca;
+}
+
+.Brand:Hover { 
+    color: white;
+    background-color: #716aca;
+}
+
+.Brand:disabled{
+  background-color: grey;
+  color: lightgrey;
+  border: 1px solid lightgrey;
+  cursor: not-allowed;
+}
+
+
+.Boton{
+    padding: 6px;
+    cursor: pointer;
+    background-color: transparent;
+    -webkit-transition: .5s all;   
+    -webkit-transition-delay: 5s; 
+    -moz-transition: .5s all;   
+    -moz-transition-delay: 5s; 
+    -ms-transition: .5s all;   
+    -ms-transition-delay: 5s; 
+    -o-transition: .5s all;   
+    -o-transition-delay: 5s; 
+    transition: .3s all;   
+    transition-delay: .002s; 
+}
+
+.Boton:focus { 
+    outline: 0px;
+}
+
+.noout:focus{
+  outline: 0px;
+}
+
+.Boton:hover {
+    -webkit-transition-delay: .3s;
+    -moz-transition-delay: 0s;
+    -ms-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition-delay: 0s;
+}
+
+.Boton:active { 
+    outline: 0px;
+}
+
+.Info{
+    color: #36a3f7;
+    border: 1px solid #36a3f7;
+}
+
+.Info:Hover { 
+    color: white;
+    background-color: #36a3f7;
+}
+
+.Info:disabled{
+  background-color: grey;
+  color: lightgrey;
+  border: 1px solid lightgrey;
+  cursor: not-allowed;
+}
+
+.Danger{
+    color: #f4516c;
+    border: 1px solid #f4516c;
+}
+
+.Danger:Hover { 
+    color: white;
+    background-color: #f4516c;
+}
+
+.Danger:disabled{
+  background-color: grey;
+  color: lightgrey;
+  border: 1px solid lightgrey;
+  cursor: not-allowed;
+}
+
+.Success{
+    color: #34bfa3;
+    border: 1px solid #34bfa3;
+}
+
+.Success:Hover { 
+    color: white;
+    background-color: #34bfa3;
+}
+
+.Success:disabled{
+  background-color: grey;
+  color: lightgrey;
+  border: 1px solid lightgrey;
+  cursor: not-allowed;
+}
+
+.Metal{
+    color: grey;
+    border: 1px solid grey;
+}
+
+.Metal:Hover { 
+    color: white;
+    background-color: grey;
+}
+
+.Metal:disabled{
+  background-color: grey;
+  color: lightgrey;
+  border: 1px solid lightgrey;
+  cursor: not-allowed;
+}
+
+.Primary{
+    color: #337ab7;
+    border: 1px solid #337ab7;
+}
+
+.Primary:Hover { 
+    color: white;
+    background-color: #337ab7;
+}
+
+.Primary:disabled{
+  background-color: grey;
+  color: lightgrey;
+  border: 1px solid lightgrey;
+  cursor: not-allowed;
+}
+
+.PrimaryActive{
+    color: white;
+    border: 1px solid #337ab7;
+    background-color: #337ab7;
+}
+
+.BBL {
+  border-left: 0px;
+}
+
+.BrandA{
+    color: white;
+    border: 1px solid #716aca;
+    background-color: #716aca;
+}
+
+.outline0:focus{
+  outline: 0px;
+}
+
+
+    
