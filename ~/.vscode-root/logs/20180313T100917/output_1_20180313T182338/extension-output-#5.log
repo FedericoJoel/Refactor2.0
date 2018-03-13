@@ -1,0 +1,11 @@
+[Info  - 18:23:51] 3 files total
+[Info  - 18:23:51] Indexing project for definitions and static references
+Parsing file:///opt/lampp/htdocs/Refactor2.0/Includes/conexionbd.php
+Parsing file:///opt/lampp/htdocs/Refactor2.0/core.php
+Parsing file:///opt/lampp/htdocs/Refactor2.0/importer.php
+[Info  - 18:23:51] Indexing project for dynamic references
+Parsing file:///opt/lampp/htdocs/Refactor2.0/Includes/conexionbd.php
+Parsing file:///opt/lampp/htdocs/Refactor2.0/core.php
+Parsing file:///opt/lampp/htdocs/Refactor2.0/importer.php
+[Info  - 18:23:51] 0 Packages
+[Info  - 18:23:51] All 3 PHP files parsed in 0 seconds. 122 MiB allocated.

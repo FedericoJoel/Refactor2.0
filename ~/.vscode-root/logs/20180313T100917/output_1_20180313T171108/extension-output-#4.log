@@ -1,0 +1,13 @@
+[Info  - 17:11:11] Linter is running.
+[Info  - 17:11:21] 
+Failed to load the TSLint library for the document /opt/lampp/htdocs/Refactor2.0/js/controllers.js
+
+To use TSLint in this workspace please install tslint using 'npm install tslint' or globally using 'npm install -g tslint'.
+TSLint has a peer dependency on `typescript`, make sure that `typescript` is installed as well.
+You need to reopen the workspace after installing tslint.
+[Info  - 17:11:25] 
+Failed to load the TSLint library for the document /opt/lampp/htdocs/Refactor2.0/js/directives.js
+
+To use TSLint in this workspace please install tslint using 'npm install tslint' or globally using 'npm install -g tslint'.
+TSLint has a peer dependency on `typescript`, make sure that `typescript` is installed as well.
+You need to reopen the workspace after installing tslint.

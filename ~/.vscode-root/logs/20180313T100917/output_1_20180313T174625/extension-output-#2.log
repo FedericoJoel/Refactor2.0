@@ -1,0 +1,17 @@
+Search path: /opt/lampp/htdocs/Refactor2.0
+No config files found.
+Angular Language Service: 5.2.2-250c8da
+TypeScript: 2.6.2
+getTemplateReferences: 348ms
+getDiagnostics: 6ms
+Search path: /opt/lampp/htdocs/Refactor2.0/templates
+No config files found.
+getTemplateReferences: 0ms
+Angular Language Service: 5.2.2-250c8da
+TypeScript: 2.6.2
+getTemplateReferences: 155ms
+getDiagnostics: 26ms
+getHoverAt: 10ms
+getHoverAt: 0ms
+getHoverAt: 0ms
+getHoverAt: 1ms

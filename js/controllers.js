@@ -1,4 +1,4 @@
-angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial', 'ngAnimate','angular-loading-bar'])
+angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial', 'ngAnimate','angular-loading-bar', 'mensajeExito'])
 
 
   .controller('usuariosCrt', function($scope, $http, $mdDialog, UserSrv, $filter) {
@@ -795,7 +795,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       })
     $http.get('http://api.gestionarturnos.com/especialidad/traerElementos')
       .success(function(response) {
-        $scope.Especialidades = response;
+        $scope.Especialidades = response.map(esp => ({'nombre': esp.nombre, 'estudio':esp.estudio,'id': esp.id, 'agregado': false}));
       })
 
     $scope.ChangePage = function(pag) {
@@ -808,7 +808,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.paginar = function() {
       var i = 0;
       $scope.cantidadpaginas = [];
-      for (i = 0; i < (Object.keys($scope.medico).length / $scope.filtronumeritos); i++) {
+      for (i = 0; i < (Object.keys($scope.clinicas).length / $scope.filtronumeritos); i++) {
         $scope.cantidadpaginas[i] = i + 1;
       }
     }
@@ -825,29 +825,34 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         })
 
     }
-
+    $scope.ObrasSocialesAgregar= []
+    $scope.AgregarOS = function(obraSocial, scopeObj){
+      $scope[scopeObj].push(obraSocial)
+    }
+    $scope.QuitarOS= function(obraSocial, scopeObj){
+      var index = $scope.ObrasSocialesAgregar.indexOf(obraSocial)
+      $scope[scopeObj].splice(index, 1);
+    }
     $scope.Editar = function(x){
       console.log(x.obra_social);
-      $scope.medicoModificando = x;
+      $scope.clinicaModificando = x;
+      $scope.especialidades= $scope.clinicaModificando.especialidades
+      $scope.ObrasSocialesAgregar = $scope.clinicaModificando.obrasSociales
       $scope.modificando = true;
     }
 
     $scope.Guardar = function() {
-      $http.put('http://api.gestionarturnos.com/medico/'+$scope.afiliadoModificando.id, {
-          'NACIMIENTO': moment($scope.afiliadoModificando.nacimiento).format('YYYY-MM-DD'),
-          'NOMBRE': $scope.afiliadoModificando.nombre,
-          'APELLIDO': $scope.afiliadoModificando.apellido,
-          'DIRECCION': $scope.afiliadoModificando.direccion,
-          'CUIL': $scope.afiliadoModificando.cuil,
-          'EMAIL': $scope.afiliadoModificando.email,
-          'DNI': $scope.afiliadoModificando.dni,
-          'PISO': $scope.afiliadoModificando.piso,
-          'DEPARTAMENTO': $scope.afiliadoModificando.departamento,
-          'TELEFONO': $scope.afiliadoModificando.telefono,
-          'CELULAR': $scope.afiliadoModificando.celular,
-          'IDOBRASOCIAL': $scope.afiliadoModificando.obrasocial,
-          'NAFILIADO': $scope.afiliadoModificando.nafiliado,
-          'GRUPOF': null
+      $http.put('http://api.gestionarturnos.com/climed/'+$scope.clinicaModificando.id, {
+          'NOMBRE': $scope.clinicaModificando.nombre,
+            'DIRECCION': $scope.clinicaModificando.domicilio,
+            'LOCALIDAD': $scope.clinicaModificando.localidad,
+            'ZONA': $scope.clinicaModificando.zona,
+            'PARTICULAR': 0,
+            'latitude': 0,
+            'longitude': 0,
+            'TELEFONO': $scope.clinicaModificando.telefono,
+            'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id),
+            'especialidades': $scope.especialidades.map(esp => esp.id)
       })
 
         .success(function(response) {
@@ -868,50 +873,67 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       }
 
     }
+    $scope.especialidades = []
+    $scope.agregarEspecialidad = function(especialidad, scopeObj){
+      $scope[scopeObj].push(especialidad)
+      especialidad.agregado = true
+    }
+    $scope.quitarEspecialidad = function (especialidad, scopeObj) {
+      var index = $scope[scopeObj].indexOf(especialidad)
+      if (index > -1){
+        $scope[scopeObj].splice(index, 1);
+        especialidad.agregado=false
+      } 
+    }
 
     $scope.Alta = function(){
-
-      $http.post('http://api.gestionarturnos.com/medico', {
-          'NACIMIENTO': nacimiento,
-          'NOMBRE': $scope.nombre,
-          'APELLIDO': $scope.apellido,
-          'DIRECCION': $scope.domicilio,
-          'CUIL': $scope.cuil,
-          'EMAIL': $scope.email,
-          'DNI': $scope.dni,
-          'PISO': $scope.piso,
-          'DEPARTAMENTO': $scope.departamento,
-          'TELEFONO': $scope.telefono,
-          'CELULAR': $scope.celular,
-          'IDOBRASOCIAL': $scope.obrasocial,
-          'NAFILIADO': $scope.nafiliado,
-          'OBS': null,
-          'GRUPOF': null
-        })
+      var data = {
+        'NOMBRE': $scope.nombre,
+        'DIRECCION': $scope.direccion,
+        'LOCALIDAD': $scope.localidad,
+        'ZONA': $scope.zona,
+        'PARTICULAR': 0,
+        'latitude': 0,
+        'longitude': 0,
+        'TELEFONO': $scope.telefono,
+        'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id),
+        'especialidades': $scope.especialidades.map(esp => esp.id)
+      }
+      $http.post('http://api.gestionarturnos.com/climed', data)
 
         .success(function(response) {
-          console.log(response);
-          alert('ok');
+          limpiarcampos()
+          console.log(response); 
+            UserSrv.mensajeExito()
           $route.reload();
         })
     }
 
     limpiarcampos =function(){
       $scope.nombre = null;
-      $scope.apellido = null;
-      $scope.domicilio = null;
-      $scope.cuil = null;
-      $scope.email = null;
-      $scope.dni = null;
-      $scope.piso = null;
-      $scope.departamento = null;
       $scope.telefono = null;
-      $scope.celular = null;
-      $scope.obrasocial = null;
-      $scope.nafiliado = null;
-      $scope.nacimiento = null;
+      $scope.zona = null;
+      $scope.especialidades = [];
+      $scope.Especialidades = $scope.Especialidades.map(esp => ({ 'nombre': esp.nombre, 'estudio': esp.estudio, 'id': esp.id, 'agregado': false }));
+      $scope.ObrasSocialesAgregar = [];
     }
 
+     $scope.ObtenerClinicas = function () {
+       $scope.Cargando = "Cargando...";
+       $http.get('http://api.gestionarturnos.com/climed/traerElementos')
+
+         .success(function (response) {
+           $scope.clinicas = response;
+           $scope.paginar();
+           console.log($scope.clinicas);
+           $scope.Cargando = "";
+         })
+
+     }
+     $scope.terminarModificacion = function(){
+       $scope.especialidades = []
+       $scope.modificando= false
+     }
 
   })
 

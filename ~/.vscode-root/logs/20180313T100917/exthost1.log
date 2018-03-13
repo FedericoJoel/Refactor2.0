@@ -1,0 +1,306 @@
+[2018-03-13 10:09:21.160] [exthost1] [info] extension host started
+[2018-03-13 10:09:21.192] [exthost1] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"activationEvent":"*"}
+[2018-03-13 10:09:21.192] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/emmet/out/extension
+[2018-03-13 10:09:21.268] [exthost1] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"activationEvent":"*"}
+[2018-03-13 10:09:21.268] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/git/out/main
+[2018-03-13 10:09:21.374] [exthost1] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"activationEvent":"*"}
+[2018-03-13 10:09:21.375] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/merge-conflict/out/extension
+[2018-03-13 10:09:21.391] [exthost1] [info] ExtensionService#_doActivateExtension HookyQR.beautify {"startup":true,"activationEvent":"*"}
+[2018-03-13 10:09:21.391] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/HookyQR.beautify-1.3.0/extension
+[2018-03-13 10:09:21.437] [exthost1] [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint {"startup":true,"activationEvent":"*"}
+[2018-03-13 10:09:21.437] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/dbaeumer.vscode-eslint-1.4.7/client/out/extension
+[2018-03-13 10:09:21.490] [exthost1] [info] ExtensionService#_doActivateExtension formulahendry.auto-close-tag {"startup":true,"activationEvent":"*"}
+[2018-03-13 10:09:21.490] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/formulahendry.auto-close-tag-0.5.6/out/src/extension
+[2018-03-13 10:09:21.492] [exthost1] [info] ExtensionService#_doActivateExtension ms-vscode.atom-keybindings {"startup":true,"activationEvent":"*"}
+[2018-03-13 10:09:21.492] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ms-vscode.atom-keybindings-3.0.4/extension
+[2018-03-13 10:09:21.497] [exthost1] [info] eager extensions activated
+[2018-03-13 10:09:29.157] [exthost1] [info] ExtensionService#_doActivateExtension vscode.configuration-editing {"startup":false,"activationEvent":"onLanguage:jsonc"}
+[2018-03-13 10:09:29.157] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/configuration-editing/out/extension
+[2018-03-13 10:09:29.277] [exthost1] [info] ExtensionService#_doActivateExtension vscode.json {"startup":false,"activationEvent":"onLanguage:jsonc"}
+[2018-03-13 10:09:29.277] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/json/client/out/jsonMain
+[2018-03-13 10:09:52.118] [exthost1] [info] extension host started
+[2018-03-13 10:09:52.173] [exthost1] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"activationEvent":"*"}
+[2018-03-13 10:09:52.173] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/emmet/out/extension
+[2018-03-13 10:09:52.246] [exthost1] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"activationEvent":"*"}
+[2018-03-13 10:09:52.246] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/git/out/main
+[2018-03-13 10:09:52.360] [exthost1] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"activationEvent":"*"}
+[2018-03-13 10:09:52.360] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/merge-conflict/out/extension
+[2018-03-13 10:09:52.376] [exthost1] [info] ExtensionService#_doActivateExtension HookyQR.beautify {"startup":true,"activationEvent":"*"}
+[2018-03-13 10:09:52.376] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/HookyQR.beautify-1.3.0/extension
+[2018-03-13 10:09:52.424] [exthost1] [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint {"startup":true,"activationEvent":"*"}
+[2018-03-13 10:09:52.424] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/dbaeumer.vscode-eslint-1.4.7/client/out/extension
+[2018-03-13 10:09:52.517] [exthost1] [info] ExtensionService#_doActivateExtension formulahendry.auto-close-tag {"startup":true,"activationEvent":"*"}
+[2018-03-13 10:09:52.517] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/formulahendry.auto-close-tag-0.5.6/out/src/extension
+[2018-03-13 10:09:52.519] [exthost1] [info] ExtensionService#_doActivateExtension ms-vscode.atom-keybindings {"startup":true,"activationEvent":"*"}
+[2018-03-13 10:09:52.519] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ms-vscode.atom-keybindings-3.0.4/extension
+[2018-03-13 10:09:52.842] [exthost1] [info] ExtensionService#_doActivateExtension felixfbecker.php-intellisense {"startup":true,"activationEvent":"workspaceContains:**/*.php"}
+[2018-03-13 10:09:52.842] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/felixfbecker.php-intellisense-2.2.9/out/extension
+[2018-03-13 10:09:52.895] [exthost1] [info] eager extensions activated
+[2018-03-13 10:09:56.636] [exthost1] [info] ExtensionService#_doActivateExtension vscode.html {"startup":false,"activationEvent":"onLanguage:html"}
+[2018-03-13 10:09:56.636] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/html/client/out/htmlMain
+[2018-03-13 10:09:56.756] [exthost1] [info] ExtensionService#_doActivateExtension Angular.ng-template {"startup":false,"activationEvent":"onLanguage:html"}
+[2018-03-13 10:09:56.756] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/Angular.ng-template-0.1.9/out/extension
+[2018-03-13 10:09:56.799] [exthost1] [info] ExtensionService#_doActivateExtension ecmel.vscode-html-css {"startup":false,"activationEvent":"onLanguage:html"}
+[2018-03-13 10:09:56.799] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ecmel.vscode-html-css-0.2.0/out/src/extension
+[2018-03-13 10:17:39.172] [exthost1] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 10:17:39.172] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/typescript/out/extension
+[2018-03-13 10:17:39.842] [exthost1] [info] ExtensionService#_doActivateExtension eg2.tslint {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 10:17:39.842] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/eg2.tslint-1.0.28/out/extension
+[2018-03-13 10:17:45.704] [exthost1] [info] ExtensionService#_doActivateExtension vscode.extension-editing {"startup":false,"activationEvent":"onLanguage:typescript"}
+[2018-03-13 10:17:45.704] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/extension-editing/out/extension
+[2018-03-13 10:57:51.389] [exthost1] [info] ExtensionService#_doActivateExtension vscode.css {"startup":false,"activationEvent":"onLanguage:css"}
+[2018-03-13 10:57:51.389] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/css/client/out/cssMain
+[2018-03-13 11:06:22.628] [exthost1] [info] extension host started
+[2018-03-13 11:06:22.664] [exthost1] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"activationEvent":"*"}
+[2018-03-13 11:06:22.665] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/emmet/out/extension
+[2018-03-13 11:06:22.756] [exthost1] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"activationEvent":"*"}
+[2018-03-13 11:06:22.756] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/git/out/main
+[2018-03-13 11:06:22.881] [exthost1] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"activationEvent":"*"}
+[2018-03-13 11:06:22.881] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/merge-conflict/out/extension
+[2018-03-13 11:06:22.897] [exthost1] [info] ExtensionService#_doActivateExtension HookyQR.beautify {"startup":true,"activationEvent":"*"}
+[2018-03-13 11:06:22.897] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/HookyQR.beautify-1.3.0/extension
+[2018-03-13 11:06:22.959] [exthost1] [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint {"startup":true,"activationEvent":"*"}
+[2018-03-13 11:06:22.959] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/dbaeumer.vscode-eslint-1.4.7/client/out/extension
+[2018-03-13 11:06:23.016] [exthost1] [info] ExtensionService#_doActivateExtension formulahendry.auto-close-tag {"startup":true,"activationEvent":"*"}
+[2018-03-13 11:06:23.017] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/formulahendry.auto-close-tag-0.5.6/out/src/extension
+[2018-03-13 11:06:23.018] [exthost1] [info] ExtensionService#_doActivateExtension ms-vscode.atom-keybindings {"startup":true,"activationEvent":"*"}
+[2018-03-13 11:06:23.018] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ms-vscode.atom-keybindings-3.0.4/extension
+[2018-03-13 11:06:23.047] [exthost1] [info] ExtensionService#_doActivateExtension vscode.css {"startup":false,"activationEvent":"onLanguage:css"}
+[2018-03-13 11:06:23.047] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/css/client/out/cssMain
+[2018-03-13 11:06:23.425] [exthost1] [info] ExtensionService#_doActivateExtension felixfbecker.php-intellisense {"startup":true,"activationEvent":"workspaceContains:**/*.php"}
+[2018-03-13 11:06:23.425] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/felixfbecker.php-intellisense-2.2.9/out/extension
+[2018-03-13 11:06:23.489] [exthost1] [info] eager extensions activated
+[2018-03-13 11:06:29.716] [exthost1] [info] ExtensionService#_doActivateExtension vscode.html {"startup":false,"activationEvent":"onLanguage:html"}
+[2018-03-13 11:06:29.716] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/html/client/out/htmlMain
+[2018-03-13 11:06:29.828] [exthost1] [info] ExtensionService#_doActivateExtension Angular.ng-template {"startup":false,"activationEvent":"onLanguage:html"}
+[2018-03-13 11:06:29.828] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/Angular.ng-template-0.1.9/out/extension
+[2018-03-13 11:06:29.856] [exthost1] [info] ExtensionService#_doActivateExtension ecmel.vscode-html-css {"startup":false,"activationEvent":"onLanguage:html"}
+[2018-03-13 11:06:29.856] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ecmel.vscode-html-css-0.2.0/out/src/extension
+[2018-03-13 11:06:38.675] [exthost1] [info] ExtensionService#_doActivateExtension anseki.vscode-color {"startup":false,"activationEvent":"onCommand:extension.colorHelper.pick"}
+[2018-03-13 11:06:38.675] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/anseki.vscode-color-0.4.5/extension
+[2018-03-13 11:17:50.484] [exthost1] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 11:17:50.485] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/typescript/out/extension
+[2018-03-13 11:17:50.766] [exthost1] [info] ExtensionService#_doActivateExtension eg2.tslint {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 11:17:50.766] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/eg2.tslint-1.0.28/out/extension
+[2018-03-13 11:31:27.959] [exthost1] [info] ExtensionService#_doActivateExtension vscode.extension-editing {"startup":false,"activationEvent":"onLanguage:typescript"}
+[2018-03-13 11:31:27.959] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/extension-editing/out/extension
+[2018-03-13 17:10:29.188] [exthost1] [info] extension host started
+[2018-03-13 17:10:29.249] [exthost1] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:10:29.249] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/emmet/out/extension
+[2018-03-13 17:10:29.544] [exthost1] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:10:29.544] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/git/out/main
+[2018-03-13 17:10:29.662] [exthost1] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:10:29.662] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/merge-conflict/out/extension
+[2018-03-13 17:10:29.676] [exthost1] [info] ExtensionService#_doActivateExtension HookyQR.beautify {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:10:29.676] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/HookyQR.beautify-1.3.0/extension
+[2018-03-13 17:10:29.717] [exthost1] [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:10:29.717] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/dbaeumer.vscode-eslint-1.4.7/client/out/extension
+[2018-03-13 17:10:29.793] [exthost1] [info] ExtensionService#_doActivateExtension formulahendry.auto-close-tag {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:10:29.793] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/formulahendry.auto-close-tag-0.5.6/out/src/extension
+[2018-03-13 17:10:29.794] [exthost1] [info] ExtensionService#_doActivateExtension ms-vscode.atom-keybindings {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:10:29.794] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ms-vscode.atom-keybindings-3.0.4/extension
+[2018-03-13 17:10:51.570] [exthost1] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 17:10:51.570] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/typescript/out/extension
+[2018-03-13 17:10:51.687] [exthost1] [info] ExtensionService#_doActivateExtension ecmel.vscode-html-css {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 17:10:51.687] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ecmel.vscode-html-css-0.2.0/out/src/extension
+[2018-03-13 17:10:52.096] [exthost1] [info] ExtensionService#_doActivateExtension eg2.tslint {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 17:10:52.096] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/eg2.tslint-1.0.28/out/extension
+[2018-03-13 17:10:54.394] [exthost1] [info] ExtensionService#_doActivateExtension felixfbecker.php-intellisense {"startup":true,"activationEvent":"workspaceContains:**/*.php"}
+[2018-03-13 17:10:54.394] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/felixfbecker.php-intellisense-2.2.9/out/extension
+[2018-03-13 17:10:54.545] [exthost1] [info] eager extensions activated
+[2018-03-13 17:11:10.142] [exthost1] [info] extension host started
+[2018-03-13 17:11:10.174] [exthost1] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:11:10.174] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/emmet/out/extension
+[2018-03-13 17:11:10.244] [exthost1] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:11:10.244] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/git/out/main
+[2018-03-13 17:11:10.374] [exthost1] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:11:10.374] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/merge-conflict/out/extension
+[2018-03-13 17:11:10.392] [exthost1] [info] ExtensionService#_doActivateExtension HookyQR.beautify {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:11:10.392] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/HookyQR.beautify-1.3.0/extension
+[2018-03-13 17:11:10.449] [exthost1] [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:11:10.449] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/dbaeumer.vscode-eslint-1.4.7/client/out/extension
+[2018-03-13 17:11:10.519] [exthost1] [info] ExtensionService#_doActivateExtension formulahendry.auto-close-tag {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:11:10.519] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/formulahendry.auto-close-tag-0.5.6/out/src/extension
+[2018-03-13 17:11:10.520] [exthost1] [info] ExtensionService#_doActivateExtension ms-vscode.atom-keybindings {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:11:10.520] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ms-vscode.atom-keybindings-3.0.4/extension
+[2018-03-13 17:11:10.558] [exthost1] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 17:11:10.558] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/typescript/out/extension
+[2018-03-13 17:11:10.683] [exthost1] [info] ExtensionService#_doActivateExtension ecmel.vscode-html-css {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 17:11:10.683] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ecmel.vscode-html-css-0.2.0/out/src/extension
+[2018-03-13 17:11:11.090] [exthost1] [info] ExtensionService#_doActivateExtension eg2.tslint {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 17:11:11.090] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/eg2.tslint-1.0.28/out/extension
+[2018-03-13 17:11:11.718] [exthost1] [info] ExtensionService#_doActivateExtension felixfbecker.php-intellisense {"startup":true,"activationEvent":"workspaceContains:**/*.php"}
+[2018-03-13 17:11:11.719] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/felixfbecker.php-intellisense-2.2.9/out/extension
+[2018-03-13 17:11:11.830] [exthost1] [info] eager extensions activated
+[2018-03-13 17:11:47.949] [exthost1] [info] ExtensionService#_doActivateExtension vscode.extension-editing {"startup":false,"activationEvent":"onLanguage:typescript"}
+[2018-03-13 17:11:47.949] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/extension-editing/out/extension
+[2018-03-13 17:11:47.972] [exthost1] [info] ExtensionService#_doActivateExtension Angular.ng-template {"startup":false,"activationEvent":"onLanguage:typescript"}
+[2018-03-13 17:11:47.972] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/Angular.ng-template-0.1.9/out/extension
+[2018-03-13 17:12:59.217] [exthost1] [info] ExtensionService#_doActivateExtension vscode.html {"startup":false,"activationEvent":"onLanguage:html"}
+[2018-03-13 17:12:59.217] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/html/client/out/htmlMain
+[2018-03-13 17:43:05.412] [exthost1] [info] extension host started
+[2018-03-13 17:43:05.453] [exthost1] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:43:05.453] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/emmet/out/extension
+[2018-03-13 17:43:05.545] [exthost1] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:43:05.545] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/git/out/main
+[2018-03-13 17:43:05.743] [exthost1] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:43:05.743] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/merge-conflict/out/extension
+[2018-03-13 17:43:05.769] [exthost1] [info] ExtensionService#_doActivateExtension HookyQR.beautify {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:43:05.769] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/HookyQR.beautify-1.3.0/extension
+[2018-03-13 17:43:05.822] [exthost1] [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:43:05.822] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/dbaeumer.vscode-eslint-1.4.7/client/out/extension
+[2018-03-13 17:43:05.875] [exthost1] [info] ExtensionService#_doActivateExtension formulahendry.auto-close-tag {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:43:05.875] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/formulahendry.auto-close-tag-0.5.6/out/src/extension
+[2018-03-13 17:43:05.877] [exthost1] [info] ExtensionService#_doActivateExtension ms-vscode.atom-keybindings {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:43:05.877] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ms-vscode.atom-keybindings-3.0.4/extension
+[2018-03-13 17:43:05.913] [exthost1] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 17:43:05.913] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/typescript/out/extension
+[2018-03-13 17:43:06.041] [exthost1] [info] ExtensionService#_doActivateExtension ecmel.vscode-html-css {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 17:43:06.041] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ecmel.vscode-html-css-0.2.0/out/src/extension
+[2018-03-13 17:43:06.495] [exthost1] [info] ExtensionService#_doActivateExtension eg2.tslint {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 17:43:06.495] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/eg2.tslint-1.0.28/out/extension
+[2018-03-13 17:43:07.473] [exthost1] [info] ExtensionService#_doActivateExtension felixfbecker.php-intellisense {"startup":true,"activationEvent":"workspaceContains:**/*.php"}
+[2018-03-13 17:43:07.473] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/felixfbecker.php-intellisense-2.2.9/out/extension
+[2018-03-13 17:43:07.705] [exthost1] [info] eager extensions activated
+[2018-03-13 17:44:51.865] [exthost1] [info] ExtensionService#_doActivateExtension vscode.css {"startup":false,"activationEvent":"onLanguage:css"}
+[2018-03-13 17:44:51.865] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/css/client/out/cssMain
+[2018-03-13 17:46:27.791] [exthost1] [info] extension host started
+[2018-03-13 17:46:27.821] [exthost1] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:46:27.821] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/emmet/out/extension
+[2018-03-13 17:46:27.882] [exthost1] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:46:27.882] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/git/out/main
+[2018-03-13 17:46:28.030] [exthost1] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:46:28.030] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/merge-conflict/out/extension
+[2018-03-13 17:46:28.051] [exthost1] [info] ExtensionService#_doActivateExtension HookyQR.beautify {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:46:28.051] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/HookyQR.beautify-1.3.0/extension
+[2018-03-13 17:46:28.102] [exthost1] [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:46:28.102] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/dbaeumer.vscode-eslint-1.4.7/client/out/extension
+[2018-03-13 17:46:28.150] [exthost1] [info] ExtensionService#_doActivateExtension formulahendry.auto-close-tag {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:46:28.150] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/formulahendry.auto-close-tag-0.5.6/out/src/extension
+[2018-03-13 17:46:28.151] [exthost1] [info] ExtensionService#_doActivateExtension ms-vscode.atom-keybindings {"startup":true,"activationEvent":"*"}
+[2018-03-13 17:46:28.151] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ms-vscode.atom-keybindings-3.0.4/extension
+[2018-03-13 17:46:28.178] [exthost1] [info] ExtensionService#_doActivateExtension vscode.html {"startup":false,"activationEvent":"onLanguage:html"}
+[2018-03-13 17:46:28.178] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/html/client/out/htmlMain
+[2018-03-13 17:46:28.267] [exthost1] [info] ExtensionService#_doActivateExtension Angular.ng-template {"startup":false,"activationEvent":"onLanguage:html"}
+[2018-03-13 17:46:28.267] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/Angular.ng-template-0.1.9/out/extension
+[2018-03-13 17:46:28.299] [exthost1] [info] ExtensionService#_doActivateExtension ecmel.vscode-html-css {"startup":false,"activationEvent":"onLanguage:html"}
+[2018-03-13 17:46:28.299] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ecmel.vscode-html-css-0.2.0/out/src/extension
+[2018-03-13 17:46:28.992] [exthost1] [info] ExtensionService#_doActivateExtension felixfbecker.php-intellisense {"startup":true,"activationEvent":"workspaceContains:**/*.php"}
+[2018-03-13 17:46:28.992] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/felixfbecker.php-intellisense-2.2.9/out/extension
+[2018-03-13 17:46:29.164] [exthost1] [info] eager extensions activated
+[2018-03-13 17:46:38.159] [exthost1] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 17:46:38.159] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/typescript/out/extension
+[2018-03-13 17:46:38.263] [exthost1] [info] ExtensionService#_doActivateExtension eg2.tslint {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 17:46:38.263] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/eg2.tslint-1.0.28/out/extension
+[2018-03-13 17:46:46.543] [exthost1] [info] ExtensionService#_doActivateExtension vscode.css {"startup":false,"activationEvent":"onLanguage:css"}
+[2018-03-13 17:46:46.543] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/css/client/out/cssMain
+[2018-03-13 17:48:22.694] [exthost1] [info] ExtensionService#_doActivateExtension vscode.extension-editing {"startup":false,"activationEvent":"onLanguage:typescript"}
+[2018-03-13 17:48:22.694] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/extension-editing/out/extension
+[2018-03-13 18:03:00.570] [exthost1] [info] extension host started
+[2018-03-13 18:03:00.625] [exthost1] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:03:00.625] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/emmet/out/extension
+[2018-03-13 18:03:00.754] [exthost1] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:03:00.754] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/git/out/main
+[2018-03-13 18:03:00.971] [exthost1] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:03:00.971] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/merge-conflict/out/extension
+[2018-03-13 18:03:00.995] [exthost1] [info] ExtensionService#_doActivateExtension HookyQR.beautify {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:03:00.995] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/HookyQR.beautify-1.3.0/extension
+[2018-03-13 18:03:01.060] [exthost1] [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:03:01.060] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/dbaeumer.vscode-eslint-1.4.7/client/out/extension
+[2018-03-13 18:03:01.145] [exthost1] [info] ExtensionService#_doActivateExtension formulahendry.auto-close-tag {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:03:01.145] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/formulahendry.auto-close-tag-0.5.6/out/src/extension
+[2018-03-13 18:03:01.147] [exthost1] [info] ExtensionService#_doActivateExtension ms-vscode.atom-keybindings {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:03:01.147] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ms-vscode.atom-keybindings-3.0.4/extension
+[2018-03-13 18:03:01.179] [exthost1] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 18:03:01.179] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/typescript/out/extension
+[2018-03-13 18:03:01.299] [exthost1] [info] ExtensionService#_doActivateExtension ecmel.vscode-html-css {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 18:03:01.299] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ecmel.vscode-html-css-0.2.0/out/src/extension
+[2018-03-13 18:03:01.587] [exthost1] [info] ExtensionService#_doActivateExtension eg2.tslint {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 18:03:01.587] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/eg2.tslint-1.0.28/out/extension
+[2018-03-13 18:03:02.242] [exthost1] [info] ExtensionService#_doActivateExtension felixfbecker.php-intellisense {"startup":true,"activationEvent":"workspaceContains:**/*.php"}
+[2018-03-13 18:03:02.242] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/felixfbecker.php-intellisense-2.2.9/out/extension
+[2018-03-13 18:03:02.475] [exthost1] [info] eager extensions activated
+[2018-03-13 18:03:30.916] [exthost1] [info] extension host started
+[2018-03-13 18:03:30.942] [exthost1] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:03:30.942] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/emmet/out/extension
+[2018-03-13 18:03:31.026] [exthost1] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:03:31.026] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/git/out/main
+[2018-03-13 18:03:31.194] [exthost1] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:03:31.194] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/merge-conflict/out/extension
+[2018-03-13 18:03:31.217] [exthost1] [info] ExtensionService#_doActivateExtension HookyQR.beautify {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:03:31.217] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/HookyQR.beautify-1.3.0/extension
+[2018-03-13 18:03:31.278] [exthost1] [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:03:31.278] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/dbaeumer.vscode-eslint-1.4.7/client/out/extension
+[2018-03-13 18:03:31.348] [exthost1] [info] ExtensionService#_doActivateExtension formulahendry.auto-close-tag {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:03:31.348] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/formulahendry.auto-close-tag-0.5.6/out/src/extension
+[2018-03-13 18:03:31.350] [exthost1] [info] ExtensionService#_doActivateExtension ms-vscode.atom-keybindings {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:03:31.350] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ms-vscode.atom-keybindings-3.0.4/extension
+[2018-03-13 18:03:31.382] [exthost1] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 18:03:31.382] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/typescript/out/extension
+[2018-03-13 18:03:31.510] [exthost1] [info] ExtensionService#_doActivateExtension ecmel.vscode-html-css {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 18:03:31.510] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ecmel.vscode-html-css-0.2.0/out/src/extension
+[2018-03-13 18:03:31.865] [exthost1] [info] ExtensionService#_doActivateExtension eg2.tslint {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 18:03:31.865] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/eg2.tslint-1.0.28/out/extension
+[2018-03-13 18:03:32.244] [exthost1] [info] ExtensionService#_doActivateExtension felixfbecker.php-intellisense {"startup":true,"activationEvent":"workspaceContains:**/*.php"}
+[2018-03-13 18:03:32.245] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/felixfbecker.php-intellisense-2.2.9/out/extension
+[2018-03-13 18:03:32.339] [exthost1] [info] eager extensions activated
+[2018-03-13 18:03:48.995] [exthost1] [info] ExtensionService#_doActivateExtension vscode.extension-editing {"startup":false,"activationEvent":"onLanguage:typescript"}
+[2018-03-13 18:03:48.995] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/extension-editing/out/extension
+[2018-03-13 18:03:49.015] [exthost1] [info] ExtensionService#_doActivateExtension Angular.ng-template {"startup":false,"activationEvent":"onLanguage:typescript"}
+[2018-03-13 18:03:49.015] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/Angular.ng-template-0.1.9/out/extension
+[2018-03-13 18:07:53.798] [exthost1] [info] ExtensionService#_doActivateExtension vscode.html {"startup":false,"activationEvent":"onLanguage:html"}
+[2018-03-13 18:07:53.798] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/html/client/out/htmlMain
+[2018-03-13 18:22:18.831] [exthost1] [info] extension host started
+[2018-03-13 18:22:18.867] [exthost1] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:22:18.867] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/emmet/out/extension
+[2018-03-13 18:22:18.958] [exthost1] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:22:18.959] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/git/out/main
+[2018-03-13 18:22:19.139] [exthost1] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:22:19.139] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/merge-conflict/out/extension
+[2018-03-13 18:22:19.173] [exthost1] [info] ExtensionService#_doActivateExtension HookyQR.beautify {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:22:19.173] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/HookyQR.beautify-1.3.0/extension
+[2018-03-13 18:22:19.241] [exthost1] [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:22:19.241] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/dbaeumer.vscode-eslint-1.4.7/client/out/extension
+[2018-03-13 18:22:19.323] [exthost1] [info] ExtensionService#_doActivateExtension formulahendry.auto-close-tag {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:22:19.323] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/formulahendry.auto-close-tag-0.5.6/out/src/extension
+[2018-03-13 18:22:19.326] [exthost1] [info] ExtensionService#_doActivateExtension ms-vscode.atom-keybindings {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:22:19.326] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ms-vscode.atom-keybindings-3.0.4/extension
+[2018-03-13 18:22:19.376] [exthost1] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 18:22:19.376] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/typescript/out/extension
+[2018-03-13 18:22:19.533] [exthost1] [info] ExtensionService#_doActivateExtension ecmel.vscode-html-css {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 18:22:19.533] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ecmel.vscode-html-css-0.2.0/out/src/extension
+[2018-03-13 18:22:19.971] [exthost1] [info] ExtensionService#_doActivateExtension eg2.tslint {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 18:22:19.971] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/eg2.tslint-1.0.28/out/extension
+[2018-03-13 18:22:20.682] [exthost1] [info] ExtensionService#_doActivateExtension felixfbecker.php-intellisense {"startup":true,"activationEvent":"workspaceContains:**/*.php"}
+[2018-03-13 18:22:20.682] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/felixfbecker.php-intellisense-2.2.9/out/extension
+[2018-03-13 18:22:20.776] [exthost1] [info] eager extensions activated
+[2018-03-13 18:23:07.040] [exthost1] [info] ExtensionService#_doActivateExtension vscode.php {"startup":false,"activationEvent":"onLanguage:php"}
+[2018-03-13 18:23:07.040] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/php/out/phpMain
+[2018-03-13 18:23:39.949] [exthost1] [info] extension host started
+[2018-03-13 18:23:39.981] [exthost1] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:23:39.981] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/emmet/out/extension
+[2018-03-13 18:23:40.056] [exthost1] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:23:40.056] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/git/out/main
+[2018-03-13 18:23:40.231] [exthost1] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:23:40.231] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/merge-conflict/out/extension
+[2018-03-13 18:23:40.255] [exthost1] [info] ExtensionService#_doActivateExtension HookyQR.beautify {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:23:40.255] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/HookyQR.beautify-1.3.0/extension
+[2018-03-13 18:23:40.321] [exthost1] [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:23:40.321] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/dbaeumer.vscode-eslint-1.4.7/client/out/extension
+[2018-03-13 18:23:40.414] [exthost1] [info] ExtensionService#_doActivateExtension formulahendry.auto-close-tag {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:23:40.414] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/formulahendry.auto-close-tag-0.5.6/out/src/extension
+[2018-03-13 18:23:40.417] [exthost1] [info] ExtensionService#_doActivateExtension ms-vscode.atom-keybindings {"startup":true,"activationEvent":"*"}
+[2018-03-13 18:23:40.417] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ms-vscode.atom-keybindings-3.0.4/extension
+[2018-03-13 18:23:40.467] [exthost1] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 18:23:40.467] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/typescript/out/extension
+[2018-03-13 18:23:40.602] [exthost1] [info] ExtensionService#_doActivateExtension ecmel.vscode-html-css {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 18:23:40.602] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/ecmel.vscode-html-css-0.2.0/out/src/extension
+[2018-03-13 18:23:40.955] [exthost1] [info] ExtensionService#_doActivateExtension eg2.tslint {"startup":false,"activationEvent":"onLanguage:javascript"}
+[2018-03-13 18:23:40.955] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/eg2.tslint-1.0.28/out/extension
+[2018-03-13 18:23:41.563] [exthost1] [info] ExtensionService#_doActivateExtension felixfbecker.php-intellisense {"startup":true,"activationEvent":"workspaceContains:**/*.php"}
+[2018-03-13 18:23:41.563] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/felixfbecker.php-intellisense-2.2.9/out/extension
+[2018-03-13 18:23:41.672] [exthost1] [info] eager extensions activated
+[2018-03-13 18:26:44.652] [exthost1] [info] ExtensionService#_doActivateExtension vscode.html {"startup":false,"activationEvent":"onLanguage:html"}
+[2018-03-13 18:26:44.652] [exthost1] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/html/client/out/htmlMain
+[2018-03-13 18:26:44.830] [exthost1] [info] ExtensionService#_doActivateExtension Angular.ng-template {"startup":false,"activationEvent":"onLanguage:html"}
+[2018-03-13 18:26:44.830] [exthost1] [info] ExtensionService#loadCommonJSModule /home/lblanco/.vscode/extensions/Angular.ng-template-0.1.9/out/extension

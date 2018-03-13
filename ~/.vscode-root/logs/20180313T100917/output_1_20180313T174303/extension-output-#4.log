@@ -1,0 +1,19 @@
+[Info  - 17:43:07] Linter is running.
+[Info  - 17:43:17] 
+Failed to load the TSLint library for the document /home/lblanco/Proyectos/blog/public/js/controladores/verificarBaja.js
+
+To use TSLint in this workspace please install tslint using 'npm install tslint' or globally using 'npm install -g tslint'.
+TSLint has a peer dependency on `typescript`, make sure that `typescript` is installed as well.
+You need to reopen the workspace after installing tslint.
+[Info  - 17:43:24] 
+Failed to load the TSLint library for the document /home/lblanco/Proyectos/blog/public/js/services.js
+
+To use TSLint in this workspace please install tslint using 'npm install tslint' or globally using 'npm install -g tslint'.
+TSLint has a peer dependency on `typescript`, make sure that `typescript` is installed as well.
+You need to reopen the workspace after installing tslint.
+[Info  - 17:45:24] 
+Failed to load the TSLint library for the document /home/lblanco/Proyectos/blog/public/js/services.js
+
+To use TSLint in this workspace please install tslint using 'npm install tslint' or globally using 'npm install -g tslint'.
+TSLint has a peer dependency on `typescript`, make sure that `typescript` is installed as well.
+You need to reopen the workspace after installing tslint.
