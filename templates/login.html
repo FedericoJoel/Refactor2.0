@@ -8,8 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Login</title>
 
-        {!! Html::script('js/angular.min.js') !!}
-    	{!! Html::script('js/controladores/login.js') !!}
+        <script src="js/login/login.js"></script>
+        <script src="js/login/serviceslogin.js"></script>
+        <script src="js/login/scripts.js"></script>
+        
+        <!--{!! Html::script('js/angular.min.js') !!}
+    	{!! Html::script('js/login.js') !!}
     	{!! Html::style('css/bootstrap.min.css') !!}
       {!! Html::style('fonts/css/font-awesome.min.css') !!}
         {!! Html::script('js/jquery.min.js') !!}
@@ -19,14 +23,12 @@
         {!! Html::script('js/loginJs/scripts.js') !!}
         {!! Html::script('js/loginJs/jquery.backstretch.min.js') !!}
         {!! Html::script('js/loginJs/jquery-1.11.1.min.js') !!}
-        {!! Html::script('js/serviceslogin.js') !!}
+        {!! Html::script('js/serviceslogin.js') !!}-->
 
         <!-- CSS -->
-        <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="assets/css/form-elements.css">
-        <link rel="stylesheet" href="assets/css/style.css"> -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+		<link rel="stylesheet" href="css/login/form-elements.css">
+        <link rel="stylesheet" href="css/login/style.css"> 
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -68,12 +70,12 @@
                         <div class="col-sm-8 col-sm-offset-2 text">
                             <h1>
                               <i class="fa fa-briefcase" aria-hidden="true"></i>
-                              <strong>Mutual</strong>system
+                              <strong>Cobertec</strong> {{returnedToken}}
                             </h1>
 
                             <div class="description">
                             	<p>
-	                            	Sistema integral de informacion
+	                            	Sistema de turnos
                             	</p>
                             </div>
                         </div>
@@ -92,22 +94,22 @@
                         		</div>
                             </div>
                             <div class="form-bottom">
-                              @verbatim
+                             
 			                    <form role="form" class="login-form" id="formulario" ng-submit="enviarFormulario()">
 
-                            {{ csrf_field() }}
+                           
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="usuario">Usuario</label>
-			                        	<input id="usuario" type="text" name="usuario" placeholder="Usuario..." class="form-username form-control" >{{errores.usuario[0]}}
+			                        	<input id="usuario" type="text" ng-model="name" name="usuario" placeholder="Usuario..." class="form-username form-control" >{{errores.usuario[0]}}
 			                        </div>
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="password">Contraseña</label>
-			                        	<input id="password" type="password" name="password" placeholder="Contraseña..." class="form-password form-control" >{{errores.password[0]}}
+			                        	<input id="password" type="password" ng-model="password" name="password" placeholder="Contraseña..." class="form-password form-control" >{{errores.password[0]}}
 			                        </div>
 			                        <button  id="send"  type="submit" class="btn btn-primary" style="background: #1479B8">Ingresar!</button>
 
 			                    </form>
-                          @endverbatim
+                          
 		                    </div>
                         </div>
                     </div>

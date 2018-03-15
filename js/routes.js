@@ -1,5 +1,14 @@
 var app = angular.module('GestionarApp', ['ui.router', 'GestionarApp.controllers']);
 
+/*app.config(['$routeProvider', function ($routeProvider, Permisos) {
+
+  //this loads up our routes dynamically from the previous object 
+  for (var path in Permisos.getTodosPermisos) {
+    $routeProvider.when(path, getTodosPermisos[path]);
+  }
+  $routeProvider.otherwise({ redirectTo: '/login' });
+
+}])*/
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
@@ -7,46 +16,46 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('login', {
     url: "/login",
     templateUrl: "templates/login.html",
-   
+    controller: "loguinCrt",
   })
     .state('solicitudes', {
-      url: "/solicitudes",
+      url: "/solicitud",
       templateUrl: "templates/solicitudes.html",
       controller: "solicitudesCrt",
       cache:false
     })
     .state('pantallas', {
-      url: "/pantallas",
+      url: "/pantalla",
       templateUrl: "templates/pantallas.html",
       controller: "pantallasCrt"
     })
     .state('abmafi', {
-      url: "/afiliados",
+      url: "/afiliado",
       templateUrl: "templates/afiliados.html",
       controller: "afiliadosCrt"
     })
     .state('abmcli', {
-      url: "/clinicas",
+      url: "/climed",
       templateUrl: "templates/clinicas.html",
       controller: "clinicasCrt"
     })
     .state('abmmed', {
-      url: "/medicos",
+      url: "/medico",
       templateUrl: "templates/medicos.html",
       controller: "medicosCrt"
     })
     .state('abmfar', {
-      url: "/farmacias",
+      url: "/farmacia",
       templateUrl: "templates/farmacias.html",
       controller: "farmaciasCrt"
     })
     .state('usuarios', {
-      url: "/usuarios",
+      url: "/usuario",
       templateUrl: "templates/usuarios.html",
       controller: "usuariosCrt"
     })
     .state('abmesp', {
-      url: "/especialidades",
+      url: "/especialidad",
       templateUrl: "templates/especialidades.html",
       controller: "especialidadesCrt"
     })

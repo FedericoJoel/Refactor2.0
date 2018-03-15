@@ -1,9 +1,45 @@
 angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial', 'ngAnimate','angular-loading-bar', 'mensajeExito'])
 
+/*.config(['$httpProvider', function ($httpProvider) {
+  $httpProvider.interceptors.push('APIInterceptor');
+}])*/
+  
+.controller('loguinCrt', function ($scope, $http, $compile, $location, $window) {
 
-  .controller('usuariosCrt', function($scope, $http, $mdDialog, UserSrv, $filter) {
+  // manda las solicitud http necesarias para manejar los requerimientos de un abm
+  $scope.enviarFormulario = function () {
+    var data = {'name':$scope.name, 
+                'password':$scope.password}
+    $http.post('http://api.gestionarturnos.com/login', data)
 
+      .success(function (response) {
+        var token = response.data.token
+        var decoded = jwt_decode(token);
+        console.log(decoded)
+        localStorage.setItem('token', token);
+        localStorage.setItem('permisos', decoded.permisos);
+        localStorage.setItem('logueado', true)
+        //$window.location.href = '/inicio';
+      })
 
+    /*var token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtaXNvcyI6Im1lZGljb3MsIHR1dmllamEiLCJub21icmUiOiJKb2huIERvZSIsImNvbnRyYXNlw7FhIjoxNTE2MjM5MDIyfQ.dv6wVAqk2thtn4esQPYx_oYHcPGd3YDl1zUpL5HifYo'
+    var decoded = jwt_decode(token);
+    console.log(decoded)
+    var permisos = decoded.permisos.split(',')
+    localStorage.setItem('token', token);
+    localStorage.setItem('permisos', decoded.permisos);
+    localStorage.setItem('usuario.nombre', decoded.nombre);
+    localStorage.setItem('usuario.password', decoded.contraseña);*/
+    
+    
+   
+    //$scope.returnedToken = localStorage.getItem('token')
+  }
+  })
+
+  .controller('usuariosCrt', function($scope, $http, $mdDialog, UserSrv, $filter, Permisos) {
+
+    $scope.PS = Permisos;
     $scope.ListarPerfiles = function() {
       $http.post(UserSrv.GetPath(), {
           'seccion': 'perfiles',
@@ -107,12 +143,13 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
   })
 
 
-  .controller('permisosCrt', function($scope, $http, $mdDialog, UserSrv, $filter) {
+  .controller('permisosCrt', function($scope, $http, $mdDialog, UserSrv, $filter, Permisos) {
 
-  
+    $scope.PS = Permisos;
 
     $scope.Juan = function() {
-      alert('pedro');
+      localStorage.setItem('logueado', false)
+      localStorage.setItem('permisos', '');
     }
 
     /*        $scope.CorroborarLogin = function () {
@@ -123,12 +160,12 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
   })
 
 
-  .controller('pantallasCrt', function($scope, $http, $mdDialog, UserSrv, $filter) {
+  .controller('pantallasCrt', function($scope, $http, $mdDialog, UserSrv, $filter, Permisos) {
 
     $scope.seleccionados = [];
     $scope.checkhijo = [];
     $scope.checkpadre = [];
-
+    $scope.PS = Permisos;
     $scope.ListarPerfiles = function() {
       $http.post(UserSrv.GetPath(), {
           'seccion': 'perfiles',
@@ -310,7 +347,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
   })
 
 
-  .controller('solicitudesCrt', function($scope, $http, $mdDialog, UserSrv, $filter) {
+  .controller('solicitudesCrt', function($scope, $http, $mdDialog, UserSrv, $filter, Permisos) {
 
     $scope.ActualPage = 1;
     $scope.idmediselected = {'id':undefined, 'nombre':undefined}
@@ -322,6 +359,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.filtrotipo = $scope.tipos[0];
     $scope.filtroestado = $scope.estados[0];
     $scope.filtronumeritos = $scope.numeritos[0];
+    $scope.PS = Permisos;
     /*$http.post(UserSrv.GetPath(), {
         'seccion': 'solicitudes',
         'accion': 'listar',
@@ -472,7 +510,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
 
 
-  .controller('auditoriaCrt', function($scope, $http, $mdDialog, UserSrv, $filter) {
+  .controller('auditoriaCrt', function($scope, $http, $mdDialog, UserSrv, $filter, Permisos) {
 
     $scope.ActualPage = 1;
     $scope.cantidadpaginas = [];
@@ -483,6 +521,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.filtrotipo = $scope.tipos[0];
     $scope.filtroestado = $scope.estados[0];
     $scope.filtronumeritos = $scope.numeritos[0];
+    $scope.PS = Permisos;
     /*$http.post(UserSrv.GetPath(), {
         'seccion': 'solicitudes',
         'accion': 'listar',
@@ -604,11 +643,12 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
 
 
-  .controller('afiliadosCrt', function($scope, $http, $mdDialog, UserSrv) {
+  .controller('afiliadosCrt', function($scope, $http, $mdDialog, UserSrv, Permisos) {
     $scope.errorText
     $scope.ActualPage = 1;
     $scope.filtronumeritos = 15;
     $scope.CargandoOS = "Cargando.."
+    $scope.PS = Permisos;
     $http.get('http://api.gestionarturnos.com/obraSocial/traerElementos')
       .success(function(response) {
         $scope.obrasSociales = response;
@@ -779,13 +819,13 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
   //█   █    █ █  █  █ █   █▄▄█ ▀▀█
   //▀▀▀ ▀▀▀  ▀ ▀  ▀  ▀ ▀▀▀ ▀  ▀ ▀▀▀
   ////////////////////////////////////
-  .controller('clinicasCrt', function($scope, UserSrv, $http, $mdDialog) {
+  .controller('clinicasCrt', function($scope, UserSrv, $http, $mdDialog, Permisos) {
 
     $scope.lat = '';
     $scope.lng = '';
     $scope.ActualPage = 1;
     $scope.filtronumeritos = 15;
-
+    $scope.PS = Permisos;
     $scope.CargandoOS = "Cargando.."
     $http.get('http://api.gestionarturnos.com/obraSocial/traerElementos')
       .success(function(response) {
@@ -932,7 +972,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
   //█─▀─█ █▀▀ █──█  █  █   █  █ ▀▀█
   //▀   ▀ ▀▀▀ ▀▀▀─  ▀  ▀▀▀ ▀▀▀▀ ▀▀▀
   ////////////////////////////////////
-  .controller('medicosCrt', function($scope, UserSrv, $http, $timeout, $mdDialog) {
+  .controller('medicosCrt', function($scope, UserSrv, $http, $timeout, $mdDialog, Permisos) {
 
     $scope.lat = '';
     $scope.lng = '';
@@ -942,6 +982,8 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.ObrasSocialesAgregar = new Array;
     $scope.OSEnvio = new Array;
     $scope.CargandoOS = "Cargando.."
+    $scope.PS = Permisos;
+
     $http.get('http://api.gestionarturnos.com/obraSocial/traerElementos')
       .success(function(response) {
         $scope.obrasSociales = response;
@@ -1084,7 +1126,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
   //█▀▀ █▄▄█ █▄▄▀ █ ▀ █ █▄▄█ █    █  █▄▄█ ▀▀█
   //▀   ▀  ▀ ▀  ▀ ▀   ▀ ▀  ▀ ▀▀▀  ▀  ▀  ▀ ▀▀▀
   ////////////////////////////////
-  .controller('farmaciasCrt', function($scope, UserSrv, $http, $mdDialog) {
+  .controller('farmaciasCrt', function($scope, UserSrv, $http, $mdDialog, Permisos) {
 
 
     $scope.lat = '';
@@ -1094,6 +1136,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.primeraosegunda = 1;
     $scope.filtronumeritos = 10;
     $scope.ObrasSocialesAgregar = [];
+    $scope.PS = Permisos;
 
     $scope.paginar = function () {
       var i = 0;
@@ -1281,10 +1324,11 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
   //▀▀▀ ▀▀▀ █    ▀▀▀ ▀▀▀  ▀  ▀  ▀ ▀▀▀  ▀  ▀▀▀  ▀  ▀ ▀▀▀  ▀▀▀ ▀▀▀
   ///////////////////////////////////////////////
 
-  .controller('especialidadesCrt', function($scope, UserSrv, $http, $mdDialog) {
+  .controller('especialidadesCrt', function($scope, UserSrv, $http, $mdDialog, Permisos) {
 
    $scope.sortType     = 'nombre'; // el default
     $scope.sortReverse  = false;
+    $scope.PS = Permisos;
 
     $scope.filtronumeritos = 10;
     $scope.ActualPage = 1;

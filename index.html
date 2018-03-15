@@ -48,6 +48,16 @@
   <script src="js/jquery-3.1.0.js"></script>
   <script src="js/jquery-ui.min.js"></script>
 
+  <!-- Decode tokens -->
+  <script src="node_modules/jwt-decode/build/jwt-decode.min.js"></script>
+
+  <!--Login-->
+  <!--<script src="js/login/login.js"></script>
+  <script src="js/login/serviceslogin.js"></script>-->
+  <script src="js/login/scripts.js"></script>
+  <script src="js/login/jquery.backstretch.min.js"></script>
+  
+
   <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-cookies.js"></script>
  -->
 
@@ -184,36 +194,37 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            <li style="">
-              <a href="#" ui-sref="solicitudes"><i class="fa fa-fw fa-calendar"></i> Solicitudes</a>
+            <li style="" ng-show="" >
+              <a href="#" ui-sref="solicitudes" ng-show="PS.tienePermiso('solicitud')"><i class="fa fa-fw fa-calendar"></i> Solicitudes</a>
             </li>
             <li style="">
-              <a href="#" ui-sref="auditoria"><i class="fa fa-fw fa-thumbs-up"></i> Auditoría de Solicitudes</a>
+              <a href="#" ui-sref="auditoria" ng-show="PS.tienePermiso('auditoria')"><i class="fa fa-fw fa-thumbs-up"></i> Auditoría de Solicitudes</a>
             </li>
-            <li>
+             <!--ng-show="PS.tienePermiso('afiliados')|PS.tienePermiso('afiliados')|PS.tienePermiso('medicos')|PS.tienePermiso('clinicas')|PS.tienePermiso('farmacias')|PS.tienePermiso('especialidades')"-->
+            <li >
               <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-cubes"></i> ABMS <i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="demo2" class="collapse">
-                <li style="background-color: lightgrey; color: white;">
-                  <a href="#" ui-sref="abmafi" style="color: black;"><i class="fa fa-fw fa-users"></i> Afiliados</a>
+                <li style="background-color: lightgrey; color: white;" ng-show="PS.tienePermiso('afiliado')">
+                  <a href="#" ui-sref="abmafi" style="color: black;" ><i class="fa fa-fw fa-users"></i> Afiliados</a>
                 </li>
-                <li style="background-color: lightgrey; color: white;">
+                <li style="background-color: lightgrey; color: white;" ng-show="PS.tienePermiso('medico')">
                   <a href="#" ui-sref="abmmed" style="color: black;"><i class="fa fa-fw fa-user-md"></i> Medicos</a>
                 </li>
-                <li style="background-color: lightgrey; color: white;">
-                  <a href="#" ui-sref="abmcli" style="color: black;"><i class="fa fa-fw fa-hospital-o"></i> Clínicas</a>
+                <li style="background-color: lightgrey; color: white;" ng-show="PS.tienePermiso('climed')">
+                  <a href="#" ui-sref="abmcli" style="color: black;" ><i class="fa fa-fw fa-hospital-o"></i> Clínicas</a>
                 </li>
-                <li style="background-color: lightgrey; color: white;">
+                <li style="background-color: lightgrey; color: white;" ng-show="PS.tienePermiso('farmacia')">
                   <a href="#" ui-sref="abmfar" style="color: black;"><i class="fa fa-fw fa-medkit"></i> Farmacias</a>
                 </li>
-                <li style="background-color: lightgrey; color: white;">
+                <li style="background-color: lightgrey; color: white;" ng-show="PS.tienePermiso('especialidad')">
                   <a href="#" ui-sref="abmesp" style="color: black;"><i class="fa fa-fw fa-stethoscope"></i> Especialidades</a>
                 </li>
               </ul>
             </li>
-            <li style="">
+            <li style="" ng-show="PS.tienePermiso('usuario')">
               <a href="index.html" ui-sref="usuarios"><i class="fa fa-fw fa-user"></i> Gestión de Usuarios</a>
             </li>
-            <li style="">
+            <li style="" ng-show="PS.tienePermiso('usuario')">
               <a href="index.html" ui-sref="usuarios"><i class="fa fa-fw fa-user"></i> Gestión de Perfiles</a>
             </li>
             <div style="display: none;">
