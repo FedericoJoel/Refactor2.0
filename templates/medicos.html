@@ -17,30 +17,27 @@
               <div class="panel-body">
 
                 <div class="col-md-12" >
-                  <form name="altafrm" >
+                  <form name="altafrm" ng-submit="Alta()">
                       <div class="form-group row">
                         <div class="col-md-6">
                           <label for="nombre" style="color: #1E4599"><i class="fa fa-fw fa-user"></i>Nombre</label>
                           <input type="text" class="form-control" ng-model="medicoAlta.nombre" placeholder="Nombre" required>
                           <i>
-                            <a style="color:red;">{{errorText.NOMBRE}}
-                              <a>
+                            <a style="color:red;">{{errorText.NOMBRE}}</a>
                           </i>
                         </div>
                         <div class="col-md-3">
                           <label for="nombre" style="color: #1E4599"><i class="fa fa-fw fa-location-arrow"></i>ZONA</label>
                           <input type="text" class="form-control" ng-model="medicoAlta.zona" placeholder="Zona" required>
                           <i>
-                            <a style="color:red;">{{errorText.ZONA}}
-                              <a>
+                            <a style="color:red;">{{errorText.ZONA}}</a>
                           </i>
                         </div>
                         <div class="col-md-3">
                           <label for="telefono" style="color: #1E4599"><i class="fa fa-fw fa-phone"></i>Telefono</label>
                           <input type="text" class="form-control" ng-model="medicoAlta.telefono" placeholder="Telefono" required>
                           <i>
-                            <a style="color:red;">{{errorText.TELEFONO}}
-                              <a>
+                            <a style="color:red;">{{errorText.TELEFONO}}</a>
                           </i>
                         </div>
                       </div>
@@ -50,22 +47,20 @@
                           <label for="direccion" style="color: #1E4599"><i class="fa fa-fw fa-location-arrow"></i>Direccion</label>
                           <input type="text" class="form-control" ng-model="medicoAlta.direccion" placeholder="Direccion" required>
                           <i>
-                            <a style="color:red;">{{errorText.DIRECCION}}
-                              <a>
+                            <a style="color:red;">{{errorText.DIRECCION}}</a>
                           </i>
                         </div>
                         <div class="col-md-4">
                           <label for="localidad" style="color: #1E4599"><i class="fa fa-fw fa-credit-card"></i>Localidad</label>
                           <input type="text" class="form-control" ng-model="medicoAlta.localidad" placeholder="Localidad" required>
                           <i>
-                            <a style="color:red;">{{errorText.LOCALIDAD}}
-                              <a>
+                            <a style="color:red;">{{errorText.LOCALIDAD}}</a>
                           </i>
                         </div>
                         <div class="col-md-3">
                           <label for="localidad" style="color: #1E4599"><i class="fa fa-fw fa-map-marker"></i>Coordenadas</label>
                           <input class="outline0" type="text" id="pepepepe" ng-model="lat" style="width: 0px; height: 0px; border: 0px;" required disabled>
-                          <button class="Boton" ng-disabled="lat != ''" ng-class="{'Metal': lat == '', 'Success': lat != ''}" style="width: 100%;" ng-click="Mapa()" type="button"><img src="images/mapa.png" width="20px" height="20px" style="float: left;"/>UBICAR</button>
+                          <button class="Boton Success" ng-disabled="!esconderMapa" style="width: 100%;" ng-click="Mapa()" type="button"><img src="images/mapa.png" width="20px" height="20px" style="float: left;"/>UBICAR</button>
                         </div>
                       </div>
 
@@ -97,8 +92,8 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6 col-md-offset-1">
-                        <div id="altamapa" style="display: none;">
+                      <div class="col-md-10 col-md-offset-1">
+                        <div id="altamapa" style="display: none;" ng-hide="esconderMapa">
                           <input id="pac-input" class="controls" type="text"
                               placeholder="Enter a location" style="z-index: 9999999 !important;"/>
                           <div id="type-selector" class="controls">
@@ -108,14 +103,15 @@
                           <input type="hidden" id="lat" ng-module="lat"/>
                           <input type="hidden" id="lng" ng-module="lng"/>
                           
-                          <div id="map" style="width: 500px; height: 300px; margin: 0px; right: 0px;"></div>
+                          <div id="map" style="width: 100%; height: 400px; margin: 0px; right: 0px;"></div>
                           
                         </div>
                       </div>
                     </div>
                     <div class="row" style="margin-top: 10px;">
                       <div class="col-md-2 col-md-offset-10">
-                        <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="Alta()"><i class="fa fa-fw fa-save" style="text-align: left;"></i>Alta</button>
+                        <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="submit"><i class="fa fa-fw fa-save" style="text-align: left;"></i>Alta</button>
+                        <!-- <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="submit"><b>Alta</b></button> -->
                       </div>
                     </div>
                   </form>

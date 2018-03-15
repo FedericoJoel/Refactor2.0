@@ -892,7 +892,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         .success(function(response) {
           limpiarcampos()
           console.log(response); 
-            UserSrv.mensajeExito()
+          UserSrv.mensajeExito()
           $route.reload();
         })
     }
@@ -933,7 +933,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
   //▀   ▀ ▀▀▀ ▀▀▀─  ▀  ▀▀▀ ▀▀▀▀ ▀▀▀
   ////////////////////////////////////
   .controller('medicosCrt', function($scope, UserSrv, $http, $timeout, $mdDialog) {
-
+    $scope.esconderMapa = true;
     $scope.lat = '';
     $scope.lng = '';
     $scope.ActualPage = 1;
@@ -954,6 +954,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       })
 
     $scope.Mapa = function() {
+      $scope.esconderMapa = false;
       initMap($scope.primeraosegunda);
       $scope.primeraosegunda = 2;
     }
@@ -1008,10 +1009,6 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
     }
 
-    $scope.borrarOS= function(){
-      $scope.ObrasSocialesAgregar = []
-    }
-
     $scope.Editar = function(x){
       $scope.medicoModif = x;
       $scope.modificando = true;
@@ -1059,22 +1056,33 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         'LOCALIDAD': $scope.medicoAlta.localidad,
         'TELEFONO': $scope.medicoAlta.telefono,
         'ZONA': $scope.medicoAlta.zona,
-        'latitude': 0,
-        'longitude': 0,
-        'especialidades': [$scope.medicoAlta.especialidad],
+        'latitude': $scope.lat,
+        'longitude': $scope.lng,
+        'especialidades': $scope.medicoAlta.especialidad,
         'obrasSociales': $scope.OSEnvio,
         'PARTICULAR': 1
       }
       $http.post('http://api.gestionarturnos.com/climed', data)
 
         .success(function(response) {
-          console.log(response);
-          alert('OK');
-          $route.reload();
+          limpiarcampos()
+          console.log(response); 
+          UserSrv.alertOk('El medico se dio de alta correctamente');
         })
-
     }
 
+    limpiarcampos = function(){
+      $scope.esconderMapa = true;
+      $scope.medicoAlta = '';
+      $scope.medicoAlta.direccion = '';
+      $scope.medicoAlta.localidad = '';
+      $scope.medicoAlta.telefono = '';
+      $scope.medicoAlta.zona = '';
+      $scope.medicoAlta.especialidad = '';
+      $scope.medicoAlta.obrasSociales = '';
+      $scope.ObrasSocialesAgregar = [];
+    }
+  
   })
 
 
