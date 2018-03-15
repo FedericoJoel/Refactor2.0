@@ -4,6 +4,11 @@ var app = angular.module('GestionarApp', ['ui.router', 'GestionarApp.controllers
 app.config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
+  .state('login', {
+    url: "/login",
+    templateUrl: "templates/login.html",
+   
+  })
     .state('solicitudes', {
       url: "/solicitudes",
       templateUrl: "templates/solicitudes.html",

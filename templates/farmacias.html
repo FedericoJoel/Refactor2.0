@@ -1,252 +1,418 @@
 <div style="padding: 10px; padding-top: 60px;">
 
-<md-content style="background-color: white; box-shadow: 0px 0px 1px grey; margin-bottom: 5%;">
+  <md-content style="background-color: white; box-shadow: 0px 0px 1px grey; margin-bottom: 5%;">
     <md-tabs md-dynamic-height md-border-bottom>
-      <md-tab label="Alta">
-        <md-content class="md-padding">
-        <div style="float: right;">
+      <md-tab label="Alta" ng-click="borrarOS()">
+        <md-content class="">
 
-        <md-button ng-if="
-          nombrealta !== '' && direccionalta !== '' && localidadalta !== '' && lat !== '' && lng !== ''
+          <div class="row">
+            <div class="col-md-12">
+              <div style="background-color: #FA4081; color: white; font-size: 12pt; padding-left: 10px; padding: 15px;">
+                Alta de una nueva farmacia
+              </div>
+            </div>
+          </div>
+          <div class="row" style="padding-left: 25px; padding-right: 25px;">
+            <div class="panel panel-default col-md-12" style="margin-top: 20px;">
+              <div class="panel-body">
 
-          "
-          ng-click="AltaMedico()" class="md-fab md-primary">
-            <md-tooltip>
-              ALTA DE FARMACIA
-            </md-tooltip>
-            <i style="font-size: 4rem; padding-top: 20%;" class="large material-icons">add</i>
-          </md-button>
-          <md-button ng-if="
-          nombrealta == '' || direccionalta == '' || localidadalta == '' || lat == '' || lng == ''
+                <div class="col-md-12">
+                  <form name="altafrm">
+                    <div class="form-group row">
+                      <div class="col-md-4">
+                        <label for="nombre" style="color: #1E4599">
+                          <i class="fa fa-fw fa-user"></i>Nombre</label>
+                        <input type="text" class="form-control" ng-model="nombre" placeholder="Nombre" required>
+                        <i>
+                          <a style="color:red;">{{errorText.NOMBRE}}
+                            <a>
+                        </i>
+                      </div>
 
-          "
-           class="md-fab md-accent" layout-align="center center">
-            <md-tooltip>
-              COMPLETE TODOS LOS CAMPOS
-            </md-tooltip>
-            <i style="font-size: 4rem; padding-top: 20%;" class="large material-icons">add</i>
-          </md-button>
-        </div>
-          <div layout="column" layout-align="center center">
-          <md-input-container style="width: 30%;" class="md-icon-float md-block" flex-gt-sm>
-            <label><i class="material-icons">local_hospital</i>Nombre de la Farmacia</label>
-            <input ng-model="nombrealta">
-          </md-input-container>
-          <md-input-container style="width: 30%;" class="md-icon-float md-block" flex-gt-sm>
-            <label><i class="material-icons">add_location</i>Dirección de la Farmacia</label>
-            
-            <input ng-model="direccionalta">
-          </md-input-container>
-          <md-input-container style="width: 30%;" class="md-icon-float md-block" flex-gt-sm>
-            <label><i class="material-icons">map</i>Localidad de la Farmacia</label>
-            <input ng-model="localidadalta">
-          </md-input-container>
-          <md-input-container style="width: 30%;" class="md-icon-float md-block" flex-gt-sm>
-            <label><i class="material-icons">phone</i>Teléfono de la Farmacia</label>
-            <input ng-model="telefonoalta">
-          </md-input-container>
-          <label>
-          
-            Coordenadas en Mapa
-            </label>
-            <span ng-show="lat == ''" style="color: red;">
-              Las coordenadas no han sido seleccionadas aún.
-              <button ng-if="primeraosegunda == 1" id="bott" type="button" onclick="initMap(1)" style="padding: 4px;" class="btn btn-default">
-                <img src="images/mapa.png" width="20px" height="20px"/> Ubicar
-              </button>
-              <button ng-if="primeraosegunda == 2" id="bott" type="button" onclick="initMap(2)" style="padding: 4px;" class="btn btn-default">
-                <img src="images/mapa.png" width="20px" height="20px"/> Ubicar
-              </button>
-            </span>
-            <span ng-if="lat !== '' && lng !== ''" style="color: green;">
-              Latitud: <b>{{lat}}</b> | Longitud: <b>{{lng}}</b>
-            </span>
-          
-       
-<center>
-  <div id="altamapa" style="display: none;">
-    <input id="pac-input" class="controls" type="text"
-        placeholder="Enter a location"/>
-    <div id="type-selector" class="controls">
-      <input type="radio" name="type" id="changetype-all" checked="checked">
-      <label for="changetype-all">All</label>
-    </div>
-    <input type="hidden" id="lat" ng-module="lat"/>
-    <input type="hidden" id="lng" ng-module="lng"/>
-    
-    <div id="map" style="width: 500px; height: 500px; margin: 0px; right: 0px;"></div>
-    
-  </div>
-  </center>
-  
-</div>
+                      <div class="col-md-4">
+                        <label for="telefono" style="color: #1E4599">
+                          <i class="fa fa-fw fa-phone"></i>Telefono</label>
+                        <input type="text" class="form-control" ng-model="telefono" placeholder="Telefono" required>
+                        <i>
+                          <a style="color:red;">{{errorText.TELEFONO}}
+                            <a>
+                        </i>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="domicilio" style="color: #1E4599">
+                          <i class="fa fa-fw fa-map-marker"></i>Obras Sociales</label>
+                        <input class="outline0" type="text" id="papapa" ng-value="ObrasSocialesAgregar" style="width: 0px; height: 0px; border: 0px;"
+                          required>
+                        </br>
+                        <button type="button" data-toggle="modal" data-target="#OS" class="Boton Metal" style="width: 100%;">
+                          <i class="fa fa-fw fa-plus"></i>Añadir Obra Social</button>
+                        <ul class="list-group">
+                          <li ng-repeat="x in ObrasSocialesAgregar" class="list-group-item">
+                            <div class="row">
+                              <div class="col-md-6">
+                                {{x.nombre}}
+                              </div>
+                              <div style="text-align: right;" class="col-md-6">
+                                <button class="Boton Danger" ng-click="QuitarOS(x)" type="button" style="padding: 1px; padding-left: 2px; padding-right: 2px;">Quitar</button>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="form-group row" style="margin-top: 30px;">
+                      <div class="col-md-4">
+                        <label for="direccion" style="color: #1E4599">
+                          <i class="fa fa-fw fa-location-arrow"></i>Direccion</label>
+                        <input type="text" class="form-control" ng-model="direccion" placeholder="Direccion" required>
+                        <i>
+                          <a style="color:red;">{{errorText.DIRECCION}}
+                            <a>
+                        </i>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="localidad" style="color: #1E4599">
+                          <i class="fa fa-fw fa-credit-card"></i>Localidad</label>
+                        <input type="text" class="form-control" ng-model="localidad" placeholder="Localidad" required>
+                        <i>
+                          <a style="color:red;">{{errorText.LOCALIDAD}}
+                            <a>
+                        </i>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="localidad" style="color: #1E4599">
+                          <i class="fa fa-fw fa-map-marker"></i>Coordenadas</label>
+                        <input class="outline0" type="text" id="pepepepe" ng-model="lat" style="width: 0px; height: 0px; border: 0px;" required disabled>
+                        <button class="Boton" ng-disabled="lat != ''" ng-class="{'Metal': lat == '', 'Success': lat != ''}" style="width: 100%;"
+                          ng-click="Mapa()" type="button">
+                          <img src="images/mapa.png" width="20px" height="20px" style="float: left;" />UBICAR</button>
+                      </div>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col-md-6 col-md-offset-1">
+                        <div id="altamapa" style="display: none;">
+                          <input id="pac-input" class="controls" type="text" placeholder="Enter a location" style="z-index: 9999999 !important;" />
+                          <div id="type-selector" class="controls">
+                            <input type="radio" name="type" id="changetype-all" checked="checked">
+                            <label for="changetype-all">All</label>
+                          </div>
+                          <input type="hidden" id="lat" ng-module="lat" />
+                          <input type="hidden" id="lng" ng-module="lng" />
+
+                          <div id="map" style="width: 500px; height: 300px; margin: 0px; right: 0px;"></div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                      <div class="col-md-2 col-md-offset-10">
+                        <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="Alta()">
+                          <i class="fa fa-fw fa-save" style="text-align: left;"></i>Alta</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
         </md-content>
       </md-tab>
-      <md-tab label="Baja/Modificacion" ng-click="ListarMedicos()">
-        <md-content class="md-padding">
-          <div ng-if="Cargando !== ''" style="padding: 0px; border: 0px;" class="alert alert-warning"><md-progress-linear md-mode="indeterminate"></md-progress-linear></div>
-        <table id="ims" class="table table-bordered table-hover">
-                <tr>
-        <td>
-        <md-input-container  style="margin: 0px !important;" class="md-block">
-            <input type="text" ng-model="filtro.NOMBRE">
-        </md-input-container>
-        </td>
-        <td>
-          <md-input-container style="margin: 0px !important;" class="md-block">
-            <input type="text" ng-model="filtro.DIRECCION">
-          </md-input-container>
-        </td>
-        <td>
-          <md-input-container style="margin: 0px !important;" class="md-block">
-            <input type="text" ng-model="filtro.LOCALIDAD">
-          </md-input-container>
-        </td>
-        </tr>
-        <tr style="background-color: rgb(61,81,181); color: white;">
-        <td>NOMBRE</td><td>DIRECCION</td><td>LOCALIDAD</td>
-        </tr>
-          <tr ng-repeat="farmacia in farmacias | filter:filtro:strict">
-            <td>{{ farmacia.NOMBRE }}</td>
-            <td>{{ farmacia.DIRECCION }}</td>
-            <td>{{ farmacia.LOCALIDAD }}</td>
-            <td>
 
-          <md-button data-toggle="modal" ng-click="LlenarModal(farmacia.ID)" data-target="#Modificar" aria-label="Twitter" class="md-fab md-icon-button md-raised md-mini">
-          <md-tooltip md-direction="top">
-              Modificar
-          </md-tooltip>
-          <i class="material-icons">edit</i>
-          </md-button>
-          <md-button ng-click="Eliminar(farmacia.ID,farmacia.NOMBRE)" aria-label="Facebook" class="md-fab md-icon-button md-raised md-mini">
-          <md-tooltip md-direction="top">
-              Eliminar
-          </md-tooltip>
-          <i class="material-icons">delete</i>
-          </md-button>
-          </md-button>
-          </tr>
-    </table>
+
+
+
+      <md-tab label="Baja/Modificacion" ng-click="ObtenerFarmacias()">
+        <md-content>
+          <div class="row">
+            <div class="col-md-12">
+              <div style="background-color: #FA4081; color: white; font-size: 12pt; padding-left: 10px; padding: 15px;">
+                Baja / Modificación de Farmacias
+              </div>
+            </div>
+          </div>
+          <div class="row" style="padding: 10px;">
+            <div class="col-md-12">
+
+              <div class="panel panel-default col-md-12" style="margin-top: 20px; padding: 0px;">
+                <!-- Default panel contents -->
+                <div class="panel-heading" style="background-color: #FA4081; font-size: 12pt; color: white;">Farmacias disponibles</div>
+
+                <!-- Table -->
+                <table class="table table-hover table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro.nombre">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro.localidad">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro.direccion">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro.telefono">
+                      </td>
+                      <td></td>
+                    </tr>
+                    <tr style="color: #1E4599; background-color: #f5f5f5">
+                      <td>Nombre</td>
+                      <td>Localidad</td>
+                      <td>Direccion</td>
+                      <td style="width: 10%;">Telefono</td>
+                      <td>Opciones</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colspan="6" style="color: #337ab7;" ng-if="farmacias == undefined">
+                        <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando.. </td>
+                    </tr>
+                    <tr ng-repeat="x in farmacias |  filter:filtro  track by $index" ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)">
+                      <td style="vertical-align: middle;">{{x.nombre}}</td>
+                      <td style="vertical-align: middle;">{{x.localidad}}</td>
+                      <td style="vertical-align: middle;">{{x.direccion}}</td>
+                      <td style="vertical-align: middle;">{{x.telefono}}</td>
+                      <td style="vertical-align: middle;">
+                        <button ng-disabled="modificando" data-toggle="modal" data-target="#Modificar" class="Boton Primary" style="padding: 5px;"
+                          ng-click="Editar(x)">
+                          <i class="fa fa-fw fa-edit"></i> Editar
+                        </button>
+                        <button ng-disabled="modificando" class="Boton Danger" style="margin-left: 5px; padding: 5px;" ng-click="Eliminar(x)">
+                          <i class="fa fa-fw fa-trash"></i> Eliminar
+                        </button>
+
+                    </tr>
+                  </tbody>
+                  <tfoot style="overflow: auto;">
+                    <tr style="background-color: #B4BBB2">
+                      <td colspan="6" style="text-align: center;">
+                        <nav aria-label="Page navigation">
+                          <ul class="pagination" style="padding: 0px; margin: 0px;">
+                            <li>
+
+                            </li>
+                            <li ng-repeat="pag in cantidadpaginas" ng-class="{'active': ActualPage == pag}" ng-click="ChangePage(pag)">
+                              <a>{{pag}}</a>
+                            </li>
+                            </a>
+                            </li>
+                            <li>
+
+                            </li>
+                          </ul>
+                        </nav>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row" ng-show="modificando" style="padding: 10px;">
+            <div class="col-md-12">
+              <div class="panel panel-default col-md-12" style="margin-top: -10px; padding: 0px;">
+                <div class="panel-heading" style="background-color: #FA4081; font-size: 12pt; color: white;">Editando Medico
+                  <button type="button" ng-click="afiliadoModificando = undefined; modificando = false;" class="close" aria-hidden="true">&times;</button>
+                </div>
+                <div class="panel-body">
+                  <div class="col-md-12">
+                    <form name="altafrm">
+                      <div class="form-group row">
+                        <div class="col-md-4">
+                          <label for="nombre" style="color: #1E4599">
+                            <i class="fa fa-fw fa-user"></i>Nombre</label>
+                          <input type="text" class="form-control" ng-model="farmaciaModif.nombre" placeholder="Nombre" required>
+                        </div>
+
+                        <div class="col-md-4">
+                          <label for="telefono" style="color: #1E4599">
+                            <i class="fa fa-fw fa-phone"></i>Telefono</label>
+                          <input type="text" class="form-control" ng-model="farmaciaModif.telefono" placeholder="Telefono" required>
+                        </div>
+                        <div class="col-md-4">
+                          <label for="domicilio" style="color: #1E4599">
+                            <i class="fa fa-fw fa-map-marker"></i>Obras Sociales</label>
+                          <input class="outline0" type="text" id="papapa" ng-value="ObrasSocialesAgregar" style="width: 0px; height: 0px; border: 0px;"
+                            required>
+                          </br>
+                          <button type="button" data-toggle="modal" data-target="#OS" class="Boton Metal" style="width: 100%;">
+                            <i class="fa fa-fw fa-plus"></i>Añadir Obra Social</button>
+                          <ul class="list-group">
+                            <li ng-repeat="x in ObrasSocialesAgregar" class="list-group-item">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  {{x.nombre}}
+                                </div>
+                                <div style="text-align: right;" class="col-md-6">
+                                  <button class="Boton Danger" ng-click="QuitarOS(x)" type="button" style="padding: 1px; padding-left: 2px; padding-right: 2px;">Quitar</button>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div class="form-group row" style="margin-top: 30px;">
+                        <div class="col-md-4">
+                          <label for="direccion" style="color: #1E4599">
+                            <i class="fa fa-fw fa-location-arrow"></i>Direccion</label>
+                          <input type="text" class="form-control" ng-model="farmaciaModif.direccion" placeholder="Direccion" required>
+                        </div>
+                        <div class="col-md-4">
+                          <label for="localidad" style="color: #1E4599">
+                            <i class="fa fa-fw fa-credit-card"></i>Localidad</label>
+                          <input type="text" class="form-control" ng-model="farmaciaModif.localidad" placeholder="Localidad" required>
+                        </div>
+                        <div class="col-md-4">
+                          <label for="localidad" style="color: #1E4599">
+                            <i class="fa fa-fw fa-map-marker"></i>Coordenadas</label>
+                          <input class="outline0" type="text" id="pepepepe" ng-model="lat" style="width: 0px; height: 0px; border: 0px;" required disabled>
+                          <button class="Boton" ng-disabled="lat != ''" ng-class="{'Metal': lat == '', 'Success': lat != ''}" style="width: 100%;"
+                            ng-click="Mapa()" type="button">
+                            <img src="images/mapa.png" width="20px" height="20px" style="float: left;" />EDITAR UBICACIÓN</button>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 col-md-offset-1">
+                          <div id="altamapa" style="display: none;">
+                            <input id="pac-input" class="controls" type="text" placeholder="Enter a location" style="z-index: 9999999 !important;" />
+                            <div id="type-selector" class="controls">
+                              <input type="radio" name="type" id="changetype-all" checked="checked">
+                              <label for="changetype-all">All</label>
+                            </div>
+                            <input type="hidden" id="lat" ng-module="lat" />
+                            <input type="hidden" id="lng" ng-module="lng" />
+
+                            <div id="map" style="width: 500px; height: 300px; margin: 0px; right: 0px;"></div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-2 col-md-offset-10">
+                          <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="Guardar()">
+                            <i class="fa fa-fw fa-save" style="text-align: left;"></i>Guardar</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
         </md-content>
       </md-tab>
     </md-tabs>
   </md-content>
 </div>
 
-<div class="modal fade" id="Modificar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+<div class="modal fade" id="OS" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-  <form ng-cloak>
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2>Modificando Farmacia</h2>
-        <span flex></span>
-        <md-button class="md-icon-button" data-dismiss="modal">
-          <i class="material-icons">close</i>
-        </md-button>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Obras Sociales</h4>
       </div>
-    </md-toolbar>
-
-    <md-dialog-content>
-      <div class="md-dialog-content">
-        <div ng-if="Cargando !== ''" style="padding-top: 5px; padding-bottom: 5px;"><md-progress-linear md-mode="indeterminate"></md-progress-linear></div>
-    <table id="ims" class="table table-bordered">
-        <tr style="background-color: #234E5C; color: white;">
-        <td>NOMBRE</td><td>DIRECCION</td><td>LOCALIDAD</td>
-        </tr>
-          <tr>
-            <td><input ng-model="nombre" style="width: 100%;" type="text"></td>
-            <td><input ng-model="direccion" style="width: 100%;" type="text"></td>
-            <td><input ng-model="localidad" style="width: 100%;" type="text"></td>
-          </tr>
-      </table>
-
-
-
-
-      <table class="table table-bordered">
-      <tr style="background-color: #234E5C; color: white;">
-      <td>COORDENADAS EN MAPA <a style="cursor: pointer;" ng-click="LlenarModal(ID)"><img src="images/actualizar.png" height="20px" width="20px"></a></td>
-      </tr>
-      <tr>
-      <td>
-      Latitud: {{latitude}} </br>
-      Longitud: {{longitude}}
-          <center><a href="http://www.gestionarturnos.com/gestionabm/mapa.php?accion=sim&seccion=farmacias&id={{ID}}&lat={{latitude}}&lon={{longitude}}" target="_blank" class="BotonGeneral"><img src="images/localizacion.png" width="15px" height="15px">UBICAR EN MAPA</a></center>
-      </td>
-      </tr>
-      </table>
+      <div class="modal-body">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search" ng-model="filtroOS.nombre">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="button">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+        <ul class="list-group" style="margin-top: 5px;">
+          <li ng-repeat="x in obrasSociales | filter: filtroOS" style="color: #0D295B;" class="list-group-item">
+            <div class="row">
+              <div class="col-md-6">
+                {{x.nombre}}
+              </div>
+              <div class="col-md-6" style="text-align: right;">
+                <button type="button" ng-click="AgregarOS(x)" ng-class="{'Brand': ObrasSocialesAgregar.indexOf(x) == -1, 'Success': ObrasSocialesAgregar.indexOf(x) != -1}"
+                  ng-disabled="ObrasSocialesAgregar.indexOf(x) != -1" class="Boton">Añadir</button>
+              </div>
+            </div>
+          </li>
+          <li ng-if="obrasSociales == undefined" class="list-group-item" style="color: #0D295B;">
+            <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando..
+          </li>
+        </ul>
       </div>
-    </md-dialog-content>
-
-    <md-dialog-actions style="padding: 5px;" layout="row">
-
-      <span flex></span>
-      <md-button class="md-raised md-accent md-icon-button" data-dismiss="modal">
-       <md-tooltip md-direction="top">
-       CANCELAR
-       </md-tooltip>
-       <i class="material-icons">cancel</i>
-      </md-button>
-      <md-button class="md-raised md-primary md-icon-button" data-dismiss="modal" ng-click="Guardar()">
-       <md-tooltip>
-       GUARDAR
-       </md-tooltip>
-       <i class="material-icons">save</i>
-      </md-button>
-    </md-dialog-actions>
-  </form>
-
+      <div class="modal-footer">
+        <button type="button" class="Boton Danger" data-dismiss="modal">Cerrar</button>
+      </div>
     </div>
   </div>
 </div>
 
-
-
-
-<div class="modal fade" id="MapaAlta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modOS" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-  <form ng-cloak>
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2>Ubicar médico en Mapa</h2>
-        <span flex></span>
-        <md-button class="md-icon-button" data-dismiss="modal">
-          <i class="material-icons">close</i>
-        </md-button>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Obras Sociales</h4>
       </div>
-    </md-toolbar>
-
-    <md-dialog-content>
-      <div class="md-dialog-content">
-        <div ng-if="Cargando !== ''" style="padding-top: 5px; padding-bottom: 5px;"><md-progress-linear md-mode="indeterminate"></md-progress-linear></div>
-
-        <!-- cotenido modal -->
-
-
+      <div class="modal-body">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search" ng-model="filtroOS.nombre">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="button">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+        <ul class="list-group" style="margin-top: 5px;">
+          <li ng-repeat="x in obrasSociales | filter: filtroOS" style="color: #0D295B;" class="list-group-item">
+            <div class="row">
+              <div class="col-md-6">
+                {{x.nombre}}
+              </div>
+              <div class="col-md-6" style="text-align: right;">
+                <button type="button" ng-click="modAgregarOS(x)" ng-class="{'Brand': ObrasSocialesAgregar.indexOf(x) == -1, 'Success': ObrasSocialesAgregar.indexOf(x) != -1}"
+                  ng-disabled="ObrasSocialesAgregar.indexOf(x) != -1" class="Boton">Añadir</button>
+              </div>
+            </div>
+          </li>
+          <li ng-if="obrasSociales == undefined" class="list-group-item" style="color: #0D295B;">
+            <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando..
+          </li>
+        </ul>
       </div>
-    </md-dialog-content>
-
-    <md-dialog-actions style="padding: 5px;" layout="row">
-
-      <span flex></span>
-      <md-button class="md-raised md-accent md-icon-button" data-dismiss="modal">
-       <md-tooltip md-direction="top">
-       CANCELAR
-       </md-tooltip>
-       <i class="material-icons">cancel</i>
-      </md-button>
-      <md-button class="md-raised md-primary md-icon-button" data-dismiss="modal" ng-click="Guardar()">
-       <md-tooltip>
-       ACEPTAR
-       </md-tooltip>
-       <i class="material-icons">save</i>
-      </md-button>
-    </md-dialog-actions>
-  </form>
-
+      <div class="modal-footer">
+        <button type="button" class="Boton Danger" data-dismiss="modal">Cerrar</button>
+      </div>
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="Mapin" tabindex="-1" style="z-index: 9999999;" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Ubicar en Mapa</h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>

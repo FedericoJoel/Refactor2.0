@@ -56,3 +56,323 @@ Open repository: /opt/lampp/htdocs/Refactor2.0
 > git rev-list --left-right master...origin/master
 > git for-each-ref --format %(refname) %(objectname) --sort -committerdate
 > git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :templates/clinicas.html
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git show :templates/clinicas.html
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git check-ignore -z --stdin
+> git check-ignore -z --stdin
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git show :templates/clinicas.html
+> git show :.gitignore
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :.gitignore
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :.gitignore
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :.gitignore
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :.gitignore
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :.gitignore
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git ls-files --stage -- /opt/lampp/htdocs/Refactor2.0/.gitignore
+> git cat-file -s b299f7c5fcdc2c9278b351dd4772611f650acc8c
+> git show b299f7c5fcdc2c9278b351dd4772611f650acc8c
+> git show :.gitignore
+> git ls-tree -l HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/Cache/data_0
+> git show 54bab32d5adbe04124e27e5ad8d452e05677bf2c
+> git ls-files --stage -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/Cache/data_0
+> git cat-file -s 9d9fab7da989f008f73774feba240d98e12046df
+> git show 9d9fab7da989f008f73774feba240d98e12046df
+> git ls-tree -l HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/Cache/data_1
+> git show 8cb75a90d543c772d9937055c8e5f206ec4db431
+> git ls-files --stage -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/Cache/data_1
+> git cat-file -s c0450f9a367733f753cf489bcda6c9c9c692e9f7
+> git show c0450f9a367733f753cf489bcda6c9c9c692e9f7
+> git ls-tree -l HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/GPUCache/data_1
+> git show 9270bf70486151dee8650732e8861fccc0741361
+> git ls-files --stage -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/GPUCache/data_1
+> git cat-file -s 66e7722b617bd1b22e8f638e02ff5a2a028b27bb
+> git show 66e7722b617bd1b22e8f638e02ff5a2a028b27bb
+> git ls-tree -l HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/Local Storage/file__0.localstorage
+> git show 37346547655dafce4b9cdd3a2f0cd36118f33e5e
+> git ls-files --stage -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/Local Storage/file__0.localstorage
+> git cat-file -s 14b1c6041fc1c32711a202704e337b883ba49da8
+> git show 14b1c6041fc1c32711a202704e337b883ba49da8
+> git ls-tree -l HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/logs/20180313T100917/sharedprocess.log
+> git show f1538cce4eb5cf5937fd5c8d6d77f9c86bc08916
+> git ls-files --stage -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/logs/20180313T100917/sharedprocess.log
+> git cat-file -s bddde0577e5284e06d989fb8232506aec23afa3a
+> git show bddde0577e5284e06d989fb8232506aec23afa3a
+> git show HEAD:~/.vscode-root/logs/20180313T100917/sharedprocess.log
+> git show :~/.vscode-root/logs/20180313T100917/sharedprocess.log
+> git ls-tree -l HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/logs/20180313T100917/output_1_20180313T182338/extension-output-#1.log
+> git show 7b80c28b8ac22c59f6b383d2703a6bf6dc18213b
+> git ls-files --stage -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/logs/20180313T100917/output_1_20180313T182338/extension-output-#1.log
+> git cat-file -s a3873bd910ef2eb0c4d2189cd8570a10a1e97a16
+> git show a3873bd910ef2eb0c4d2189cd8570a10a1e97a16
+> git show HEAD:~/.vscode-root/logs/20180313T100917/output_1_20180313T182338/extension-output-#1.log
+> git show :~/.vscode-root/logs/20180313T100917/output_1_20180313T182338/extension-output-#1.log
+> git ls-tree -l HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/logs/20180313T100917/output_1_20180313T182338/extension-output-#6.log
+> git show fcc224a5bd98a16b0c9d8ef2587386108fa0e39b
+> git ls-files --stage -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/logs/20180313T100917/output_1_20180313T182338/extension-output-#6.log
+> git cat-file -s 0d3f59700651c3f228ebb7cff37baefd4701011e
+> git show 0d3f59700651c3f228ebb7cff37baefd4701011e
+> git show HEAD:~/.vscode-root/logs/20180313T100917/output_1_20180313T182338/extension-output-#6.log
+> git show :~/.vscode-root/logs/20180313T100917/output_1_20180313T182338/extension-output-#6.log
+> git ls-tree -l HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/Cache/data_0
+> git show 54bab32d5adbe04124e27e5ad8d452e05677bf2c
+> git ls-files --stage -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/Cache/data_0
+> git cat-file -s 9d9fab7da989f008f73774feba240d98e12046df
+> git show 9d9fab7da989f008f73774feba240d98e12046df
+> git show :.gitignore
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :.gitignore
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git show :.gitignore
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :.gitignore
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :.gitignore
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :.gitignore
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :.gitignore
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :.gitignore
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git ls-tree -l HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/Cache/data_0
+> git show 54bab32d5adbe04124e27e5ad8d452e05677bf2c
+> git ls-files --stage -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/Cache/data_0
+> git cat-file -s cb62c10375659a2493fef6bed76461b5d16a6909
+> git show cb62c10375659a2493fef6bed76461b5d16a6909
+> git branch
+> git reset -q HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/Cache/data_0
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git branch
+> git reset -q HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/Cache/data_1
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git branch
+> git reset -q HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/GPUCache/data_1
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git branch
+> git reset -q HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/Local Storage/file__0.localstorage
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git branch
+> git reset -q HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/logs/20180313T100917/sharedprocess.log
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git branch
+> git reset -q HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/logs/20180313T100917/output_1_20180313T182338/extension-output-#1.log
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git branch
+> git reset -q HEAD -- /opt/lampp/htdocs/Refactor2.0/~/.vscode-root/logs/20180313T100917/output_1_20180313T182338/extension-output-#6.log
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name --abbrev-ref master@{u}
+> git rev-list --left-right master...origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :templates/clinicas.html

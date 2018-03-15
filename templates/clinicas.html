@@ -352,7 +352,7 @@
                     <td colspan="6" style="color: #337ab7;" ng-if="clinicas == undefined">
                       <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando.. </td>
                   </tr>
-                  <tr ng-repeat="x in clinicas | orderBy:sortType:sortReverse | filter:filtro track by $index">
+                  <tr ng-repeat="x in clinicas | orderBy:sortType:sortReverse | filter:filtro  | filter:{particular: 0} track by $index">
                     <td style="vertical-align: middle;">{{x.nombre}}</td>
                     <td style="vertical-align: middle;">{{x.telefono}}</td>
                     <td style="vertical-align: middle;">{{x.domicilio}}</td>

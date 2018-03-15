@@ -21,3 +21,22 @@
 [2018-03-13 18:03:02.838] [renderer1] [error] Error: Inotify limit reached (ENOSPC)
 [2018-03-13 18:05:56.473] [renderer1] [error] Se ha producido un error desconocido. Consulte el registro para obtener más detalles.
 [2018-03-13 18:22:21.741] [renderer1] [error] Error: Inotify limit reached (ENOSPC)
+[2018-03-14 10:34:34.645] [renderer1] [error] Se ha producido un error desconocido. Consulte el registro para obtener más detalles.
+[2018-03-14 11:02:30.468] [renderer1] [error] Se ha producido un error desconocido. Consulte el registro para obtener más detalles.
+[2018-03-14 11:19:28.142] [renderer1] [error] Se ha producido un error desconocido. Consulte el registro para obtener más detalles.
+[2018-03-14 11:20:44.765] [renderer1] [error] Se ha producido un error desconocido. Consulte el registro para obtener más detalles.
+[2018-03-14 15:12:34.633] [renderer1] [error] Se ha producido un error desconocido. Consulte el registro para obtener más detalles.
+[2018-03-14 15:21:41.805] [renderer1] [error] Se ha producido un error desconocido. Consulte el registro para obtener más detalles.
+[2018-03-14 15:46:41.451] [renderer1] [error] Cannot read property 'label' of undefined: TypeError: Cannot read property 'label' of undefined
+    at t.onDidChangePresentation (file:///usr/share/code/resources/app/out/vs/workbench/workbench.main.js:1858:801)
+    at e.fire (file:///usr/share/code/resources/app/out/vs/workbench/workbench.main.js:165:238)
+    at e.set [as colorPresentations] (file:///usr/share/code/resources/app/out/vs/workbench/workbench.main.js:785:393)
+    at file:///usr/share/code/resources/app/out/vs/workbench/workbench.main.js:1941:877
+    at Object.g [as _notify] (file:///usr/share/code/resources/app/out/vs/workbench/workbench.main.js:144:971)
+    at Object.enter (file:///usr/share/code/resources/app/out/vs/workbench/workbench.main.js:148:277)
+    at n.Class.derive._oncancel._run (file:///usr/share/code/resources/app/out/vs/workbench/workbench.main.js:150:84)
+    at n.Class.derive._oncancel._completed (file:///usr/share/code/resources/app/out/vs/workbench/workbench.main.js:149:523)
+    at Object.g [as _notify] (file:///usr/share/code/resources/app/out/vs/workbench/workbench.main.js:144:971)
+    at Object.enter (file:///usr/share/code/resources/app/out/vs/workbench/workbench.main.js:148:277)
+[2018-03-14 16:00:13.016] [renderer1] [error] Se ha producido un error desconocido. Consulte el registro para obtener más detalles.
+[2018-03-14 16:35:23.478] [renderer1] [error] Error: Inotify limit reached (ENOSPC)

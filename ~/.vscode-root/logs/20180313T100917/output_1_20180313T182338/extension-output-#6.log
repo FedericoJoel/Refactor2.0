@@ -635,3 +635,20 @@ getTemplateReferences: 0ms
 getTemplateReferences: 0ms
 getTemplateReferences: 0ms
 updated: ng - 0ms
+getHoverAt: 0ms
+remove project: /opt/lampp/htdocs/Refactor2.0/templates/usuarios.html
+remove project: /opt/lampp/htdocs/Refactor2.0/templates/afiliados.html
+getHoverAt: 1ms
+getHoverAt: 1ms
+getCompletions: 44ms
+getDiagnostics: 80ms
+updating project structure from ...
+getTemplateReferences: 0ms
+updated: ng - 83ms
+getDiagnostics: 115ms
+updating project structure from ...
+getTemplateReferences: 0ms
+updated: ng - 0ms
+updating project structure from ...
+getTemplateReferences: 0ms
+updated: ng - 0ms
