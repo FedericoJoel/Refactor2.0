@@ -207,7 +207,7 @@
                 <li style="background-color: lightgrey; color: white;" ng-show="PS.tienePermiso('afiliado')">
                   <a href="#" ui-sref="abmafi" style="color: black;" ><i class="fa fa-fw fa-users"></i> Afiliados</a>
                 </li>
-                <li style="background-color: lightgrey; color: white;" ng-show="PS.tienePermiso('medico')">
+                <li style="background-color: lightgrey; color: white;" ng-show="PS.tienePermiso('medicos')">
                   <a href="#" ui-sref="abmmed" style="color: black;"><i class="fa fa-fw fa-user-md"></i> Medicos</a>
                 </li>
                 <li style="background-color: lightgrey; color: white;" ng-show="PS.tienePermiso('climed')">
@@ -221,10 +221,10 @@
                 </li>
               </ul>
             </li>
-            <li style="" ng-show="PS.tienePermiso('usuario')">
+            <li style="" ng-show="PS.tienePermiso('user')">
               <a href="index.html" ui-sref="usuarios"><i class="fa fa-fw fa-user"></i> Gestión de Usuarios</a>
             </li>
-            <li style="" ng-show="PS.tienePermiso('usuario')">
+            <li style="" ng-show="PS.tienePermiso('user')">
               <a href="index.html" ui-sref="usuarios"><i class="fa fa-fw fa-user"></i> Gestión de Perfiles</a>
             </li>
             <div style="display: none;">
