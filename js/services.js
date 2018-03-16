@@ -96,85 +96,14 @@ app.service('APIInterceptor', [function () {
   };
 }]);
 
-app.service('Permisos', [function () {
+app.service('Permisos', [function ($stateProvider, $urlRouterProvider) {
 
   this.tienePermiso = function (pantalla) {
     var permisos = localStorage.getItem('permisos').split(',')
   
      return permisos.some(permiso => permiso == pantalla );
   };
-
- /* this.getPermisos = function(){
-    return localStorage.getItem('permisos').split(',')
-  }
-
-  this.getTodosPermisos = [
-    {
-      nombre: 'login',
-      url: "/login",
-      templateUrl: "templates/login.html",
-      controller: "loguinCrt",
-    },
-    {
-      nombre: 'solicitudes',
-      url: "/solicitudes",
-      templateUrl: "templates/solicitudes.html",
-      controller: "solicitudesCrt",
-      cache: false
-    },
-    {
-      nombre: 'pantallas',
-      url: "/pantallas",
-      templateUrl: "templates/pantallas.html",
-      controller: "pantallasCrt"
-    }, 
-    {
-      nombre:'afiliados',
-      url: "/afiliados",
-      templateUrl: "templates/afiliados.html",
-      controller: "afiliadosCrt"
-    },
-    {
-      nombre: 'clinicas',
-      url: "/clinicas",
-      templateUrl: "templates/clinicas.html",
-      controller: "clinicasCrt"
-    }, 
-    {
-      nombre: 'medicos',
-      url: "/medicos",
-      templateUrl: "templates/medicos.html",
-      controller: "medicosCrt"
-    }, 
-    {
-      nombre: 'farmacias',
-      url: "/farmacias",
-      templateUrl: "templates/farmacias.html",
-      controller: "farmaciasCrt"
-    }, 
-    {
-      nombre: 'usuarios',
-      url: "/usuarios",
-      templateUrl: "templates/usuarios.html",
-      controller: "usuariosCrt"
-    }, 
-    {
-      nombre: 'especialidades',
-      url: "/especialidades",
-      templateUrl: "templates/especialidades.html",
-      controller: "especialidadesCrt"
-    }, 
-    {
-      nombre: 'inicio',
-      url: "/inicio",
-      templateUrl: "templates/inicial.html",
-      controller: "especialidadesCrt"
-    }, 
-    {
-      nombre: 'auditoria',
-      url: "/auditoria",
-      templateUrl: "templates/auditoria.html",
-      controller: "auditoriaCrt"
-    }]*/
-
+  
+  
+ 
 }]);

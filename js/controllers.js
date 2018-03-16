@@ -4,7 +4,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
   $httpProvider.interceptors.push('APIInterceptor');
 }])*/
   
-.controller('loguinCrt', function ($scope, $http, $compile, $location, $window) {
+.controller('loguinCrt', function ($scope, $http, $compile, $location, $window,  $state) {
 
   // manda las solicitud http necesarias para manejar los requerimientos de un abm
   $scope.enviarFormulario = function () {
@@ -15,25 +15,14 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       .success(function (response) {
         var token = response.data.token
         var decoded = jwt_decode(token);
-        console.log(decoded)
         localStorage.setItem('token', token);
+        localStorage.setItem('logueado', true);
         localStorage.setItem('permisos', decoded.permisos);
-        localStorage.setItem('logueado', true)
-        //$window.location.href = '/inicio';
+        $state.go('inicio')
+       
+
       })
 
-    /*var token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtaXNvcyI6Im1lZGljb3MsIHR1dmllamEiLCJub21icmUiOiJKb2huIERvZSIsImNvbnRyYXNlw7FhIjoxNTE2MjM5MDIyfQ.dv6wVAqk2thtn4esQPYx_oYHcPGd3YDl1zUpL5HifYo'
-    var decoded = jwt_decode(token);
-    console.log(decoded)
-    var permisos = decoded.permisos.split(',')
-    localStorage.setItem('token', token);
-    localStorage.setItem('permisos', decoded.permisos);
-    localStorage.setItem('usuario.nombre', decoded.nombre);
-    localStorage.setItem('usuario.password', decoded.contraseña);*/
-    
-    
-   
-    //$scope.returnedToken = localStorage.getItem('token')
   }
   })
 
@@ -143,20 +132,21 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
   })
 
 
-  .controller('permisosCrt', function($scope, $http, $mdDialog, UserSrv, $filter, Permisos) {
+  .controller('permisosCrt', function($scope, $http, $mdDialog, UserSrv, $filter, Permisos, $state) {
 
     $scope.PS = Permisos;
 
-    $scope.Juan = function() {
+    $scope.logOut = function() {
+      
+      localStorage.setItem('permisos', '')
+      localStorage.setItem('token', '')
       localStorage.setItem('logueado', false)
-      localStorage.setItem('permisos', '');
+      
+      $state.go("login")
+  
     }
 
-    /*        $scope.CorroborarLogin = function () {
-                if($cookies.userlogin == undefined){
-                    alert('Cookies no definidar');
-                }
-            }*/
+
   })
 
 

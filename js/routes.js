@@ -1,22 +1,19 @@
 var app = angular.module('GestionarApp', ['ui.router', 'GestionarApp.controllers']);
 
-/*app.config(['$routeProvider', function ($routeProvider, Permisos) {
 
-  //this loads up our routes dynamically from the previous object 
-  for (var path in Permisos.getTodosPermisos) {
-    $routeProvider.when(path, getTodosPermisos[path]);
-  }
-  $routeProvider.otherwise({ redirectTo: '/login' });
 
-}])*/
 
 app.config(function($stateProvider, $urlRouterProvider) {
-
+  
   $stateProvider
   .state('login', {
-    url: "/login",
-    templateUrl: "templates/login.html",
-    controller: "loguinCrt",
+    url: '/login',
+    views: {
+      'login': {
+      templateUrl: "templates/login.html",
+      controller: "loguinCrt"}
+    },
+    
   })
     .state('solicitudes', {
       url: "/solicitud",
@@ -72,7 +69,20 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: "auditoriaCrt"
     })
 
+    $urlRouterProvider.otherwise("/login");
+  
 
-  $urlRouterProvider.otherwise("/inicio");
+})
 
-});
+
+// In the run phase of your Angular application  
+app.run(function($rootScope,$state) {
+
+  // Listen to '$locationChangeSuccess', not '$stateChangeStart'
+  $rootScope.$on('$locationChangeSuccess', function() {
+      if(localStorage.getItem('logueado') == 'false'){
+        // log-in promise failed. Redirect to log-in page.
+        $state.go('login')
+      }
+  })
+})

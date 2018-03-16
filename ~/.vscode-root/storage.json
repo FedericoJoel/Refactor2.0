@@ -426,5 +426,19 @@
             "/home/lblanco/Proyectos/blog"
         ],
         "files": []
+    },
+    "windowsState": {
+        "openedWindows": [],
+        "lastActiveWindow": {
+            "folderPath": "/opt/lampp/htdocs/Refactor2.0",
+            "backupPath": "/opt/lampp/htdocs/Refactor2.0/~/.vscode-root/Backups/f7a4f40680755fc0f49f07ce485cadab",
+            "uiState": {
+                "mode": 0,
+                "x": 0,
+                "y": 24,
+                "width": 1920,
+                "height": 993
+            }
+        }
     }
 }
