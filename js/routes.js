@@ -32,12 +32,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: "afiliadosCrt"
     })
     .state('abmcli', {
-      url: "/climed",
+      url: "/medico",
       templateUrl: "templates/clinicas.html",
       controller: "clinicasCrt"
     })
     .state('abmmed', {
-      url: "/medico",
+      url: "/climed",
       templateUrl: "templates/medicos.html",
       controller: "medicosCrt"
     })
