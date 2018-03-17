@@ -84,8 +84,6 @@ app.run(function($rootScope,$state) {
       if(localStorage.getItem('logueado') == 'false'){
         // log-in promise failed. Redirect to log-in page.
         $state.go('login')
-      }else if($state.current.name == 'login'){
-        $state.go('inicio')
       }
   })
 })
