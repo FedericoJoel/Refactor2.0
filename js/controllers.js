@@ -1,8 +1,8 @@
 angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial', 'ngAnimate','angular-loading-bar', 'mensajeExito'])
 
-/*.config(['$httpProvider', function ($httpProvider) {
+.config(['$httpProvider', function ($httpProvider) {
   $httpProvider.interceptors.push('APIInterceptor');
-}])*/
+}])
   
 .controller('loguinCrt', function ($scope, $http, $compile, $location, $window,  $state) {
 

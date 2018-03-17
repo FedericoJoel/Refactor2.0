@@ -69,7 +69,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: "auditoriaCrt"
     })
 
-    $urlRouterProvider.otherwise("/login");
+    $urlRouterProvider.otherwise("/inicio");
   
 
 })
@@ -80,9 +80,12 @@ app.run(function($rootScope,$state) {
 
   // Listen to '$locationChangeSuccess', not '$stateChangeStart'
   $rootScope.$on('$locationChangeSuccess', function() {
+    console.log($state)
       if(localStorage.getItem('logueado') == 'false'){
         // log-in promise failed. Redirect to log-in page.
         $state.go('login')
+      }else if($state.current.name == 'login'){
+        $state.go('inicio')
       }
   })
 })
