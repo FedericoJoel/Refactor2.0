@@ -974,7 +974,6 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.OSEnvio = new Array;
     $scope.CargandoOS = "Cargando.."
     $scope.PS = Permisos;
-
     $http.get('http://api.gestionarturnos.com/obraSocial/traerElementos')
       .success(function(response) {
         $scope.obrasSociales = response;
