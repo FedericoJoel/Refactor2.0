@@ -4,11 +4,11 @@ jQuery(document).ready(function() {
     /*
         Fullscreen background
     */
-    $.backstretch([
+    /*$.backstretch([
                     "images/imgLogin/2.jpg"
 	              , "images/imgLogin/3.jpg"
 	              , "images/imgLogin/1.jpg"
-	             ], {duration: 3000, fade: 750});
+	             ], {duration: 3000, fade: 750});*/
 
     /*
         Form validation

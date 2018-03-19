@@ -20,7 +20,9 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         localStorage.setItem('permisos', decoded.permisos);
         $state.go('inicio')
        
-
+      }).error(function (response) {
+        $scope.errorText = response;
+        $scope.errorMsj = "*Usuario o contraseña incorrecta";
       })
 
   }
@@ -29,21 +31,12 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
   .controller('usuariosCrt', function($scope, $http, $mdDialog, UserSrv, $filter, Permisos) {
 
     $scope.PS = Permisos;
-    $scope.ListarPerfiles = function() {
-      $http.post(UserSrv.GetPath(), {
-          'seccion': 'perfiles',
-          'accion': 'listar',
-          'id': '',
-          'dni': ''
-        })
+    $scope.errorText
+    $scope.ActualPage = 1;
+    $scope.filtronumeritos = 15;
+    $scope.CargandoOS = "Cargando.."
 
-        .success(function(response) {
-          $scope.perfiles = response;
-        })
 
-    }
-
-    $scope.ListarPerfiles();
 
     $scope.ComprobarUsername = function() {
       $('#comprobuser').html('<i class="fa fa-spinner fa-spin fa-fw"></i> Validando nombre..');
@@ -59,51 +52,50 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         })
     }
 
-    $scope.BuscarUsuario = function() {
-      $http.post(UserSrv.GetPath(), {
-          'seccion': 'usuarios',
-          'accion': 'listar',
-          'id': '',
-          'dni': ''
-        })
-
-        .success(function(response) {
-          $scope.Usuarios = response;
-          console.log(response);
-        })
-    }
-
-    $scope.AltaUser = function() {
-
-      if ($scope.usernew != '' && $scope.perfilnew != '' && $scope.contranew != '') {
-        $http.post(UserSrv.GetPath(), {
-            'seccion': 'usuarios',
-            'accion': 'insertar',
-            'user': $scope.usernew,
-            'contra': $scope.contranew,
-            'perfil': $scope.perfilnew.ID,
-            'id': '',
-            'dni': ''
-          })
-
-          .success(function(response) {
-            if (response == 1) {
-              //TODO BIEN
-              UserSrv.alerta('¡PERFECTO!', 'Se dió de alta el usuario.');
-            } else {
-              //TODO MAL
-              UserSrv.alerta('¡UPS!', 'Algo salió mal.');
-            }
-            console.log(response);
-            $scope.BuscarUsuario();
-          })
-      } else {
-        alert("Complete todos los campos");
+    $scope.Alta = function () {
+      var data = {
+        'name': $scope.name,
+        'email': $scope.email,
+        'password': $scope.password,
+        'id_perfil': $scope.id_perfil,
+        'obrasSociales': $scope.ObrasSocialesAgregar.map(OS=> OS.id)
       }
+      $http.post('http://api.gestionarturnos.com/user', data)
 
+        .success(function (response) {
+          limpiarCampos()
+          console.log(response);
+          UserSrv.alertOk('El usuario se dio de alta correctamente');
+          $route.reload();
+        }).error(function (response) {
+          $scope.errorText = response;
+          $scope.errorMsj = "*Revise los datos e intente nuevamente";
+        })
+    }
+    $scope.Editar = function (x) {
 
+      $scope.userModificando = x;
+      $scope.ObrasSocialesAgregar = $scope.userModificando.obras_sociales
+      $scope.modificando = true;
     }
 
+    $scope.paginar = function () {
+      var i = 0;
+      var last = 0;
+      $scope.cantidadpaginas = [];
+      for (i = 0; i < (Object.keys($scope.usuarios).length / $scope.filtronumeritos); i++) {
+        $scope.cantidadpaginas[i] = i + 1;
+      }
+    }
+
+    
+    $scope.AgregarOS = function (obraSocial) {
+      $scope.ObrasSocialesAgregar.push(obraSocial)
+    }
+    $scope.QuitarOS = function (obraSocial) {
+      var index = $scope.ObrasSocialesAgregar.indexOf(obraSocial)
+      $scope.ObrasSocialesAgregar.splice(index, 1);
+    }
     $scope.EliminarUsuario = function(id) {
 
       $http.post(UserSrv.GetPath(), {
@@ -127,8 +119,58 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         })
 
     }
+    $scope.traerUsuarios= function (){
 
-    $scope.BuscarUsuario();
+      $http.get('http://api.gestionarturnos.com/user/traerElementos')
+  
+        .success(function (response) {
+  
+          $scope.usuarios = response;
+          $scope.paginar()
+          console.log(response);
+  
+        })
+    }
+    traerPerfiles = function () {
+
+      $http.get('http://api.gestionarturnos.com/perfil/traerElementos')
+
+        .success(function (response) {
+
+          $scope.perfiles = response;
+          console.log(response);
+
+        })
+    }
+    $scope.traerOS= function() {
+
+      $http.get('http://api.gestionarturnos.com/obraSocial/traerElementos')
+        .success(function (response) {
+          $scope.obrasSociales = response;
+          $scope.CargandoOS = "Seleccione..";
+          console.log(response);
+        })
+    }
+    limpiarErrores = function () {
+      $scope.errorText = null;
+      $scope.errorMsj = null;
+    }
+    limpiarCampos = function () {
+      limpiarErrores();
+      $("#comprobuser").remove();
+      $scope.name = null;
+      $scope.password = null;
+      $scope.email = null;
+      $scope.obrasSociales = [];
+      $scope.ObrasSocialesAgregar = [];
+      $scope.perfiles = [];
+    }
+
+    $scope.ObrasSocialesAgregar = []
+    traerPerfiles()
+    $scope.traerOS()
+
+
   })
 
 
@@ -924,6 +966,9 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
           console.log(response); 
           UserSrv.mensajeExito()
           $route.reload();
+        }).error(function (response) {
+          $scope.errorText = response;
+          $scope.errorMsj = "*Revise los datos e intente nuevamente";
         })
     }
 
@@ -1100,6 +1145,9 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
           limpiarcampos()
           console.log(response); 
           UserSrv.alertOk('El medico se dio de alta correctamente');
+        }).error(function (response) {
+          $scope.errorText = response;
+          $scope.errorMsj = "*Revise los datos e intente nuevamente";
         })
     }
 
@@ -1254,6 +1302,9 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
           console.log(response);
           alert('OK');
           $route.reload();
+        }).error(function (response) {
+          $scope.errorText = response;
+          $scope.errorMsj = "*Revise los datos e intente nuevamente";
         })
     }
 

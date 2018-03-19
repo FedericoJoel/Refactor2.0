@@ -100,12 +100,25 @@
                            
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="usuario">Usuario</label>
-			                        	<input id="usuario" type="text" ng-model="name" name="usuario" placeholder="Usuario..." class="form-username form-control" >{{errores.usuario[0]}}
+                                        <input id="usuario" type="text" ng-model="name" name="usuario" placeholder="Usuario..." class="form-username form-control" >
+                                        <i>
+                                            <a style="color:red;">{{errorText.USER}}</a>
+                                        </i>
 			                        </div>
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="password">Contraseña</label>
-			                        	<input id="password" type="password" ng-model="password" name="password" placeholder="Contraseña..." class="form-password form-control" >{{errores.password[0]}}
-			                        </div>
+                                        <input id="password" type="password" ng-model="password" name="password" placeholder="Contraseña..." class="form-password form-control" >
+                                        <i>
+                                            <a style="color:red;">{{errorText.PASSWORD}}</a>
+                                        </i>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 ">
+                                            <i>
+                                                <a style="color:red;">{{errorMsj}}</a>
+                                            </i>
+                                        </div>
+                                    </div>
 			                        <button  id="send"  type="submit" class="btn btn-primary" style="background: #1479B8">Ingresar!</button>
 
 			                    </form>

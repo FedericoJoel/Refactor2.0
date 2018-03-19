@@ -74,16 +74,22 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 })
 
-
 // In the run phase of your Angular application  
 app.run(function($rootScope,$state) {
 
   // Listen to '$locationChangeSuccess', not '$stateChangeStart'
   $rootScope.$on('$locationChangeSuccess', function() {
-    console.log($state)
+    var permisos = localStorage.getItem('permisos').split(',')
+    console.log(permisos)
       if(localStorage.getItem('logueado') == 'false'){
         // log-in promise failed. Redirect to log-in page.
         $state.go('login')
+
+      } else if ($state.current.url.substr(1) == 'login'){
+        $state.go('inicio')
       }
+      else if(! permisos.some(permiso => permiso == $state.current.url.substr(1))) {
+      $state.go('inicio')
+    }
   })
 })
