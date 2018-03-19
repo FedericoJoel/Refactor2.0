@@ -1,6 +1,7 @@
   // This example requires the Places library. Include the libraries=places
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+        
       function initMap(j) {
         if(j == 1) {
         document.getElementById('altamapa').style.display = "block";
@@ -81,11 +82,10 @@
             autocomplete.setTypes(types);
           });
         }
-
-        setupClickListener('changetype-all', []);
-        setupClickListener('changetype-address', ['address']);
-        setupClickListener('changetype-establishment', ['establishment']);
-        setupClickListener('changetype-geocode', ['geocode']);
+        // setupClickListener('changetype-all', []);
+        // setupClickListener('changetype-address', ['address']);
+        // setupClickListener('changetype-establishment', ['establishment']);
+        setupClickListener('changetype-geocode', ['geocode']);  
 
       } else {document.getElementById('altamapa').style.display = "block";};
     }

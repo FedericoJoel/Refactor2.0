@@ -69,7 +69,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: "auditoriaCrt"
     })
 
-    $urlRouterProvider.otherwise("/inicio");
+    $urlRouterProvider.otherwise("/login");
   
 
 })

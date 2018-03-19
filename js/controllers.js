@@ -1016,7 +1016,9 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.primeraosegunda = 1;
     $scope.filtronumeritos = 10;
     $scope.ObrasSocialesAgregar = new Array;
+    $scope.especialidadesAgregar = new Array;
     $scope.OSEnvio = new Array;
+    $scope.especialidadesEnvio = new Array;
     $scope.CargandoOS = "Cargando.."
     $scope.PS = Permisos;
     $http.get('http://api.gestionarturnos.com/obraSocial/traerElementos')
@@ -1030,10 +1032,30 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         $scope.Especialidades = response;
       })
 
+
+    
     $scope.Mapa = function() {
       $scope.esconderMapa = false;
       initMap($scope.primeraosegunda);
       $scope.primeraosegunda = 2;
+    }
+
+    $scope.especialidades = []
+
+    $scope.terminarModificacion = function(){
+      $scope.especialidades = []
+      $scope.modificando= false
+    }
+
+    $scope.agregarEspecialidad = function(especialidad){
+      $scope.especialidadesAgregar.push(especialidad);
+      $scope.especialidadesEnvio.push(especialidad.id);
+    }
+
+    $scope.quitarEspecialidad = function (especialidad) {
+      var index = $scope.especialidadesAgregar.indexOf(especialidad);
+      $scope.especialidadesAgregar.splice(index, 1);
+      $scope.especialidadesEnvio.splice(index,1);
     }
 
     $scope.ChangePage = function(pag) {
@@ -1135,15 +1157,16 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         'ZONA': $scope.medicoAlta.zona,
         'latitude': $scope.lat,
         'longitude': $scope.lng,
-        'especialidades': $scope.medicoAlta.especialidad,
+        'especialidades': $scope.especialidadesEnvio,
         'obrasSociales': $scope.OSEnvio,
         'PARTICULAR': 1
       }
       $http.post('http://api.gestionarturnos.com/climed', data)
 
         .success(function(response) {
+          console.log($scope.lng);
+          console.log($scope.lat);
           limpiarcampos()
-          console.log(response); 
           UserSrv.alertOk('El medico se dio de alta correctamente');
         }).error(function (response) {
           $scope.errorText = response;
@@ -1153,14 +1176,15 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
     limpiarcampos = function(){
       $scope.esconderMapa = true;
-      $scope.medicoAlta = '';
+      $scope.medicoAlta.nombre = '';
       $scope.medicoAlta.direccion = '';
       $scope.medicoAlta.localidad = '';
       $scope.medicoAlta.telefono = '';
       $scope.medicoAlta.zona = '';
-      $scope.medicoAlta.especialidad = '';
-      $scope.medicoAlta.obrasSociales = '';
       $scope.ObrasSocialesAgregar = [];
+      $scope.especialidadesAgregar = [];
+      $scope.OSEnvio = [];
+      $scope.especialidadesenvio = [];
     }
   
   })
