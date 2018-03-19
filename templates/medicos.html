@@ -64,16 +64,30 @@
                           </div>
                         </div>
   
-                      <div class="form-group row" style="margin-top: 30px;">
-                        <div class="col-md-6">
-                          <label for="especialidades" style="color: #1E4599"><i class="fa fa-fw fa-map-marker"></i>Especialidad</label></br>
-                          <select class="form-control" id="especialidades" ng-model="medicoAlta.especialidad" required>
-                            <option selected disabled value>Seleccione especialidad..</option>
-                            <option ng-repeat="x in Especialidades | filter: { estudio: '0'}" ng-value="x.id">
-                              {{x.nombre}}
-                            </option>
-                          </select>
-                        </div>
+                        <div class="form-group row" style="margin-top: 30px;">
+                          <div class="col-md-6">
+                            <label for="especialidades" style="color: #1E4599">
+                              <i class="fa fa-fw fa-map-marker"></i>Especialidades</label>
+                            </br>
+      
+                            <button type="button" data-toggle="modal" data-target="#Espes" class="Boton Metal" style="width: 100%;">
+                              <i class="fa fa-fw fa-plus"></i>Añadir Especialidades</button>
+                            <ul class="list-group">
+                              <li ng-repeat="x in especialidadesAgregar" class="list-group-item">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    {{x.nombre}}
+                                  </div>
+                                  <div style="text-align: right;" class="col-md-6">
+                                    <button class="Boton Danger" ng-click="quitarEspecialidad(x)" type="button" style="padding: 1px; padding-left: 2px; padding-right: 2px;">Quitar</button>
+                                  </div>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+
+
+
                         <div class="col-md-6">
                           <label for="domicilio" style="color: #1E4599"><i class="fa fa-fw fa-map-marker"></i>Obras Sociales</label><input class="outline0" type="text" id="papapa" ng-value="ObrasSocialesAgregar" style="width: 0px; height: 0px; border: 0px;"></br>
                           <button type="button" data-toggle="modal" data-target="#OS" class="Boton Metal" style="width: 100%;"><i class="fa fa-fw fa-plus"></i>Añadir Obra Social</button>
@@ -300,6 +314,50 @@
     </md-content>
   </div>
   
+
+  <div class="modal fade" id="Espes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Especialidades</h4>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" ng-model="filtroEspecialidades.nombre">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="button">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+          <ul class="list-group" style="margin-top: 5px;">
+            <li ng-repeat="x in Especialidades | filter: filtroEspecialidades | filter:{ estudio: '0'}" style="color: #0D295B; font-size: 16px;"
+              class="list-group-item">
+              <div class="row">
+                <div class="col-md-6">
+                  {{x.nombre}}
+                </div>
+                <!-- <div class="col-md-6" style="text-align: right;">
+                  <i ng-show="x.agregado == false" style="color: green;" class="glyphicon glyphicon-plus-sign" ng-click="agregarEspecialidad(x, 'especialidades')"></i>
+                  <i ng-show="x.agregado == true" style="color: orange;" class="glyphicon glyphicon-remove-sign" ng-click="quitarEspecialidad(x, 'especialidades')"></i>
+                </div> -->
+                <div class="col-md-6" style="text-align: right;">
+                  <button type="button" ng-click="agregarEspecialidad(x)" ng-class="{'Brand': agregarEspecialidad.indexOf(x) == -1, 'Success': agregarEspecialidad.indexOf(x) != -1}" ng-disabled="especialidadesAgregar.indexOf(x) != -1" class="Boton">Añadir</button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+  
+        </div>
+      </div>
+    </div>
+  </div>
   
   <div class="modal fade" id="OS" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
