@@ -72,6 +72,25 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
           $scope.errorMsj = "*Revise los datos e intente nuevamente";
         })
     }
+
+    $scope.Guardar = function () {
+      $http.put('http://api.gestionarturnos.com/user/' + $scope.userModificando.id, {
+        'name': $scope.userModificando.name,
+        'id_perfil': $scope.userModificando.id_perfil,
+        'email': $scope.userModificando.email,
+        'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id)
+      })
+
+        .success(function (response) {
+          UserSrv.alertOk('Se edito con exito.');
+          $scope.modificando = true;
+          limpiarErrores();
+        }).error(function (response) {
+          $scope.errorText = response;
+          $scope.errorMsj = "*Revise los datos e intente nuevamente";
+        })
+    }
+
     $scope.Editar = function (x) {
 
       $scope.userModificando = x;
@@ -79,6 +98,25 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       $scope.modificando = true;
     }
 
+    $scope.Eliminar = function (ev, x) {
+      // Appending dialog to document.body to cover sidenav in docs app
+      var confirm = $mdDialog.confirm()
+        .title('¿Esta seguro de eliminar?')
+        .textContent('El usuario sera eliminado de forma permantente')
+        .ariaLabel('Lucky day')
+        .targetEvent(ev)
+        .ok('Continuar')
+        .cancel('Cancelar');
+
+      $mdDialog.show(confirm).then(function () {
+        $http.delete('http://api.gestionarturnos.com/user/' + x.id)
+          .success(function (response) {
+            UserSrv.alertOk("Se elimino con exito.");
+            $scope.traerUsuarios();
+          })
+      })
+    }
+    
     $scope.paginar = function () {
       var i = 0;
       var last = 0;

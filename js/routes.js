@@ -47,7 +47,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: "farmaciasCrt"
     })
     .state('usuarios', {
-      url: "/usuario",
+      url: "/user",
       templateUrl: "templates/usuarios.html",
       controller: "usuariosCrt"
     })
@@ -85,10 +85,10 @@ app.run(function($rootScope,$state) {
         // log-in promise failed. Redirect to log-in page.
         $state.go('login')
 
-      } else if ($state.current.url.substr(1) == 'login'){
+      } else if (window.location.hash.substr(2) == 'login'){
         $state.go('inicio')
       }
-      else if(! permisos.some(permiso => permiso == $state.current.url.substr(1))) {
+      else if (!permisos.some(permiso => permiso == window.location.hash.substr(2))) {
       $state.go('inicio')
     }
   })
