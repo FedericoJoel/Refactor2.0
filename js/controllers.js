@@ -471,30 +471,43 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
     }
 
-    $scope.RechazarSolicitud = function(id){
+    $scope.RechazarSolicitud = function(ev,id){
+      var confirm = $mdDialog.confirm()
+        .title('¿Esta seguro de rechazar la solicitud?')
+        .textContent('')
+        .ariaLabel('Lucky day')
+        .targetEvent(ev)
+        .ok('Continuar')
+        .cancel('Cancelar');
+
+      $mdDialog.show(confirm).then(function () {
       $http.post('http://api.gestionarturnos.com/solicitud/rechazar', {
           'id': id
         })
 
         .success(function(response) {
-          alert('Solicitud Rechazada');
+          UserSrv.alertOk('La solicitud fue rechazada con exito.');
+          traerSolicitudes()
         })
+      })    
+    }
 
+    traerSolicitudes = function () {
       $http.get('http://api.gestionarturnos.com/solicitud/solicitudesEnProceso')
 
-      .success(function(response) {
+        .success(function (response) {
 
-        $scope.solicitudes = $scope.maping(response);
-        $scope.paginar();
-        $scope.Cargando = "";
-        console.log(response);
-      })
+          $scope.solicitudes = $scope.maping(response);
+          $scope.paginar();
+          $scope.Cargando = "";
+          console.log(response);
+        })
     }
 
     $scope.getEspes = function(source){
       var espes = [];
       for(i = 0; i <= source.length-1; i++){
-        espes.push(source[i].especilidades[0].nombre);
+        espes.push(source[i].especialidades[0].nombre);
       }
       espes = espes.filter(function(value, index){ return espes.indexOf(value) == index });
       console.log(espes);
@@ -524,13 +537,15 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
           'IDSOLICITUD': $scope.solicitudexpandida.id,
           'MEDICOASIGNADO': $scope.idmediselected.id,
           'FECHAT': $scope.fechaturno,
-          'HORAT': $scope.horaturno,
+          'HORAT': "11:11:11",
           'CONFIRMACION': 0
         })
 
         .success(function(response) {
           $scope.enviandoturno = false;
+          UserSrv.alertOk('La solicitud fue generada con exito.');
           $scope.consultasolicitud($scope.solicitudexpandida.id);
+          traerSolicitudes()
         })
 
     }
@@ -631,7 +646,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
       .success(function(response) {
 
-        $scope.solicitudes = $scope.maping(response);
+        $scope.solicitudes = response;
         $scope.paginar();
         $scope.Cargando = "";
         console.log(response);
