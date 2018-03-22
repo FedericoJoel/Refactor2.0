@@ -471,25 +471,38 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
     }
 
+    function DialogController($scope, $mdDialog, items) {
+      $scope.items = items;
+      $scope.closeDialog = function () {
+        $mdDialog.hide();
+      }
+    }
     $scope.RechazarSolicitud = function(ev,id){
-      var confirm = $mdDialog.confirm()
-        .title('¿Esta seguro de rechazar la solicitud?')
-        .textContent('')
-        .ariaLabel('Lucky day')
-        .targetEvent(ev)
-        .ok('Continuar')
-        .cancel('Cancelar');
 
-      $mdDialog.show(confirm).then(function () {
+      
+        var confirm = $mdDialog.prompt()
+          .title('Ingrese el motivo por el cual desea rechazar solicitud')
+          .textContent('')
+          .placeholder('Ej: Derivacion incorrecta')
+          .ariaLabel('Motivo')
+          .ok('Enviar')
+          .cancel('Cancelar');
+
+       // $mdDialog.show(confirm);
+    
+      $mdDialog.show(confirm).then(function (motivo) {
       $http.post('http://api.gestionarturnos.com/solicitud/rechazar', {
-          'id': id
+          'id': id,
+          'MOTIVO': motivo
         })
 
         .success(function(response) {
+          $mdDialog.hide()
           UserSrv.alertOk('La solicitud fue rechazada con exito.');
           traerSolicitudes()
         })
-      })    
+        
+      })  
     }
 
     traerSolicitudes = function () {
@@ -497,7 +510,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
         .success(function (response) {
 
-          $scope.solicitudes = $scope.maping(response);
+          $scope.solicitudes = response;
           $scope.paginar();
           $scope.Cargando = "";
           console.log(response);
@@ -529,17 +542,20 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     return array;
     }
 
-    $scope.EnviarTurno = function() {
-      $scope.fechaturno = moment($scope.fechaturno).format('YYYY-MM-DD');
-      $scope.horaturno = moment($scope.horaturno).format('hh:mm:ss');
+    $scope.EnviarTurno = function(fecha, hora, medico) {
+
+      $scope.fecha = moment(fecha).format('YYYY-MM-DD');
+      $scope.hora = moment(hora).format('hh:mm:ss');
       $scope.enviandoturno = true;
-      $http.post('http://api.gestionarturnos.com/turno', {
-          'IDSOLICITUD': $scope.solicitudexpandida.id,
-          'MEDICOASIGNADO': $scope.idmediselected.id,
-          'FECHAT': $scope.fechaturno,
-          'HORAT': "11:11:11",
-          'CONFIRMACION': 0
-        })
+      
+      var data = {
+        'IDSOLICITUD': $scope.solicitudexpandida.id,
+        'MEDICOASIGNADO': medico,
+        'FECHAT': $scope.fecha,
+        'HORAT': $scope.hora,
+        'CONFIRMACION': 0
+      }
+      $http.post('http://api.gestionarturnos.com/turno', data)
 
         .success(function(response) {
           $scope.enviandoturno = false;

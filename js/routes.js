@@ -80,7 +80,6 @@ app.run(function($rootScope,$state) {
   // Listen to '$locationChangeSuccess', not '$stateChangeStart'
   $rootScope.$on('$locationChangeSuccess', function() {
     var permisos = localStorage.getItem('permisos').split(',')
-    console.log(permisos)
       if(localStorage.getItem('logueado') == 'false'){
         // log-in promise failed. Redirect to log-in page.
         $state.go('login')
