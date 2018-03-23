@@ -1094,15 +1094,22 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
   .controller('medicosCrt', function($scope, UserSrv, $http, $timeout, $mdDialog, Permisos) {
     $scope.esconderMapa = true;
+    $scope.esconderMapaModificar = true;
     $scope.lat = '';
     $scope.lng = '';
+    $scope.modificarlng = '';
+    $scope.modificarlat = '';
     $scope.ActualPage = 1;
     $scope.primeraosegunda = 1;
     $scope.filtronumeritos = 10;
     $scope.ObrasSocialesAgregar = new Array;
+    $scope.ObrasSocialesAgregarMod = new Array;
     $scope.especialidadesAgregar = new Array;
+    $scope.especialidadesAgregarMod = new Array;
     $scope.OSEnvio = new Array;
+    $scope.OSEnvioMod = new Array;
     $scope.especialidadesEnvio = new Array;
+    $scope.especialidadesEnvioMod = new Array;
     $scope.CargandoOS = "Cargando.."
     $scope.PS = Permisos;
     $http.get('http://api.gestionarturnos.com/obraSocial/traerElementos')
@@ -1124,6 +1131,12 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       $scope.primeraosegunda = 2;
     }
 
+    $scope.mapaModificar = function() {
+      $scope.esconderMapaModificar = false;
+      initMapModificar($scope.primeraosegunda,$scope.medicoModif.latitud,$scope.medicoModif.longitud);
+      $scope.primeraosegunda = 2;
+    }
+
     $scope.especialidades = []
 
     $scope.terminarModificacion = function(){
@@ -1134,6 +1147,17 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.agregarEspecialidad = function(especialidad){
       $scope.especialidadesAgregar.push(especialidad);
       $scope.especialidadesEnvio.push(especialidad.id);
+    }
+
+    $scope.agregarEspecialidadMod = function(especialidad){
+      $scope.especialidadesAgregarMod.push(especialidad);
+      $scope.especialidadesEnvioMod.push(especialidad.id);
+    }
+
+    $scope.quitarEspecialidadMod = function (especialidad) {
+      var index = $scope.especialidadesAgregarMod.indexOf(especialidad);
+      $scope.especialidadesAgregarMod.splice(index, 1);
+      $scope.especialidadesEnvioMod.splice(index,1);
     }
 
     $scope.quitarEspecialidad = function (especialidad) {
@@ -1161,14 +1185,14 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     }
 
     $scope.modAgregarOS = function(x) {
-      $scope.ObrasSocialesAgregar2.push(x);
-      $scope.OSEnvio2.push(x.id);
+      $scope.ObrasSocialesAgregarMod.push(x);
+      $scope.OSEnvioMod.push(x.id);
     }
 
     $scope.modQuitarOS = function(x){
-      var indice = $scope.ObrasSocialesAgregar2.indexOf(x);
-      $scope.ObrasSocialesAgregar2.splice(indice, 1);
-      $scope.OSEnvio2.splice(indice, 1);
+      var indice = $scope.ObrasSocialesAgregarMod.indexOf(x);
+      $scope.ObrasSocialesAgregarMod.splice(indice, 1);
+      $scope.OSEnvioMod.splice(indice, 1);
     }
 
     $scope.paginar = function() {
@@ -1195,7 +1219,11 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.Editar = function(x){
       $scope.medicoModif = x;
       $scope.modificando = true;
-      $scope.ObrasSocialesAgregar = x.obrasSociales;
+      $scope.ObrasSocialesAgregarMod = x.obrasSociales;
+      $scope.especialidadesAgregarMod = x.especilidades;
+      console.log($scope.ObrasSocialesAgregar);
+      console.log($scope.ObrasSocialesAgregarMod);
+      console.log($scope.medicoModif);
     }
 
     $scope.Guardar = function () {
@@ -1269,6 +1297,8 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       $scope.especialidadesAgregar = [];
       $scope.OSEnvio = [];
       $scope.especialidadesenvio = [];
+      $scope.especialidadesAgregarMod = [];
+      $scope.especialidadesEnvioMod = [];
     }
   
   })
