@@ -423,7 +423,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.idmediselected = {'id':undefined, 'nombre':undefined}
     $scope.cantidadpaginas = [];
     $scope.Cargando = "Cargando...";
-    $scope.tipos = ['Todos', 'Clínico', 'Especialista', 'Estudio'];
+    $scope.tipos = ['Todos', 'Clinico', 'Especialista', 'Estudio'];
     $scope.estados = ['Todos', 'Pendiente', 'Abierto', 'Rechazado', 'En Espera'];
     $scope.numeritos = ['10', '15', '20', '25', '50'];
     $scope.filtrotipo = $scope.tipos[0];
@@ -436,7 +436,18 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         'id': '',
         'dni': ''
       })*/
+    var traerSolicitudes = function () {
+      $http.get('http://api.gestionarturnos.com/solicitud/solicitudesEnProceso')
 
+        .success(function (response) {
+
+          $scope.solicitudes = response;
+          $scope.solicitudesNoFiltradas = response;
+          $scope.paginar();
+          $scope.Cargando = "";
+          console.log(response);
+        })
+    }
       $scope.selectorear = function(x){
         $scope.se = [];
         $scope.se[x.id] = true;
@@ -444,15 +455,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         $scope.idmediselected.nombre = x.nombre;
       }
 
-      $http.get('http://api.gestionarturnos.com/solicitud/solicitudesEnProceso')
-
-      .success(function(response) {
-
-        $scope.solicitudes = $scope.maping(response);
-        $scope.paginar();
-        $scope.Cargando = "";
-        console.log(response);
-      })
+      traerSolicitudes()
 
       $http.get('http://api.gestionarturnos.com/climed/traerElementos')
 
@@ -477,13 +480,35 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         $mdDialog.hide();
       }
     }
+
+    var getNumeroEsp = function(tipo){
+      switch (tipo) {
+        case 'Clinico':
+          return 1;
+        case 'Especialista':
+          return 2;
+        case 'Estudio':
+          return 3;
+        default:
+          return ;
+      }
+    }
+    $scope.filtroTipo = solicitud => ($scope.filtrotipo == undefined) ? true : ($scope.filtrotipo == 'Todos') ? true : solicitud.tipo == getNumeroEsp($scope.filtrotipo) ;
+    $scope.filtroEstado = solicitud => ($scope.filtroestado == undefined) ? true : ($scope.filtroestado == 'Todos') ? true : solicitud.estado == $scope.filtroestado;
+    $scope.filtroFechaDesde = solicitud => ($scope.fechadesde == undefined) ? true : moment(solicitud.fecha).isSameOrAfter($scope.fechadesde, 'day') ;
+    $scope.filtroFechaHasta = solicitud => ($scope.fechahasta == undefined) ? true : moment(solicitud.fecha).isSameOrBefore($scope.fechahasta, 'day')
+    
+    /*$scope.filtrarSolicitudes = function(funcionFiltrado){
+      $scope.solicitudes = $scope.solicitudesNoFiltradas.filter(funcionFiltrado)
+    }*/
+    
     $scope.RechazarSolicitud = function(ev,id){
 
       
         var confirm = $mdDialog.prompt()
           .title('Ingrese el motivo por el cual desea rechazar solicitud')
           .textContent('')
-          .placeholder('Ej: Derivacion incorrecta')
+          .placeholder('Ej: Demaciados rechazos de turno')
           .ariaLabel('Motivo')
           .ok('Enviar')
           .cancel('Cancelar');
@@ -505,17 +530,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       })  
     }
 
-    traerSolicitudes = function () {
-      $http.get('http://api.gestionarturnos.com/solicitud/solicitudesEnProceso')
-
-        .success(function (response) {
-
-          $scope.solicitudes = response;
-          $scope.paginar();
-          $scope.Cargando = "";
-          console.log(response);
-        })
-    }
+    
 
     $scope.getEspes = function(source){
       var espes = [];
@@ -616,7 +631,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.ActualPage = 1;
     $scope.cantidadpaginas = [];
     $scope.Cargando = "Cargando...";
-    $scope.tipos = ['Todos', 'Clínico', 'Especialista', 'Estudio'];
+    $scope.tipos = ['Todos', 'Clinico', 'Especialista', 'Estudio'];
     $scope.estados = ['Todos', 'Pendiente', 'Abierto', 'Rechazado', 'En Espera'];
     $scope.numeritos = ['10', '15', '20', '25', '50'];
     $scope.filtrotipo = $scope.tipos[0];

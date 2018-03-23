@@ -18,28 +18,28 @@
               <div class="col-md-2">
                 <div class="form-group">
                   <label for="seleTipo">Tipo</label>
-                  <select id="seleTipo" ng-model="filtrotipo" ng-options="x for x in tipos" placeholder="Tipo.." class="form-control">
+                  <select id="seleTipo" ng-model="filtrotipo" ng-options="x for x in tipos" placeholder="Tipo.." class="form-control" ng-change="filtrarSolicitudes(filtroTipo)">
                   </select>
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group">
                   <label for="seleTipo">Estado</label>
-                  <select id="seleEstado" ng-model="filtroestado" ng-options="x for x in estados" placeholder="Estado.." class="form-control">
+                  <select id="seleEstado" ng-model="filtroestado" ng-options="x for x in estados" placeholder="Estado.." class="form-control" ng-change="filtrarSolicitudes(filtroEstado)">
                   </select>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group" style="margin-top: 20px;">
                   <label for="fechadesde">Fecha desde</label>
-                  <md-datepicker id="fehcadesde" style="margin: 0px;" ng-model="filtro.Desde" md-placeholder="Desde.."></md-datepicker>
+                  <md-datepicker id="fechadesde" style="margin: 0px;" ng-model="fechadesde" md-placeholder="Desde.." ng-change="filtrarSolicitudes(filtroFechaDesde)"></md-datepicker>
                 </div>
               </div>
 
               <div class="col-md-4">
                 <div class="form-group" style="margin-top: 20px;">
                   <label for="fechahasta">Fecha hasta</label>
-                  <md-datepicker id="fechahasta" ng-model="filtro.Hasta" md-placeholder="Hasta.."></md-datepicker>
+                  <md-datepicker id="fechahasta" ng-model="fechahasta" md-placeholder="Hasta.." ng-change="filtrarSolicitudes(filtroFechaHasta)"></md-datepicker>
                 </div>
               </div>
             </div>
@@ -97,7 +97,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr style="cursor: pointer;" data-toggle="modal" data-target="#detalleSolicitud" ng-repeat="solicitud in solicitudes track by $index"
+                    <tr style="cursor: pointer;" data-toggle="modal" data-target="#detalleSolicitud" ng-repeat="solicitud in solicitudes | filter:filtroFechaDesde | filter:filtroFechaHasta | filter:filtroTipo | filter:filtroEstado track by $index"
                       ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)" ng-click="Detallar(solicitud)">
                       <td>{{solicitud.afiliado.dni}}</td>
                       <td ng-if="solicitud.tipo != '3'">{{solicitud.climed.nombre}}</td>
