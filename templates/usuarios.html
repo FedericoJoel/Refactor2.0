@@ -1,7 +1,7 @@
 <div style="overflow: auto; padding: 10px; padding-top: 60px;">
 	<md-content style="background-color: white; box-shadow: 0px 0px 1px grey; margin-bottom: 5%;">
 		<md-tabs md-dynamic-height md-border-bottom>
-			<md-tab label="Alta">
+			<md-tab label="Alta" ng-click="ObrasSocialesAgregar = []">
 				<md-content class="">
 
 					<div class="row">
@@ -21,17 +21,27 @@
 											<div class="col-md-5">
 												<label for="nombre" style="color: #1E4599">
 													<i class="fa fa-fw fa-user"></i>Nombre</label>
-												<input type="text" class="form-control" ng-model="usernew" ng-change="ComprobarUsername()">
+												<input type="text" class="form-control" ng-model="name" ng-change="ComprobarUsername()" placeholder="Nombre">
 												<p class="help-block" id="comprobuser"></p>
 												<i>
 													<a style="color:red;">{{errorText.NOMBRE}}
 														<a>
 												</i>
 											</div>
+											<div class="col-md-4">
+												<label for="nombre" style="color: #1E4599">
+													<i class="fa fa-fw fa-user"></i>Email</label>
+												<input type="text" class="form-control" ng-model="email" placeholder="Email">
+
+												<i>
+													<a style="color:red;">{{errorText.EMAIL}}
+														<a>
+												</i>
+											</div>
 											<div class="col-md-3">
 												<label for="password" style="color: #1E4599">
 													<i class="fa fa-fw fa-lock"></i>Contraseña</label>
-												<input type="password" class="form-control" ng-model="contranew" placeholder="Contraseña" required>
+												<input type="password" class="form-control" ng-model="password" placeholder="Contraseña" required>
 												<i>
 													<a style="color:red;">{{errorText.PASSWORD}}</a>
 												</i>
@@ -45,7 +55,7 @@
 											<div class="col-md-4">
 												<label for="cuil" style="color: #1E4599">
 													<i class="fa fa-fw fa-dedent"></i>Perfil</label>
-												<select class="form-control" ng-model="perfilnew" required>
+												<select class="form-control" ng-model="id_perfil" required>
 
 													<option ng-repeat="x in perfiles" ng-value="x.id">
 														{{x.nombre}}
@@ -83,7 +93,7 @@
 												</i>
 											</div>
 											<div class="col-md-2 col-md-offset-4">
-												<button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="submit">
+												<button style="margin-bottom: 10px; width: 100%;" type="submit" ng-click="Alta()" class="Boton Primary" ng-click="submit">
 													<b>Alta</b>
 												</button>
 											</div>
@@ -97,7 +107,7 @@
 
 				</md-content>
 			</md-tab>
-			<md-tab label="Baja/Modificacion" ng-click="BuscarUsuario()">
+			<md-tab label="Baja/Modificacion" ng-click="traerUsuarios()">
 				<md-content>
 					<div class="row">
 						<div class="col-md-12">
@@ -118,17 +128,13 @@
 									<thead>
 										<tr>
 											<td>
-												<input type="text" class="form-control" ng-model="filtro.nombre">
+												<input type="text" class="form-control" ng-model="filtro.name">
 											</td>
 											<td>
-												<input type="text" class="form-control" ng-model="filtro.password">
+												<input type="text" class="form-control" ng-model="filtro.email">
 											</td>
-											<td>
-												<input type="text" class="form-control" ng-model="filtro.perfil">
-											</td>
-											<td>
-												<input type="text" class="form-control" ng-model="filtro.obrasSociales">
-											</td>
+
+
 
 											<td></td>
 										</tr>
@@ -142,26 +148,13 @@
 												</a>
 											</td>
 											<td>
-												<a ng-click="sortType = 'contraseña'; sortReverse = !sortReverse">
-													Contraseña
-													<span ng-show="sortType == 'contraseña' && !sortReverse" class="fa fa-caret-down"></span>
-													<span ng-show="sortType == 'contraseña' && sortReverse" class="fa fa-caret-up"></span>
+												<a ng-click="sortType = 'email'; sortReverse = !sortReverse">
+													Email
+													<span ng-show="sortType == 'email' && !sortReverse" class="fa fa-caret-down"></span>
+													<span ng-show="sortType == 'email' && sortReverse" class="fa fa-caret-up"></span>
 												</a>
 											</td>
-											<td style="width: 10%;">
-												<a ng-click="sortType = 'perfil'; sortReverse = !sortReverse">
-													Perfil
-													<span ng-show="sortType == 'perfil' && !sortReverse" class="fa fa-caret-down"></span>
-													<span ng-show="sortType == 'perfil' && sortReverse" class="fa fa-caret-up"></span>
-												</a>
-											</td>
-											<td>
-												<a ng-click="sortType = 'obrasocial'; sortReverse = !sortReverse">
-													Obra social
-													<span ng-show="sortType == 'obrasocial' && !sortReverse" class="fa fa-caret-down"></span>
-													<span ng-show="sortType == 'obrasocial' && sortReverse" class="fa fa-caret-up"></span>
-												</a>
-											</td>
+
 											<td>Opciones</td>
 										</tr>
 									</thead>
@@ -171,10 +164,9 @@
 												<i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando.. </td>
 										</tr>
 										<tr ng-repeat="x in usuarios | orderBy:sortType:sortReverse | filter:filtro track by $index" ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)">
-											<td style="vertical-align: middle;">{{x.nombre}}</td>
-											<td style="vertical-align: middle;">{{x.password}}</td>
-											<td style="vertical-align: middle;">{{x.perfil}}</td>
-											<td style="vertical-align: middle;">{{x.obra_social.nombre}}</td>
+											<td style="vertical-align: middle;">{{x.name}}</td>
+											<td style="vertical-align: middle;">{{x.email}}</td>
+
 
 											<td style="vertical-align: middle;">
 												<button ng-disabled="modificando" class="Boton Primary" style="padding: 5px;" ng-click="Editar(x)">
@@ -224,126 +216,69 @@
 												<div class="col-md-5">
 													<label for="nombre" style="color: #1E4599">
 														<i class="fa fa-fw fa-user"></i>Nombre</label>
-													<input type="text" class="form-control" ng-model="usuarioModificando.nombre" placeholder="Nombre" required>
+													<input type="text" class="form-control" ng-model="userModificando.name" ng-change="ComprobarUsername()" placeholder="Nombre">
+													<p class="help-block" id="comprobuser"></p>
 													<i>
-														<a style="color:red;">{{errorText.NOMBRE}}</a>
+														<a style="color:red;">{{errorText.NAME}}
+															<a>
 													</i>
 												</div>
 												<div class="col-md-4">
-													<label for="apellido" style="color: #1E4599">
-														<i class="fa fa-fw fa-lock"></i>Contraseña</label>
-													<input type="text" class="form-control" ng-model="usuarioModificando.password" placeholder="Contraseña" required>
+													<label for="nombre" style="color: #1E4599">
+														<i class="fa fa-fw fa-user"></i>Email</label>
+													<input type="text" class="form-control" ng-model="userModificando.email" placeholder="Email">
+
 													<i>
-														<a style="color:red;">{{errorText.PASSWORD}}</a>
+														<a style="color:red;">{{errorText.EMAIL}}
+															<a>
 													</i>
 												</div>
-												<div class="col-md-3">
-													<label for="dni" style="color: #1E4599">
-														<i class="fa fa-fw fa-credit-card"></i>DNI</label>
-													<input type="number" class="form-control" ng-model="afiliadoModificando.dni" placeholder="DNI" required>
-													<i>
-														<a style="color:red;">{{errorText.DNI}}</a>
-													</i>
-												</div>
+
 											</div>
-
 											<div class="form-group row" style="margin-top: 30px;">
-												<div class="col-md-3">
-													<label for="nafiliado" style="color: #1E4599">
-														<i class="fa fa-fw fa-dedent"></i>Nº Afiliado</label>
-													<input type="text" class="form-control" ng-model="afiliadoModificando.nafiliado" placeholder="Nº Afiliado" required>
-													<i>
-														<a style="color:red;">{{errorText.NAFILIADO}}</a>
-													</i>
-												</div>
-												<div class="col-md-5">
-													<label for="obrasocial" style="color: #1E4599">
-														<i class="fa fa-fw fa-medkit"></i>Obra social</label>
-													<select class="form-control" ng-model="afiliadoModificando.obra_social" required>
-
-														<option ng-repeat="x in obrasSociales" ng-value="x.id" ng-selected="x.id == afiliadoModificando.obra_social.id">
+												<div class="col-md-4">
+													<label for="cuil" style="color: #1E4599">
+														<i class="fa fa-fw fa-dedent"></i>Perfil</label>
+													<select class="form-control" ng-model="userModificando.id_perfil" required>
+														<option ng-repeat="x in perfiles" ng-value="x.id" ng-selected="userModificando.id_perfil == x.id">
 															{{x.nombre}}
 														</option>
 													</select>
 												</div>
-												<div class="col-md-4">
-													<label for="nacimiento" style="color: #1E4599">
-														<i class="fa fa-fw fa-drupal"></i>Fecha Nacimiento</label>
-													<input type="date" class="form-control" ng-model="afiliadoModificando.nacimiento" placeholder="Nacimiento.." required>
-													<i>
-														<a style="color:red;">{{errorText.NACIMIENTO}}</a>
-													</i>
-												</div>
-											</div>
-
-											<div class="form-group row" style="margin-top: 30px;">
-												<div class="col-md-4">
-													<label for="cuil" style="color: #1E4599">
-														<i class="fa fa-fw fa-dedent"></i>Cuil</label>
-													<input type="text" class="form-control" ng-model="afiliadoModificando.cuil" placeholder="Cuil" required>
-													<i>
-														<a style="color:red;">{{errorText.CUIL}}</a>
-													</i>
-												</div>
-												<div class="col-md-4">
-													<label for="telefono" style="color: #1E4599">
-														<i class="fa fa-fw fa-phone"></i>Telefono</label>
-													<input type="number" class="form-control" ng-model="afiliadoModificando.telefono" placeholder="Telefono" required>
-													<i>
-														<a style="color:red;">{{errorText.TELEFONO}}</a>
-													</i>
-												</div>
-												<div class="col-md-4">
-													<label for="celular" style="color: #1E4599">
-														<i class="fa fa-fw fa-mobile"></i>Celular</label>
-													<input type="number" class="form-control" ng-model="afiliadoModificando.celular" placeholder="Celular" required>
-													<i>
-														<a style="color:red;">{{errorText.CELULAR}}</a>
-													</i>
-												</div>
-											</div>
-
-											<div class="form-group row" style="margin-top: 30px;">
-												<div class="col-md-4">
+												<div class="col-md-6">
 													<label for="domicilio" style="color: #1E4599">
-														<i class="fa fa-fw fa-map-marker"></i>Domicilio</label>
-													<input type="text" class="form-control" ng-model="afiliadoModificando.direccion" placeholder="Domicilio" required>
-													<i>
-														<a style="color:red;">{{errorText.DIRECCION}}</a>
-													</i>
-												</div>
-												<div class="col-md-2">
-													<label for="piso" style="color: #1E4599">
-														<i class="fa fa-fw fa-phone"></i>Piso</label>
-													<input type="number" class="form-control" ng-model="afiliadoModificando.piso" placeholder="Piso">
-													<i>
-														<a style="color:red;">{{errorText.PISO}}</a>
-													</i>
-												</div>
-												<div class="col-md-2">
-													<label for="departamento" style="color: #1E4599">
-														<i class="fa fa-fw fa-mobile"></i>Departamento</label>
-													<input type="text" class="form-control" ng-model="afiliadoModificando.departamento" placeholder="Departamento">
-													<i>
-														<a style="color:red;">{{errorText.DEPARTAMENTO}}</a>
-													</i>
-												</div>
-												<div class="col-md-4">
-													<label for="email" style="color: #1E4599">
-														<i class="fa fa-fw fa-email"></i>Email</label>
-													<input type="text" class="form-control" ng-model="afiliadoModificando.email" placeholder="Email" required>
-													<i>
-														<a style="color:red;">{{errorText.EMAIL}}</a>
-													</i>
+														<i class="fa fa-fw fa-map-marker"></i>Obras Sociales</label>
+													<input class="outline0" type="text" id="papapa" ng-value="ObrasSocialesAgregar" style="width: 0px; height: 0px; border: 0px;"
+													    required>
+													</br>
+													<button type="button" data-toggle="modal" data-target="#OS" class="Boton Metal" style="width: 100%;">
+														<i class="fa fa-fw fa-plus"></i>Añadir Obra Social</button>
+													<ul class="list-group">
+														<li ng-repeat="x in ObrasSocialesAgregar" class="list-group-item">
+															<div class="row">
+																<div class="col-md-6">
+																	{{x.nombre}}
+																</div>
+																<div style="text-align: right;" class="col-md-6">
+																	<button class="Boton Danger" ng-click="QuitarOS(x)" type="button" style="padding: 1px; padding-left: 2px; padding-right: 2px;">Quitar</button>
+																</div>
+															</div>
+														</li>
+													</ul>
 												</div>
 											</div>
+
+
 											<div class="row">
-												<i>
-													<div style="color:red" class="col-md-6">{{errorMsj}}</div>
-												</i>
+												<div CLASS="col-md-6 ">
+													<i>
+														<a style="color:red;">{{errorMsj}}</a>
+													</i>
+												</div>
 												<div class="col-md-2 col-md-offset-4">
-													<button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="submit">
-														<i class="fa fa-fw fa-save"></i>Guardar</button>
+													<button style="margin-bottom: 10px; width: 100%;" type="submit" ng-click="Guardar()" class="Boton Primary" ng-click="submit">
+														<b>Guardar</b>
+													</button>
 												</div>
 											</div>
 										</form>
@@ -405,88 +340,6 @@
 </div>
 <div style="padding: 10px; padding-top: 60px; margin-bottom: 5%;">
 
-	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<div class="row" style="vertical-align: middle;">
-				<div class="col-xs-3">
-					<i class="fa fa-users fa-2x"></i>
-				</div>
-				<div class="col-xs-9 text-right" style="vertical-align: middle;">
-					<div style="vertical-align: middle; font-size: 16pt;">Gestión de Usuarios</div>
-				</div>
-			</div>
-		</div>
-		<div class="panel-footer">
-			<div class="row">
-				<div class="col-md-5">
-					Alta Usuario
-					</br>
-					<div class="panel-footer">
-						<div class="form-group">
-							<div class="row">
-								<div class="col-md-12">
-									<label>
-										<i class="fa fa-child"></i> Nombre de Usuario</label>
-									<input class="form-control" ng-model="usernew" ng-change="ComprobarUsername()">
-									<p class="help-block" id="comprobuser"></p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<label>
-										<i class="fa fa-lock"></i> Contraseña</label>
-									<input class="form-control" type="password" ng-model="contranew">
-									<p></p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<label>
-										<i class="fa fa-cubes"></i> Perfil</label>
-									<select class="form-control" ng-model="perfilnew" ng-options="x.NOMBRE for x in perfiles" ng-value="x.ID">
-									</select>
 
-								</div>
-							</div>
-							<div class="row" style="margin-top: 5px;">
-								<div class="col-md-4 col-md-offset-8">
-									<button ng-click="AltaUser()" style="width: 100%;" class="btn btn-primary">
-										<i class="fa fa-caret-right"></i> ALTA</button>
 
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-md-offset-1">
-					Modificar / Eliminar Usuario
-					</br>
-					<div class="panel-footer">
-						<div class="form-group">
-							<div class="row">
-								<div class="col-md-12">
-									<label>
-										<i class="fa fa-search"></i> Usuario</label>
-									<input class="form-control" ng-model="buscauser" ng-change="">
-									<p class="help-block"></p>
-								</div>
-							</div>
-							<div class="row">
-								<div id="BuscaUser2" class="col-md-12" style="overflow: auto; max-height: 200px;">
-									<ul class="list-group">
-										<li ng-repeat="x in Usuarios | filter: buscauser" class="list-group-item">{{x.USUARIO}}
-											<span style="float: right">
-												<img src="images/modif.png" width="16px" height="16px" style="margin-right: 5px;">
-												<img src="images/x.png" ng-click="EliminarUsuario(x.ID)" width="16px" height="16px">
-											</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
+</div>
