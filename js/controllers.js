@@ -10,7 +10,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
   $scope.enviarFormulario = function () {
     var data = {'name':$scope.name, 
                 'password':$scope.password}
-    $http.post('http://api.gestionarturnos.com/login', data)
+    $http.post('http://localhost:7000/login', data)
 
       .success(function (response) {
         var token = response.data.token
@@ -364,7 +364,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         $scope.idmediselected.nombre = x.nombre;
       }
 
-      $http.get('http://api.gestionarturnos.com/solicitud/solicitudesEnProceso')
+      $http.get('http://localhost:7000/solicitud/solicitudesEnProceso')
 
       .success(function(response) {
 
@@ -374,7 +374,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         console.log(response);
       })
 
-      $http.get('http://api.gestionarturnos.com/climed/traerElementos')
+      $http.get('http://localhost:7000/climed/traerElementos')
 
       .success(function(response) {
 
@@ -392,7 +392,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     }
 
     $scope.RechazarSolicitud = function(id){
-      $http.post('http://api.gestionarturnos.com/solicitud/rechazar', {
+      $http.post('http://localhost:7000/solicitud/rechazar', {
           'id': id
         })
 
@@ -400,7 +400,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
           alert('Solicitud Rechazada');
         })
 
-      $http.get('http://api.gestionarturnos.com/solicitud/solicitudesEnProceso')
+      $http.get('http://localhost:7000/solicitud/solicitudesEnProceso')
 
       .success(function(response) {
 
@@ -440,7 +440,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       $scope.fechaturno = moment($scope.fechaturno).format('YYYY-MM-DD');
       $scope.horaturno = moment($scope.horaturno).format('hh:mm:ss');
       $scope.enviandoturno = true;
-      $http.post('http://api.gestionarturnos.com/turno', {
+      $http.post('http://localhost:7000/turno', {
           'IDSOLICITUD': $scope.solicitudexpandida.id,
           'MEDICOASIGNADO': $scope.idmediselected.id,
           'FECHAT': $scope.fechaturno,
@@ -456,7 +456,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     }
 
     $scope.consultasolicitud = function(id) {
-      $http.get('http://api.gestionarturnos.com/solicitud/'+id)
+      $http.get('http://localhost:7000/solicitud/'+id)
 
         .success(function(response) {
           $scope.solicitudexpandida = response;
@@ -520,7 +520,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       })*/
 
     $scope.Autorizar = function(id){
-      $http.post('http://api.gestionarturnos.com/solicitud/autorizar', {
+      $http.post('http://localhost:7000/solicitud/autorizar', {
           'id': id
         })
 
@@ -531,7 +531,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     }
 
     $scope.Rechazar = function(id){
-      $http.post('http://api.gestionarturnos.com/solicitud/rechazar', {
+      $http.post('http://localhost:7000/solicitud/rechazar', {
           'id': id
         })
 
@@ -547,7 +547,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       $scope.paginar();
     }
 
-    $http.get('http://api.gestionarturnos.com/solicitud/solicitudesEnProceso')
+    $http.get('http://localhost:7000/solicitud/solicitudesEnProceso')
 
       .success(function(response) {
 
@@ -639,7 +639,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.filtronumeritos = 15;
     $scope.CargandoOS = "Cargando.."
     $scope.PS = Permisos;
-    $http.get('http://api.gestionarturnos.com/obraSocial/traerElementos')
+    $http.get('http://localhost:7000/obraSocial/traerElementos')
       .success(function(response) {
         $scope.obrasSociales = response;
         $scope.CargandoOS = "Seleccione..";
@@ -663,7 +663,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
     $scope.ObtenerAfiliados = function() {
       $scope.Cargando = "Cargando...";
-      $http.get('http://api.gestionarturnos.com/afiliado/traerElementos')
+      $http.get('http://localhost:7000/afiliado/traerElementos')
 
         .success(function(response) {
           $scope.afiliados = response;
@@ -684,7 +684,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     }
 
     $scope.Guardar = function() {
-      $http.put('http://api.gestionarturnos.com/afiliado/'+$scope.afiliadoModificando.id, {
+      $http.put('http://localhost:7000/afiliado/'+$scope.afiliadoModificando.id, {
           'ID':$scope.afiliadoModificando.id,
           'NACIMIENTO': moment($scope.afiliadoModificando.nacimiento).format('YYYY-MM-DD'),
           'NOMBRE': $scope.afiliadoModificando.nombre,
@@ -723,7 +723,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
               .cancel('Cancelar');
     
         $mdDialog.show(confirm).then(function() {
-          $http.delete('http://api.gestionarturnos.com/afiliado/'+x.id)
+          $http.delete('http://localhost:7000/afiliado/'+x.id)
             .success(function(response) {
             UserSrv.alertOk("Se elimino con exito.");
             $scope.ObtenerAfiliados();
@@ -734,7 +734,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       // var txt;
       // var r = confirm("Desea eliminar al afiliado "+x.nombre+" "+x.apellido+"?");
       // if (r == true) {
-      //   $http.delete('http://api.gestionarturnos.com/afiliado/'+x.id)
+      //   $http.delete('http://localhost:7000/afiliado/'+x.id)
       //   .success(function(response) {
       //     alert('OK');
       //     $scope.ObtenerAfiliados();
@@ -749,7 +749,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
       var nacimiento = $scope.nacimiento;
       nacimiento = moment(nacimiento).format('YYYY-MM-DD');
-      $http.post('http://api.gestionarturnos.com/afiliado', {
+      $http.post('http://localhost:7000/afiliado', {
           'NACIMIENTO': nacimiento,
           'NOMBRE': $scope.nombre,
           'APELLIDO': $scope.apellido,
@@ -817,13 +817,13 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.filtronumeritos = 15;
     $scope.PS = Permisos;
     $scope.CargandoOS = "Cargando.."
-    $http.get('http://api.gestionarturnos.com/obraSocial/traerElementos')
+    $http.get('http://localhost:7000/obraSocial/traerElementos')
       .success(function(response) {
         $scope.obrasSociales = response;
         $scope.CargandoOS = "Seleccione..";
         console.log(response);
       })
-    $http.get('http://api.gestionarturnos.com/especialidad/traerElementos')
+    $http.get('http://localhost:7000/especialidad/traerElementos')
       .success(function(response) {
         $scope.Especialidades = response.map(esp => ({'nombre': esp.nombre, 'estudio':esp.estudio,'id': esp.id, 'agregado': false}));
       })
@@ -860,7 +860,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     }
 
     $scope.Guardar = function() {
-      $http.put('http://api.gestionarturnos.com/climed/'+$scope.clinicaModificando.id, {
+      $http.put('http://localhost:7000/climed/'+$scope.clinicaModificando.id, {
           'NOMBRE': $scope.clinicaModificando.nombre,
             'DIRECCION': $scope.clinicaModificando.domicilio,
             'LOCALIDAD': $scope.clinicaModificando.localidad,
@@ -882,7 +882,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       var txt;
       var r = confirm("Desea eliminar a la clinica "+x.nombre+"?");
       if (r == true) {
-        $http.delete('http://api.gestionarturnos.com/climed/'+x.id)
+        $http.delete('http://localhost:7000/climed/'+x.id)
 
         .success(function(response) {
           alert('OK');
@@ -917,7 +917,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id),
         'especialidades': $scope.especialidades.map(esp => esp.id)
       }
-      $http.post('http://api.gestionarturnos.com/climed', data)
+      $http.post('http://localhost:7000/climed', data)
 
         .success(function(response) {
           limpiarcampos()
@@ -938,7 +938,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
      $scope.ObtenerClinicas = function () {
        $scope.Cargando = "Cargando...";
-       $http.get('http://api.gestionarturnos.com/climed/traerElementos')
+       $http.get('http://localhost:7000/climed/traerElementos')
 
          .success(function (response) {
            $scope.clinicas = response;
@@ -965,24 +965,31 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
   .controller('medicosCrt', function($scope, UserSrv, $http, $timeout, $mdDialog, Permisos) {
     $scope.esconderMapa = true;
+    $scope.esconderMapaModificar = true;
     $scope.lat = '';
     $scope.lng = '';
+    $scope.modificarlng = '';
+    $scope.modificarlat = '';
     $scope.ActualPage = 1;
     $scope.primeraosegunda = 1;
     $scope.filtronumeritos = 10;
     $scope.ObrasSocialesAgregar = new Array;
+    $scope.ObrasSocialesAgregarMod = new Array;
     $scope.especialidadesAgregar = new Array;
+    $scope.especialidadesAgregarMod = new Array;
     $scope.OSEnvio = new Array;
+    $scope.OSEnvioMod = new Array;
     $scope.especialidadesEnvio = new Array;
+    $scope.especialidadesEnvioMod = new Array;
     $scope.CargandoOS = "Cargando.."
     $scope.PS = Permisos;
-    $http.get('http://api.gestionarturnos.com/obraSocial/traerElementos')
+    $http.get('http://localhost:7000/obraSocial/traerElementos')
       .success(function(response) {
         $scope.obrasSociales = response;
         $scope.CargandoOS = "Seleccione..";
         console.log(response);
       })
-    $http.get('http://api.gestionarturnos.com/especialidad/traerElementos')
+    $http.get('http://localhost:7000/especialidad/traerElementos')
       .success(function(response) {
         $scope.Especialidades = response;
       })
@@ -992,6 +999,12 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.Mapa = function() {
       $scope.esconderMapa = false;
       initMap($scope.primeraosegunda);
+      $scope.primeraosegunda = 2;
+    }
+
+    $scope.mapaModificar = function() {
+      $scope.esconderMapaModificar = false;
+      initMapModificar($scope.primeraosegunda,$scope.medicoModif.latitud,$scope.medicoModif.longitud);
       $scope.primeraosegunda = 2;
     }
 
@@ -1005,6 +1018,17 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.agregarEspecialidad = function(especialidad){
       $scope.especialidadesAgregar.push(especialidad);
       $scope.especialidadesEnvio.push(especialidad.id);
+    }
+
+    $scope.agregarEspecialidadMod = function(especialidad){
+      $scope.especialidadesAgregarMod.push(especialidad);
+      $scope.especialidadesEnvioMod.push(especialidad.id);
+    }
+
+    $scope.quitarEspecialidadMod = function (especialidad) {
+      var index = $scope.especialidadesAgregarMod.indexOf(especialidad);
+      $scope.especialidadesAgregarMod.splice(index, 1);
+      $scope.especialidadesEnvioMod.splice(index,1);
     }
 
     $scope.quitarEspecialidad = function (especialidad) {
@@ -1032,14 +1056,14 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     }
 
     $scope.modAgregarOS = function(x) {
-      $scope.ObrasSocialesAgregar2.push(x);
-      $scope.OSEnvio2.push(x.id);
+      $scope.ObrasSocialesAgregarMod.push(x);
+      $scope.OSEnvioMod.push(x.id);
     }
 
     $scope.modQuitarOS = function(x){
-      var indice = $scope.ObrasSocialesAgregar2.indexOf(x);
-      $scope.ObrasSocialesAgregar2.splice(indice, 1);
-      $scope.OSEnvio2.splice(indice, 1);
+      var indice = $scope.ObrasSocialesAgregarMod.indexOf(x);
+      $scope.ObrasSocialesAgregarMod.splice(indice, 1);
+      $scope.OSEnvioMod.splice(indice, 1);
     }
 
     $scope.paginar = function() {
@@ -1052,7 +1076,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
     $scope.ObtenerMedicos = function() {
       $scope.Cargando = "Cargando...";
-      $http.get('http://api.gestionarturnos.com/climed/traerElementos')
+      $http.get('http://localhost:7000/climed/traerElementos')
 
         .success(function(response) {
           $scope.medicos = response.filter(medico => medico.particular == 1)
@@ -1066,11 +1090,15 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.Editar = function(x){
       $scope.medicoModif = x;
       $scope.modificando = true;
-      $scope.ObrasSocialesAgregar = x.obrasSociales;
+      $scope.ObrasSocialesAgregarMod = x.obrasSociales;
+      $scope.especialidadesAgregarMod = x.especilidades;
+      console.log($scope.ObrasSocialesAgregar);
+      console.log($scope.ObrasSocialesAgregarMod);
+      console.log($scope.medicoModif);
     }
 
     $scope.Guardar = function () {
-      $http.put('http://api.gestionarturnos.com/climed/' + $scope.medicoModif.id, {
+      $http.put('http://localhost:7000/climed/' + $scope.medicoModif.id, {
         'NOMBRE': $scope.medicoModif.nombre,
         'DIRECCION': $scope.medicoModif.domicilio,
         'LOCALIDAD': $scope.medicoModif.localidad,
@@ -1093,7 +1121,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       var txt;
       var r = confirm("Desea eliminar a la clinica "+x.nombre+"?");
       if (r == true) {
-        $http.delete('http://api.gestionarturnos.com/climed/'+x.id)
+        $http.delete('http://localhost:7000/climed/'+x.id)
 
         .success(function(response) {
           alert('OK');
@@ -1116,7 +1144,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         'obrasSociales': $scope.OSEnvio,
         'PARTICULAR': 1
       }
-      $http.post('http://api.gestionarturnos.com/climed', data)
+      $http.post('http://localhost:7000/climed', data)
 
         .success(function(response) {
           console.log($scope.lng);
@@ -1137,6 +1165,8 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       $scope.especialidadesAgregar = [];
       $scope.OSEnvio = [];
       $scope.especialidadesenvio = [];
+      $scope.especialidadesAgregarMod = [];
+      $scope.especialidadesEnvioMod = [];
     }
   
   })
@@ -1182,7 +1212,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       var txt;
       var r = confirm("Desea eliminar a la clinica " + x.nombre + "?");
       if (r == true) {
-        $http.delete('http://api.gestionarturnos.com/climed/' + x.id)
+        $http.delete('http://localhost:7000/climed/' + x.id)
 
           .success(function (response) {
             alert('OK');
@@ -1243,7 +1273,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
     $scope.ObtenerFarmacias = function() {
       $scope.Cargando = 'Cargando..';
-      $http.get('http://api.gestionarturnos.com/farmacia/traerElementos')
+      $http.get('http://localhost:7000/farmacia/traerElementos')
 
         .success(function (response) {
           $scope.farmacias = response
@@ -1254,7 +1284,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     }
 
     $scope.ObtenerOS= function(){
-      $http.get('http://api.gestionarturnos.com/obraSocial/traerElementos')
+      $http.get('http://localhost:7000/obraSocial/traerElementos')
         .success(function (response) {
           $scope.obrasSociales = response;
           $scope.CargandoOS = "Seleccione..";
@@ -1272,7 +1302,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         'longitude': 0,
         'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id)
       }
-      $http.post('http://api.gestionarturnos.com/farmacia', data)
+      $http.post('http://localhost:7000/farmacia', data)
 
         .success(function (response) {
           console.log(response);
@@ -1356,7 +1386,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.ActualPage = 1;
     $scope.ObtenerEspecialidades = function() {
       $scope.Cargando = "Cargando...";
-      $http.get('http://api.gestionarturnos.com/especialidad/traerElementos')
+      $http.get('http://localhost:7000/especialidad/traerElementos')
         .success(function(response) {
           $scope.Especialidades = response;
           $scope.paginar();
@@ -1391,7 +1421,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
               .cancel('Cancelar');
     
         $mdDialog.show(confirm).then(function() {
-          $http.delete('http://api.gestionarturnos.com/especialidad/'+x.id)
+          $http.delete('http://localhost:7000/especialidad/'+x.id)
             .success(function(response) {
             UserSrv.alertOk("Se elimino con exito.");
             $scope.ObtenerEspecialidades();
@@ -1401,7 +1431,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
     $scope.Alta = function(){
 
-      $http.post('http://api.gestionarturnos.com/especialidad', {
+      $http.post('http://localhost:7000/especialidad', {
           'NOMBRE': $scope.espeAlta.nombre,
           'ESTUDIO': $scope.espeAlta.estudio
         })
@@ -1419,7 +1449,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
     $scope.Modificar = function(){
 
-      $http.put('http://api.gestionarturnos.com/especialidad/'+$scope.espeModif.id, {
+      $http.put('http://localhost:7000/especialidad/'+$scope.espeModif.id, {
           'NOMBRE': $scope.espeModif.nombre,
           'ESTUDIO': $scope.espeModif.estudio
         })
