@@ -1118,6 +1118,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
     $scope.mapaModificar = function() {
       $scope.esconderMapaModificar = false;
+      console.log($scope.medicoModif);
       initMapModificar($scope.primeraosegunda,$scope.medicoModif.latitud,$scope.medicoModif.longitud);
       $scope.primeraosegunda = 2;
     }
@@ -1205,10 +1206,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       $scope.medicoModif = x;
       $scope.modificando = true;
       $scope.ObrasSocialesAgregarMod = x.obrasSociales;
-      $scope.especialidadesAgregarMod = x.especilidades;
-      console.log($scope.ObrasSocialesAgregar);
-      console.log($scope.ObrasSocialesAgregarMod);
-      console.log($scope.medicoModif);
+      $scope.especialidadesAgregarMod = x.especialidades;
     }
 
     $scope.Guardar = function () {
@@ -1231,18 +1229,26 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         })
     }
 
-    $scope.Eliminar = function(x){
-      var txt;
-      var r = confirm("Desea eliminar a la clinica "+x.nombre+"?");
-      if (r == true) {
-        $http.delete('http://api.gestionarturnos.com/climed/'+x.id)
+    $scope.Eliminar = function(ev,x){
 
-        .success(function(response) {
-          alert('OK');
-          $scope.ObtenerMedicos();
+      var confirm = $mdDialog.confirm()
+              .title('¿Esta seguro de eliminar?')
+              .textContent('La clinica o particular sera eliminado de forma permantente')
+              .ariaLabel('Lucky day')
+              .targetEvent(ev)
+              .ok('Continuar')
+              .cancel('Cancelar');
+    
+        $mdDialog.show(confirm).then(function() {
+          $http.delete('http://api.gestionarturnos.com/climed/'+x.id)
+            .success(function(response) {
+            UserSrv.alertOk("Se elimino con exito.");
+            $scope.ObtenerMedicos();
+            })
+          .error(function (response) {
+            UserSrv.alertOk("Hubo un error al eliminar.");
+          })
         })
-      }
-
     }
 
     $scope.Alta = function(){
@@ -1256,7 +1262,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         'longitude': $scope.lng,
         'especialidades': $scope.especialidadesEnvio,
         'obrasSociales': $scope.OSEnvio,
-        'PARTICULAR': 1
+        'PARTICULAR': $scope.medicoAlta.particular
       }
       $http.post('http://api.gestionarturnos.com/climed', data)
 
@@ -1272,6 +1278,8 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     }
 
     limpiarcampos = function(){
+      $scope.errorText = '';
+      $scope.errorMsj = '';
       $scope.esconderMapa = true;
       $scope.medicoAlta.nombre = '';
       $scope.medicoAlta.direccion = '';
