@@ -94,19 +94,41 @@
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
         
-      function initMapModificar(j,longitude,latitude) {
+      function initMapModificar(j,latitude,longitude) {
         if(j == 1) {
         document.getElementById('modificarmapa').style.display = "block";
         latitud = parseFloat(latitude);
         longitud = parseFloat(longitude);
-        console.log(typeof(latitud));
-        console.log(typeof(-34.5991567));
+        console.log(latitud);
         console.log(longitud);
+        console.log(latitude);
+        console.log(longitude);
+        
+        var myLatLng = {lat: latitud, lng: longitud};
+        
         var map = new google.maps.Map(document.getElementById('modificarmap'), {
           // center: {lat: -34.5991567, lng: -58.369587499999966},
-          center: {lat: latitud, lng: longitud},
+          center: myLatLng,
           zoom: 13
         });
+
+        var ubicacionInicialMarker = new google.maps.Marker({
+          map: map,
+          // anchorPoint: new google.maps.Point(0, -29)
+          position:myLatLng,
+          title:'hola'
+        });
+
+        // ubicacionInicialMarker.setIcon(/** @type {google.maps.Icon} */({
+          // url: place.icon,
+          // size: new google.maps.Size(71, 71),
+          // origin: new google.maps.Point(0, 0),
+          // anchor: new google.maps.Point(17, 34),
+        //   scaledSize: new google.maps.Size(35, 35)
+        // }));
+        // ubicacionInicialMarker.setPosition(place.geometry.location);
+        // ubicacionInicialMarker.setVisible(true);
+
         var input = /** @type {!HTMLInputElement} */(
             document.getElementById('modificarpac-input'));
 
@@ -123,6 +145,7 @@
           anchorPoint: new google.maps.Point(0, -29)
         });
         autocomplete.addListener('place_changed', function() {
+          ubicacionInicialMarker.setVisible(false);
           infowindow.close();
           marker.setVisible(false);
           var place = autocomplete.getPlace();

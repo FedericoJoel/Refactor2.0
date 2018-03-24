@@ -19,13 +19,24 @@
                   <div class="col-md-12" >
                     <form name="altafrm" ng-submit="Alta()">
                         <div class="form-group row">
-                          <div class="col-md-6">
+                          <div class="col-md-4">
                             <label for="nombre" style="color: #1E4599"><i class="fa fa-fw fa-user"></i>Nombre</label>
                             <input type="text" class="form-control" ng-model="medicoAlta.nombre" placeholder="Nombre" required>
                             <i>
                               <a style="color:red;">{{errorText.NOMBRE}}</a>
                             </i>
                           </div>
+
+                          <div class="col-md-2">
+                              <label for="particular" style="color: #1E4599"><i class="fa fa-fw fa-medkit"></i>Particular</label>
+                              <select class="form-control" ng-model="medicoAlta.particular" required>
+                                <option selected disabled value>Seleccione..</option>
+                                <option ng-value="1">Si</option>
+                                <option ng-value="0">No</option>
+                              </select>
+                              <i><a style="color:red;">{{errorText.PARTICULAR}}<a></i>
+                            </div>
+
                           <div class="col-md-3">
                             <label for="nombre" style="color: #1E4599"><i class="fa fa-fw fa-location-arrow"></i>ZONA</label>
                             <input type="text" class="form-control" ng-model="medicoAlta.zona" placeholder="Zona" required>
@@ -61,6 +72,7 @@
                             <label for="localidad" style="color: #1E4599"><i class="fa fa-fw fa-map-marker"></i>Coordenadas</label>
                             <input class="outline0" type="text" id="pepepepe" ng-model="lat" style="width: 0px; height: 0px; border: 0px;" required disabled>
                             <button class="Boton Success" ng-disabled="!esconderMapa" style="width: 100%;" ng-click="Mapa()" type="button"><img src="images/mapa.png" width="20px" height="20px" style="float: left;"/>UBICAR</button>
+                            <a style="color:red;">{{errorText.latitud}}</a>
                           </div>
                         </div>
   
@@ -72,6 +84,7 @@
       
                             <button type="button" data-toggle="modal" data-target="#Espes" class="Boton Metal" style="width: 100%;">
                               <i class="fa fa-fw fa-plus"></i>Añadir Especialidades</button>
+                              <a style="color:red;">{{errorText.especialidades}}</a>
                             <ul class="list-group">
                               <li ng-repeat="x in especialidadesAgregar" class="list-group-item">
                                 <div class="row">
@@ -90,7 +103,7 @@
 
                         <div class="col-md-6">
                           <label for="domicilio" style="color: #1E4599"><i class="fa fa-fw fa-map-marker"></i>Obras Sociales</label><input class="outline0" type="text" id="papapa" ng-value="ObrasSocialesAgregar" style="width: 0px; height: 0px; border: 0px;"></br>
-                          <button type="button" data-toggle="modal" data-target="#OSMod" class="Boton Metal" style="width: 100%;"><i class="fa fa-fw fa-plus"></i>Añadir Obra Social</button>
+                          <button type="button" data-toggle="modal" data-target="#OS" class="Boton Metal" style="width: 100%;"><i class="fa fa-fw fa-plus"></i>Añadir Obra Social</button>
                           <ul class="list-group">
                             <li ng-repeat="x in ObrasSocialesAgregar" class="list-group-item">
                               <div class="row">
@@ -123,7 +136,10 @@
                         </div>
                       </div>
                       <div class="row" style="margin-top: 10px;">
-                        <div class="col-md-2 col-md-offset-10">
+                        <div class = "col-md-6">
+                          <a style="color:red;">{{errorMsj}}</a>
+                        </div>
+                        <div class="col-md-2 col-md-offset-4">
                           <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="submit"><i class="fa fa-fw fa-save" style="text-align: left;"></i>Alta</button>
                           <!-- <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="submit"><b>Alta</b></button> -->
                         </div>
@@ -162,15 +178,48 @@
                       <thead>
                         <tr>
                           <td><input type="text" class="form-control" ng-model="filtro.nombre"></td>
-                          <td><input type="text" class="form-control" ng-model="filtro.especialidades.nombre"></td>
-                          <td><input type="text" class="form-control" ng-model="filtro.direccion"></td>
+                          <td><input type="text" class="form-control" ng-model="filtro.zona"></td>
+                          <td><input type="text" class="form-control" ng-model="filtro.localidad"></td>
+                          <td><input type="text" class="form-control" ng-model="filtro.domicilio"></td>
                           <td><input type="text" class="form-control" ng-model="filtro.telefono"></td>
                           <td></td>
                         </tr>
                         <tr style="color: #1E4599; background-color: #f5f5f5">
-                          <td>Nombre</td>
-                          <td>Especialidad</td>
-                          <td>Direccion</td>
+                          <td>
+                              <a ng-click="sortType = 'nombre'; sortReverse = !sortReverse">
+                                  Nombre
+                                  <span ng-show="sortType == 'nombre' && !sortReverse" class="fa fa-caret-down"></span>
+                                  <span ng-show="sortType == 'nombre' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                          </td>
+                          <td>
+                              <a ng-click="sortType = 'nombre'; sortReverse = !sortReverse">
+                                  Particular
+                                  <span ng-show="sortType == 'nombre' && !sortReverse" class="fa fa-caret-down"></span>
+                                  <span ng-show="sortType == 'nombre' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                          </td>
+                          <td>
+                              <a ng-click="sortType = 'zona'; sortReverse = !sortReverse">
+                                  Zona
+                                  <span ng-show="sortType == 'zona' && !sortReverse" class="fa fa-caret-down"></span>
+                                  <span ng-show="sortType == 'zona' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                          </td>
+                          <td>
+                              <a ng-click="sortType = 'nombre'; sortReverse = !sortReverse">
+                                  Localidad
+                                  <span ng-show="sortType == 'localidad' && !sortReverse" class="fa fa-caret-down"></span>
+                                  <span ng-show="sortType == 'localidad' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                          </td>
+                          <td>
+                              <a ng-click="sortType = 'domicilio'; sortReverse = !sortReverse">
+                                  Direccion
+                                  <span ng-show="sortType == 'domicilio' && !sortReverse" class="fa fa-caret-down"></span>
+                                  <span ng-show="sortType == 'domicilio' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                          </td>
                           <td style="width: 10%;">Telefono</td>
                           <td>Opciones</td>
                         </tr>
@@ -179,16 +228,18 @@
                         <tr>
                           <td colspan="6" style="color: #337ab7;" ng-if="medicos == undefined"> <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando.. </td>
                         </tr>
-                        <tr ng-repeat="x in medicos |  filter:filtro  track by $index" ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)">
+                        <tr ng-repeat="x in medicos | orderBy:sortType:sortReverse |  filter:filtro  track by $index" ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)">
                           <td style="vertical-align: middle;">{{x.nombre}}</td>
-                          <td style="vertical-align: middle;">{{x.especialidades[0].nombre}}</td>
+                          <td style="vertical-align: middle;">{{x.particular}}</td>
+                          <td style="vertical-align: middle;">{{x.zona}}</td>
+                          <td style="vertical-align: middle;">{{x.localidad}}</td>
                           <td style="vertical-align: middle;">{{x.domicilio}}</td>
                           <td style="vertical-align: middle;">{{x.telefono}}</td>
                           <td style="vertical-align: middle;">
                             <button ng-disabled="modificando" data-toggle="modal" data-target="#Modificar" class="Boton Primary" style="padding: 5px;" ng-click="Editar(x)">
                               <i class="fa fa-fw fa-edit"></i> Editar
                             </button>
-                            <button ng-disabled="modificando" class="Boton Danger" style="margin-left: 5px; padding: 5px;" ng-click="Eliminar(x)">
+                            <button ng-disabled="modificando" class="Boton Danger" style="margin-left: 5px; padding: 5px;" ng-click="Eliminar($event,x)">
                               <i class="fa fa-fw fa-trash"></i> Eliminar
                             </button>
                           
@@ -218,22 +269,42 @@
             <div class="row" ng-show="modificando" style="padding: 10px;">
               <div class="col-md-12">
                 <div class="panel panel-default col-md-12" style="margin-top: -10px; padding: 0px;">
-                  <div class="panel-heading" style="background-color: #FA4081; font-size: 12pt; color: white;">Editando Medico <button type="button" ng-click="afiliadoModificando = undefined; modificando = false;" class="close" aria-hidden="true">&times;</button></div>
+                  <div class="panel-heading" style="background-color: #FA4081; font-size: 12pt; color: white;">Editando Medico <button type="button" ng-click="afiliadoModificando = undefined; modificando = false; ObtenerMedicos();" class="close" aria-hidden="true">&times;</button></div>
                   <div class="panel-body">
                     <div class="col-md-12" >
                     <form name="altafrm" >
                         <div class="form-group row">
-                          <div class="col-md-6">
+                          <div class="col-md-4">
                             <label for="nombre" style="color: #1E4599"><i class="fa fa-fw fa-user"></i>Nombre</label>
                             <input type="text" class="form-control" ng-model="medicoModif.nombre" placeholder="Nombre" required>
+                            <i>
+                              <a style="color:red;">{{errorText.NOMBRE}}</a>
+                            </i>
                           </div>
+
+                          <div class="col-md-2">
+                              <label for="particular" style="color: #1E4599"><i class="fa fa-fw fa-medkit"></i>Particular</label>
+                              <select class="form-control" ng-model="medicoModif.particular" required>
+                                <option selected disabled value>Seleccione..</option>
+                                <option ng-value="1">Si</option>
+                                <option ng-value="0">No</option>
+                              </select>
+                              <i><a style="color:red;">{{errorText.PARTICULAR}}<a></i>
+                            </div>
+
                           <div class="col-md-3">
                             <label for="nombre" style="color: #1E4599"><i class="fa fa-fw fa-location-arrow"></i>ZONA</label>
                             <input type="text" class="form-control" ng-model="medicoModif.zona" placeholder="Zona" required>
+                            <i>
+                              <a style="color:red;">{{errorText.ZONA}}</a>
+                            </i>
                           </div>
                           <div class="col-md-3">
                             <label for="telefono" style="color: #1E4599"><i class="fa fa-fw fa-phone"></i>Telefono</label>
                             <input type="text" class="form-control" ng-model="medicoModif.telefono" placeholder="Telefono" required>
+                            <i>
+                              <a style="color:red;">{{errorText.TELEFONO}}</a>
+                            </i>
                           </div>
                         </div>
   
@@ -241,15 +312,24 @@
                           <div class="col-md-5">
                             <label for="direccion" style="color: #1E4599"><i class="fa fa-fw fa-location-arrow"></i>Direccion</label>
                             <input type="text" class="form-control" ng-model="medicoModif.domicilio" placeholder="Direccion" required>
+                            <i>
+                              <a style="color:red;">{{errorText.DIRECCION}}</a>
+                            </i>
                           </div>
                           <div class="col-md-4">
                             <label for="localidad" style="color: #1E4599"><i class="fa fa-fw fa-credit-card"></i>Localidad</label>
                             <input type="text" class="form-control" ng-model="medicoModif.localidad" placeholder="Localidad" required>
+                            <i>
+                                <a style="color:red;">{{errorText.LOCALIDAD}}</a>
+                              </i>
                           </div>
                           <div class="col-md-3">
                             <label for="localidad" style="color: #1E4599"><i class="fa fa-fw fa-map-marker"></i>Coordenadas</label>
                             <input class="outline0" type="text" id="pepepepe" ng-model="lat" style="width: 0px; height: 0px; border: 0px;" required disabled>
                             <button class="Boton" ng-disabled="!esconderMapaModificar" style="width: 100%;" ng-click="mapaModificar()" type="button"><img src="images/mapa.png" width="20px" height="20px" style="float: left;"/>EDITAR UBICACIÓN</button>
+                            <i>
+                              <a style="color:red;">{{errorText.latitud}}</a>
+                            </i>
                           </div>
                         </div>
   
@@ -261,6 +341,9 @@
         
                               <button type="button" data-toggle="modal" data-target="#EspesMod" class="Boton Metal" style="width: 100%;">
                                 <i class="fa fa-fw fa-plus"></i>Añadir Especialidades</button>
+                                <i>
+                                    <a style="color:red;">{{errorText.especialidades}}</a>
+                                </i>
                               <ul class="list-group">
                                 <li ng-repeat="x in especialidadesAgregarMod" class="list-group-item">
                                   <div class="row">
@@ -283,8 +366,11 @@
                           </select>
                         </div> -->
                         <div class="col-md-6">
-                          <label for="domicilio" style="color: #1E4599"><i class="fa fa-fw fa-map-marker"></i>Obras Sociales</label><input class="outline0" type="text" id="papapa" ng-value="ObrasSocialesAgregar" style="width: 0px; height: 0px; border: 0px;" required></br>
+                          <label for="domicilio" style="color: #1E4599"><i class="fa fa-fw fa-map-marker"></i>Obras Sociales</label><input class="outline0" type="text" id="papapa" ng-value="ObrasSocialesAgregar" style="width: 0px; height: 0px; border: 0px;"></br>
                           <button type="button" data-toggle="modal" data-target="#OS" class="Boton Metal" style="width: 100%;"><i class="fa fa-fw fa-plus"></i>Añadir Obra Social</button>
+                          <i>
+                              <a style="color:red;">{{errorText.obrasSociales}}</a>
+                            </i>
                           <ul class="list-group">
                             <li ng-repeat="x in ObrasSocialesAgregarMod" class="list-group-item">
                               <div class="row">
@@ -317,7 +403,10 @@
                         </div>
                       </div>
                       <div class="row" style="margin-top: 10px;">
-                        <div class="col-md-2 col-md-offset-10">
+                          <div class = "col-md-4">
+                            <a style="color:red;">{{errorMsj}}</a>
+                          </div>
+                        <div class="col-md-2 col-md-offset-6">
                           <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="Guardar()"><i class="fa fa-fw fa-save" style="text-align: left;"></i>Guardar</button>
                         </div>
                       </div>
