@@ -1,4 +1,4 @@
-angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial', 'ngAnimate','angular-loading-bar', 'mensajeExito'])
+angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial', 'ngAnimate','angular-loading-bar', 'paginado'])
 
 .config(['$httpProvider', function ($httpProvider) {
   $httpProvider.interceptors.push('APIInterceptor');
@@ -1517,32 +1517,16 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.sortReverse  = false;
     $scope.PS = Permisos;
 
-    $scope.filtronumeritos = 10;
-    $scope.ActualPage = 1;
+
+
     $scope.ObtenerEspecialidades = function() {
       $scope.Cargando = "Cargando...";
       $http.get('http://api.gestionarturnos.com/especialidad/traerElementos')
         .success(function(response) {
           $scope.Especialidades = response;
           $scope.paginar();
-          console.log($scope.Especialidades);
           $scope.Cargando = "";
         })
-    }
-
-    $scope.ChangePage = function(pag) {
-
-      $scope.ActualPage = pag;
-      $scope.paginar();
-
-    }
-
-    $scope.paginar = function() {
-      var i = 0;
-      $scope.cantidadpaginas = [];
-      for (i = 0; i < (Object.keys($scope.Especialidades).length / $scope.filtronumeritos); i++) {
-        $scope.cantidadpaginas[i] = i + 1;
-      }
     }
 
     $scope.Eliminar = function(ev,x){
