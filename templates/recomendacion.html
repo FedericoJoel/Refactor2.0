@@ -1,0 +1,54 @@
+<div style="padding: 10px; padding-top: 60px; margin-bottom: 5%;">
+
+  <div style="box-shadow: 0px 0px 4px grey;">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div style="background-color: #FA4081; color: white; font-size: 12pt; padding-left: 10px; padding: 15px;">
+          Recomendaciones sin Contactar
+        </div>
+      </div>
+    </div>
+
+    <div style="background-color: white; padding: 30px;">
+      <md-content>
+        <md-card>
+          <div ng-if="Cargando !== ''" style="padding: 0px; border: 0px;" class="alert alert-warning">
+            <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <center>
+
+                <table class="table table-bordered table-hover" style="margin-bottom: 0px;">
+                  <thead>
+                    <tr>
+                      <td>NOMBRE</td>
+                      <td>APELLIDO</td>
+                      <td>COMENTARIO</td>
+                      <td style="width: 15%;"></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="color: #103067;" ng-repeat="recomendacion in Recomendaciones">
+                      <td style="vertical-align: middle;">{{recomendacion.nombre}}</td>
+                      <td style="vertical-align: middle;">{{recomendacion.apellido}}</td>
+                      <td style="vertical-align: middle;">{{recomendacion.comentario}}</td>
+                      <td><button type="button" ng-click="Contactar(recomendacion.id)" class="Boton Brand" style="width: 100%;"> <i class="glyphicon glyphicon-ok"></i> Contactar</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </center>
+
+            </div>
+
+          </div>
+        </md-card>
+        
+      </md-content>
+
+    </div>
+    
+  </div>
+
+</div>

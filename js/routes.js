@@ -69,6 +69,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: "auditoriaCrt"
     })
 
+    .state('recomendacion', {
+      url: "/recomendacion",
+      templateUrl: "templates/recomendacion.html",
+      controller: "recomendacionCrt"
+    })
+
     $urlRouterProvider.otherwise("/login");
   
 
