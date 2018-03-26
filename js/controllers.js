@@ -1629,6 +1629,7 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.sortType     = 'nombre'; // el default
     $scope.sortReverse  = false;
     $scope.PS = Permisos;
+    console.log($scope.PS);
 
     $scope.filtronumeritos = 10;
     $scope.ActualPage = 1;
@@ -1662,3 +1663,40 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
   })
 
+
+  .controller('estadisticasCrt', function($scope, UserSrv, $http, $mdDialog, Permisos) {
+
+    $scope.sortType     = 'nombre'; // el default
+    $scope.sortReverse  = false;
+    $scope.PS = Permisos;
+    console.log($scope.PS);
+
+    $scope.filtronumeritos = 10;
+    $scope.ActualPage = 1;
+    $scope.ObtenerRecomendaciones = function() {
+      $scope.Cargando = "Cargando...";
+      $http.get('http://des.gestionarturnos.com/recomendacion/sinContactar')
+        .success(function(response) {
+          $scope.Recomendaciones = response;
+          console.log($scope.Recomendaciones);
+          $scope.Cargando = "";
+        })
+    }
+
+
+    $scope.Contactar = function(id){
+
+      $http.get('http://des.gestionarturnos.com/recomendacion/contactado/'+id)
+        .success(function(response) {
+          UserSrv.alertOk('Recomendacion marcada como contactada.');
+          $scope.ObtenerRecomendaciones();
+        }).error(function(response){
+          $scope.errorText = response;
+          $scope.errorMsj = "*Revise los datos e intente nuevamente";
+        })
+        
+
+    }
+
+
+  })
