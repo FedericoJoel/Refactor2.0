@@ -69,6 +69,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: "auditoriaCrt"
     })
 
+    .state('recomendacion', {
+      url: "/recomendacion",
+      templateUrl: "templates/recomendacion.html",
+      controller: "recomendacionCrt"
+    })
+
+    .state('estadisticas', {
+      url: "/estadisticas",
+      templateUrl: "templates/estadisticas.html",
+      controller: "estadisticasCrt"
+    })
+
     $urlRouterProvider.otherwise("/login");
   
 
