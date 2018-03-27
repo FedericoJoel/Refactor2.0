@@ -69,6 +69,16 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
       .ok('Ok')
     );
   };
+  this.alertError = function (texto) {
+    $mdDialog.show(
+      $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .clickOutsideToClose(true)
+        .title('Error!')
+        .textContent(texto)
+        .ok('Ok')
+    );
+  };
 
   // this.mensajeExito = function (mensaje) {
   //   if (mensaje = undefined) mensaje = 'Exito al realizar la accion'
