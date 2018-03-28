@@ -1688,6 +1688,10 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
     $scope.Contactar = function (id) {
 
+      $http.post('http://des.gestionarturnos.com/recomendacion/contactado', {
+        'id':id
+      })
+        .success(function(response) {
       $http.get('http://des.gestionarturnos.com/recomendacion/contactado/' + id)
         .success(function (response) {
           UserSrv.alertOk('Recomendacion marcada como contactada.');
@@ -1698,7 +1702,8 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         })
 
 
-    }
+    })
+  }
 
     $scope.ObtenerRecomendaciones();
 
@@ -1706,8 +1711,15 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
   })
 
 
-  .controller('estadisticasCrt', function ($scope, UserSrv, $http, $mdDialog, Permisos) {
+.controller('estadisticasCrt', function ($scope, UserSrv, $http, $mdDialog, Permisos) {
 
+
+    $scope.sortType     = 'nombre'; // el default
+    $scope.fecha_creacion_desde = moment().format('Y') + '-' + moment().format('MM') + '-01';
+    $scope.fecha_creacion_hasta = moment().format('Y') + '-' + moment().format('MM') + '-' + moment().daysInMonth();
+    $scope.fecha_modificacion_desde = moment().format('Y') + '-' + moment().format('MM') + '-01';
+    $scope.fecha_modificacion_hasta = moment().format('Y') + '-' + moment().format('MM') + '-' + moment().daysInMonth();
+    $scope.sortReverse  = false;
     $scope.sortType = 'nombre'; // el default
     $scope.sortReverse = false;
     $scope.PS = Permisos;
@@ -1715,6 +1727,83 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
     $scope.filtronumeritos = 10;
     $scope.ActualPage = 1;
+
+    $scope.setVista = function(vista) {
+      $scope.vistaactual = vista;
+    }
+
+    function sumZonas(objeto) {
+      var pendientes = 0,confirmados = 0, rechazados = 0, total = 0;
+      objeto.forEach(function(objeto){
+        pendientes = pendientes + objeto.pendientes;
+        confirmados = confirmados + objeto.confirmados;
+        rechazados = rechazados + objeto.rechazados;
+        total = total + objeto.total;
+      })
+      return {'pendientes':pendientes,'confirmados':confirmados,'rechazados':rechazados, 'total': total};
+    }
+
+    $scope.expandir = function(id){
+      $scope.expandida = id;
+      $scope.Turnos = undefined;
+      $http.post('http://des.gestionarturnos.com/reporteSolicitudes/turnos',{
+        'id_solicitud': id
+      })
+      .success(function(response) {
+        $scope.Turnos = response;
+        //$scope.totalZonas = sumZonas(response);
+        console.log($scope.Turnos);
+      })
+    }
+
+    $scope.ObtenerZonas = function() {
+      $scope.vistaactual = "Zonas";
+      $http.post('http://des.gestionarturnos.com/reporteSolicitudes/zonas',{
+        'fecha_creacion_desde': moment($scope.fecha_creacion_desde).format('YYYY-MM-DD'),
+        'fecha_creacion_hasta': moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD'),
+        'fecha_modificacion_desde': moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD'),
+        'fecha_modificacion_hasta': moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD')
+      })
+        .success(function(response) {
+          $scope.Zonas = response;
+          $scope.totalZonas = sumZonas(response);
+          console.log($scope.Zonas);
+        })
+    }
+
+    $scope.getClinicas = function(zona) {
+      $scope.vistaactual = "Clinicas";
+      $scope.zonaactual = zona;
+      $http.post('http://des.gestionarturnos.com/reporteSolicitudes/clinicas',{
+        'zona': zona,
+        'fecha_creacion_desde': moment($scope.fecha_creacion_desde).format('YYYY-MM-DD'),
+        'fecha_creacion_hasta': moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD'),
+        'fecha_modificacion_desde': moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD'),
+        'fecha_modificacion_hasta': moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD')
+      })
+        .success(function(response) {
+          $scope.Clinicas = response;
+          $scope.totalClinicas = sumZonas(response);
+          console.log($scope.Clinicas);
+        })
+    }
+
+    $scope.getSolicitudes = function(clinica) {
+      $scope.vistaactual = "Solicitudes";
+      $scope.clinicaactual = clinica.nombre;
+      $http.post('http://des.gestionarturnos.com/reporteSolicitudes/solicitudes',{
+        'id_clinica':clinica.id_clinica,
+        'fecha_creacion_desde': moment($scope.fecha_creacion_desde).format('YYYY-MM-DD'),
+        'fecha_creacion_hasta': moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD'),
+        'fecha_modificacion_desde': moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD'),
+        'fecha_modificacion_hasta': moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD')
+      })
+        .success(function(response) {
+          $scope.Solicitudes = response;
+          console.log($scope.Solicitudes);
+        })
+    }
+
     $scope.ObtenerRecomendaciones = function () {
       $scope.Cargando = "Cargando...";
       $http.get('http://des.gestionarturnos.com/recomendacion/sinContactar')
@@ -1737,8 +1826,10 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
           $scope.errorMsj = "*Revise los datos e intente nuevamente";
         })
 
-
     }
+
+    $scope.ObtenerZonas();
 
 
   })
+  
