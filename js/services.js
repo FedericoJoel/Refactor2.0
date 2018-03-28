@@ -113,7 +113,61 @@ app.service('Permisos', [function ($stateProvider, $urlRouterProvider) {
   
      return permisos.some(permiso => permiso == pantalla );
   };
-  
-  
- 
+}]);
+
+app.service('CargarDatos', ['$http', function ($http) {
+
+  var index = 0
+  this.CargarAfiliados = function(){
+    cargarAfiliados()
+  }
+  this.CargarMedicos = function () {
+    cargarMedicos()
+  }
+
+  var cargarAfiliados = function () {
+      var data = {
+        'NACIMIENTO': '2018-10-06',
+        'NOMBRE': index,
+        'APELLIDO': index,
+        'DIRECCION': index,
+        'CUIL': index,
+        'EMAIL': index,
+        'DNI': index,
+        'PISO': index,
+        'DEPARTAMENTO': index,
+        'TELEFONO': index,
+        'CELULAR': index,
+        'IDOBRASOCIAL': 1,
+        'NAFILIADO': index,
+        'GRUPOF': null
+      }
+      $http.post('http://des.gestionarturnos.com/afiliado', data)
+
+        .success(function (response) {
+          index++
+          cargarAfiliados()
+        })
+  };
+
+  var cargarMedicos = function(){
+    var data = {
+      'NOMBRE': index,
+      'DIRECCION': index,
+      'LOCALIDAD': index,
+      'TELEFONO': index,
+      'ZONA': index,
+      'latitude': index,
+      'longitude': index,
+      'especialidades': [1],
+      'obrasSociales': [1],
+      'PARTICULAR': 1
+    }
+    $http.post('http://des.gestionarturnos.com/climed', data)
+
+      .success(function (response) {
+        index++
+        cargarMedicos()
+      })
+  }
 }]);

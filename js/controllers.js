@@ -34,8 +34,6 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
     $scope.PS = Permisos;
     $scope.errorText
-    $scope.ActualPage = 1;
-    $scope.filtronumeritos = 15;
     $scope.CargandoOS = "Cargando.."
 
 
@@ -865,12 +863,12 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
 
 
-  .controller('afiliadosCrt', function ($scope, $http, $mdDialog, UserSrv, Permisos) {
+  .controller('afiliadosCrt', function ($scope, $http, $mdDialog, UserSrv, Permisos, CargarDatos) {
     $scope.errorText
-    $scope.ActualPage = 1;
-    $scope.filtronumeritos = 15;
     $scope.CargandoOS = "Cargando.."
     $scope.PS = Permisos;
+
+    //CargarDatos.CargarAfiliados()
     $http.get('http://des.gestionarturnos.com/obraSocial/traerElementos')
       .success(function (response) {
         $scope.obrasSociales = response;
@@ -878,28 +876,12 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
         console.log(response);
       })
 
-    $scope.ChangePage = function (pag) {
-
-      $scope.ActualPage = pag;
-      $scope.paginar();
-
-    }
-
-    $scope.paginar = function () {
-      var i = 0;
-      $scope.cantidadpaginas = [];
-      for (i = 0; i < (Object.keys($scope.afiliados).length / $scope.filtronumeritos); i++) {
-        $scope.cantidadpaginas[i] = i + 1;
-      }
-    }
-
     $scope.ObtenerAfiliados = function () {
       $scope.Cargando = "Cargando...";
       $http.get('http://des.gestionarturnos.com/afiliado/traerElementos')
 
         .success(function (response) {
           $scope.afiliados = response;
-          $scope.paginar();
           console.log($scope.afiliados);
           $scope.Cargando = "";
         })
@@ -963,15 +945,6 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       }, function () {
         $scope.status = 'You decided to keep your debt.';
       });
-      // var txt;
-      // var r = confirm("Desea eliminar al afiliado "+x.nombre+" "+x.apellido+"?");
-      // if (r == true) {
-      //   $http.delete('http://des.gestionarturnos.com/afiliado/'+x.id)
-      //   .success(function(response) {
-      //     alert('OK');
-      //     $scope.ObtenerAfiliados();
-      //   })
-      // }
     }
 
     $scope.Alta = function () {
@@ -1208,16 +1181,14 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
   //▀   ▀ ▀▀▀ ▀▀▀─  ▀  ▀▀▀ ▀▀▀▀ ▀▀▀
   ////////////////////////////////////
 
-  .controller('medicosCrt', function ($scope, UserSrv, $http, $timeout, $mdDialog, Permisos) {
+  .controller('medicosCrt', function ($scope, UserSrv, $http, $timeout, $mdDialog, Permisos, CargarDatos) {
     $scope.esconderMapa = true;
     $scope.esconderMapaModificar = true;
     $scope.lat = '';
     $scope.lng = '';
     $scope.modificarlng = '';
     $scope.modificarlat = '';
-    $scope.ActualPage = 1;
     $scope.primeraosegunda = 1;
-    $scope.filtronumeritos = 10;
     $scope.ObrasSocialesAgregar = new Array;
     $scope.ObrasSocialesAgregarMod = new Array;
     $scope.especialidadesAgregar = new Array;
@@ -1228,6 +1199,9 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.especialidadesEnvioMod = new Array;
     $scope.CargandoOS = "Cargando.."
     $scope.PS = Permisos;
+
+    //CargarDatos.CargarMedicos()
+
     $http.get('http://des.gestionarturnos.com/obraSocial/traerElementos')
       .success(function (response) {
         $scope.obrasSociales = response;
@@ -1283,13 +1257,6 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       $scope.especialidadesEnvio.splice(index, 1);
     }
 
-    $scope.ChangePage = function (pag) {
-
-      $scope.ActualPage = pag;
-      $scope.paginar();
-
-    }
-
     $scope.AgregarOS = function (x) {
       $scope.ObrasSocialesAgregar.push(x);
       $scope.OSEnvio.push(x.id);
@@ -1312,21 +1279,12 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
       $scope.OSEnvioMod.splice(indice, 1);
     }
 
-    $scope.paginar = function () {
-      var i = 0;
-      $scope.cantidadpaginas = [];
-      for (i = 0; i < (Object.keys($scope.medicos).length / $scope.filtronumeritos); i++) {
-        $scope.cantidadpaginas[i] = i + 1;
-      }
-    }
-
     $scope.ObtenerMedicos = function () {
       $scope.Cargando = "Cargando...";
       $http.get('http://des.gestionarturnos.com/climed/traerElementos')
 
         .success(function (response) {
           $scope.medicos = response.filter(medico => medico.particular == 1)
-          $scope.paginar();
           console.log($scope.medicos);
           $scope.Cargando = "";
         })
@@ -1440,23 +1398,8 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
     $scope.lat = '';
     $scope.lng = '';
     $scope.primeraosegunda = 1;
-    $scope.ActualPage = 1;
-    $scope.primeraosegunda = 1;
-    $scope.filtronumeritos = 10;
     $scope.ObrasSocialesAgregar = [];
     $scope.PS = Permisos;
-
-    $scope.paginar = function () {
-      var i = 0;
-      $scope.cantidadpaginas = [];
-      for (i = 0; i < (Object.keys($scope.farmacias).length / $scope.filtronumeritos); i++) {
-        $scope.cantidadpaginas[i] = i + 1;
-      }
-    }
-    $scope.ChangePage = function (pag) {
-      $scope.ActualPage = pag;
-      $scope.paginar();
-    }
 
 
     $scope.Editar = function (x) {
@@ -1533,7 +1476,6 @@ angular.module('GestionarApp.controllers', ['GestionarApp.services', 'ngMaterial
 
         .success(function (response) {
           $scope.farmacias = response
-          $scope.paginar()
           $scope.ObrasSocialesAgregar = []
         })
 

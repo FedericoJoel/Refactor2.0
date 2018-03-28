@@ -126,16 +126,13 @@
 								<!-- Table -->
 								<table class="table table-hover table-striped table-bordered">
 									<thead>
-										<tr>
+										<tr ng-click="getPrimeraPagina()">
 											<td>
 												<input type="text" class="form-control" ng-model="filtro.name">
 											</td>
 											<td>
 												<input type="text" class="form-control" ng-model="filtro.email">
 											</td>
-
-
-
 											<td></td>
 										</tr>
 										<tr style="color: #1E4599; background-color: #f5f5f5">
@@ -163,7 +160,7 @@
 											<td colspan="6" style="color: #337ab7;" ng-if="usuarios == undefined">
 												<i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando.. </td>
 										</tr>
-										<tr ng-repeat="x in usuarios | orderBy:sortType:sortReverse | filter:filtro track by $index" ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)">
+										<tr ng-repeat="x in usuarios | orderBy:sortType:sortReverse | filter:filtro as filteredElems track by $index" ng-if="separarPaginas($index)">
 											<td style="vertical-align: middle;">{{x.name}}</td>
 											<td style="vertical-align: middle;">{{x.email}}</td>
 
@@ -179,23 +176,9 @@
 										</tr>
 									</tbody>
 									<tfoot>
-										<tr style="background-color: #B4BBB2">
+										<tr>
 											<td colspan="6" style="text-align: center;">
-												<nav aria-label="Page navigation">
-													<ul class="pagination" style="padding: 0px; margin: 0px;">
-														<li>
-
-														</li>
-														<li ng-repeat="pag in cantidadpaginas" ng-class="{'active': ActualPage == pag}" ng-click="ChangePage(pag)">
-															<a>{{pag}}</a>
-														</li>
-														</a>
-														</li>
-														<li>
-
-														</li>
-													</ul>
-												</nav>
+												<paginado></paginado>
 											</td>
 										</tr>
 									</tfoot>

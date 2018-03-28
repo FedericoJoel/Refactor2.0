@@ -77,7 +77,7 @@
 
     <div style="background-color: white; padding: 30px;">
       <md-content>
-        <md-card>
+
           <div ng-if="Cargando !== ''" style="padding: 0px; border: 0px;" class="alert alert-warning">
             <md-progress-linear md-mode="indeterminate"></md-progress-linear>
           </div>
@@ -88,6 +88,7 @@
                 <table class="table table-bordered table-hover">
                   <thead>
                     <tr>
+                      
                       <td>DNI</td>
                       <td>CLÍNICA/MÉDICO</td>
                       <td>MÉDICO SUGERIDO</td>
@@ -97,7 +98,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr style="cursor: pointer;" data-toggle="modal" data-target="#detalleSolicitud" ng-repeat="solicitud in solicitudes | filter:filtroFechaDesde | filter:filtroFechaHasta | filter:filtroTipo | filter:filtroEstado track by $index"
+                    <tr style="cursor: pointer;" data-toggle="modal" data-target="#detalleSolicitud" ng-repeat="solicitud in solicitudes | filter:filtroFechaDesde | filter:filtroFechaHasta | filter:filtroTipo | filter:filtroEstado  as filteredElems track by $index"
                       ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)" ng-click="Detallar(solicitud)">
                       <td>{{solicitud.afiliado.dni}}</td>
                       <td ng-if="solicitud.tipo != '3'">{{solicitud.climed.nombre}}</td>
@@ -111,19 +112,21 @@
                       <td>{{solicitud.estado}}</td>
                     </tr>
                   </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="6" style="text-align: center;">
+                        <paginado></paginado>
+                      </td>
+                    </tr>
+                  </tfoot>
                 </table>
-                <nav aria-label="Page navigation" style="margin-bottom: 10px;">
-                  <ul class="" style="display: inline;">
-                    <li style="display: inline; padding: 8px;" ng-repeat="pag in cantidadpaginas" class="Boton" ng-class="{'PrimaryActive': ActualPage == pag, 'Primary': ActualPage != pag, 'BBL': pag != 1}"
-                      ng-click="ChangePage(pag)">{{pag}}</li>
-                  </ul>
-                </nav>
+                
               </center>
 
             </div>
 
           </div>
-        </md-card>
+
         
       </md-content>
 
