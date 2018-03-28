@@ -5,16 +5,68 @@
     <div class="row">
       <div class="col-md-12">
         <div style="background-color: #FA4081; color: white; font-size: 12pt; padding-left: 10px; padding: 15px;">
-          Recomendaciones sin Contactar
+          Estadísticas
         </div>
       </div>
     </div>
 
     <div style="background-color: white; padding: 30px;">
-      <md-content>
-        <md-card>
-          <div ng-if="Cargando !== ''" style="padding: 0px; border: 0px;" class="alert alert-warning">
-            <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+      <md-content style="padding-bottom: 1px; background-color: white;">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                  <span style="color: #144498;"><b>Fecha Creación - Desde</b></span>
+                  <input class="form-control" value="{{fecha_creacion_desde}}" type="date" ng-model="fecha_creacion_desde">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                  <span style="color: #144498;"><b>Fecha Creación - Hasta</b></span>
+                  <input class="form-control" value="{{fecha_creacion_hasta}}" type="date" ng-model="fecha_creacion_hasta">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                  <span style="color: #144498;"><b>Fecha Modificación - Desde</b></span>
+                  <input class="form-control" value="{{fecha_modificacion_desde}}" type="date" ng-model="fecha_modificacion_desde">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                  <span style="color: #144498;"><b>Fecha Modificación - Hasta</b></span>
+                  <input class="form-control" value="{{fecha_modificacion_hasta}}" type="date" ng-model="fecha_modificacion_hasta">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 5px;">
+            <div class="col-md-2 col-md-offset-10">
+              <button style="width: 100%; margin-top: 5px; right: 0;" class="Boton Info" ng-click="ObtenerZonas()">Actualizar</button>
+            </div>
+          </div>
+
+          <div>
+            <ol class="breadcrumb breadcrumb-arrow" ng-cloak>
+              <li>
+                <a href="" id="bread-organismos" ng-click="setVista('Zonas')">
+                <i class="fa fa-home"></i> ZONAS</a>
+              </li>
+              <li>
+                <a href="" id="bread-socios" ng-if="vistaactual !== 'Zonas'" ng-click="setVista('Clinicas')">CLINICAS/MEDICOS (
+                <b>{{zonaactual}}</b> )</a>
+              </li>
+              <li>
+                <a href="" id="bread-servicios" ng-if="vistaactual !== 'Zonas' && vistaactual !== 'Clinicas'" ng-click="setVista('Solicitudes')">SOLICITUDES (
+                <b>{{clinicaactual}}</b> )</a>
+              </li>
+            </ol>
           </div>
           <div class="row">
             <div class="col-md-12">
@@ -23,21 +75,76 @@
                 <table class="table table-bordered table-hover" style="margin-bottom: 0px;">
                   <thead>
                     <tr>
-                      <td>NOMBRE</td>
-                      <td>APELLIDO</td>
-                      <td>COMENTARIO</td>
-                      <td style="width: 15%;"></td>
+                      <td style="width: 40%; text-align: center;" ng-show="vistaactual == 'Zonas'">ZONA</td>
+                      <td style="width: 40%; text-align: center;" ng-show="vistaactual == 'Clinicas'">NOMBRE</td>
+                      <td style="text-align: center;" ng-show="vistaactual == 'Solicitudes'">ID</td>
+                      <td style="width: 15%; text-align: center;" ng-show="vistaactual == 'Solicitudes'">ESTADO</td>
+                      <td style="width: 30%; text-align: center;" ng-show="vistaactual == 'Solicitudes'">MOTIVO</td>
+                      <td style="width: 30%; text-align: center;" ng-show="vistaactual == 'Solicitudes'">FECHA CREACIÓN</td>
+                      <td style="width: 40%; text-align: center;" ng-show="vistaactual == 'Solicitudes'">FECHA MODIFICACIÓN</td>
+                      <td style="text-align: center;" ng-show="vistaactual != 'Solicitudes'">CONFIRMADAS</td>
+                      <td style="text-align: center;" ng-show="vistaactual != 'Solicitudes'">PENDIENTES</td>
+                      <td style="text-align: center;" ng-show="vistaactual != 'Solicitudes'">RECHAZADAS</td>
+                      <td style="text-align: center;" ng-show="vistaactual != 'Solicitudes'">TOTAL</td>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr style="color: #103067;" ng-repeat="recomendacion in Recomendaciones">
-                      <td style="vertical-align: middle;">{{recomendacion.nombre}}</td>
-                      <td style="vertical-align: middle;">{{recomendacion.apellido}}</td>
-                      <td style="vertical-align: middle;">{{recomendacion.comentario}}</td>
-                      <td><button type="button" ng-click="Contactar(recomendacion.id)" class="Boton Primary" style="width: 100%;"> <i class="glyphicon glyphicon-ok"></i> Contactar</button></td>
+                  <tbody ng-show="vistaactual == 'Zonas'" style="color: #73879C;">
+                    <tr ng-repeat="zona in Zonas" style="cursor: pointer;" ng-click="getClinicas(zona.zona)">
+                      <td style="vertical-align: middle;">{{zona.zona}}</td>
+                      <td style="vertical-align: middle;">{{zona.confirmados}}</td>
+                      <td style="vertical-align: middle;">{{zona.pendientes}}</td>
+                      <td style="vertical-align: middle;">{{zona.rechazados}}</td>
+                      <td style="vertical-align: middle;">{{zona.total}}</td>
+                    </tr>
+                    <tr ng-if="Zonas.length != 0">
+                      <td style="background-color: #E1E5E2; text-align: right;">TOTAL</td>
+                      <td style="background-color: #496fc5; color: white;">{{totalZonas.confirmados}}</td>
+                      <td style="background-color: #496fc5; color: white;">{{totalZonas.pendientes}}</td>
+                      <td style="background-color: #496fc5; color: white;">{{totalZonas.rechazados}}</td>
+                      <td style="background-color: #496fc5; color: white;">{{totalZonas.total}}</td>
                     </tr>
                     <tr style="color: #103067;">
-                      <td ng-if="Recomendaciones.length == 0">No se han encontrado recomendaciones que no hayan sido contactadas.</td>
+                      <td colspan="5" ng-if="Zonas.length == 0">No se han encontrado resultados con los filtros ingresados.</td>
+                    </tr>
+                  </tbody>
+                  <tbody ng-show="vistaactual == 'Clinicas'" style="color: #73879C;">
+                    <tr ng-repeat="clinica in Clinicas" style="cursor: pointer;" ng-click="getSolicitudes(clinica)">
+                      <td style="vertical-align: middle;">{{clinica.nombre}}</td>
+                      <td style="vertical-align: middle;">{{clinica.confirmados}}</td>
+                      <td style="vertical-align: middle;">{{clinica.pendientes}}</td>
+                      <td style="vertical-align: middle;">{{clinica.rechazados}}</td>
+                      <td style="vertical-align: middle;">{{clinica.total}}</td>
+                    </tr>
+                    <tr ng-if="Clinicas.length != 0">
+                      <td style="background-color: #E1E5E2; text-align: right;">TOTAL</td>
+                      <td style="background-color: #57627b; color: white;">{{totalClinicas.confirmados}}</td>
+                      <td style="background-color: #57627b; color: white;">{{totalClinicas.pendientes}}</td>
+                      <td style="background-color: #57627b; color: white;">{{totalClinicas.rechazados}}</td>
+                      <td style="background-color: #57627b; color: white;">{{totalClinicas.total}}</td>
+                    </tr>
+                    <tr style="color: #103067;">
+                      <td ng-if="Clinicas.length == 0">Cargando..</td>
+                    </tr>
+                  </tbody>
+                  <tbody ng-repeat="solicitud in Solicitudes" ng-show="vistaactual == 'Solicitudes'" style="color: #73879C;">
+                    <tr style="cursor: pointer;" ng-click="expandir(solicitud.id)">
+                      <td style="vertical-align: middle;">{{solicitud.id}}</td>
+                      <td style="vertical-align: middle;">{{solicitud.estado}}</td>
+                      <td style="vertical-align: middle;">{{solicitud.motivo}}</td>
+                      <td style="vertical-align: middle;">{{solicitud.fechaCreacion}}</td>
+                      <td style="vertical-align: middle;">{{solicitud.fechaModificacion}}</td>
+                    </tr>
+                    <tr>
+                      <td ng-show="expandida == solicitud.id" colspan="5">
+                        <div ng-if="Turnos == undefined">
+                          Cargando..
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody ng-if="Solicitudes.length == 0">
+                    <tr style="color: #103067;">
+                      <td>Cargando..</td>
                     </tr>
                   </tbody>
                 </table>
@@ -46,7 +153,6 @@
             </div>
 
           </div>
-        </md-card>
         
       </md-content>
 
