@@ -13,7 +13,7 @@
     <div style="background-color: white; padding: 30px;">
       <md-content style="padding-bottom: 1px; background-color: white;">
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4 col-md-offset-1">
               <div class="row">
                 <div class="col-md-12" style="text-align: center;">
                   <span style="color: #144498;"><b>Fecha Creación - Desde</b></span>
@@ -21,15 +21,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="row">
-                <div class="col-md-12" style="text-align: center;">
-                  <span style="color: #144498;"><b>Fecha Creación - Hasta</b></span>
-                  <input class="form-control" value="{{fecha_creacion_hasta}}" type="date" ng-model="fecha_creacion_hasta">
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-4 col-md-offset-2">
               <div class="row">
                 <div class="col-md-12" style="text-align: center;">
                   <span style="color: #144498;"><b>Fecha Modificación - Desde</b></span>
@@ -37,7 +29,17 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
+          </div>
+          <div class="row" style="margin-top: 20px;">
+            <div class="col-md-4 col-md-offset-1">
+              <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                  <span style="color: #144498;"><b>Fecha Creación - Hasta</b></span>
+                  <input class="form-control" value="{{fecha_creacion_hasta}}" type="date" ng-model="fecha_creacion_hasta">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 col-md-offset-2">
               <div class="row">
                 <div class="col-md-12" style="text-align: center;">
                   <span style="color: #144498;"><b>Fecha Modificación - Hasta</b></span>
@@ -46,9 +48,9 @@
               </div>
             </div>
           </div>
-          <div class="row" style="margin-bottom: 5px;">
-            <div class="col-md-2 col-md-offset-10">
-              <button style="width: 100%; margin-top: 5px; right: 0;" class="Boton Info" ng-click="ObtenerZonas()">Actualizar</button>
+          <div class="row" style="margin-bottom: 10px; margin-top: 10px;">
+            <div class="col-md-2 col-md-offset-1">
+              <button style="width: 100%; margin-top: 5px; right: 0;" class="Boton Chicle" ng-click="ObtenerZonas()">Actualizar</button>
             </div>
           </div>
 
@@ -98,10 +100,10 @@
                     </tr>
                     <tr ng-if="Zonas.length != 0">
                       <td style="background-color: #E1E5E2; text-align: right;">TOTAL</td>
-                      <td style="background-color: #496fc5; color: white;">{{totalZonas.confirmados}}</td>
-                      <td style="background-color: #496fc5; color: white;">{{totalZonas.pendientes}}</td>
-                      <td style="background-color: #496fc5; color: white;">{{totalZonas.rechazados}}</td>
-                      <td style="background-color: #496fc5; color: white;">{{totalZonas.total}}</td>
+                      <td style="background-color: #c76084; color: white;">{{totalZonas.confirmados}}</td>
+                      <td style="background-color: #c76084; color: white;">{{totalZonas.pendientes}}</td>
+                      <td style="background-color: #c76084; color: white;">{{totalZonas.rechazados}}</td>
+                      <td style="background-color: #c76084; color: white;">{{totalZonas.total}}</td>
                     </tr>
                     <tr style="color: #103067;">
                       <td colspan="5" ng-if="Zonas.length == 0">No se han encontrado resultados con los filtros ingresados.</td>
@@ -117,10 +119,10 @@
                     </tr>
                     <tr ng-if="Clinicas.length != 0">
                       <td style="background-color: #E1E5E2; text-align: right;">TOTAL</td>
-                      <td style="background-color: #57627b; color: white;">{{totalClinicas.confirmados}}</td>
-                      <td style="background-color: #57627b; color: white;">{{totalClinicas.pendientes}}</td>
-                      <td style="background-color: #57627b; color: white;">{{totalClinicas.rechazados}}</td>
-                      <td style="background-color: #57627b; color: white;">{{totalClinicas.total}}</td>
+                      <td style="background-color: #c76084; color: white;">{{totalClinicas.confirmados}}</td>
+                      <td style="background-color: #c76084; color: white;">{{totalClinicas.pendientes}}</td>
+                      <td style="background-color: #c76084; color: white;">{{totalClinicas.rechazados}}</td>
+                      <td style="background-color: #c76084; color: white;">{{totalClinicas.total}}</td>
                     </tr>
                     <tr style="color: #103067;">
                       <td ng-if="Clinicas.length == 0">Cargando..</td>
@@ -138,6 +140,40 @@
                       <td ng-show="expandida == solicitud.id" colspan="5">
                         <div ng-if="Turnos == undefined">
                           Cargando..
+                        </div>
+                        <div ng-if="Turnos != undefined" style="padding: 0px;">
+                         
+                          <div ng-if="Turnos.length == 0" style="color: #FA4081;">No se han encontrado turnos asociados a esta solicitud.</div>
+                          <table ng-if="Turnos.length > 0" class="table" style="border: 1px solid #374C78; width: 100%; margin-bottom: 0px;">
+                            <thead>
+                              <tr style="text-align: center; background-color: #8c465e; color: white;">
+                                <td style="vertical-align: middle;">ESTADO</td>
+                                <td style="vertical-align: middle;">FECHA CREACIÓN</td>
+                                <td style="vertical-align: middle;">FECHA</td>
+                                <td style="vertical-align: middle;">HORA</td>
+                                <td style="vertical-align: middle;">MÉDICO</td>
+                                <td style="vertical-align: middle;">MOTIVO</td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr ng-repeat="turno in Turnos" style="text-align: center;">
+                                <td style="color: orange;" ng-if="turno.confirmacion == 0">
+                                  A CONFIRMAR
+                                </td>
+                                <td style="color: red;" ng-if="turno.confirmacion == 1">
+                                  RECHAZADO POR AFILIADO
+                                </td>
+                                <td style="color: green;" ng-if="turno.confirmacion == 2">
+                                  CONFIRMADO
+                                </td>
+                                <td>{{turno.fechaCreacion}}</td>
+                                <td>{{turno.fechaTurno}}</td>
+                                <td>{{turno.horaTurno}}</td>
+                                <td>{{turno.medicoAsignado}}</td>
+                                <td>{{turno.motivo}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </td>
                     </tr>

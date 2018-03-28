@@ -267,6 +267,24 @@
   cursor: not-allowed;
 }
 
+
+.Chicle{
+    color: #FA4081;
+    border: 1px solid #FA4081;
+}
+
+.Chicle:Hover { 
+    color: white;
+    background-color: #FA4081;
+}
+
+.Chicle:disabled{
+  background-color: grey;
+  color: lightgrey;
+  border: 1px solid lightgrey;
+  cursor: not-allowed;
+}
+
 .Success{
     color: #34bfa3;
     border: 1px solid #34bfa3;
@@ -344,7 +362,7 @@
     padding: 0;
     line-height: 36px;
     list-style: none;
-    background-color: #e6e9ed
+    background-color: #e6e9ed;
 }
 .breadcrumb-arrow li:first-child a {
     border-radius: 4px 0 0 4px;
@@ -377,8 +395,8 @@
     position: relative;
     color: #fff;
     text-decoration: none;
-    background-color: #106cc8;
-    border: 1px solid #106cc8
+    background-color: #FA4081;
+    border: 1px solid #FA4081
 }
 .breadcrumb-arrow li:first-child a {
     padding-left: 10px
@@ -395,21 +413,21 @@
 .breadcrumb-arrow li a:before {
     right: -10px;
     z-index: 3;
-    border-left-color: #106cc8;
+    border-left-color: #FA4081;
     border-left-style: solid;
     border-left-width: 11px
 }
 .breadcrumb-arrow li a:after {
     right: -11px;
     z-index: 2;
-    border-left: 11px solid #2466A9
+    border-left: 11px solid #FA4081
 }
 .breadcrumb-arrow li a:focus, .breadcrumb-arrow li a:hover {
-    background-color: #114273;
-    border: 1px solid #114273
+    background-color: #bd2e60;
+    border: 1px solid #bd2e60
 }
 .breadcrumb-arrow li a:focus:before, .breadcrumb-arrow li a:hover:before {
-    border-left-color: #114273
+    border-left-color: #bd2e60
 }
 .breadcrumb-arrow li a:active {
     background-color: #2466A9;
