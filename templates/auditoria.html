@@ -13,13 +13,13 @@
                     <input type="text" class="form-control" ng-model="filtro.afiliado.nombre" placeholder="Filtrar por nombre.." style="background-color: transparent; border-radius: 0px; color: #337ab7; font-weight: bold;">
                   </td>
                   <td>
-                    <input type="text" class="form-control" ng-model="filtro.climed.nombre" placeholder="Filtrar por clínica.." style="background-color: transparent; border-radius: 0px; color: #337ab7; font-weight: bold;">
+                    <input type="text" class="form-control" ng-model="searchClimed" placeholder="Filtrar por clínica.." style="background-color: transparent; border-radius: 0px; color: #337ab7; font-weight: bold;">
                   </td>
                   <td>
-                    <input type="date" class="form-control" ng-model="filtro.fecha">
+                    <input type="date" class="form-control" ng-model="fecha" ng-change="formatDate(fecha)">
                   </td>
                   <td style="width: 18%;">
-                    <button type="button" class="Boton Brand" style="width: 100%;"><i class="fa fa-filter"></i> LIMPIAR FILTROS</button>
+                    <button type="button" class="Boton Brand" style="width: 100%;" ng-click="limpiarFiltros()"><i class="fa fa-filter"></i> LIMPIAR FILTROS</button>
                   </td>
                 </tr>
                 <tr style="color: #1E4599; background-color: #f5f5f5; text-align: center; vertical-align: middle;">
@@ -42,7 +42,7 @@
                 <tr>
                   <td colspan="6" style="color: #337ab7;" ng-if="solicitudes == undefined"> <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando.. </td>
                 </tr>
-                <tr ng-repeat="x in solicitudes | filter: filtro | filter:{ tipo: 2 || 3, revisado: 0, estado: '!Rechazado' }" style="text-align: center; vertical-align: middle;">
+                <tr ng-repeat="x in solicitudes | filter: filtroClimed | filter: filtro" style="text-align: center; vertical-align: middle;">
                   <td style="vertical-align: middle;">
                     <b>{{x.afiliado.nafiliado}}</b> {{x.afiliado.nombre}} {{x.afiliado.apellido}}
                   </td>
@@ -50,7 +50,7 @@
                     {{x.climed.nombre}}
                   </td>
                   <td style="vertical-align: middle;">
-                    {{x.fecha}}
+                    {{x.fecha | date:'dd/MM/yyyy'}}
                   </td>
                   <td style="vertical-align: middle;">
 
@@ -67,7 +67,7 @@
   </md-content>
 </div>
 
-<div class="modal fade" id="auditar" tabindex="-1" style="z-index: 9999999;" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="auditar" tabindex="-1" style="z-index: 9999999; overflow-y:auto" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -78,15 +78,152 @@
         <form ng-submit="Validar()">
           <center>
             <img src="certificados/{{y.foto}}" width="350px" height="350px" style="margin-top: 5px;">
-            <input ng-if="y.tipo == 3" type="text" style="width: 350px; margin-top: 5px; background-color: transparent; border-radius: 0px; color: #337ab7; font-weight: bold;" class="form-control" placeholder="Ingrese el nombre del estudio" required>
+            
           </center>
           <a href="certificados/{{y.foto}}" download="Solicitud-{{y.id}}" target="_blank"><button type="button" style="margin-top: 10px;" class="Boton Brand"><i class="fa fa-download"></i> DESCARGAR IMAGEN</button></a>
-          <button type="button" style="margin-top: 10px;" ng-click="Autorizar(y.id)" class="Boton Success"><i class="fa fa-check"></i> VALIDAR SOLICITUD</button>
-          <button type="button" style="margin-top: 10px;" ng-click="Rechazar(y.id)" class="Boton Danger"><i class="fa fa-remove"></i> RECHAZAR SOLICITUD</button>
+          <button type="button" style="margin-top: 10px;" ng-click="Rechazar($event, y)" class="Boton Danger"><i class="fa fa-remove"></i> RECHAZAR SOLICITUD</button>
+          
+          <div class="form-group row" style="margin-top: 30px;" ng-show="y.tipo==3">
+            <div class="col-md-6">
+              <label for="especialidades" style="color: #1E4599">
+                <i class="fa fa-fw fa-map-marker"></i>Especialidad</label>
+              </br>
+            
+              <button type="button" data-toggle="modal" data-target="#Espes" class="Boton Metal" style="width: 100%;">
+                <i class="fa fa-fw fa-plus"></i>Añadir Especialidad</button>
+              <a style="color:red;">{{errorText.especialidades}}</a>
+              <ul class="list-group">
+                <li ng-repeat="x in especialidadesAgregar" class="list-group-item">
+                  <div class="row">
+                    <div class="col-md-6">
+                      {{x.nombre}}
+                    </div>
+                    <div style="text-align: right;" class="col-md-6">
+                      <button class="Boton Danger" ng-click="quitarEspecialidad(x)" type="button" style="padding: 1px; padding-left: 2px; padding-right: 2px;">Quitar</button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <label for="clinicas" style="color: #1E4599">
+                <i class="fa fa-fw fa-map-marker"></i>Clinica</label>
+              </br>
+            
+              <button type="button" data-toggle="modal" data-target="#Climed" class="Boton Metal" style="width: 100%;">
+                <i class="fa fa-fw fa-plus"></i>Añadir Clinica</button>
+              <a style="color:red;">{{errorText.climed}}</a>
+              <ul class="list-group">
+                <li ng-repeat="x in clinicasAgregar" class="list-group-item">
+                  <div class="row">
+                    <div class="col-md-6">
+                      {{x.nombre}}
+                    </div>
+                    <div style="text-align: right;" class="col-md-6">
+                      <button class="Boton Danger" ng-click="quitarClinicas(x)" type="button" style="padding: 1px; padding-left: 2px; padding-right: 2px;">Quitar</button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <button type="button" style="margin-top: 10px;" ng-click="Autorizar(y.id)" class="Boton Success" ng-disabled="y.tipo ==3 && (especialidadesAgregar.length == 0 || clinicasAgregar.length == 0)">
+            <i class="fa fa-check"></i> VALIDAR SOLICITUD</button>
         </form>
       </div>
     </div>
   </div>
 </div>
 
+
+</div>
+
+<div class="modal fade" id="Espes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index: 1000000000000">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Especialidades</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search" ng-model="filtroEspecialidades.nombre">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="button">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+        <ul class="list-group" style="margin-top: 5px;">
+          <li ng-repeat="x in Especialidades | filter: filtroEspecialidades | filter:{ estudio: '0'}" style="color: #0D295B; font-size: 16px;"
+            class="list-group-item">
+            <div class="row">
+              <div class="col-md-6">
+                {{x.nombre}}
+              </div>
+              <!-- <div class="col-md-6" style="text-align: right;">
+                  <i ng-show="x.agregado == false" style="color: green;" class="glyphicon glyphicon-plus-sign" ng-click="agregarEspecialidad(x, 'especialidades')"></i>
+                  <i ng-show="x.agregado == true" style="color: orange;" class="glyphicon glyphicon-remove-sign" ng-click="quitarEspecialidad(x, 'especialidades')"></i>
+                </div> -->
+              <div class="col-md-6" style="text-align: right;">
+                <button type="button" ng-click="agregarEspecialidad(x)" ng-class="{'Brand': agregarEspecialidad.indexOf(x) == -1, 'Success': agregarEspecialidad.indexOf(x) != -1}"
+                  ng-disabled="especialidadesAgregar.length > 0" class="Boton">Añadir</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="Climed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index: 1000000000000">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Clinicas</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search" ng-model="filtroClinicas.nombre">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="button">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+        <ul class="list-group" style="margin-top: 5px;">
+          <li ng-repeat="x in Clinicas | filter: filtroClinicas" style="color: #0D295B; font-size: 16px;"
+            class="list-group-item">
+            <div class="row">
+              <div class="col-md-6">
+                {{x.nombre}}
+              </div>
+              <!-- <div class="col-md-6" style="text-align: right;">
+                  <i ng-show="x.agregado == false" style="color: green;" class="glyphicon glyphicon-plus-sign" ng-click="agregarEspecialidad(x, 'especialidades')"></i>
+                  <i ng-show="x.agregado == true" style="color: orange;" class="glyphicon glyphicon-remove-sign" ng-click="quitarEspecialidad(x, 'especialidades')"></i>
+                </div> -->
+              <div class="col-md-6" style="text-align: right;">
+                <button type="button" ng-click="agregarClinica(x)" 
+                  ng-disabled="clinicasAgregar.length > 0" class="Boton" ng-class="{'Brand': agregarEspecialidad.indexOf(x) == -1, 'Success': agregarEspecialidad.indexOf(x) != -1}">Añadir</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+      </div>
+    </div>
+  </div>
 </div>
