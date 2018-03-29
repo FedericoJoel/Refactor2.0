@@ -22,7 +22,7 @@
                         <div class="col-md-6 col-md-offset-3">
                           <label for="nombre" style="color: #1E4599"><i class="fa fa-fw fa-medkit"></i>Nombre</label>
                           <input type="text" class="form-control" ng-model="espeAlta.nombre" placeholder="Nombre de la Especialidad" required>
-                          <i><a style="color:red;">{{errorText.NOMBRE}}<a></i>
+                          <i><a style="color:red;">{{errorText.NOMBRE}}</a></i>
                         </div>
                       </div>
 
@@ -30,18 +30,18 @@
                         <div class="col-md-6 col-md-offset-3">
                           <label for="estudio" style="color: #1E4599"><i class="fa fa-fw fa-medkit"></i>Estudio</label>
                           <select class="form-control" ng-model="espeAlta.estudio" required>
-                            <option selected disabled value>Seleccione..</option>
+                            <option value="">Seleccione ...</option>
                             <option ng-value="1">Si</option>
                             <option ng-value="0">No</option>
                           </select>
-                          <i><a style="color:red;">{{errorText.ESTUDIO}}<a></i>
+                          <i><a style="color:red;">{{errorText.ESTUDIO}}</a></i>
                         </div>
                       </div>
 
                     <div class="row" style="margin-top: 10px;">
                       <i><div style="color:red" class="col-md-3 col-md-offset-3">{{errorMsj}}</div></i>
                       <div class="col-md-3">
-                        <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="Alta();"><i class="fa fa-fw fa-save" style="text-align: left;"></i>Crear Especialidad</button>
+                        <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary"><i class="fa fa-fw fa-save" style="text-align: left;"></i>Crear Especialidad</button>
                       </div>
                     </div>
                   </form>

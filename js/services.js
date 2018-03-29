@@ -78,8 +78,20 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
         .textContent(texto)
         .ok('Ok')
     );
+
+
   };
 
+  $rootScope.$on('notifications:httpError', function (event, responseError) {
+    $mdDialog.show(
+      $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .clickOutsideToClose(true)
+        .title('Error!')
+        .textContent("Hubo un error en el sistema. Intente nuevamente")
+        .ok('Ok')
+    )
+  });
   // this.mensajeExito = function (mensaje) {
   //   if (mensaje = undefined) mensaje = 'Exito al realizar la accion'
   //   $('#mensaje').html('<div class="alert alert-success alert-fixed" role="alert"><strong>¡Exito!</strong> ' + mensaje + '</div>');
@@ -97,14 +109,51 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
 
  // }
 })
-app.service('APIInterceptor', [function () {
+/*app.service('APIInterceptor', [function () {
   var service = this;
 
   service.request = function (config) {
     config.headers.Authorization = 'Bearer '+ localStorage.getItem('token');
     return config;
   };
-}]);
+  service.responseError = function (rejection){
+    console.log(rejection)
+    return rejection.data 
+  }
+}]);*/
+
+app.factory('APIInterceptor', function ($q, $rootScope) {
+    return {
+      // optional method
+      'request': function (config) {
+        // do something on success
+        config.headers.Authorization = 'Bearer ' + localStorage.getItem('token');
+        return config;
+      },
+
+      // optional method
+      'requestError': function (rejection) {
+        // do something on error
+        return $q.reject(rejection);
+      },
+      // optional method
+      'response': function (response) {
+        // do something on success
+        return response;
+      },
+      // optional method
+      'responseError': function (rejection) {
+        // do something on error
+        console.log(rejection)
+        if(rejection.status == 422){
+          return  $q.reject(rejection);
+        }else{
+          $rootScope.$broadcast('notifications:httpError', rejection);
+          return $q.reject(rejection);
+        } 
+      }
+    };
+  });
 
 app.service('Permisos', [function ($stateProvider, $urlRouterProvider) {
 
@@ -171,3 +220,4 @@ app.service('CargarDatos', ['$http', function ($http) {
       })
   }
 }]);
+

@@ -17,7 +17,7 @@
               <div class="panel-body">
 
                 <div class="col-md-12">
-                  <form name="altafrm">
+                  <form ng-submit="Alta()" name="altafrm">
                     <div class="form-group row">
                       <div class="col-md-4">
                         <label for="nombre" style="color: #1E4599">
@@ -25,7 +25,7 @@
                         <input type="text" class="form-control" ng-model="nombre" placeholder="Nombre" required>
                         <i>
                           <a style="color:red;">{{errorText.NOMBRE}}
-                            <a>
+                          </a>
                         </i>
                       </div>
 
@@ -35,14 +35,13 @@
                         <input type="text" class="form-control" ng-model="telefono" placeholder="Telefono" required>
                         <i>
                           <a style="color:red;">{{errorText.TELEFONO}}
-                            <a>
+                          </a>
                         </i>
                       </div>
-                      <div class="col-md-4">
-                        <label for="domicilio" style="color: #1E4599">
+                     <div class="col-md-4">
+                        <label style="color: #1E4599">
                           <i class="fa fa-fw fa-map-marker"></i>Obras Sociales</label>
-                        <input class="outline0" type="text" id="papapa" ng-value="ObrasSocialesAgregar" style="width: 0px; height: 0px; border: 0px;"
-                          required>
+                        <!--<input type="text" id="papapa" ng-value="ObrasSocialesAgregar" style="width: 0px; height: 0px; border: 0px;" required>-->
                         </br>
                         <button type="button" data-toggle="modal" data-target="#OS" class="Boton Metal" style="width: 100%;">
                           <i class="fa fa-fw fa-plus"></i>Añadir Obra Social</button>
@@ -58,6 +57,9 @@
                             </div>
                           </li>
                         </ul>
+                        <i>
+                          <a style="color:red;">{{errorText.obrasSociales}}</a>
+                        </i>
                       </div>
                     </div>
 
@@ -68,7 +70,7 @@
                         <input type="text" class="form-control" ng-model="direccion" placeholder="Direccion" required>
                         <i>
                           <a style="color:red;">{{errorText.DIRECCION}}
-                            <a>
+                          </a>
                         </i>
                       </div>
                       <div class="col-md-4">
@@ -77,7 +79,7 @@
                         <input type="text" class="form-control" ng-model="localidad" placeholder="Localidad" required>
                         <i>
                           <a style="color:red;">{{errorText.LOCALIDAD}}
-                            <a>
+                          </a>
                         </i>
                       </div>
                       <div class="col-md-4">
@@ -109,10 +111,11 @@
                     </div>
                     <div class="row" style="margin-top: 10px;">
                       <div class="col-md-2 col-md-offset-10">
-                        <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="Alta()">
+                        <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="submit">
                           <i class="fa fa-fw fa-save" style="text-align: left;"></i>Alta</button>
                       </div>
                     </div>
+
                   </form>
                 </div>
 
@@ -183,14 +186,14 @@
                           ng-click="Editar(x)">
                           <i class="fa fa-fw fa-edit"></i> Editar
                         </button>
-                        <button ng-disabled="modificando" class="Boton Danger" style="margin-left: 5px; padding: 5px;" ng-click="Eliminar(x)">
+                        <button ng-disabled="modificando" class="Boton Danger" style="margin-left: 5px; padding: 5px;" ng-click="Eliminar($event, x)">
                           <i class="fa fa-fw fa-trash"></i> Eliminar
                         </button>
 
                     </tr>
                   </tbody>
                   <tfoot style="overflow: auto;">
-                    <tr >
+                    <tr>
                       <td colspan="6" style="text-align: center;">
                         <paginado></paginado>
                       </td>
