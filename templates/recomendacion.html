@@ -22,7 +22,7 @@
 
                 <table class="table table-bordered table-hover" style="margin-bottom: 0px;">
                   <thead>
-                    <tr>
+                    <tr style="background-color: #bd2e60; text-align: center; color: white;">
                       <td>NOMBRE</td>
                       <td>APELLIDO</td>
                       <td>COMENTARIO</td>
@@ -37,7 +37,7 @@
                       <td><button type="button" ng-click="Contactar(recomendacion.id)" class="Boton Primary" style="width: 100%;"> <i class="glyphicon glyphicon-ok"></i> Contactar</button></td>
                     </tr>
                     <tr style="color: #103067;">
-                      <td ng-if="Recomendaciones.length == 0">No se han encontrado recomendaciones que no hayan sido contactadas.</td>
+                      <td colspan="4" ng-if="Recomendaciones.length == 0">No se han encontrado recomendaciones que no hayan sido contactadas.</td>
                     </tr>
                   </tbody>
                 </table>
