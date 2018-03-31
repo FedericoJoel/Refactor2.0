@@ -201,7 +201,6 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
       $scope.email = null;
       $scope.obrasSociales = [];
       $scope.ObrasSocialesAgregar = [];
-      $scope.perfiles = [];
     }
 
     $scope.ObrasSocialesAgregar = []
@@ -1315,13 +1314,16 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
           'latitude': 0,
           'longitude': 0,
           'TELEFONO': $scope.medicoModif.telefono,
-          'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id),
-          'especialidades': $scope.medicoModif.especialidades
+          'obrasSociales': $scope.ObrasSocialesAgregarMod.map(OS => OS.id),
+        'especialidades': $scope.medicoModif.especialidades.map(Esp => Esp.id)
         })
 
         .success(function (response) {
+          UserSrv.alertOk("La clinica o particular fue editado con exito.");
           $scope.ObtenerMedicos()
-          alert('OK');
+        }).error(function (response) {
+          $scope.errorText = response;
+          $scope.errorMsj = "*Revise los datos e intente nuevamente";
         })
     }
 

@@ -21,21 +21,21 @@
 											<div class="col-md-5">
 												<label for="nombre" style="color: #1E4599">
 													<i class="fa fa-fw fa-user"></i>Nombre</label>
-												<input type="text" class="form-control" ng-model="name" ng-change="ComprobarUsername()" placeholder="Nombre">
+												<input type="text" class="form-control" ng-model="name" ng-change="ComprobarUsername()" placeholder="Nombre" required>
 												<p class="help-block" id="comprobuser"></p>
 												<i>
 													<a style="color:red;">{{errorText.NOMBRE}}
-														<a>
+													</a>
 												</i>
 											</div>
 											<div class="col-md-4">
 												<label for="nombre" style="color: #1E4599">
 													<i class="fa fa-fw fa-user"></i>Email</label>
-												<input type="text" class="form-control" ng-model="email" placeholder="Email">
+												<input type="text" class="form-control" ng-model="email" placeholder="Email" required>
 
 												<i>
 													<a style="color:red;">{{errorText.EMAIL}}
-														<a>
+													</a>
 												</i>
 											</div>
 											<div class="col-md-3">
@@ -48,15 +48,12 @@
 											</div>
 
 										</div>
-
-
-
 										<div class="form-group row" style="margin-top: 30px;">
 											<div class="col-md-4">
 												<label for="cuil" style="color: #1E4599">
 													<i class="fa fa-fw fa-dedent"></i>Perfil</label>
 												<select class="form-control" ng-model="id_perfil" required>
-
+													<option value="">Selecione ...</option>
 													<option ng-repeat="x in perfiles" ng-value="x.id">
 														{{x.nombre}}
 													</option>
@@ -65,8 +62,7 @@
 											<div class="col-md-6">
 												<label for="domicilio" style="color: #1E4599">
 													<i class="fa fa-fw fa-map-marker"></i>Obras Sociales</label>
-												<input class="outline0" type="text" id="papapa" ng-value="ObrasSocialesAgregar" style="width: 0px; height: 0px; border: 0px;"
-												    required>
+												
 												</br>
 												<button type="button" data-toggle="modal" data-target="#OS" class="Boton Metal" style="width: 100%;">
 													<i class="fa fa-fw fa-plus"></i>Añadir Obra Social</button>
@@ -82,6 +78,9 @@
 														</div>
 													</li>
 												</ul>
+												<i>
+													<a style="color:red;">{{errorText.obrasSociales}}</a>
+												</i>
 											</div>
 										</div>
 
@@ -93,7 +92,7 @@
 												</i>
 											</div>
 											<div class="col-md-2 col-md-offset-4">
-												<button style="margin-bottom: 10px; width: 100%;" type="submit" ng-click="Alta()" class="Boton Primary" ng-click="submit">
+												<button style="margin-bottom: 10px; width: 100%;" type="submit"  class="Boton Primary">
 													<b>Alta</b>
 												</button>
 											</div>
@@ -199,7 +198,7 @@
 												<div class="col-md-5">
 													<label for="nombre" style="color: #1E4599">
 														<i class="fa fa-fw fa-user"></i>Nombre</label>
-													<input type="text" class="form-control" ng-model="userModificando.name" ng-change="ComprobarUsername()" placeholder="Nombre">
+													<input type="text" class="form-control" ng-model="userModificando.name" ng-change="ComprobarUsername()" placeholder="Nombre" required>
 													<p class="help-block" id="comprobuser"></p>
 													<i>
 														<a style="color:red;">{{errorText.NAME}}
@@ -209,7 +208,7 @@
 												<div class="col-md-4">
 													<label for="nombre" style="color: #1E4599">
 														<i class="fa fa-fw fa-user"></i>Email</label>
-													<input type="text" class="form-control" ng-model="userModificando.email" placeholder="Email">
+													<input type="text" class="form-control" ng-model="userModificando.email" placeholder="Email" required>
 
 													<i>
 														<a style="color:red;">{{errorText.EMAIL}}
@@ -259,7 +258,7 @@
 													</i>
 												</div>
 												<div class="col-md-2 col-md-offset-4">
-													<button style="margin-bottom: 10px; width: 100%;" type="submit" ng-click="Guardar()" class="Boton Primary" ng-click="submit">
+													<button style="margin-bottom: 10px; width: 100%;" type="submit"  class="Boton Primary" ng-click="submit">
 														<b>Guardar</b>
 													</button>
 												</div>

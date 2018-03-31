@@ -131,6 +131,9 @@
                             </div>
                           </li>
                         </ul>
+                        <i>
+                          <a style="color:red;">{{errorText.obrasSociales}}</a>
+                        </i>
                       </div>
                     </div>
                     <div class="row">
@@ -294,7 +297,7 @@
                 </div>
                 <div class="panel-body">
                   <div class="col-md-12">
-                    <form name="altafrm">
+                    <form name="altafrm" ng-submit="Guardar()">
                       <div class="form-group row">
                         <div class="col-md-4">
                           <label for="nombre" style="color: #1E4599">
@@ -395,7 +398,7 @@
 
                         <div class="col-md-6">
                           <label style="color: #1E4599">
-                            <i class="fa fa-fw fa-map-marker"></i>Obras Sociales +{{algo}}</label>
+                            <i class="fa fa-fw fa-map-marker"></i>Obras Sociales</label>
                           <input class="outline0" type="text" id="papapa" ng-value="ObrasSocialesAgregar" style="width: 0px; height: 0px; border: 0px;">
                           </br>
                           <button type="button" data-toggle="modal" data-target="#OS" class="Boton Metal" style="width: 100%;">
@@ -441,7 +444,7 @@
                           <a style="color:red;">{{errorMsj}}</a>
                         </div>
                         <div class="col-md-2 col-md-offset-6">
-                          <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="Guardar()">
+                          <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary">
                             <i class="fa fa-fw fa-save" style="text-align: left;"></i>Guardar</button>
                         </div>
                       </div>
