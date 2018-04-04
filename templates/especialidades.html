@@ -143,7 +143,9 @@
                         <div class="col-md-6 col-md-offset-3">
                           <label for="nombre" style="color: #1E4599"><i class="fa fa-fw fa-medkit"></i>Nombre</label>
                           <input type="text" class="form-control" ng-model="espeModif.nombre" placeholder="Nombre" required>
-                          <!-- <i><a style="color:red;">{{errorText.NOMBRE}}</a></i> -->
+                          <i>
+                            <a style="color:red;">{{errorText.NOMBRE}}</a>
+                          </i>
                         </div>
                       </div>
 
@@ -154,6 +156,9 @@
                             <option ng-value="1" ng-selected="espeModif.estudio == 1">Si</option>
                             <option ng-value="0" ng-selected="espeModif.estudio == 0">No</option>
                           </select>
+                          <i>
+                            <a style="color:red;">{{errorText.ESTUDIO}}</a>
+                          </i>
                         </div>
                       </div>
 

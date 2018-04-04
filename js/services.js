@@ -68,6 +68,8 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
       .textContent(texto)
       .ok('Ok')
     );
+
+    
   };
   this.alertError = function (texto) {
     $mdDialog.show(
@@ -82,6 +84,8 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
 
   };
 
+
+
   $rootScope.$on('notifications:httpError', function (event, responseError) {
     $mdDialog.show(
       $mdDialog.alert()
@@ -92,14 +96,14 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
         .ok('Ok')
     )
   });
-  // this.mensajeExito = function (mensaje) {
-  //   if (mensaje = undefined) mensaje = 'Exito al realizar la accion'
-  //   $('#mensaje').html('<div class="alert alert-success alert-fixed" role="alert"><strong>¡Exito!</strong> ' + mensaje + '</div>');
-  //   setTimeout(function () {
-  //     $('#mensaje').html('');
-  //   }, 2000);
+  this.mensajeExito = function (mensaje) {
+     if (mensaje = undefined) mensaje = 'Exito al realizar la accion'
+    $('#mensaje').html('<div class="alert alert-success alert-fixed" role="alert"><strong>¡Exito!</strong> ' + mensaje + '</div>');
+    setTimeout(function () {
+       $('#mensaje').html('');
+     }, 2000);
 
-  // }
+   }
   // this.mensajeError = function (mensaje) {
   //   if (mensaje = undefined) mensaje = 'Error al realizar la accion'
   //   $('#mensaje').html('<div class="alert alert-error alert-fixed" role="alert"><strong>¡Error!</strong> ' + mensaje + '</div>');

@@ -921,14 +921,15 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
         })
 
         .success(function (response) {
+         
           UserSrv.alertOk('Se edito con exito.');
-          $scope.modificando = true;
           limpiarErrores();
         }).error(function (response) {
           $scope.errorText = response;
           $scope.errorMsj = "*Revise los datos e intente nuevamente";
         })
     }
+
 
     $scope.Eliminar = function (ev, x) {
       // Appending dialog to document.body to cover sidenav in docs app
@@ -977,6 +978,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
 
         .success(function (response) {
           console.log(response);
+          
           UserSrv.alertOk('Se dio de alta con exito.');
           limpiarCamposAlta();
           // $route.reload();
@@ -1290,7 +1292,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
       $http.get('http://des.gestionarturnos.com/climed/traerElementos')
 
         .success(function (response) {
-          $scope.medicos = response.filter(medico => medico.particular == 1)
+          $scope.medicos = response
           console.log($scope.medicos);
           $scope.Cargando = "";
         })
@@ -1368,6 +1370,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
           console.log($scope.lng);
           console.log($scope.lat);
           limpiarcampos()
+          
           UserSrv.alertOk('El medico se dio de alta correctamente');
         }).error(function (response) {
           $scope.errorText = response;
@@ -1375,6 +1378,11 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
         })
     }
 
+    $scope.changeFormat = function(particular){
+      if(particular == 1)
+        return 'Si'
+        return 'No'
+    }
     limpiarcampos = function () {
       $scope.errorText = '';
       $scope.errorMsj = '';
@@ -1475,6 +1483,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
         .success(function (response) {
           console.log(response);
           UserSrv.alertOk('Farmacia creada con exito.');
+          limpiarCampos()
 
         }).error(function (response) {
           $scope.errorText = response;
@@ -1547,6 +1556,19 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
         })
     }
 
+    var limpiarErrores = function (){
+      $scope.errorText = null
+      $scope.errorMsj = null
+    }
+    var limpiarCampos = function(){
+      $scope.nombre = null
+      $scope.telefono = null
+      $scope.ObrasSocialesAgregar = []
+      $scope.errorText = null
+      $scope.errorMsj = null
+      $scope.direccion = null
+      $scope.localidad = null
+    }
     $scope.ObtenerOS()
 
 
@@ -1573,7 +1595,6 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
       $http.get('http://des.gestionarturnos.com/especialidad/traerElementos')
         .success(function (response) {
           $scope.Especialidades = response;
-          $scope.paginar();
           $scope.Cargando = "";
         })
     }
@@ -1619,7 +1640,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
 
       $http.put('http://des.gestionarturnos.com/especialidad/' + $scope.espeModif.id, {
           'NOMBRE': $scope.espeModif.nombre,
-          'ESTUDIO': $scope.espeModif.estudio
+          'ESTUDIO': $scope.espeModif.estudio,
+        'IDESPECIALIDAD': $scope.espeModif.id
         })
         .success(function (response) {
           UserSrv.alertOk('Editado con exito.');
@@ -1636,14 +1658,14 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
       $scope.modificando = true;
     }
 
-    limpiarErrores = function () {
+    var limpiarErrores = function () {
       $scope.errorText = null;
       $scope.errorMsj = null;
     }
 
-    limpiarCampos = function () {
-      $scope.espeModif.nombre = null;
-      $scope.espeModif.estudio = 0;
+    var limpiarCampos = function () {
+      $scope.espeAlta.nombre = null;
+      $scope.espeAlta.estudio = 0;
     }
 
 

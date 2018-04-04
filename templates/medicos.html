@@ -7,7 +7,7 @@
 
           <div class="row">
             <div class="col-md-12">
-              <div style="background-color: #FA4081; color: white; font-size: 12pt; padding-left: 10px; padding: 15px;">
+              <div class="titulo">
                 Alta de un nuevo Médico
               </div>
             </div>
@@ -83,7 +83,7 @@
                         <input class="outline0" type="text" id="pepepepe" ng-model="lat" style="width: 0px; height: 0px; border: 0px;" required disabled>
                         <button class="Boton Success" ng-disabled="!esconderMapa" style="width: 100%;" ng-click="Mapa()" type="button">
                           <img src="images/mapa.png" width="20px" height="20px" style="float: left;" />UBICAR</button>
-                        <a style="color:red;">{{errorText.latitud}}</a>
+                        <a style="color:red;">{{errorText.latitude}}</a>
                       </div>
                     </div>
 
@@ -179,7 +179,7 @@
         <md-content>
           <div class="row">
             <div class="col-md-12">
-              <div style="background-color: #FA4081; color: white; font-size: 12pt; padding-left: 10px; padding: 15px;">
+              <div class="titulo">
                 Baja / Modificación de Medicos
               </div>
             </div>
@@ -189,7 +189,7 @@
 
               <div class="panel panel-default col-md-12" style="margin-top: 20px; padding: 0px;">
                 <!-- Default panel contents -->
-                <div class="panel-heading" style="background-color: #FA4081; font-size: 12pt; color: white;">Medicos disponibles</div>
+                <div class="subtitulo" >Medicos disponibles</div>
 
                 <!-- Table -->
                 <table class="table table-hover table-striped table-bordered">
@@ -262,7 +262,7 @@
                     </tr>
                     <tr ng-repeat="x in medicos | orderBy:sortType:sortReverse |  filter:filtro as filteredElems track by $index" ng-if="separarPaginas($index)">
                       <td style="vertical-align: middle;">{{x.nombre}}</td>
-                      <td style="vertical-align: middle;">{{x.particular}}</td>
+                      <td style="vertical-align: middle;">{{changeFormat(x.particular)}}</td>
                       <td style="vertical-align: middle;">{{x.zona}}</td>
                       <td style="vertical-align: middle;">{{x.localidad}}</td>
                       <td style="vertical-align: middle;">{{x.domicilio}}</td>
@@ -292,7 +292,7 @@
           <div class="row" ng-show="modificando" style="padding: 10px;">
             <div class="col-md-12">
               <div class="panel panel-default col-md-12" style="margin-top: -10px; padding: 0px;">
-                <div class="panel-heading" style="background-color: #FA4081; font-size: 12pt; color: white;">Editando Medico
+                <div class="subtitulo" >Editando Medico
                   <button type="button" ng-click="afiliadoModificando = undefined; modificando = false; ObtenerMedicos();" class="close" aria-hidden="true">&times;</button>
                 </div>
                 <div class="panel-body">
@@ -313,8 +313,8 @@
                             <i class="fa fa-fw fa-medkit"></i>Particular</label>
                           <select class="form-control" ng-model="medicoModif.particular" required>
                             <option selected disabled value>Seleccione..</option>
-                            <option ng-value="1">Si</option>
-                            <option ng-value="0">No</option>
+                            <option ng-value="1" ng-selected="medicoModif.particular == 1">Si</option>
+                            <option ng-value="0" ng-selected="medicoModif.particular == 0">No</option>
                           </select>
                           <i>
                             <a style="color:red;">{{errorText.PARTICULAR}}

@@ -7,6 +7,34 @@
     border-radius: 0px;
     display: none
 }
+
+.titulo {
+   /*background: linear-gradient(to left, rgba(72, 177, 234, 1) 0%, rgba(31, 150, 229, 1) 100%);*/
+    background: linear-gradient(to left, rgba(147, 206, 222, 1) 0%, rgba(117, 189, 209, 1) 41%, rgba(73, 165, 191, 1) 100%);
+    font-size: 12pt;
+    padding-left: 10px;
+    padding: 15px;
+    color: white
+}
+.subtitulo {
+    background-color: #337ab7;
+    font-size: 12pt;
+    padding-left: 10px;
+    padding: 15px;
+    color: white
+}
+
+.md-dialog-container {
+    position: fixed;
+    top: 0 !important;
+    overflow: hidden;
+}
+
+.md-dialog-is-showing {
+    position: fixed;
+    top: 0 !important;
+    overflow: hidden;
+}
 .angular-google-map-container {
     height: 300px;
 }

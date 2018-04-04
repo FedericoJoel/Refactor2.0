@@ -75,7 +75,7 @@
 
 </head>
 <div ui-view="login"></div>
-<body style="overflow: auto; background-color: lightgrey;" ng-controller="permisosCrt">
+<body style="overflow: auto; background-color: whitesmoke;" ng-controller="permisosCrt">
   
   <div id="wrapper" ng-style="estiloWrapper">
     <div id="controllerpiola">
@@ -204,19 +204,19 @@
             <li >
               <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-cubes"></i> ABMS <i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="demo2" class="collapse">
-                <li style="background-color: lightgrey; color: white;" ng-show="PS.tienePermiso('afiliado')">
+                <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('afiliado')">
                   <a href="#" ui-sref="abmafi" style="color: black;" ><i class="fa fa-fw fa-users"></i> Afiliados</a>
                 </li>
-                <li style="background-color: lightgrey; color: white;" ng-show="PS.tienePermiso('climed')">
+                <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('climed')">
                   <a href="#" ui-sref="abmmed" style="color: black;"><i class="fa fa-fw fa-user-md"></i> Medicos</a>
                 </li>
-                <li style="background-color: lightgrey; color: white;" ng-show="PS.tienePermiso('medico')">
+                <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('medico')">
                   <a href="#" ui-sref="abmcli" style="color: black;" ><i class="fa fa-fw fa-hospital-o"></i> Clínicas</a>
                 </li>
-                <li style="background-color: lightgrey; color: white;" ng-show="PS.tienePermiso('farmacia')">
+                <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('farmacia')">
                   <a href="#" ui-sref="abmfar" style="color: black;"><i class="fa fa-fw fa-medkit"></i> Farmacias</a>
                 </li>
-                <li style="background-color: lightgrey; color: white;" ng-show="PS.tienePermiso('especialidad')">
+                <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('especialidad')">
                   <a href="#" ui-sref="abmesp" style="color: black;"><i class="fa fa-fw fa-stethoscope"></i> Especialidades</a>
                 </li>
               </ul>
@@ -273,8 +273,10 @@
       </nav>
       <!-- Navigation -->
 
-      <div id="page-wrapper" style="background-color: lightgrey; height: 100%;">
-        <div ui-view></div>
+      <div id="page-wrapper" style="background-color: whitesmoke; height: 100%;">
+        <div ui-view>
+
+        </div>
       </div>
       <!-- /#page-wrapper -->
     </div>
