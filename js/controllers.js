@@ -76,6 +76,25 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
         })
     }
 
+    $scope.userPass = function (x){
+      $scope.userCambio = x;
+    }
+
+    $scope.ChangePassword = function() {
+      if($scope.nuevaContrasena != undefined && $scope.nuevaContrasena != '' && $scope.nuevaContrasena != null){
+        $http.post('http://des.gestionarturnos.com/user/cambiarPassword', {
+          'id': $scope.userCambio.id,
+          'password': $scope.nuevaContrasena
+        })
+
+        .success(function (response) {
+          UserSrv.alertOk('La contraseña fue modificada correctamente.');
+        }).error(function (response) {
+          $scope.errorText = response;
+        })
+      }else{$scope.nuevaContrasenaError = 'Por favor, complete el campo de contraseña.';}
+    }
+
     $scope.Guardar = function () {
       $http.put('http://des.gestionarturnos.com/user/' + $scope.userModificando.id, {
           'name': $scope.userModificando.name,
