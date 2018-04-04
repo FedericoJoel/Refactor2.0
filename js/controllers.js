@@ -19,6 +19,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
           var decoded = jwt_decode(token);
           localStorage.setItem('token', token);
           localStorage.setItem('logueado', true);
+          localStorage.setItem('userName', $scope.name);
           localStorage.setItem('permisos', decoded.permisos);
           $state.go('inicio')
 
@@ -28,6 +29,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
         })
 
     }
+
+    
   })
 
   .controller('usuariosCrt', function ($scope, $http, $mdDialog, UserSrv, $filter, Permisos) {
@@ -71,6 +74,25 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
           $scope.errorText = response;
           $scope.errorMsj = "*Revise los datos e intente nuevamente";
         })
+    }
+
+    $scope.userPass = function (x){
+      $scope.userCambio = x;
+    }
+
+    $scope.ChangePassword = function() {
+      if($scope.nuevaContrasena != undefined && $scope.nuevaContrasena != '' && $scope.nuevaContrasena != null){
+        $http.post('http://des.gestionarturnos.com/user/cambiarPassword', {
+          'id': $scope.userCambio.id,
+          'password': $scope.nuevaContrasena
+        })
+
+        .success(function (response) {
+          UserSrv.alertOk('La contraseña fue modificada correctamente.');
+        }).error(function (response) {
+          $scope.errorText = response;
+        })
+      }else{$scope.nuevaContrasenaError = 'Por favor, complete el campo de contraseña.';}
     }
 
     $scope.Guardar = function () {
@@ -224,6 +246,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
       $state.go("login")
 
     }
+
+    $scope.userName = localStorage.getItem('userName');
 
 
   })
@@ -1825,20 +1849,6 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar','GestionarApp.
           console.log($scope.Recomendaciones);
           $scope.Cargando = "";
         })
-    }
-
-
-    $scope.Contactar = function (id) {
-
-      $http.get('http://des.gestionarturnos.com/recomendacion/contactado/' + id)
-        .success(function (response) {
-          UserSrv.alertOk('Recomendacion marcada como contactada.');
-          $scope.ObtenerRecomendaciones();
-        }).error(function (response) {
-          $scope.errorText = response;
-          $scope.errorMsj = "*Revise los datos e intente nuevamente";
-        })
-
     }
 
     $scope.ObtenerZonas();

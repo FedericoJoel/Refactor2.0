@@ -171,6 +171,9 @@
 												<button ng-disabled="modificando" class="Boton Danger" style="margin-left: 5px; padding: 5px;" ng-click="Eliminar($event,x)">
 													<i class="fa fa-fw fa-trash"></i> Eliminar
 												</button>
+												<button ng-disabled="modificando" class="Boton Brand" ng-click="userPass(x)" style="padding: 5px;" data-toggle="modal" data-target="#ChangePassword">
+													<i class="fa fa-fw fa-key"></i> Cambiar Contraseña
+												</button>
 
 										</tr>
 									</tbody>
@@ -320,6 +323,32 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="ChangePassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Cambio de contraseña <b>({{userCambio.name}})</b></h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+		  <span class="input-group-addon">
+		  	<i class="fa fa-key"></i>
+		  </span>
+		  <input ng-model="nuevaContrasena" type="password" class="form-control" aria-label="Amount (to the nearest dollar)">
+		  <span style="background-color: #337ab7; color: white; border-color: #337ab7;" class="input-group-addon" data-dismiss="modal" ng-click="ChangePassword()">
+		  	Confirmar
+		  </span>
+		</div>
+		<div style="color: red;">
+			{{nuevaContrasenaError}}
+		</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div style="padding: 10px; padding-top: 60px; margin-bottom: 5%;">
 
 
