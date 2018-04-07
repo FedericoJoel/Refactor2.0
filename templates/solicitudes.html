@@ -1,9 +1,9 @@
 <div style="padding: 10px; padding-top: 60px; margin-bottom: 5%;">
 
-  <div style="box-shadow: 0px 0px 4px grey; margin-bottom: 10px;">
+  <div class="main-card">
     <div class="row">
       <div class="col-md-12">
-        <div style="background-color: #FA4081; color: white; font-size: 12pt; padding-left: 10px; padding: 15px;">
+        <div class="titulo">
           Filtros
         </div>
       </div>
@@ -65,18 +65,18 @@
 
 
 
-  <div style="box-shadow: 0px 0px 4px grey;">
+  <div class="main-card">
 
     <div class="row">
       <div class="col-md-12">
-        <div style="background-color: #FA4081; color: white; font-size: 12pt; padding-left: 10px; padding: 15px;">
+        <div class="titulo">
           Gestionar solicitudes 
         </div>
       </div>
     </div>
 
     <div style="background-color: white; padding: 30px;">
-      <md-content>
+      
 
           <div ng-if="Cargando !== ''" style="padding: 0px; border: 0px;" class="alert alert-warning">
             <md-progress-linear md-mode="indeterminate"></md-progress-linear>
@@ -99,7 +99,7 @@
                   </thead>
                   <tbody>
                     <tr style="cursor: pointer;" data-toggle="modal" data-target="#detalleSolicitud" ng-repeat="solicitud in solicitudes | filter:filtroFechaDesde | filter:filtroFechaHasta | filter:filtroTipo | filter:filtroEstado  as filteredElems track by $index"
-                      ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)" ng-click="Detallar(solicitud)">
+                      ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)" ng-click="Detallar(solicitud)" ng-click="asignarseSolicitud(solicitud.id)">
                       <td>{{solicitud.afiliado.dni}}</td>
                       <td ng-if="solicitud.tipo != '3'">{{solicitud.climed.nombre}}</td>
                       <td ng-if="solicitud.tipo == '3'">ESTUDIO</td>
@@ -128,7 +128,7 @@
           </div>
 
         
-      </md-content>
+     
 
     </div>
     
@@ -142,7 +142,7 @@
         <div class="row">
           <div class="col-md-12">
             <div style="box-shadow: 0px 0px 4px grey;">
-              <div style="background-color: #FA4081; color: white; padding: 10px;">
+              <div class="titulo">
                 <span style="text-align: left;">DETALLE DE LA SOLICITUD
                   <b>#{{idexpandida}}</b>
                 </span>
@@ -195,7 +195,7 @@
                   <h5>
                     <table class="table table-bordered">
                       <thead>
-                        <tr style="background-color: lightgrey; color: #063f5f;">
+                        <tr class="subtitulo" style="color: white">
                           <td>FECHA</td>
                           <td>HORA</td>
                           <td>MEDICO</td>

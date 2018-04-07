@@ -101,6 +101,17 @@ app.run(function($rootScope,$state) {
       }
       else if (!permisos.some(permiso => permiso == window.location.hash.substr(2))) {
       $state.go('inicio')
-    }
+      }else{
+        $rootScope.$on('$stateChangeSuccess',
+          function (event, toState, toParams, fromState, fromParams) {
+            console.log(fromState)
+            if(fromState.name == 'solicitudes' && toState.name != 'solicitudes'){
+              var socket = io.connect('http://localhost:4050');
+              socket.emit('deleteClient', localStorage.getItem('user_id'))
+            }
+          }
+        )
+        //socket.emit('deleteClient', localStorage.getItem('user_id'))
+      }
   })
 })

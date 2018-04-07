@@ -10,7 +10,8 @@
     "angular-material": "^1.1.7",
     "angular-messages": "^1.6.9",
     "bower": "^1.8.2",
-    "jwt-decode": "^2.2.0"
+    "jwt-decode": "^2.2.0",
+    "socket.io": "^2.1.0"
   },
   "devDependencies": {},
   "scripts": {
