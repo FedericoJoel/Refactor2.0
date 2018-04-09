@@ -109,7 +109,6 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
     );
     $("#mensaje").show();
     $('#mensajeContainer').addClass('animated zoomIn')
-    $('#mensajeContainer').css('-vendor-animation-duration: 1s;')
     setTimeout(function () { 
       $('#mensajeContainer').removeClass('animated zoomIn')
       $('#mensajeContainer').addClass('animated zoomOut') 
