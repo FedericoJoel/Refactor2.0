@@ -444,14 +444,14 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
   .controller('solicitudesCrt', function ($scope, $http, $mdDialog, UserSrv, $filter, Permisos) {
 
-    /*var socket = io.connect('http://localhost:4050');
+    var socket = io.connect('http://gestionar.herokuapp.com:80');
     socket.emit('storeClientInfo', {
       customId: localStorage.getItem('user_id')
     })
 
     socket.on('actualizarSolicitudes', function (data) {
       traerSolicitudes()
-    })*/
+    })
 
     /*$http.post('http://localhost:5111/actualizarClientes', [localStorage.getItem('user_id') ])
       .success(function (response) {
@@ -626,7 +626,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.asignarseSolicitud = function (idSolicitud) {
-      $http.post('http://des.gestionarturnos.com/solicitud/abrir', idSolicitud)
+      $http.post('http://des.gestionarturnos.com/solicitud/abrir', {'id': idSolicitud})
 
         .error(function (response) {
           UserSrv.alertError('Hubo un error al asignar la solicitud. Intente nuevamente.');
