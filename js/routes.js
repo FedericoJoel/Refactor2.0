@@ -106,7 +106,7 @@ app.run(function($rootScope,$state) {
           function (event, toState, toParams, fromState, fromParams) {
             console.log(fromState)
             if(fromState.name == 'solicitudes' && toState.name != 'solicitudes'){
-              var socket = io.connect('http://localhost:4050');
+              var socket = io.connect('http://gestionar.herokuapp.com:80');
               socket.emit('deleteClient', localStorage.getItem('user_id'))
             }
           }

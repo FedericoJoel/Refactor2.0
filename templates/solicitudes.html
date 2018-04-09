@@ -100,7 +100,7 @@
                   </thead>
                   <tbody>
                     <tr style="cursor: pointer;" data-toggle="modal" data-target="#detalleSolicitud" ng-repeat="solicitud in solicitudes | filter:filtroFechaDesde | filter:filtroFechaHasta | filter:filtroTipo | filter:filtroEstado  as filteredElems track by $index"
-                      ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)" ng-click="Detallar(solicitud)" ng-click="asignarseSolicitud(solicitud.id)">
+                      ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)" ng-click="Detallar(solicitud)" >
                       <td>{{solicitud.afiliado.dni}}</td>
                       <td ng-if="solicitud.tipo != '3'">{{solicitud.climed.nombre}}</td>
                       <td ng-if="solicitud.tipo == '3'">ESTUDIO</td>

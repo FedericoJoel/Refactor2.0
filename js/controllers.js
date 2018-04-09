@@ -660,6 +660,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     }
     $scope.Detallar = function (solicitud) {
+      $scope.asignarseSolicitud(solicitud.id)
       $scope.solicitudexpandida = solicitud;
       $scope.datoexpandida = solicitud;
       $scope.idexpandida = solicitud.id;
