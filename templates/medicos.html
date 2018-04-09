@@ -1,10 +1,13 @@
 <div style="padding: 10px; padding-top: 60px;">
 
   <md-content class="main-card">
+    <div id="mensaje"></div>
     <md-tabs md-dynamic-height md-border-bottom>
+
       <md-tab label="Alta" ng-click="borrarOS()">
+
         <md-content class="noScroll">
-          <div id="mensaje"></div>
+
           <div class="row">
             <div class="col-md-12">
               <div class="titulo">
@@ -189,7 +192,7 @@
 
               <div class="panel panel-default col-md-12" style="margin-top: 20px; padding: 0px;">
                 <!-- Default panel contents -->
-                <div class="subtitulo" >Medicos disponibles</div>
+                <div class="subtitulo">Medicos disponibles</div>
 
                 <!-- Table -->
                 <table class="table table-hover table-striped table-bordered">
@@ -292,7 +295,7 @@
           <div class="row" ng-show="modificando" style="padding: 10px;">
             <div class="col-md-12">
               <div class="panel panel-default col-md-12" style="margin-top: -10px; padding: 0px;">
-                <div class="subtitulo" >Editando Medico
+                <div class="subtitulo">Editando Medico
                   <button type="button" ng-click="afiliadoModificando = undefined; modificando = false; ObtenerMedicos();" class="close" aria-hidden="true">&times;</button>
                 </div>
                 <div class="panel-body">

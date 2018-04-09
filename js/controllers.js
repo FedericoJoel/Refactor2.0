@@ -935,6 +935,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     }
 
+
     $scope.Editar = function (x) {
       console.log(x.obra_social);
       x.nacimiento = moment(x.nacimiento).format('YYYY-MM-DD');
@@ -1394,6 +1395,9 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       })
     }
 
+    $scope.alerta = function() {
+      UserSrv.alertOk('La accion ha sido realizada con exito')
+    }
     $scope.Alta = function () {
       var data = {
         'NOMBRE': $scope.medicoAlta.nombre,
@@ -1413,7 +1417,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           console.log($scope.lng);
           console.log($scope.lat);
           limpiarcampos()
-          UserSrv.mensajeExito()
+          UserSrv.alertOk('La clinica o partucular fue dada de alta correctamente')
           //UserSrv.alertOk('El medico se dio de alta correctamente');
         }).error(function (response) {
           $scope.errorText = response;

@@ -56,7 +56,7 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
   //     );
   //   };
 
-  this.alertOk = function (texto) {
+  /*this.alertOk = function (texto) {
     // Appending dialog to document.body to cover sidenav in docs app
     // Modal dialogs should fully cover application
     // to prevent interaction outside of dialog
@@ -68,10 +68,55 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
       .textContent(texto)
       .ok('Ok')
     );
+  };*/
+  this.alertOk = function(texto) {
+    $("#mensaje").html(
+     ' <div class="container ">'+
+        '<div class="row">'+
+          '<div class="col-sm-6 col-md-6 col-sm-offset-2 col-md-offset-2">'+
+            '<div class="alert alert-success alert-fixed" id="mensajeContainer" style="-webkit-animation-duration: 0.5s;">'+
+              '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+              '<span class="glyphicon glyphicon-ok"></span> <strong>Exito!</strong>'+
+              '<hr class="message-inner-separator">'+
+              '<p>'+texto+'</p>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+      '</div>'
+    );
+    $("#mensaje").show();
+    $('#mensajeContainer').addClass('animated zoomIn')
+    setTimeout(function () {
+      $('#mensajeContainer').removeClass('animated zoomIn')
+      $('#mensajeContainer').addClass('animated zoomOut')
+    }, 3000);
+}
 
-    
-  };
   this.alertError = function (texto) {
+    $("#mensaje").html(
+      ' <div class="container ">' +
+      '<div class="row">' +
+      '<div class="col-sm-6 col-md-6 col-sm-offset-2 col-md-offset-2">' +
+      '<div class="alert alert-danger alert-fixed" id="mensajeContainer" style="-webkit-animation-duration: 0.5s;">' +
+      '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
+      '<span class="glyphicon glyphicon-remove"></span> <strong>Error!</strong>' +
+      '<hr class="message-inner-separator">' +
+      '<p>' + texto + '</p>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>'
+    );
+    $("#mensaje").show();
+    $('#mensajeContainer').addClass('animated zoomIn')
+    $('#mensajeContainer').css('-vendor-animation-duration: 1s;')
+    setTimeout(function () { 
+      $('#mensajeContainer').removeClass('animated zoomIn')
+      $('#mensajeContainer').addClass('animated zoomOut') 
+    }, 5000);
+  }
+
+  /*this.alertError = function (texto) {
     $mdDialog.show(
       $mdDialog.alert()
         .parent(angular.element(document.querySelector('#popupContainer')))
@@ -79,23 +124,12 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
         .title('Error!')
         .textContent(texto)
         .ok('Ok')
-    );
-
-
-  };
-
-
+    );*/
 
   $rootScope.$on('notifications:httpError', function (event, responseError) {
-    $mdDialog.show(
-      $mdDialog.alert()
-        .parent(angular.element(document.querySelector('#popupContainer')))
-        .clickOutsideToClose(true)
-        .title('Error!')
-        .textContent("Hubo un error en el sistema. Intente nuevamente")
-        .ok('Ok')
-    )
+   this.alertError('Hubo un error en el sistema. Intente nuevamente')
   });
+
   this.mensajeExito = function (mensaje) {
      if (mensaje = undefined) mensaje = 'Exito al realizar la accion'
     $('#mensaje').html('<div class="alert alert-success alert-fixed" role="alert"><strong>¡Exito!</strong> ' + mensaje + '</div>');
