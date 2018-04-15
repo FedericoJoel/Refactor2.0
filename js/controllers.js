@@ -1750,6 +1750,12 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       return envio;
     }
 
+    $scope.marcarTodos = function() {
+      angular.forEach($scope.Recomendaciones, function(value, key) {
+        $scope.checkbox[value.id] = !$scope.checkbox[value.id];
+      });
+    }
+
     $scope.muestroBoton = function() {
       var resultado = false;
       angular.forEach($scope.checkbox, function(value, key) {
