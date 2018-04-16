@@ -76,7 +76,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     })
 
     .state('estadisticas', {
-      url: "/estadisticas",
+      url: "/reporteSolicitudes",
       templateUrl: "templates/estadisticas.html",
       controller: "estadisticasCrt"
     })

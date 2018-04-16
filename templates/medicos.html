@@ -98,7 +98,7 @@
 
                         <button type="button" data-toggle="modal" data-target="#Espes" class="Boton Metal" style="width: 100%;">
                           <i class="fa fa-fw fa-plus"></i>Añadir Especialidades</button>
-                        <a style="color:red;">{{errorText.especialidades}}</a>
+
                         <ul class="list-group">
                           <li ng-repeat="x in especialidadesAgregar" class="list-group-item">
                             <div class="row">
@@ -111,6 +111,7 @@
                             </div>
                           </li>
                         </ul>
+                        <a style="color:red;">{{errorText.especialidades}}</a>
                       </div>
 
 
@@ -160,12 +161,14 @@
                         <a style="color:red;">{{errorMsj}}</a>
                       </div>
                       <div class="col-md-2 col-md-offset-4">
+
                         <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="submit">
                           <i class="fa fa-fw fa-save" style="text-align: left;"></i>Alta</button>
                         <!-- <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="submit"><b>Alta</b></button> -->
                       </div>
                     </div>
                   </form>
+
                 </div>
 
               </div>
@@ -404,7 +407,7 @@
                             <i class="fa fa-fw fa-map-marker"></i>Obras Sociales</label>
                           <input class="outline0" type="text" id="papapa" ng-value="ObrasSocialesAgregar" style="width: 0px; height: 0px; border: 0px;">
                           </br>
-                          <button type="button" data-toggle="modal" data-target="#OS" class="Boton Metal" style="width: 100%;">
+                          <button type="button" data-toggle="modal" data-target="#OSMod" class="Boton Metal" style="width: 100%;">
                             <i class="fa fa-fw fa-plus"></i>Añadir Obra Social </button>
 
                           <ul class="list-group">
@@ -414,7 +417,7 @@
                                   {{x.nombre}}
                                 </div>
                                 <div style="text-align: right;" class="col-md-6">
-                                  <button class="Boton Danger" ng-click="QuitarOS(x)" type="button" style="padding: 1px; padding-left: 2px; padding-right: 2px;">Quitar</button>
+                                  <button class="Boton Danger" ng-click="modQuitarOS(x)" type="button" style="padding: 1px; padding-left: 2px; padding-right: 2px;">Quitar</button>
                                 </div>
                               </div>
                             </li>
@@ -622,8 +625,8 @@
                 {{x.nombre}}
               </div>
               <div class="col-md-6" style="text-align: right;">
-                <button type="button" ng-click="AgregarOSMod(x)" ng-class="{'Brand': ObrasSocialesAgregarMod.indexOf(x) == -1, 'Success': ObrasSocialesAgregarMod.indexOf(x) != -1}"
-                  ng-disabled="ObrasSocialesAgregarMod.indexOf(x) != -1" class="Boton">Añadir</button>
+                <button type="button" ng-click="modAgregarOS(x)" ng-class="{'Brand': ObrasSocialesAgregarMod.indexOf(x) == -1, 'Success': ObrasSocialesAgregarMod.indexOf(x) != -1}"
+                  ng-disabled="UserSrv.OSAgregada(ObrasSocialesAgregarMod, x)" class="Boton">Añadir</button>
               </div>
             </div>
           </li>

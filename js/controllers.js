@@ -38,8 +38,12 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.PS = Permisos;
     $scope.errorText
     $scope.CargandoOS = "Cargando.."
+    $scope.UserSrv = UserSrv
 
-
+    $scope.mostrarOS = function (){
+      console.log('OS', $scope.obrasSociales)
+      console.log('OS2', $scope.ObrasSocialesAgregar)
+    }
 
     $scope.ComprobarUsername = function () {
       $('#comprobuser').html('<i class="fa fa-spinner fa-spin fa-fw"></i> Validando nombre..');
@@ -101,13 +105,14 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $http.put('http://des.gestionarturnos.com/user/' + $scope.userModificando.id, {
           'name': $scope.userModificando.name,
           'id_perfil': $scope.userModificando.id_perfil,
+          'id': $scope.userModificando.id,
           'email': $scope.userModificando.email,
           'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id)
         })
 
         .success(function (response) {
           UserSrv.alertOk('Se edito con exito.');
-          $scope.modificando = true;
+          $scope.modificando = false;
           limpiarErrores();
         }).error(function (response) {
           $scope.errorText = response;
@@ -141,14 +146,6 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       })
     }
 
-    $scope.paginar = function () {
-      var i = 0;
-      var last = 0;
-      $scope.cantidadpaginas = [];
-      for (i = 0; i < (Object.keys($scope.usuarios).length / $scope.filtronumeritos); i++) {
-        $scope.cantidadpaginas[i] = i + 1;
-      }
-    }
 
 
     $scope.AgregarOS = function (obraSocial) {
@@ -188,7 +185,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         .success(function (response) {
 
           $scope.usuarios = response;
-          $scope.paginar()
+    
           console.log(response);
 
         })
@@ -626,7 +623,9 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.asignarseSolicitud = function (idSolicitud) {
-      $http.post('http://des.gestionarturnos.com/solicitud/abrir', {'id': idSolicitud})
+      $http.post('http://des.gestionarturnos.com/solicitud/abrir', {
+          'id': idSolicitud
+        })
 
         .error(function (response) {
           UserSrv.alertError('Hubo un error al asignar la solicitud. Intente nuevamente.');
@@ -911,11 +910,73 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
   }])
 
 
-  .controller('afiliadosCrt', function ($scope, $http, $mdDialog, UserSrv, Permisos, CargarDatos, $rootScope) {
+  .controller('afiliadosCrt', function ($scope, $timeout, $http, $mdDialog, UserSrv, Permisos, CargarDatos, $rootScope) {
     $scope.errorText
     $scope.CargandoOS = "Cargando.."
     $scope.PS = Permisos;
+    $scope.familiares = []
+    var indexFamiliar = 0
+    $scope.tieneConyugue = false
 
+    $scope.agregarFamiliar = function () {
+      indexFamiliar += 1
+      var unFamiliar = {
+        'nombre': null,
+        'apellido': null,
+        'nacimiento': null,
+        'cuil': null,
+        'dni': null,
+        'nafiliado': null,
+        'numero': indexFamiliar
+      }
+      $scope.familiares.push(unFamiliar)
+    }
+
+    $scope.agregarFamiliarModificando = function () {
+      indexFamiliar += 1
+      var unFamiliar = {
+        'nombre': null,
+        'apellido': null,
+        'nacimiento': null,
+        'cuil': null,
+        'dni': null,
+        'nafiliado': null,
+        'numero': indexFamiliar
+      }
+      $scope.afiliadoModificando.familiares.push(unFamiliar)
+    }
+
+    $scope.eliminarFamiliar = function (index) {
+      var familiaresTemporal = $scope.familiares
+      familiaresTemporal.splice(index, 1) //Parece una pelotudes esto pero sino el ng-repeat no actualiza
+      $scope.familiares = familiaresTemporal
+      $timeout();
+
+    }
+
+    var getIndexConyugue = function () {
+      var conyugue = $scope.familiares.filter(familiar => familiar.relacion == 'Conyugue')
+      if (conyugue.length == 0) {
+        return $scope.familiares.length
+      }
+      return $scope.familiares.indexOf(conyugue[0])
+    }
+
+    $scope.obtenerNroAfiliado = function (familiar, indice) {
+      if (familiar.relacion == undefined) return null
+      if (familiar.relacion == 'Conyugue') {
+        familiar.nafiliado = $scope.nafiliado + '/c1';
+        //$scope.$apply();
+      } else {
+        if (indice < getIndexConyugue()) {
+          familiar.nafiliado = $scope.nafiliado + '/h' + (indice + 1);
+          // $scope.$apply();
+        } else {
+          familiar.nafiliado = $scope.nafiliado + '/h' + indice;
+          //$scope.$apply();
+        }
+      }
+    }
     //CargarDatos.CargarAfiliados()
     $http.get('http://des.gestionarturnos.com/obraSocial/traerElementos')
       .success(function (response) {
@@ -938,39 +999,62 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
 
     $scope.Editar = function (x) {
+      var mapear = function ({nombre,apellido,nacimiento,cuil,dni,nafiliado}) {
+        var nacimiento = new Date(nacimiento)
+        if(nafiliado[nafiliado.length -2] == 'h'){
+          var relacion = 'Hijo'
+        }else{
+          var relacion = 'Conyugue'
+        }
+        return {nombre,apellido,nacimiento,cuil,dni,nafiliado, relacion}
+      }
       console.log(x.obra_social);
-      x.nacimiento = moment(x.nacimiento).format('YYYY-MM-DD');
+      //x.nacimiento = moment(x.nacimiento).format('YYYY-MM-DD');
       x.nacimiento = new Date(x.nacimiento);
       $scope.afiliadoModificando = x;
+      $scope.familiares = $scope.afiliadoModificando.familiares.map(mapear)
+      $scope.nafiliado = $scope.afiliadoModificando.nafiliado
       console.log($scope.afiliadoModificando);
       $scope.modificando = true;
     }
 
     $scope.Guardar = function () {
-      $http.put('http://des.gestionarturnos.com/afiliado/' + $scope.afiliadoModificando.id, {
-          'ID': $scope.afiliadoModificando.id,
-          'NACIMIENTO': moment($scope.afiliadoModificando.nacimiento).format('YYYY-MM-DD'),
-          'NOMBRE': $scope.afiliadoModificando.nombre,
-          'APELLIDO': $scope.afiliadoModificando.apellido,
-          'DIRECCION': $scope.afiliadoModificando.direccion,
-          'CUIL': $scope.afiliadoModificando.cuil,
-          'EMAIL': $scope.afiliadoModificando.email,
-          'DNI': $scope.afiliadoModificando.dni,
-          'PISO': $scope.afiliadoModificando.piso,
-          'DEPARTAMENTO': $scope.afiliadoModificando.departamento,
-          'TELEFONO': $scope.afiliadoModificando.telefono,
-          'CELULAR': $scope.afiliadoModificando.celular,
-          'IDOBRASOCIAL': $scope.afiliadoModificando.obra_social.id,
-          'NAFILIADO': $scope.afiliadoModificando.nafiliado,
-          'GRUPOF': null
-        })
+      var data = {
+        'ID': $scope.afiliadoModificando.id,
+        'NACIMIENTO': moment($scope.afiliadoModificando.nacimiento).format('YYYY-MM-DD'),
+        'NOMBRE': $scope.afiliadoModificando.nombre,
+        'APELLIDO': $scope.afiliadoModificando.apellido,
+        'DIRECCION': $scope.afiliadoModificando.direccion,
+        'CUIL': $scope.afiliadoModificando.cuil,
+        'EMAIL': $scope.afiliadoModificando.email,
+        'DNI': $scope.afiliadoModificando.dni,
+        'PISO': $scope.afiliadoModificando.piso,
+        'DEPARTAMENTO': $scope.afiliadoModificando.departamento,
+        'TELEFONO': $scope.afiliadoModificando.telefono,
+        'CELULAR': $scope.afiliadoModificando.celular,
+        'IDOBRASOCIAL': $scope.afiliadoModificando.obra_social.id,
+        'NAFILIADO': $scope.afiliadoModificando.nafiliado,
+        'GRUPOF': null,
+        'PLAN': $scope.afiliadoModificando.plan,
+        'familiares': $scope.familiares.map(familiar => ({
+          'nombre': familiar.nombre,
+          'apellido':familiar.apellido,
+          'nacimiento' : moment(familiar.nacimiento).format('YYYY-MM-DD'),
+          'cuil': familiar.cuil,
+          'dni': familiar.dni,
+          'nafiliado': familiar.nafiliado
+        }))
+      }
+      $http.put('http://des.gestionarturnos.com/afiliado/' + $scope.afiliadoModificando.id, data)
 
         .success(function (response) {
 
           UserSrv.alertOk('Se edito con exito.');
           limpiarErrores();
+          $scope.modificando = false
         }).error(function (response) {
           $scope.errorText = response;
+          $scope.modificando = false;
           $scope.errorMsj = "*Revise los datos e intente nuevamente";
         })
     }
@@ -1004,22 +1088,29 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
       var nacimiento = $scope.nacimiento;
       nacimiento = moment(nacimiento).format('YYYY-MM-DD');
-      $http.post('http://des.gestionarturnos.com/afiliado', {
-          'NACIMIENTO': nacimiento,
-          'NOMBRE': $scope.nombre,
-          'APELLIDO': $scope.apellido,
-          'DIRECCION': $scope.domicilio,
-          'CUIL': $scope.cuil,
-          'EMAIL': $scope.email,
-          'DNI': $scope.dni,
-          'PISO': $scope.piso,
-          'DEPARTAMENTO': $scope.departamento,
-          'TELEFONO': $scope.telefono,
-          'CELULAR': $scope.celular,
-          'IDOBRASOCIAL': $scope.obrasocial,
-          'NAFILIADO': $scope.nafiliado,
-          'GRUPOF': null
-        })
+      var mapear = function ({nombre,apellido,nacimiento,cuil,dni,nafiliado, numero}) {
+        var nacimiento = moment(nacimiento).format('YYYY-MM-DD')
+        return {nombre,apellido,nacimiento,cuil,dni,nafiliado}
+      }
+      var data = {
+        'NACIMIENTO': nacimiento,
+        'NOMBRE': $scope.nombre,
+        'APELLIDO': $scope.apellido,
+        'DIRECCION': $scope.domicilio,
+        'CUIL': $scope.cuil,
+        'EMAIL': $scope.email,
+        'DNI': $scope.dni,
+        'PISO': $scope.piso,
+        'DEPARTAMENTO': $scope.departamento,
+        'TELEFONO': $scope.telefono,
+        'CELULAR': $scope.celular,
+        'IDOBRASOCIAL': $scope.obrasocial,
+        'NAFILIADO': $scope.nafiliado,
+        'GRUPOF': null,
+        'PLAN': $scope.plan,
+        'familiares': $scope.familiares.map(familiar => mapear(familiar))
+      }
+      $http.post('http://des.gestionarturnos.com/afiliado', data)
 
         .success(function (response) {
           console.log(response);
@@ -1033,6 +1124,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         })
 
     }
+
 
     limpiarErrores = function () {
       $scope.errorText = null;
@@ -1054,6 +1146,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $scope.obrasocial = null;
       $scope.nafiliado = null;
       $scope.nacimiento = null;
+      $scope.familiares = []
+      indexFamiliar = 0
     }
 
   })
@@ -1250,6 +1344,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.especialidadesEnvioMod = new Array;
     $scope.CargandoOS = "Cargando.."
     $scope.PS = Permisos;
+    $scope.UserSrv= UserSrv
+
 
     $scope.algo = "Hola"
 
@@ -1368,6 +1464,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         .success(function (response) {
           UserSrv.alertOk("La clinica o particular fue editado con exito.");
           $scope.ObtenerMedicos()
+          $scope.modificando = false
         }).error(function (response) {
           $scope.errorText = response;
           $scope.errorMsj = "*Revise los datos e intente nuevamente";
@@ -1396,7 +1493,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       })
     }
 
-    $scope.alerta = function() {
+    $scope.alerta = function () {
       UserSrv.alertOk('La accion ha sido realizada con exito')
     }
     $scope.Alta = function () {
@@ -1446,6 +1543,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $scope.especialidadesenvio = [];
       $scope.especialidadesAgregarMod = [];
       $scope.especialidadesEnvioMod = [];
+
     }
 
   })
@@ -1467,7 +1565,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.PS = Permisos;
     $scope.ObrasSocialesAgregar = []
     $scope.OSEnvio = []
-
+    $scope.UserSrv = UserSrv
 
     $scope.Editar = function (x) {
       $scope.farmaciaModif = x;
@@ -1596,7 +1694,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         .success(function (response) {
           UserSrv.alertOk('Se edito con exito.');
           $scope.ObtenerFarmacias()
-          $scope.modificando = true;
+          $scope.modificando = false;
           limpiarErrores();
         }).error(function (response) {
           $scope.errorText = response;
@@ -1694,6 +1792,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         .success(function (response) {
           UserSrv.alertOk('Editado con exito.');
           limpiarErrores();
+          $scope.modificando = false
         }).error(function (response) {
           $scope.errorText = response;
           $scope.errorMsj = "*Revise los datos e intente nuevamente";
@@ -1785,6 +1884,11 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $scope.vistaactual = vista;
     }
 
+    $scope.formatDate = function(fecha){
+      var fechaFormateada = new Date(fecha)
+      return fechaFormateada
+    }
+
     function sumZonas(objeto) {
       var pendientes = 0,
         confirmados = 0,
@@ -1860,7 +1964,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           'fecha_modificacion_hasta': moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD')
         })
         .success(function (response) {
-          $scope.Solicitudes = response;
+          $scope.Solicitudes = response
+        
           console.log($scope.Solicitudes);
         })
     }

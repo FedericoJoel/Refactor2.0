@@ -226,14 +226,12 @@
             <li style="" ng-show="PS.tienePermiso('user')">
               <a href="index.html" ui-sref="usuarios"><i class="fa fa-fw fa-user"></i> Gestión de Usuarios</a>
             </li>
-            <li style="" ng-show="PS.tienePermiso('user')">
-              <a href="index.html" ui-sref="usuarios"><i class="fa fa-fw fa-user"></i> Gestión de Perfiles</a>
-            </li>
+            
             <li style="">
               <a href="#" ui-sref="recomendacion" ng-show="PS.tienePermiso('recomendacion')"><i class="fa fa-fw fa-check"></i> Recomendaciones</a>
             </li>
             <li style="">
-              <a href="#" ui-sref="estadisticas" ng-show="PS.tienePermiso('estadisticas')"><i class="fa fa-fw fa-bar-chart-o"></i> Estadisticas</a>
+              <a href="#" ui-sref="estadisticas" ng-show="PS.tienePermiso('reporteSolicitudes')"><i class="fa fa-fw fa-bar-chart-o"></i> Estadisticas</a>
             </li>
             <div style="display: none;">
               <li>

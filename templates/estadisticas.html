@@ -133,8 +133,8 @@
                       <td style="vertical-align: middle;">{{solicitud.id}}</td>
                       <td style="vertical-align: middle;">{{solicitud.estado}}</td>
                       <td style="vertical-align: middle;">{{solicitud.motivo}}</td>
-                      <td style="vertical-align: middle;">{{solicitud.fechaCreacion}}</td>
-                      <td style="vertical-align: middle;">{{solicitud.fechaModificacion}}</td>
+                      <td style="vertical-align: middle;">{{formatDate(solicitud.fechaCreacion) | date:'dd/MM/yyyy'}}</td>
+                      <td style="vertical-align: middle;">{{formatDate(solicitud.fechaModificacion) | date:'dd/MM/yyyy'}}</td>
                     </tr>
                     <tr>
                       <td ng-show="expandida == solicitud.id" colspan="5">
@@ -166,7 +166,7 @@
                                 <td style="color: green;" ng-if="turno.confirmacion == 2">
                                   CONFIRMADO
                                 </td>
-                                <td>{{turno.fechaCreacion}}</td>
+                                <td>{{turno.fechaCreacion }}</td>
                                 <td>{{turno.fechaTurno}}</td>
                                 <td>{{turno.horaTurno}}</td>
                                 <td>{{turno.medicoAsignado}}</td>

@@ -1,11 +1,10 @@
 <div style="overflow: auto; padding: 10px; padding-top: 60px;">
   <md-content class="main-card">
     <div id="mensaje"></div>
-    
-    <md-tabs md-dynamic-height md-border-bottom>
-      <md-tab label="Alta">
-        <md-content class="">
 
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="Alta" ng-click="familiares=[]; nafiliado= null; modificando = false">
+        <md-content>
           <div class="row">
             <div class="col-md-12">
               <div class="titulo">
@@ -13,8 +12,8 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="panel panel-default col-md-10 col-md-offset-1" style="margin-top: 20px;">
+          <div class="row" style="padding-left: 25px; padding-right: 25px;">
+            <div class="panel panel-default col-md-12" style="margin-top: 20px;">
               <div class="panel-body">
 
                 <div class="col-md-12">
@@ -54,7 +53,7 @@
                           <a style="color:red;">{{errorText.NAFILIADO}}</a>
                         </i>
                       </div>
-                      <div class="col-md-5">
+                      <div class="col-md-3">
                         <label for="obrasocial" style="color: #1E4599">
                           <i class="fa fa-fw fa-medkit"></i>Obra social</label>
                         <select class="form-control" ng-model="obrasocial" required>
@@ -64,13 +63,22 @@
                           </option>
                         </select>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <label for="nacimiento" style="color: #1E4599">
                           <i class="fa fa-fw fa-drupal"></i>Fecha Nacimiento</label>
                         <input type="date" class="form-control" ng-model="nacimiento" placeholder="Nacimiento.." required>
                         <i>
                           <a style="color:red;">{{errorText.NACIMIENTO}}</a>
                         </i>
+                      </div>
+                      <div class="col-md-3">
+                        <label for="plan" style="color: #1E4599">
+                          <i class="fa fa-fw fa-medkit"></i>Plan</label>
+                        <select class="form-control" ng-model="plan" required>
+                          <option selected disabled value>Seleccione..</option>
+                          <option ng-value="Oro">Oro</option>
+                          <option ng-value="Plata">Plata</option>
+                        </select>
                       </div>
                     </div>
 
@@ -134,6 +142,104 @@
                         </i>
                       </div>
                     </div>
+
+
+
+                    <div class="panel panel-default col-md-12" style="margin-top: 20px;padding-right:0px;padding-left:0px" ng-show="familiares.length >0">
+                      <div class="subtitulo">
+                        Familiares
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+
+                        </div>
+                      </div>
+                      <div ng-repeat="familiar in familiares track by familiar.numero">
+
+                        <div class="panel-body">
+
+                          <div class="col-md-12">
+                            <div class="col-md-10">
+
+                              <div class="form-group row">
+                                <div class="col-md-4">
+                                  <label for="nombre" style="color: #1E4599">
+                                    <i class="fa fa-fw fa-user"></i>Nombre</label>
+                                  <input type="text" class="form-control" ng-model="familiar.nombre" placeholder="Juan" required>
+                                 
+                                </div>
+
+                                <div class="col-md-4">
+                                  <label style="color: #1E4599">
+                                    <i class="fa fa-fw fa-medkit"></i>Apellido</label>
+                                  <input type="text" class="form-control" ng-model="familiar.apellido" placeholder="Pablo" required>
+                                 
+
+                                </div>
+                                <div class="col-md-4">
+                                  <label style="color: #1E4599">
+                                    <i class="fa fa-fw fa-location-arrow"></i>DNI</label>
+                                  <input type="number" class="form-control" ng-model="familiar.dni" placeholder="12345678" required>
+                                  
+                                </div>
+
+
+                              </div>
+                              <div class="form-group row">
+                                <div class="col-md-3">
+                                  <label style="color: #1E4599">
+                                    <i class="fa fa-fw fa-location-arrow"></i>CUIL</label>
+                                  <input type="number" class="form-control" ng-model="familiar.cuil" placeholder="12345678901" required>
+                                 
+                                </div>
+                                <div class="col-md-3">
+                                  <label for="relacion" style="color: #1E4599">
+                                    <i class="fa fa-fw fa-medkit"></i>Relacion</label>
+                                  <select class="form-control" ng-model="familiar.relacion" required>
+                                    <option selected disabled value>Seleccione..</option>
+                                    <option ng-value="conyugue" ng-disabled="cantConyugues()==1">Conyugue</option>
+                                    <option ng-value="hijo">Hijo</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-3">
+                                  <label style="color: #1E4599">
+                                    <i class="fa fa-fw fa-phone"></i>Nro afiliado</label>
+                                  {{obtenerNroAfiliado(familiar, $index)}}
+                                  <input type="text" class="form-control" ng-model="familiar.nafiliado" disabled placeholder="Nro afiliado" required>
+                                  
+                                </div>
+                                <div class="col-md-3">
+                                  <label for="nacimiento" style="color: #1E4599">
+                                    <i class="fa fa-fw fa-drupal"></i>Fecha Nacimiento</label>
+                                  <input type="date" class="form-control" ng-model="familiar.nacimiento" placeholder="Nacimiento.." required>
+                                  
+                                </div>
+
+                              </div>
+
+                              <div class="row" style="margin-top: 10px;">
+                                
+
+                              </div>
+                            </div>
+                            <div class="col-md-2" style="margin-top:4%;">
+                              <button style="margin-bottom: 10px; width: 100%;" type="button" class="Boton Primary" ng-click="eliminarFamiliar($index)">
+                                <i class="fa fa-fw fa-minus" style="text-align: left;"></i>Eliminar familiar</button>
+                            </div>
+                          </div>
+
+                        </div>
+                        <hr ng-show="$index < familiares.length -1" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2 col-md-offset-10">
+                        <button style="margin-bottom: 10px; width: 100%;" type="button" class="Boton Primary" ng-click="agregarFamiliar('familiares')">
+                          <i class="fa fa-fw fa-plus" style="text-align: left;"></i>Agregar familiar
+                        </button>
+                      </div>
+                    </div>
+                    <hr>
                     <div class="row">
                       <div CLASS="col-md-6 ">
                         <i>
@@ -145,17 +251,17 @@
                           <b>Alta</b>
                         </button>
                       </div>
+
                     </div>
                   </form>
                 </div>
-
               </div>
             </div>
           </div>
 
         </md-content>
       </md-tab>
-      <md-tab label="Baja/Modificacion" ng-click="ObtenerAfiliados()" style="position:fixed;">
+      <md-tab label="Baja/Modificacion" ng-click="ObtenerAfiliados();familiares=[]; nafiliado= null" style="position:fixed;">
         <md-content>
           <div class="row">
             <div class="col-md-12">
@@ -166,7 +272,7 @@
           </div>
           <div class="row" style="padding: 10px;">
             <div class="col-md-12">
-              
+
               <div class="panel panel-default col-md-12" style="margin-top: 20px; padding: 0px;">
                 <!-- Default panel contents -->
                 <div class="subtitulo">Afiliados disponibles</div>
@@ -253,7 +359,7 @@
                     </tr>
                   </tbody>
                   <tfoot>
-                    <tr >
+                    <tr>
                       <td colspan="6" style="text-align: center;">
                         <paginado></paginado>
                       </td>
@@ -267,12 +373,12 @@
             <div class="col-md-12">
               <div class="panel panel-default col-md-12" style="margin-top: 20px; padding: 0px;">
                 <div class="subtitulo">Editando Afiliado
-                  <button type="button" ng-click="afiliadoModificando = undefined; modificando = false; ObtenerAfiliados();"
-                    class="close" aria-hidden="true">&times;</button>
+                  <button type="button" ng-click="afiliadoModificando = undefined; modificando = false; ObtenerAfiliados();" class="close"
+                    aria-hidden="true">&times;</button>
                 </div>
                 <div class="panel-body">
                   <div class="col-md-12">
-                   
+
                     <form name="altafrm" ng-submit="Guardar()">
                       <div class="form-group row">
                         <div class="col-md-5">
@@ -305,12 +411,12 @@
                         <div class="col-md-3">
                           <label for="nafiliado" style="color: #1E4599">
                             <i class="fa fa-fw fa-dedent"></i>Nº Afiliado</label>
-                          <input type="text" class="form-control" ng-model="afiliadoModificando.nafiliado" placeholder="Nº Afiliado" required>
+                          <input type="text" class="form-control" ng-model="nafiliado" placeholder="Nº Afiliado" required>
                           <i>
                             <a style="color:red;">{{errorText.NAFILIADO}}</a>
                           </i>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-3">
                           <label for="obrasocial" style="color: #1E4599">
                             <i class="fa fa-fw fa-medkit"></i>Obra social</label>
                           <select class="form-control" ng-model="afiliadoModificando.obra_social" required>
@@ -320,13 +426,22 @@
                             </option>
                           </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                           <label for="nacimiento" style="color: #1E4599">
                             <i class="fa fa-fw fa-drupal"></i>Fecha Nacimiento</label>
                           <input type="date" class="form-control" ng-model="afiliadoModificando.nacimiento" placeholder="Nacimiento.." required>
                           <i>
                             <a style="color:red;">{{errorText.NACIMIENTO}}</a>
                           </i>
+                        </div>
+                        <div class="col-md-3">
+                          <label for="plan" style="color: #1E4599">
+                            <i class="fa fa-fw fa-medkit"></i>Plan</label>
+                          <select class="form-control" ng-model="afiliadoModificando.plan" required>
+                            <option selected disabled value>Seleccione..</option>
+                            <option ng-value="Oro" ng-selected="afiliado.plan = 'oro'">Oro</option>
+                            <option ng-value="Plata" ng-selected="afiliado.plan = 'plata'">Plata</option>
+                          </select>
                         </div>
                       </div>
 
@@ -391,6 +506,101 @@
                           </i>
                         </div>
                       </div>
+
+                      <div class="panel panel-default col-md-12" style="margin-top: 20px;padding-right:0px;padding-left:0px" ng-show="familiares.length >0">
+                        <div class="subtitulo">
+                          Familiares
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+
+                          </div>
+                        </div>
+                        <div ng-repeat="familiar in familiares">
+
+                          <div class="panel-body">
+
+                            <div class="col-md-12">
+                              <div class="col-md-10">
+
+                                <div class="form-group row">
+                                  <div class="col-md-4">
+                                    <label for="nombre" style="color: #1E4599">
+                                      <i class="fa fa-fw fa-user"></i>Nombre</label>
+                                    <input type="text" class="form-control" ng-model="familiar.nombre" placeholder="Juan" required>
+                                    
+                                  </div>
+
+                                  <div class="col-md-4">
+                                    <label style="color: #1E4599">
+                                      <i class="fa fa-fw fa-medkit"></i>Apellido</label>
+                                    <input type="text" class="form-control" ng-model="familiar.apellido" placeholder="Pablo" required>
+                                    
+
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label style="color: #1E4599">
+                                      <i class="fa fa-fw fa-location-arrow"></i>DNI</label>
+                                    <input type="number" class="form-control" ng-model="familiar.dni" placeholder="12345678" required>
+                                   
+                                  </div>
+
+
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-md-3">
+                                    <label style="color: #1E4599">
+                                      <i class="fa fa-fw fa-location-arrow"></i>CUIL</label>
+                                    <input type="number" class="form-control" ng-model="familiar.cuil" placeholder="12345678901" required>
+                                   
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label for="relacion" style="color: #1E4599">
+                                      <i class="fa fa-fw fa-medkit"></i>Relacion</label>
+                                    <select class="form-control" ng-model="familiar.relacion" required>
+                                      <option selected disabled value>Seleccione..</option>
+                                      <option ng-value="conyugue" ng-selected="familiar.relacion == 'Conyugue'">Conyugue</option>
+                                      <option ng-value="hijo" ng-selected="familiar.relacion == 'Hijo'">Hijo</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label style="color: #1E4599">
+                                      <i class="fa fa-fw fa-phone"></i>Nro afiliado</label>
+                                    {{obtenerNroAfiliado(familiar, $index)}}
+                                    <input type="text" class="form-control" ng-model="familiar.nafiliado" disabled placeholder="Nro afiliado" required>
+                                   
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label for="nacimiento" style="color: #1E4599">
+                                      <i class="fa fa-fw fa-drupal"></i>Fecha Nacimiento</label>
+                                    <input type="date" class="form-control" ng-model="familiar.nacimiento" placeholder="Nacimiento.." required>
+                                   
+                                  </div>
+
+                                </div>
+
+                                <div class="row" style="margin-top: 10px;">
+                                  
+
+                                </div>
+                              </div>
+                              <div class="col-md-2" style="margin-top:4%;">
+                                <button style="margin-bottom: 10px; width: 100%;" type="button" class="Boton Primary" ng-click="eliminarFamiliar($index)">
+                                  <i class="fa fa-fw fa-minus" style="text-align: left;"></i>Eliminar familiar</button>
+                              </div>
+                            </div>
+
+                          </div>
+                          <hr ng-show="$index < familiares.length -1" />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2 col-md-offset-10">
+                          <button style="margin-bottom: 10px; width: 100%;" type="button" class="Boton Primary" ng-click="agregarFamiliar()">
+                            <i class="fa fa-fw fa-plus" style="text-align: left;"></i>Agregar familiar
+                          </button>
+                        </div>
+                      </div>
                       <div class="row">
                         <i>
                           <div style="color:red" class="col-md-6">{{errorMsj}}</div>
@@ -413,128 +623,4 @@
   </md-content>
 </div>
 
-<!--
-<div class="modal fade" id="Modificar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <form ng-cloak>
-        <md-toolbar>
-          <div class="md-toolbar-tools">
-            <h2>Modificando Afiliado</h2>
-            <span flex></span>
-            <md-button class="md-icon-button" data-dismiss="modal">
-              <i class="material-icons">close</i>
-            </md-button>
-          </div>
-        </md-toolbar>
-
-        <md-dialog-content>
-          <div class="md-dialog-content">
-            <div ng-if="Cargando !== ''" style="padding-top: 5px; padding-bottom: 5px;">
-              <md-progress-linear md-mode="indeterminate"></md-progress-linear>
-            </div>
-            <table id="ims" class="table table-bordered">
-              </tr>
-              <div class="row" style="margin-top: 20px;">
-                <md-input-container class="md-icon-float md-block col-md-5 col-md-offset-1" flex-gt-sm>
-                  <label>
-                    <i style="color: green;" class="material-icons">person</i> Nombre</label>
-                  <input ng-model="nombremodi" style="color: #1A58B5;">
-                </md-input-container>
-                <md-input-container class="md-icon-float md-block col-md-5" flex-gt-sm>
-                  <label>
-                    <i style="color: lightblue;" class="material-icons">person_pin</i> Apellido</label>
-                  <input type="text" ng-model="apellidomodi" style="color: #1A58B5;">
-                </md-input-container>
-              </div>
-              <div class="row" style="">
-                <md-input-container class="md-icon-float md-block col-md-5 col-md-offset-1" flex-gt-sm>
-                  <label>
-                    <i style="color: green;" class="material-icons">credit_card</i> Nº de Afiliado</label>
-                  <input ng-model="nafiliadomodi" style="color: #1A58B5;">
-                </md-input-container>
-                <md-input-container class="md-icon-float md-block col-md-3 col-md-offset-1" flex-gt-sm>
-                  <label>Obra Social</label>
-                  <md-select ng-model="obrasocialmodi">
-                    <md-option ng-repeat="x in obrasSociales" ng-value="x.id" ng-selected="x.id == obrasocialmodi" ng-disabled="$index === 1">
-                      {{x.nombre}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
-              </div>
-              <div class="row">
-                <md-input-container style="" class="md-icon-float md-block col-md-3 col-md-offset-1" flex-gt-sm>
-                  <label>
-                    <i style="color: blue;" class="material-icons">format_list_numbered</i> DNI</label>
-                  <input type="number" ng-model="dnimodi" style="color: #1A58B5;">
-                </md-input-container>
-                <md-input-container style="" class="md-icon-float md-block col-md-3" flex-gt-sm>
-                  <label>
-                    <i style="color: lightblue;" class="material-icons">recent_actors</i> Cuil</label>
-                  <input ng-model="cuilmodi" style="color: #1A58B5;">
-                </md-input-container>
-                <md-input-container class="md-icon-float md-block col-md-5" flex-gt-sm>
-                  <md-datepicker ng-model="nacimientomodi" md-placeholder="Nacimiento" style="color: #1A58B5;"></md-datepicker>
-                </md-input-container>
-                <div class="row">
-                  <md-input-container class="md-icon-float md-block col-md-5 col-md-offset-1" flex-gt-sm>
-                    <label>
-                      <i style="color: #9033FF;" class="material-icons">place</i>Direccion</label>
-                    <input ng-model="direccionmodi" style="color: #1A58B5;">
-                  </md-input-container>
-                  <md-input-container class="md-icon-float md-block col-md-2 col-md-offset-1" flex-gt-sm>
-                    <label>
-                      <i style="color: orange;" class="material-icons">clear_all</i> Piso</label>
-                    <input ng-model="pisomodi" style="color: #1A58B5;">
-                  </md-input-container>
-                  <md-input-container class="md-icon-float md-block col-md-2" flex-gt-sm>
-                    <label>
-                      <i style="color: blue;" class="material-icons">dns</i> DPTO</label>
-                    <input ng-model="dptomodi" style="color: #1A58B5;">
-                  </md-input-container>
-                </div>
-                <div class="row">
-                  <md-input-container class="md-icon-float md-block col-md-2 col-md-offset-1" flex-gt-sm>
-                    <label>
-                      <i style="color: orange;" class="material-icons">phone</i> Teléfono</label>
-                    <input type="number" ng-model="telefonomodi" style="color: #1A58B5;">
-                  </md-input-container>
-                  <md-input-container class="md-icon-float md-block col-md-2 col-md-offset-1" flex-gt-sm>
-                    <label>
-                      <i style="color: purple;" class="material-icons">settings_cell</i> Celular</label>
-                    <input type="number" ng-model="celularmodi" style="color: #1A58B5;">
-                  </md-input-container>
-                  <md-input-container class="md-icon-float md-block col-md-4 col-md-offset-1" flex-gt-sm>
-                    <label>
-                      <i style="color: green;" class="material-icons">contact_mail</i> Email</label>
-                    <input ng-model="emailmodi" style="color: #1A58B5;">
-                  </md-input-container>
-                </div>
-
-            </table>
-
-            </div>
-        </md-dialog-content>
-
-        <md-dialog-actions style="padding: 5px;" layout="row">
-
-          <span flex></span>
-          <md-button class="md-raised md-accent md-icon-button" data-dismiss="modal">
-            <md-tooltip md-direction="top">
-              CANCELAR
-            </md-tooltip>
-            <i class="material-icons">cancel</i>
-          </md-button>
-          <md-button class="md-raised md-primary md-icon-button" data-dismiss="modal" ng-click="Guardar(idafi)">
-            <md-tooltip>
-              GUARDAR
-            </md-tooltip>
-            <i class="material-icons">save</i>
-          </md-button>
-        </md-dialog-actions>
-      </form>
-
-      </div>
-    </div>
-  </div> -->
 </div>

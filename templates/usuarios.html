@@ -25,7 +25,7 @@
 												<input type="text" class="form-control" ng-model="name" ng-change="ComprobarUsername()" placeholder="Nombre" required>
 												<p class="help-block" id="comprobuser"></p>
 												<i>
-													<a style="color:red;">{{errorText.NOMBRE}}
+													<a style="color:red;">{{errorText.name}}
 													</a>
 												</i>
 											</div>
@@ -301,6 +301,8 @@
 						</button>
 					</div>
 				</div>
+			
+		
 				<ul class="list-group" style="margin-top: 5px;">
 					<li ng-repeat="x in obrasSociales | filter: filtroOS" style="color: #0D295B;" class="list-group-item">
 						<div class="row">
@@ -309,7 +311,7 @@
 							</div>
 							<div class="col-md-6" style="text-align: right;">
 								<button type="button" ng-click="AgregarOS(x)" ng-class="{'Brand': ObrasSocialesAgregar.indexOf(x) == -1, 'Success': ObrasSocialesAgregar.indexOf(x) != -1}"
-								    ng-disabled="ObrasSocialesAgregar.indexOf(x) != -1" class="Boton">Añadir</button>
+								    ng-disabled="UserSrv.OSAgregada(ObrasSocialesAgregar, x)" class="Boton">Añadir</button>
 							</div>
 						</div>
 					</li>
