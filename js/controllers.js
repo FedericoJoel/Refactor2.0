@@ -1366,6 +1366,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         })
 
         .success(function (response) {
+          limpiarcampos();
           UserSrv.alertOk("La clinica o particular fue editado con exito.");
           $scope.ObtenerMedicos()
         }).error(function (response) {
@@ -1417,8 +1418,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         .success(function (response) {
           console.log($scope.lng);
           console.log($scope.lat);
-          limpiarcampos()
-          UserSrv.alertOk('La clinica o partucular fue dada de alta correctamente')
+          limpiarcampos();
+          UserSrv.alertOk('La clinica o partucular fue dada de alta correctamente');
           //UserSrv.alertOk('El medico se dio de alta correctamente');
         }).error(function (response) {
           $scope.errorText = response;
@@ -1435,11 +1436,17 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $scope.errorText = '';
       $scope.errorMsj = '';
       $scope.esconderMapa = true;
+      $scope.esconderMapaModificar = true;
       $scope.medicoAlta.nombre = '';
       $scope.medicoAlta.direccion = '';
       $scope.medicoAlta.localidad = '';
       $scope.medicoAlta.telefono = '';
       $scope.medicoAlta.zona = '';
+      $scope.medicoModif.nombre = '';
+      $scope.medicoModif.direccion = '';
+      $scope.medicoModif.localidad = '';
+      $scope.medicoModif.telefono = '';
+      $scope.medicoModif.zona = '';
       $scope.ObrasSocialesAgregar = [];
       $scope.especialidadesAgregar = [];
       $scope.OSEnvio = [];
