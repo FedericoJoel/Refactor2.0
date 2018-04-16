@@ -23,24 +23,25 @@
                 <table class="table table-bordered table-hover" style="margin-bottom: 0px;">
                   <thead>
                     <tr class="subtitulo">
+                      <td style="vertical-align: middle; text-align: center;"><input style="cursor: pointer;" type="checkbox" ng-click="marcarTodos()"></td>
                       <td>NOMBRE</td>
                       <td>APELLIDO</td>
                       <td>COMENTARIO</td>
-                      <td style="width: 15%;"></td>
                     </tr>
                   </thead>
                   <tbody>
                     <tr style="color: #103067;" ng-repeat="recomendacion in Recomendaciones">
+                      <td style="vertical-align: middle; text-align: center;"><input type="checkbox" style="cursor: pointer;" ng-model="checkbox[recomendacion.id]"></td>
                       <td style="vertical-align: middle;">{{recomendacion.nombre}}</td>
                       <td style="vertical-align: middle;">{{recomendacion.apellido}}</td>
                       <td style="vertical-align: middle;">{{recomendacion.comentario}}</td>
-                      <td><button type="button" ng-click="Contactar(recomendacion.id)" class="Boton Primary" style="width: 100%;"> <i class="glyphicon glyphicon-ok"></i> Contactar</button></td>
                     </tr>
                     <tr style="color: #103067;">
                       <td colspan="4" ng-if="Recomendaciones.length == 0">No se han encontrado recomendaciones que no hayan sido contactadas.</td>
                     </tr>
                   </tbody>
                 </table>
+                <button type="button" ng-if="muestroBoton()" ng-click="Contactar()" class="Boton Primary" style="margin-top: 10px; margin-bottom: 10px; margin-left: 75%; width: 25%;"> <i class="glyphicon glyphicon-ok"></i> Contactar seleccionadas</button>
               </center>
 
             </div>

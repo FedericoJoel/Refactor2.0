@@ -1731,6 +1731,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.sortType = 'nombre'; // el default
     $scope.sortReverse = false;
     $scope.PS = Permisos;
+    $scope.checkbox = [];
+    var envio = [];
     console.log($scope.PS);
 
     $scope.filtronumeritos = 10;
@@ -1745,24 +1747,44 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         })
     }
 
+    $scope.makeIDS = function() {
+      envio = [];
+      angular.forEach($scope.checkbox, function(value, key) {
+        if(value != false){
+          envio.push(key);
+        }
+      });
+      return envio;
+    }
+
+    $scope.marcarTodos = function() {
+      angular.forEach($scope.Recomendaciones, function(value, key) {
+        $scope.checkbox[value.id] = !$scope.checkbox[value.id];
+      });
+    }
+
+    $scope.muestroBoton = function() {
+      var resultado = false;
+      angular.forEach($scope.checkbox, function(value, key) {
+        if(value != false){
+          resultado = true;
+        }
+      });
+      return resultado;
+    }
 
     $scope.Contactar = function (id) {
-
+      $scope.makeIDS()
       $http.post('http://des.gestionarturnos.com/recomendacion/contactado', {
-          'id': id
+          'ids': envio
         })
         .success(function (response) {
-          $http.get('http://des.gestionarturnos.com/recomendacion/contactado/' + id)
-            .success(function (response) {
-              UserSrv.alertOk('Recomendacion marcada como contactada.');
-              $scope.ObtenerRecomendaciones();
-            }).error(function (response) {
-              $scope.errorText = response;
-              $scope.errorMsj = "*Revise los datos e intente nuevamente";
-            })
-
-
-        })
+          UserSrv.alertOk('Recomendacion/es marcada/s como contactada.');
+          $scope.ObtenerRecomendaciones();
+        }).error(function (response) {
+            $scope.errorText = response;
+            $scope.errorMsj = "*Revise los datos e intente nuevamente";
+          })
     }
 
     $scope.ObtenerRecomendaciones();
