@@ -450,10 +450,30 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       traerSolicitudes()
     })
 
-    /*$http.post('http://localhost:5111/actualizarClientes', [localStorage.getItem('user_id') ])
-      .success(function (response) {
-        UserSrv.alertOk(response);
-      })*/
+   
+      var data = {
+        'IDCLIMED': 1,
+        'ESPECIALIDAD': 1,
+        'DNISOLICITANTE': 3,
+        'IDAFILIADO': 3,
+        'MEDICO': 'asdf',
+        'FECHAS': new Date(),
+        'ESTADO': 'Pendiente'
+    }
+      
+
+    var crear = function(){
+
+      $http.post('http://des.gestionarturnos.com/solicitud/createClinico', data)
+
+        .success(function (response) {
+          crear()
+          console.log('funciona');
+        })
+    }
+
+    //crear()
+
 
     $scope.ActualPage = 1;
     $scope.idmediselected = {
@@ -697,6 +717,15 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'dni': ''
       })*/
 
+    var socket = io.connect('http://gestionar.herokuapp.com:80');
+    socket.emit('storeClientInfo', {
+      customId: localStorage.getItem('user_id')
+    })
+
+    socket.on('actualizarSolicitudes', function (data) {
+      traerSolicitudes()
+    })
+
     $scope.filtroClimed = function (solicitud) {
       if ($scope.searchClimed == undefined) {
         return true
@@ -861,6 +890,13 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $scope.clinicasAgregar = []
       $scope.y = x;
       console.log($scope.y);
+      /*$http.post('http://des.gestionarturnos.com/auditoria/abrir', {
+        'id': idSolicitud
+      })
+
+        .error(function (response) {
+          UserSrv.alertError('Hubo un error al asignar la solicitud. Intente nuevamente.');
+        })*/
     }
 
     $scope.limpiarFiltros = function () {
