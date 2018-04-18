@@ -740,10 +740,11 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.Autorizar = function (id) {
       if ($scope.especialidadesAgregar.length > 0) { // Osea que es una solicitud de estudio
         var data = {
+          'id': id,
           'id_especialidad': $scope.especialidadesAgregar[0].id,
           'id_clinica': $scope.clinicasAgregar[0].id
         }
-        $http.put('http://des.gestionarturnos.com/solicitud/' + id, data)
+        $http.post('http://des.gestionarturnos.com/auditoria/autorizarEstudio', data)
           .success(function (response) {
             $http.post('http://des.gestionarturnos.com/solicitud/autorizar', {
                 'id': id
