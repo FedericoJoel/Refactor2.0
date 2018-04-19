@@ -1697,7 +1697,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
             $scope.ObtenerFarmacias();
           })
           .error(function (response) {
-            UserSrv.alertOk("Hubo un error al eliminar.");
+            UserSrv.alertError("Hubo un error al eliminar.");
           })
       })
 
