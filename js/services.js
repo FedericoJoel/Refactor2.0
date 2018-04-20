@@ -134,15 +134,16 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
     );*/
 
   $rootScope.$on('notifications:httpError', function (event, responseError) {
+    console.log(responseError);
     $("#mensaje").html(
       ' <div class="container ">' +
       '<div class="row">' +
       '<div class="col-sm-6 col-md-6 col-sm-offset-2 col-md-offset-2">' +
       '<div class="alert alert-danger alert-fixed" id="mensajeContainer" style="-webkit-animation-duration: 0.5s;">' +
       '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
-      '<span class="glyphicon glyphicon-remove"></span> <strong>Error!</strong>' +
+      '<span class="glyphicon glyphicon-remove"></span> <strong>'+responseError.data.title+'</strong>' +
       '<hr class="message-inner-separator">' +
-      '<p>Hubo un error en el sistema. Intente nuevamente</p>' +
+      '<p>'+responseError.data.detail+'</p>' +
       '</div>' +
       '</div>' +
       '</div>' +

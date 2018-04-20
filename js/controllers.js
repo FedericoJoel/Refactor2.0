@@ -1957,6 +1957,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.sortType = 'nombre'; // el default
     $scope.sortReverse = false;
     $scope.PS = Permisos;
+    $scope.vistaactual = "Zonas";
     console.log($scope.PS);
 
     $scope.filtronumeritos = 10;
@@ -1964,6 +1965,27 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.setVista = function (vista) {
       $scope.vistaactual = vista;
+      if( $scope.ultimaFechaCD != moment($scope.fecha_creacion_desde).format('YYYY-MM-DD') || 
+          $scope.ultimaFechaCH != moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD') ||
+          $scope.ultimaFechaMD != moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD') ||
+          $scope.ultimaFechaMH != moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD')
+      ){
+        switch ($scope.vistaactual) {
+            case 'Zonas':
+                $scope.ObtenerZonas();
+                break;
+            case 'Clinicas':
+                $scope.getClinicas($scope.zonaactual);
+                break;
+            case 'Solicitudes':
+                $scope.getSolicitudes($scope.clinicaactual);
+                break;
+        }
+      $scope.ultimaFechaCD = moment($scope.fecha_creacion_desde).format('YYYY-MM-DD');
+      $scope.ultimaFechaCH = moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD');
+      $scope.ultimaFechaMD = moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD');
+      $scope.ultimaFechaMH = moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD');
+      }
     }
 
     $scope.formatDate = function(fecha){
@@ -2002,6 +2024,21 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           //$scope.totalZonas = sumZonas(response);
           console.log($scope.Turnos);
         })
+    }
+
+    $scope.Actualizar = function() {
+      switch ($scope.vistaactual) {
+            case 'Zonas':
+                $scope.ObtenerZonas();
+                break;
+            case 'Clinicas':
+                $scope.getClinicas($scope.zonaactual);
+                break;
+            case 'Solicitudes':
+                $scope.getSolicitudes($scope.clinicaactual);
+                break;
+      }
+
     }
 
     $scope.ObtenerZonas = function () {
@@ -2064,6 +2101,10 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.ObtenerZonas();
+    $scope.ultimaFechaCD = moment($scope.fecha_creacion_desde).format('YYYY-MM-DD');
+    $scope.ultimaFechaCH = moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD');
+    $scope.ultimaFechaMD = moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD');
+    $scope.ultimaFechaMH = moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD');
 
 
   })
