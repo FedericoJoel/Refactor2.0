@@ -203,7 +203,7 @@
               <a href="#" ui-sref="auditoria" ng-show="PS.tienePermiso('auditoria')"><i class="fa fa-fw fa-thumbs-up"></i> Auditoría de Solicitudes</a>
             </li>
              <!--ng-show="PS.tienePermiso('afiliados')|PS.tienePermiso('afiliados')|PS.tienePermiso('medicos')|PS.tienePermiso('clinicas')|PS.tienePermiso('farmacias')|PS.tienePermiso('especialidades')"-->
-            <li >
+            <li ng-show="PS.tienePermiso('afiliado') || PS.tienePermiso('climed') || PS.tienePermiso('farmacia') || PS.tienePermiso('especialidad')">
               <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-cubes"></i> ABMS <i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="demo2" class="collapse">
                 <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('afiliado')">
@@ -212,9 +212,9 @@
                 <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('climed')">
                   <a href="#" ui-sref="abmmed" style="color: black;"><i class="fa fa-fw fa-user-md"></i> Medicos</a>
                 </li>
-                <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('medico')">
+                <!--<li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('medico')">
                   <a href="#" ui-sref="abmcli" style="color: black;" ><i class="fa fa-fw fa-hospital-o"></i> Clínicas</a>
-                </li>
+                </li>-->
                 <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('farmacia')">
                   <a href="#" ui-sref="abmfar" style="color: black;"><i class="fa fa-fw fa-medkit"></i> Farmacias</a>
                 </li>
@@ -226,14 +226,12 @@
             <li style="" ng-show="PS.tienePermiso('user')">
               <a href="index.html" ui-sref="usuarios"><i class="fa fa-fw fa-user"></i> Gestión de Usuarios</a>
             </li>
-            <li style="" ng-show="PS.tienePermiso('user')">
-              <a href="index.html" ui-sref="usuarios"><i class="fa fa-fw fa-user"></i> Gestión de Perfiles</a>
-            </li>
+            
             <li style="">
               <a href="#" ui-sref="recomendacion" ng-show="PS.tienePermiso('recomendacion')"><i class="fa fa-fw fa-check"></i> Recomendaciones</a>
             </li>
             <li style="">
-              <a href="#" ui-sref="estadisticas" ng-show="PS.tienePermiso('estadisticas')"><i class="fa fa-fw fa-bar-chart-o"></i> Estadisticas</a>
+              <a href="#" ui-sref="estadisticas" ng-show="PS.tienePermiso('reporteSolicitudes')"><i class="fa fa-fw fa-bar-chart-o"></i> Estadisticas</a>
             </li>
             <div style="display: none;">
               <li>

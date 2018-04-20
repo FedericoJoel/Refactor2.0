@@ -8,6 +8,14 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
     return path;
   }
 
+  this.OSAgregada = function(obrasSocialesAgregar, obraSocial){
+    if(obraSocial.id != undefined){
+      return (obrasSocialesAgregar.filter(OS => OS.id == obraSocial.id).length > 0)
+    }else{
+      return (obrasSocialesAgregar.filter(OS => OS.ID == obraSocial.id).length > 0)
+    }
+  }
+
   this.GetPermisos = function () {
 
     $http.post(this.GetPath(), {
@@ -112,7 +120,7 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
     setTimeout(function () { 
       $('#mensajeContainer').removeClass('animated zoomIn')
       $('#mensajeContainer').addClass('animated zoomOut') 
-    }, 5000);
+    }, 10000);
   }
 
   /*this.alertError = function (texto) {
@@ -126,7 +134,27 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
     );*/
 
   $rootScope.$on('notifications:httpError', function (event, responseError) {
-   this.alertError('Hubo un error en el sistema. Intente nuevamente')
+    console.log(responseError);
+    $("#mensaje").html(
+      ' <div class="container ">' +
+      '<div class="row">' +
+      '<div class="col-sm-6 col-md-6 col-sm-offset-2 col-md-offset-2">' +
+      '<div class="alert alert-danger alert-fixed" id="mensajeContainer" style="-webkit-animation-duration: 0.5s;">' +
+      '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
+      '<span class="glyphicon glyphicon-remove"></span> <strong>'+responseError.data.title+'</strong>' +
+      '<hr class="message-inner-separator">' +
+      '<p>'+responseError.data.detail+'</p>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>'
+    );
+    $("#mensaje").show();
+    $('#mensajeContainer').addClass('animated zoomIn')
+    setTimeout(function () {
+      $('#mensajeContainer').removeClass('animated zoomIn')
+      $('#mensajeContainer').addClass('animated zoomOut')
+    }, 10000);
   });
 
   this.mensajeExito = function (mensaje) {

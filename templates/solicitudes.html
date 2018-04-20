@@ -16,32 +16,49 @@
           <div class="panel-body">
 
             <div class="form-group row">
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <div class="form-group">
-                  <label for="seleTipo">Tipo</label>
-                  <select id="seleTipo" ng-model="filtrotipo" ng-options="x for x in tipos" placeholder="Tipo.." class="form-control" ng-change="filtrarSolicitudes(filtroTipo)">
-                  </select>
+                  <center>
+                    <label for="seleTipo">Tipo</label>
+                    <select id="seleTipo" ng-model="filtrotipo" ng-options="x for x in tipos" placeholder="Tipo.." class="form-control" ng-change="filtrarSolicitudes(filtroTipo)">
+                    </select>
+                  </center>
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <div class="form-group">
-                  <label for="seleTipo">Estado</label>
-                  <select id="seleEstado" ng-model="filtroestado" ng-options="x for x in estados" placeholder="Estado.." class="form-control" ng-change="filtrarSolicitudes(filtroEstado)">
-                  </select>
+                  <center>
+                    <label for="seleTipo">Estado</label>
+                    <select id="seleEstado" ng-model="filtroestado" ng-options="x for x in estados" placeholder="Estado.." class="form-control"
+                      ng-change="filtrarSolicitudes(filtroEstado)">
+                    </select>
+                  </center>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="form-group" style="margin-top: 20px;">
-                  <label for="fechadesde">Fecha desde</label>
-                  <md-datepicker id="fechadesde" style="margin: 0px;" ng-model="fechadesde" md-placeholder="Desde.." ng-change="filtrarSolicitudes(filtroFechaDesde)"></md-datepicker>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <center>
+                    <div class="row">
+                      <label for="fechadesde">
+                        Fecha desde
+                      </label>
+                    </div>
+
+                    <md-datepicker id="fechadesde" style="margin: 0px;" ng-model="fechadesde" md-placeholder="Desde.." ng-change="filtrarSolicitudes(filtroFechaDesde)"></md-datepicker>
+                  </center>
                 </div>
               </div>
 
-              <div class="col-md-4">
-                <div class="form-group" style="margin-top: 20px;">
-                  <label for="fechahasta">Fecha hasta</label>
-                  <md-datepicker id="fechahasta" ng-model="fechahasta" md-placeholder="Hasta.." ng-change="filtrarSolicitudes(filtroFechaHasta)"></md-datepicker>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <center>
+                    <div class="row">
+                      <label for="fechahasta">Fecha hasta</label>
+                    </div>
+
+                    <md-datepicker id="fechahasta" ng-model="fechahasta" md-placeholder="Hasta.." ng-change="filtrarSolicitudes(filtroFechaHasta)"></md-datepicker>
                 </div>
+                <center>
               </div>
             </div>
             <div class="form-group row" style="margin-top: 10px;">
@@ -71,196 +88,197 @@
     <div class="row">
       <div class="col-md-12">
         <div class="titulo">
-          Gestionar solicitudes 
+          Gestionar solicitudes
         </div>
       </div>
     </div>
 
     <div style="background-color: white; padding: 30px;">
-      
 
-          <div ng-if="Cargando !== ''" style="padding: 0px; border: 0px;" class="alert alert-warning">
-            <md-progress-linear md-mode="indeterminate"></md-progress-linear>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <center>
 
-                <table class="table table-bordered table-hover">
-                  <thead>
-                    <tr>
-                      
-                      <td>DNI</td>
-                      <td>CLÍNICA/MÉDICO</td>
-                      <td>MÉDICO SUGERIDO</td>
-                      <td>FECHA DE LA SOLICITUD</td>
-                      <td>TIPO</td>
-                      <td>ESTADO</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr style="cursor: pointer;" data-toggle="modal" data-target="#detalleSolicitud" ng-repeat="solicitud in solicitudes | filter:filtroFechaDesde | filter:filtroFechaHasta | filter:filtroTipo | filter:filtroEstado  as filteredElems track by $index"
-                      ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)" ng-click="Detallar(solicitud)" >
-                      <td>{{solicitud.afiliado.dni}}</td>
-                      <td ng-if="solicitud.tipo != '3'">{{solicitud.climed.nombre}}</td>
-                      <td ng-if="solicitud.tipo == '3'">ESTUDIO</td>
-                      <td ng-if="solicitud.tipo != '3'">{{solicitud.medico}}</td>
-                      <td ng-if="solicitud.tipo == '3'">ESTUDIO</td>
-                      <td>{{solicitud.fecha | date:'dd/MM/yyyy'}}</td>
-                      <td ng-if="solicitud.tipo == 1" style="background-color: #063f5f; color: white;">CLÍNICO</td>
-                      <td ng-if="solicitud.tipo == 2" style="background-color: #1a873e; color: white;">ESPECIALISTA</td>
-                      <td ng-if="solicitud.tipo == 3" style="background-color: #bf6a0a; color: white;">ESTUDIO</td>
-                      <td>{{solicitud.estado}}</td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <td colspan="6" style="text-align: center;">
-                        <paginado></paginado>
-                      </td>
-                    </tr>
-                  </tfoot>
-                </table>
-                
-              </center>
+      <div ng-if="Cargando !== ''" style="padding: 0px; border: 0px;" class="alert alert-warning">
+        <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <center>
 
-            </div>
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
 
-          </div>
+                  <td>DNI</td>
+                  <td>CLÍNICA/MÉDICO</td>
+                  <td>MÉDICO SUGERIDO</td>
+                  <td>FECHA DE LA SOLICITUD</td>
+                  <td>TIPO</td>
+                  <td>ESTADO</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="cursor: pointer;" data-toggle="modal" data-target="#detalleSolicitud" ng-repeat="solicitud in solicitudes | filter:filtroFechaDesde | filter:filtroFechaHasta | filter:filtroTipo | filter:filtroEstado  as filteredElems track by $index"
+                  ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)" ng-click="Detallar(solicitud)">
+                  <td>{{solicitud.afiliado.dni}}</td>
+                  <td ng-if="solicitud.tipo != '3'">{{solicitud.climed.nombre}}</td>
+                  <td ng-if="solicitud.tipo == '3'">ESTUDIO</td>
+                  <td ng-if="solicitud.tipo != '3'">{{solicitud.medico}}</td>
+                  <td ng-if="solicitud.tipo == '3'">ESTUDIO</td>
+                  <td>{{solicitud.fecha | date:'dd/MM/yyyy'}}</td>
+                  <td ng-if="solicitud.tipo == 1" style="background-color: #063f5f; color: white;">CLÍNICO</td>
+                  <td ng-if="solicitud.tipo == 2" style="background-color: #1a873e; color: white;">ESPECIALISTA</td>
+                  <td ng-if="solicitud.tipo == 3" style="background-color: #bf6a0a; color: white;">ESTUDIO</td>
+                  <td>{{solicitud.estado}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="6" style="text-align: center;">
+                    <paginado></paginado>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
 
-        
-     
+          </center>
+
+        </div>
+
+      </div>
+
+
+
 
     </div>
-    
+
   </div>
 
-<!-- Modal Detalle Solicitud -->
-<div class="modal fade" id="detalleSolicitud" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document" style="width: 80%; margin-top: 8%;">
-    <div class="modal-content">
-      <div class="modal-body" style="padding: 0px;">
-        <div class="row">
-          <div class="col-md-12">
-            <div style="box-shadow: 0px 0px 4px grey;">
-              <div class="titulo">
-                <span style="text-align: left;">DETALLE DE LA SOLICITUD
-                  <b>#{{idexpandida}}</b>
-                </span>
-                <button class="Boton Danger" style="color: white;border: 1px solid white;" ng-click="RechazarSolicitud($event,idexpandida)" class="close" data-dismiss="modal" style="padding: 2px;">RECHAZAR SOLICITUD</button>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <!-- Modal Detalle Solicitud -->
+  <div class="modal fade" id="detalleSolicitud" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 80%; margin-top: 8%;">
+      <div class="modal-content">
+        <div class="modal-body" style="padding: 0px;">
+          <div class="row">
+            <div class="col-md-12">
+              <div style="box-shadow: 0px 0px 4px grey;">
+                <div class="titulo">
+                  <span style="text-align: left;">DETALLE DE LA SOLICITUD
+                    <b>#{{idexpandida}}</b>
+                  </span>
+                  <button class="Boton Danger" style="color: white;border: 1px solid white;" ng-click="RechazarSolicitud($event,idexpandida)"
+                    class="close" data-dismiss="modal" style="padding: 2px;">RECHAZAR SOLICITUD</button>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-              </div>
-              <div class="row" style="padding: 30px;">
-
-                <div class="col-md-4">
-                  <b>
-                    <h4>DATOS GENERALES</h4>
-                  </b>
-                  <hr></hr>
-                  <h5>
-                    <p>
-                      <b>Estado:</b>
-                      <font color="darkred">{{solicitudexpandida.estado}}</font>
-                    </p>
-                    <p>
-                      <b>DNI:</b>
-                      <font color="darkred">{{solicitudexpandida.afiliado.dni}}</font>
-                    </p>
-                    <p>
-                      <b>Nombre y Apellido:</b>
-                      <font color="darkred">{{solicitudexpandida.afiliado.nombre}}</font>
-                    </p>
-
-                    <p ng-if="solicitudexpandida.tipo !== 3">
-                      <b>Clínica: </b>
-                      <font color="darkred">{{solicitudexpandida.climed.nombre}}</font>
-                    </p>
-                    <p ng-if="solicitudexpandida.tipo == 2">
-                      <b>Especialidad: </b>
-                      <font color="darkred">{{solicitudexpandida.especialidad.nombre}}</font>
-                    </p>
-                    <p ng-if="solicitudexpandida.tipo == 3">
-                      <b>Estudio: </b>{{solicitudexpandida.OBS}}</p>
-                    <p>
-                      <b>Médico Sugerido:</b>
-                      <font color="darkred">{{solicitudexpandida.medico}}</font>
-                    </p>
-                  </h5>
                 </div>
-                <div class="col-md-8" style="overflow: auto;">
-                  <b>
-                    <h4>HISTORIAL DE CONFIRMACIONES</h4>
-                  </b>
-                  <hr></hr>
-                  <h5>
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr class="subtitulo" style="color: white">
-                          <td>FECHA</td>
-                          <td>HORA</td>
-                          <td>MEDICO</td>
-                          <td>RESPUESTA</td>
-                          <td>MOTIVO</td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td colspan="5" ng-show="solicitudexpandida.turnos.length == 0">
-                            <center>Esta solicitud no posee un historial previo.</center>
-                          </td>
-                        </tr>
-                        <tr ng-repeat="historial in solicitudexpandida.turnos">
-                          <td>{{historial.fecha | date:'MM/dd/yyyy'}}</td>
-                          <td>{{historial.hora}}</td>
-                          <td>{{historial.climed.nombre}}</td>
-                          <td ng-if="historial.confirmacion == 0" style="background-color: orange; color: white;">A CONFIRMAR</td>
-                          <td ng-if="historial.confirmacion == 1" style="background-color: darkred; color: white;">RECHAZADO</td>
-                          <td ng-if="historial.confirmacion == 2" style="background-color: #1a873e; color: white;">CONFIRMADO</td>
-                          <td>{{historial.motivo}}</td>
-                        </tr>
-                        <tr ng-show="enviandoturno">
-                          <td colspan="4">
-                            <i class="fa fa-spinner fa-spin fa-1x fa-fw"></i> Enviando turno..
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </h5>
+                <div class="row" style="padding: 30px;">
+
+                  <div class="col-md-4">
+                    <b>
+                      <h4>DATOS GENERALES</h4>
+                    </b>
+                    <hr></hr>
+                    <h5>
+                      <p>
+                        <b>Estado:</b>
+                        <font color="darkred">{{solicitudexpandida.estado}}</font>
+                      </p>
+                      <p>
+                        <b>DNI:</b>
+                        <font color="darkred">{{solicitudexpandida.afiliado.dni}}</font>
+                      </p>
+                      <p>
+                        <b>Nombre y Apellido:</b>
+                        <font color="darkred">{{solicitudexpandida.afiliado.nombre}}</font>
+                      </p>
+
+                      <p ng-if="solicitudexpandida.tipo !== 3">
+                        <b>Clínica: </b>
+                        <font color="darkred">{{solicitudexpandida.climed.nombre}}</font>
+                      </p>
+                      <p ng-if="solicitudexpandida.tipo == 2">
+                        <b>Especialidad: </b>
+                        <font color="darkred">{{solicitudexpandida.especialidad.nombre}}</font>
+                      </p>
+                      <p ng-if="solicitudexpandida.tipo == 3">
+                        <b>Estudio: </b>{{solicitudexpandida.OBS}}</p>
+                      <p>
+                        <b>Médico Sugerido:</b>
+                        <font color="darkred">{{solicitudexpandida.medico}}</font>
+                      </p>
+                    </h5>
+                  </div>
+                  <div class="col-md-8" style="overflow: auto;">
+                    <b>
+                      <h4>HISTORIAL DE CONFIRMACIONES</h4>
+                    </b>
+                    <hr></hr>
+                    <h5>
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr class="subtitulo" style="color: white">
+                            <td>FECHA</td>
+                            <td>HORA</td>
+                            <td>MEDICO</td>
+                            <td>RESPUESTA</td>
+                            <td>MOTIVO</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td colspan="5" ng-show="solicitudexpandida.turnos.length == 0">
+                              <center>Esta solicitud no posee un historial previo.</center>
+                            </td>
+                          </tr>
+                          <tr ng-repeat="historial in solicitudexpandida.turnos">
+                            <td>{{historial.fecha | date:'MM/dd/yyyy'}}</td>
+                            <td>{{historial.hora}}</td>
+                            <td>{{historial.climed.nombre}}</td>
+                            <td ng-if="historial.confirmacion == 0" style="background-color: orange; color: white;">A CONFIRMAR</td>
+                            <td ng-if="historial.confirmacion == 1" style="background-color: darkred; color: white;">RECHAZADO</td>
+                            <td ng-if="historial.confirmacion == 2" style="background-color: #1a873e; color: white;">CONFIRMADO</td>
+                            <td>{{historial.motivo}}</td>
+                          </tr>
+                          <tr ng-show="enviandoturno">
+                            <td colspan="4">
+                              <i class="fa fa-spinner fa-spin fa-1x fa-fw"></i> Enviando turno..
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </h5>
+                  </div>
                 </div>
-              </div>
 
-              <div class="row" style="padding: 30px;" ng-if="solicitudexpandida.estado != 'Rechazado'">
-                <div class="col-md-12">
-                  <b>
-                    <h4>TURNO</h4>
-                  </b>
+                <div class="row" style="padding: 30px;" ng-if="solicitudexpandida.estado != 'Rechazado'">
+                  <div class="col-md-12">
+                    <b>
+                      <h4>TURNO</h4>
+                    </b>
 
 
-                  <div ng-show="(turnoc != 0 && turnoc != 2) || turnoc == undefined">
-                    <form ng-submit="EnviarTurno(fechaturno, horaturno, medicoturno)">
-                      <hr></hr>
-                      <div class="col-md-3">
-                        <label>
-                          <i class="fa fa-calendar"></i> Fecha
-                        </label>
-                        <input id="fechaturno" name="fechaturno"class="form-control" type="date" ng-model="fechaturno" required> 
-                      </div>
+                    <div ng-show="(turnoc != 0 && turnoc != 2) || turnoc == undefined">
+                      <form ng-submit="EnviarTurno(fechaturno, horaturno, medicoturno)">
+                        <hr></hr>
+                        <div class="col-md-3">
+                          <label>
+                            <i class="fa fa-calendar"></i> Fecha
+                          </label>
+                          <input id="fechaturno" name="fechaturno" class="form-control" type="date" ng-model="fechaturno" required>
+                        </div>
 
-                      <div class="col-md-3">
-                        <label>
-                          <i class="fa fa-clock-o"></i> Hora</label>
+                        <div class="col-md-3">
+                          <label>
+                            <i class="fa fa-clock-o"></i> Hora</label>
 
-                        <input id="horaturno" name="horaturno" class="form-control" ng-model="horaturno" type="time" placeholder="HH:mm" required>
-                      </div>
+                          <input id="horaturno" name="horaturno" class="form-control" ng-model="horaturno" type="time" placeholder="HH:mm" required>
+                        </div>
 
-                      <div class="col-md-3">
-                        <label>
-                          <i class="fa fa-user"></i> Medico</label>
-                        <input class="form-control" ng-model="medicoturno" type="text" placeholder="Medico..." required>
-                      </div>
+                        <div class="col-md-3">
+                          <label>
+                            <i class="fa fa-user"></i> Medico</label>
+                          <input class="form-control" ng-model="medicoturno" type="text" placeholder="Medico..." required>
+                        </div>
 
-                     <!-- <div class="col-md-3">
+                        <!-- <div class="col-md-3">
 
                         <label>
                           <i class="fa fa-user"></i> Médico</label>
@@ -276,53 +294,53 @@
 
                       </div> -->
 
-                      <div class="col-md-2">
-                        <label style="color: white;">
-                          <i class="fa fa-send" style="text-align: left;"></i> Enviar</label>
-                        <button style="width: 100%;" style="padding: 2px;" class="Boton Primary" type="submit">
-                          <i class="fa fa-send"></i> ENVIAR</button>
-                      </div>
+                        <div class="col-md-2">
+                          <label style="color: white;">
+                            <i class="fa fa-send" style="text-align: left;"></i> Enviar</label>
+                          <button style="width: 100%;" style="padding: 2px;" class="Boton Primary" type="submit">
+                            <i class="fa fa-send"></i> ENVIAR</button>
+                        </div>
 
-                    </form>
-                  </div>
-
-
-
-                  <div ng-if="turnoc == 0">
-                    <hr></hr>
-
-                    <div class="col-md-12">
-
-                      <div class="alert alert-warning" role="alert">
-                        <i class="fa fa-clock-o"></i> Esperando confirmación del afiliado..
-                      </div>
-
+                      </form>
                     </div>
-                  </div>
 
-                  <div ng-if="turnoc == 2">
-                    <hr></hr>
 
-                    <div class="col-md-12">
 
-                      <div class="alert alert-info" role="alert">
-                        <i class="fa fa-clock-o"></i> Esta solicitud se encuentra confirmada para el día {{solicitudexpandida.turnos.fecha}}
+                    <div ng-if="turnoc == 0">
+                      <hr></hr>
+
+                      <div class="col-md-12">
+
+                        <div class="alert alert-warning" role="alert">
+                          <i class="fa fa-clock-o"></i> Esperando confirmación del afiliado..
+                        </div>
+
                       </div>
-
                     </div>
-                  </div>
 
+                    <div ng-if="turnoc == 2">
+                      <hr></hr>
+
+                      <div class="col-md-12">
+
+                        <div class="alert alert-info" role="alert">
+                          <i class="fa fa-clock-o"></i> Esta solicitud se encuentra confirmada para el día {{solicitudexpandida.turnos.fecha}}
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
-              </div>
 
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-  
+
 
 
 
