@@ -344,7 +344,7 @@
                       </div>
 
                       <div class="form-group row" style="margin-top: 30px;">
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                           <label for="direccion" style="color: #1E4599">
                             <i class="fa fa-fw fa-location-arrow"></i>Direccion</label>
                           <input type="text" class="form-control" ng-model="medicoModif.domicilio" placeholder="Direccion" required>
@@ -352,7 +352,7 @@
                             <a style="color:red;">{{errorText.DIRECCION}}</a>
                           </i>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <label for="localidad" style="color: #1E4599">
                             <i class="fa fa-fw fa-credit-card"></i>Localidad</label>
                           <input type="text" class="form-control" ng-model="medicoModif.localidad" placeholder="Localidad" required>
@@ -360,7 +360,7 @@
                             <a style="color:red;">{{errorText.LOCALIDAD}}</a>
                           </i>
                         </div>
-                        <div class="col-md-3">
+                        <!-- <div class="col-md-3">
                           <label for="localidad" style="color: #1E4599">
                             <i class="fa fa-fw fa-map-marker"></i>Coordenadas</label>
                           <input class="outline0" type="text" id="pepepepe" ng-model="lat" style="width: 0px; height: 0px; border: 0px;" required disabled>
@@ -369,7 +369,7 @@
                           <i>
                             <a style="color:red;">{{errorText.latitud}}</a>
                           </i>
-                        </div>
+                        </div> -->
                       </div>
 
                       <div class="form-group row" style="margin-top: 30px;">
@@ -427,9 +427,8 @@
                       </div>
                       <div class="row">
                         <div class="col-md-10 col-md-offset-1">
-                          <div id="modificarmapa" style="display: none;" ng-hide="esconderMapaModificar">
-                            <input id="modificarpac-input" class="controls" type="text" placeholder="Enter a location" style="z-index: 9999999 !important;"
-                            />
+                          <div id="modificarmapa" style="display: none;">
+                            <input id="modificarpac-input" class="controls" type="text" placeholder="Enter a location" style="z-index: 9999999 !important;"/>
                             <div id="modificartype-selector" class="controls">
                               <input type="radio" name="type" id="modificarchangetype-all" checked="checked">
                               <label for="changetype-all">All</label>

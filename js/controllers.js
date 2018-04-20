@@ -1275,7 +1275,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.mapaModificar = function () {
-      $scope.esconderMapaModificar = false;
+      // $scope.esconderMapaModificar = false;
       console.log($scope.medicoModif);
       $scope.initMapModificar($scope.primeraosegunda, $scope.medicoModif.latitud, $scope.medicoModif.longitud);
       $scope.primeraosegunda = 2;
@@ -1349,10 +1349,13 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $scope.modificando = true;
       $scope.ObrasSocialesAgregarMod = x.obrasSociales;
       $scope.especialidadesAgregarMod = x.especialidades;
+      $scope.initMapModificar($scope.primeraosegunda, $scope.medicoModif.latitud, $scope.medicoModif.longitud);
+      $scope.primeraosegunda = 2;
     }
 
     $scope.cerrarEditar = function(){
       afiliadoModificando = undefined; 
+      $scope.esconderMapaModificar = true;
       $scope.modificando = false; 
       $scope.ObtenerMedicos(); 
       // limpiarcampos();
@@ -1452,11 +1455,6 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $scope.medicoAlta.localidad = '';
       $scope.medicoAlta.telefono = '';
       $scope.medicoAlta.zona = '';
-      $scope.medicoModif.nombre = '';
-      $scope.medicoModif.domicilio = '';
-      $scope.medicoModif.localidad = '';
-      $scope.medicoModif.telefono = '';
-      $scope.medicoModif.zona = '';
       $scope.ObrasSocialesAgregar = [];
       $scope.especialidadesAgregar = [];
       $scope.OSEnvio = [];
@@ -1579,19 +1577,37 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
   .controller('farmaciasCrt', function ($scope, UserSrv, $http, $mdDialog, Permisos) {
 
 
+    $scope.primeraosegunda = 2;
     $scope.lat = '';
     $scope.lng = '';
     $scope.primeraosegunda = 1;
     $scope.ObrasSocialesAgregar = [];
     $scope.PS = Permisos;
-    $scope.ObrasSocialesAgregar = []
-    $scope.OSEnvio = []
+    $scope.ObrasSocialesAgregar = [];
+    $scope.OSEnvio = [];
 
+
+    $scope.cerrarEditar = function(){
+      $scope.farmaciaModif = undefined; 
+      $scope.esconderMapaModificar = true;
+      $scope.modificando = false; 
+      $scope.ObtenerOS(); 
+      // limpiarcampos();
+    }
+
+    $scope.Mapa = function () {
+      $scope.esconderMapa = false;
+      initMap($scope.primeraosegunda);
+      $scope.primeraosegunda = 2;
+    }
 
     $scope.Editar = function (x) {
       $scope.farmaciaModif = x;
+      console.log($scope.farmaciaModif);
       $scope.modificando = true;
       $scope.ObrasSocialesAgregar = x.obrasSociales;
+      $scope.initMapModificar($scope.primeraosegunda, $scope.farmaciaModif.latitude, $scope.farmaciaModif.longitude);
+      $scope.primeraosegunda = 2;
     }
 
     $scope.AgregarOS = function (x) {
@@ -1603,12 +1619,6 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       var indice = $scope.ObrasSocialesAgregar.indexOf(x);
       $scope.ObrasSocialesAgregar.splice(indice, 1);
       $scope.OSEnvio.splice(indice, 1);
-    }
-
-
-
-    $scope.mostrarMapa = function () {
-
     }
 
     $scope.borrarOS = function () {
@@ -1641,17 +1651,15 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'DIRECCION': $scope.direccion,
         'LOCALIDAD': $scope.localidad,
         'TELEFONO': $scope.telefono,
-        'latitude': 0,
-        'longitude': 0,
+        'latitude': $scope.lat,
+        'longitude': $scope.lng,
         'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id)
       }
       $http.post('http://des.gestionarturnos.com/farmacia', data)
-
         .success(function (response) {
           console.log(response);
           UserSrv.alertOk('Farmacia creada con exito.');
-          limpiarCampos()
-
+          limpiarCampos();
         }).error(function (response) {
           $scope.errorText = response;
           $scope.errorMsj = "*Revise los datos e intente nuevamente";
@@ -1707,16 +1715,17 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           'DIRECCION': $scope.farmaciaModif.direccion,
           'LOCALIDAD': $scope.farmaciaModif.localidad,
           'TELEFONO': $scope.farmaciaModif.telefono,
-          'latitude': $scope.farmaciaModif.latitude,
-          'longitude': $scope.farmaciaModif.longitude,
+          'latitude': $scope.modificarlat,
+          'longitude': $scope.modificarlng,
           'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id)
         })
 
         .success(function (response) {
           UserSrv.alertOk('Se edito con exito.');
-          $scope.ObtenerFarmacias()
+          $scope.ObtenerFarmacias();
           $scope.modificando = true;
           limpiarErrores();
+          $scope.cerrarEditar();
         }).error(function (response) {
           $scope.errorText = response;
           $scope.errorMsj = "*Revise los datos e intente nuevamente";
@@ -1724,19 +1733,126 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     var limpiarErrores = function () {
-      $scope.errorText = null
-      $scope.errorMsj = null
+      $scope.errorText = null;
+      $scope.errorMsj = null;
     }
     var limpiarCampos = function () {
-      $scope.nombre = null
-      $scope.telefono = null
-      $scope.ObrasSocialesAgregar = []
-      $scope.errorText = null
-      $scope.errorMsj = null
-      $scope.direccion = null
-      $scope.localidad = null
+      $scope.esconderMapa = true;
+      limpiarErrores();
+      $scope.nombre = null;
+      $scope.telefono = null;
+      $scope.ObrasSocialesAgregar = [];
+      $scope.errorText = null;
+      $scope.errorMsj = null;
+      $scope.direccion = null;
+      $scope.localidad = null;
     }
-    $scope.ObtenerOS()
+
+    $scope.initMapModificar = function (j,latitude,longitude) {
+      if(j == 1) {
+      document.getElementById('modificarmapa').style.display = "block";
+      latitud = parseFloat(latitude);
+      longitud = parseFloat(longitude);
+      console.log(latitud);
+      console.log(longitud);
+      console.log(latitude);
+      console.log(longitude);
+      
+      var myLatLng = {lat: latitud, lng: longitud};
+      
+      var map = new google.maps.Map(document.getElementById('modificarmap'), {
+        center: myLatLng,
+        zoom: 13
+      });
+
+      var ubicacionInicialMarker = new google.maps.Marker({
+        map: map,
+        position:myLatLng,
+        title:'hola'
+      });
+
+      var input = /** @type {!HTMLInputElement} */(
+          document.getElementById('modificarpac-input'));
+
+      var types = document.getElementById('modificartype-selector');
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+      var autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete.bindTo('bounds', map);
+
+      var infowindow = new google.maps.InfoWindow();
+      var marker = new google.maps.Marker({
+        map: map,
+        anchorPoint: new google.maps.Point(0, -29)
+      });
+      autocomplete.addListener('place_changed', function() {
+        ubicacionInicialMarker.setVisible(false);
+        infowindow.close();
+        marker.setVisible(false);
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+          // User entered the name of a Place that was not suggested and
+          // pressed the Enter key, or the Place Details request failed.
+          window.alert("No details available for input: '" + place.name + "'");
+          return;
+        }
+
+        // If the place has a geometry, then present it on a map.
+        if (place.geometry.viewport) {
+          map.fitBounds(place.geometry.viewport);
+        } else {
+          map.setCenter(place.geometry.location);
+          map.setZoom(17);  // Why 17? Because it looks good.
+        }
+        marker.setIcon(/** @type {google.maps.Icon} */({
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(35, 35)
+        }));
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
+
+        var address = '';
+        if (place.address_components) {
+          address = [
+            (place.address_components[0] && place.address_components[0].short_name || ''),
+            (place.address_components[1] && place.address_components[1].short_name || ''),
+            (place.address_components[2] && place.address_components[2].short_name || '')
+          ].join(' ');
+        }
+
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+        infowindow.open(map, marker);
+        var latm = marker.getPosition().lat();
+        var lngm = marker.getPosition().lng();
+          $scope.modificarlat = latm;
+          $scope.modificarlng = lngm;
+          console.log($scope.modificarlat);
+          console.log($scope.modificarlng);
+      });
+
+      // Sets a listener on a radio button to change the filter type on Places
+      // Autocomplete.
+      function setupClickListener(id, types) {
+        var radioButton = document.getElementById(id);
+        radioButton.addEventListener('click', function() {
+          autocomplete.setTypes(types);
+        });
+      }
+      setupClickListener('changetype-all', []);
+      setupClickListener('changetype-address', ['address']);
+      setupClickListener('changetype-establishment', ['establishment']);
+      setupClickListener('changetype-geocode', ['geocode']);  
+
+    } else {document.getElementById('modificarmapa').style.display = "block";};
+  }
+
+  $scope.ObtenerOS();
+  // $scope.initMapModificar($scope.primeraosegunda);
+
 
 
   })
