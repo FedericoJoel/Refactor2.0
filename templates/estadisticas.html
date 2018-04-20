@@ -133,8 +133,8 @@
                       <td style="vertical-align: middle;">{{solicitud.id}}</td>
                       <td style="vertical-align: middle;">{{solicitud.estado}}</td>
                       <td style="vertical-align: middle;">{{solicitud.motivo}}</td>
-                      <td style="vertical-align: middle;">{{formatDate(solicitud.fechaCreacion) | date:'dd/MM/yyyy'}}</td>
-                      <td style="vertical-align: middle;">{{formatDate(solicitud.fechaModificacion) | date:'dd/MM/yyyy'}}</td>
+                      <td style="vertical-align: middle;">{{formatDate(solicitud.fechaCreacion)}}</td>
+                      <td style="vertical-align: middle;">{{formatDate(solicitud.fechaModificacion)}}</td>
                     </tr>
                     <tr>
                       <td ng-show="expandida == solicitud.id" colspan="5">

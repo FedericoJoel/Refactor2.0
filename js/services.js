@@ -120,7 +120,7 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
     setTimeout(function () { 
       $('#mensajeContainer').removeClass('animated zoomIn')
       $('#mensajeContainer').addClass('animated zoomOut') 
-    }, 5000);
+    }, 10000);
   }
 
   /*this.alertError = function (texto) {
@@ -153,7 +153,7 @@ app.service('UserSrv', function ($http, $mdDialog, $mdToast, $rootScope) {
     setTimeout(function () {
       $('#mensajeContainer').removeClass('animated zoomIn')
       $('#mensajeContainer').addClass('animated zoomOut')
-    }, 5000);
+    }, 10000);
   });
 
   this.mensajeExito = function (mensaje) {

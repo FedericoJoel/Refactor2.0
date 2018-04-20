@@ -788,7 +788,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
       var b = moment(date).format('YYYY-MM-DD');
       $scope.filtro.fecha = b
-      var j = 1
+
     }
     $scope.Rechazar = function (ev, id) {
 
@@ -1087,6 +1087,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         .success(function (response) {
 
           UserSrv.alertOk('Se edito con exito.');
+          $scope.afiliadoModificando.familiares = $scope.familiares
           limpiarErrores();
           $scope.modificando = false
         }).error(function (response) {
@@ -1526,7 +1527,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
             $scope.ObtenerMedicos();
           })
           .error(function (response) {
-            UserSrv.alertOk("Hubo un error al eliminar.");
+            UserSrv.alertError("Hubo un error al eliminar.");
           })
       })
     }
@@ -1565,6 +1566,21 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       if (particular == 1)
         return 'Si'
       return 'No'
+    }
+
+    $scope.medicoModif = {
+      'nombre' : '',
+      'direccion': '',
+      'localidad': '',
+     'telefono': '',
+      'zona': ''
+    }
+    $scope.medicoAlta = {
+      'nombre': '',
+      'direccion': '',
+      'localidad': '',
+      'telefono': '',
+      'zona': ''
     }
     limpiarcampos = function () {
       $scope.errorText = '';
@@ -1951,7 +1967,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.formatDate = function(fecha){
-      var fechaFormateada = new Date(fecha)
+      if(fecha == null){ return ''}
+      var fechaFormateada = moment(fecha).format('DD/MM/YYYY')
       return fechaFormateada
     }
 
