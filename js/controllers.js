@@ -741,8 +741,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       if ($scope.especialidadesAgregar.length > 0) { // Osea que es una solicitud de estudio
         var data = {
           'id': id,
-          'ID_ESPECIALISTA': $scope.especialidadesAgregar[0].id,
-          'ID_CLIMED': $scope.clinicasAgregar[0].id
+          'ESPECIALIDAD': $scope.especialidadesAgregar[0].id,
+          'IDCLIMED': $scope.clinicasAgregar[0].id
         }
         $http.post('http://des.gestionarturnos.com/auditoria/autorizarEstudio', data)
           .success(function (response) {

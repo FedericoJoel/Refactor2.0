@@ -199,14 +199,18 @@
                         <font color="darkred">{{solicitudexpandida.especialidad.nombre}}</font>
                       </p>
                       <p ng-if="solicitudexpandida.tipo == 3">
-                        <b>Estudio: </b>{{solicitudexpandida.obs}}</p>
+                        <b>Estudio: </b>
+                        <font color="darkred">{{solicitudexpandida.especialidad.nombre}}</font>
+                      </p>
                       <p>
                         <p ng-if="solicitudexpandida.tipo == 3">
-                          <b>Estudio: </b>{{solicitudexpandida.climed.nombre}}</p>
+                          <b>Clinica: </b>
+                          <font color="darkred">{{solicitudexpandida.climed.nombre}}</font>
+                        </p>
                         <p>
-                        <b>Médico Sugerido:</b>
-                        <font color="darkred">{{solicitudexpandida.medico}}</font>
-                      </p>
+                          <b>Médico Sugerido:</b>
+                          <font color="darkred">{{solicitudexpandida.medico}}
+                        </p>
                     </h5>
                   </div>
                   <div class="col-md-8" style="overflow: auto;">
