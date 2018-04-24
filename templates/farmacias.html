@@ -1,5 +1,4 @@
 <div style="padding: 10px; padding-top: 60px;">
-
   <md-content class="main-card">
     <div id="mensaje"></div>
     <md-tabs md-dynamic-height md-border-bottom>
@@ -39,7 +38,7 @@
                           </a>
                         </i>
                       </div>
-                     <div class="col-md-4">
+                      <div class="col-md-4">
                         <label style="color: #1E4599">
                           <i class="fa fa-fw fa-map-marker"></i>Obras Sociales</label>
                         <!--<input type="text" id="papapa" ng-value="ObrasSocialesAgregar" style="width: 0px; height: 0px; border: 0px;" required>-->
@@ -87,16 +86,14 @@
                         <label for="localidad" style="color: #1E4599">
                           <i class="fa fa-fw fa-map-marker"></i>Coordenadas</label>
                         <input class="outline0" type="text" id="pepepepe" ng-model="lat" style="width: 0px; height: 0px; border: 0px;" required disabled>
-                        <button class="Boton" ng-disabled="lat != ''" ng-class="{'Metal': lat == '', 'Success': lat != ''}" style="width: 100%;"
-                          ng-click="Mapa()" type="button">
+                        <button class="Boton Success" style="width: 100%;" ng-click="Mapa()" type="button">
                           <img src="images/mapa.png" width="20px" height="20px" style="float: left;" />UBICAR</button>
                       </div>
                     </div>
 
-
                     <div class="row">
-                      <div class="col-md-6 col-md-offset-1">
-                        <div id="altamapa" style="display: none;">
+                      <div class="col-md-10 col-md-offset-1">
+                        <div id="altamapa" style="display: none;" ng-hide="esconderMapa">
                           <input id="pac-input" class="controls" type="text" placeholder="Enter a location" style="z-index: 9999999 !important;" />
                           <div id="type-selector" class="controls">
                             <input type="radio" name="type" id="changetype-all" checked="checked">
@@ -105,18 +102,21 @@
                           <input type="hidden" id="lat" ng-module="lat" />
                           <input type="hidden" id="lng" ng-module="lng" />
 
-                          <div id="map" style="width: 500px; height: 300px; margin: 0px; right: 0px;"></div>
+                          <div id="map" style="width: 100%; height: 400px; margin: 0px; right: 0px;"></div>
 
                         </div>
                       </div>
                     </div>
+
                     <div class="row" style="margin-top: 10px;">
-                      <div class="col-md-2 col-md-offset-10">
+                        <div class="col-md-6">
+                            <a style="color:red;">{{errorMsj}}</a>
+                          </div>
+                      <div class="col-md-2 col-md-offset-4">
                         <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary" ng-click="submit">
                           <i class="fa fa-fw fa-save" style="text-align: left;"></i>Alta</button>
                       </div>
                     </div>
-
                   </form>
                 </div>
 
@@ -144,7 +144,7 @@
 
               <div class="panel panel-default col-md-12" style="margin-top: 20px; padding: 0px;">
                 <!-- Default panel contents -->
-                <div class="subtitulo" >Farmacias disponibles</div>
+                <div class="subtitulo">Farmacias disponibles</div>
 
                 <!-- Table -->
                 <table class="table table-hover table-striped table-bordered">
@@ -208,7 +208,7 @@
             <div class="col-md-12">
               <div class="panel panel-default col-md-12" style="margin-top: -10px; padding: 0px;">
                 <div class="subtitulo">Editando Farmacia
-                  <button type="button" ng-click="afiliadoModificando = undefined; modificando = false;" class="close" aria-hidden="true">&times;</button>
+                  <button type="button" ng-click="cerrarEditar();" class="close" aria-hidden="true">&times;</button>
                 </div>
                 <div class="panel-body">
                   <div class="col-md-12">
@@ -249,42 +249,42 @@
                       </div>
 
                       <div class="form-group row" style="margin-top: 30px;">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <label for="direccion" style="color: #1E4599">
                             <i class="fa fa-fw fa-location-arrow"></i>Direccion</label>
                           <input type="text" class="form-control" ng-model="farmaciaModif.direccion" placeholder="Direccion" required>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <label for="localidad" style="color: #1E4599">
                             <i class="fa fa-fw fa-credit-card"></i>Localidad</label>
                           <input type="text" class="form-control" ng-model="farmaciaModif.localidad" placeholder="Localidad" required>
                         </div>
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                           <label for="localidad" style="color: #1E4599">
                             <i class="fa fa-fw fa-map-marker"></i>Coordenadas</label>
                           <input class="outline0" type="text" id="pepepepe" ng-model="lat" style="width: 0px; height: 0px; border: 0px;" required disabled>
-                          <button class="Boton" ng-disabled="lat != ''" ng-class="{'Metal': lat == '', 'Success': lat != ''}" style="width: 100%;"
-                            ng-click="Mapa()" type="button">
+                          <button class="Boton" ng-class="{'Metal': lat == '', 'Success': lat != ''}" style="width: 100%;" ng-click="Mapa()" type="button">
                             <img src="images/mapa.png" width="20px" height="20px" style="float: left;" />EDITAR UBICACIÓN</button>
-                        </div>
+                        </div> -->
                       </div>
 
                       <div class="row">
-                        <div class="col-md-6 col-md-offset-1">
-                          <div id="altamapa" style="display: none;">
-                            <input id="pac-input" class="controls" type="text" placeholder="Enter a location" style="z-index: 9999999 !important;" />
-                            <div id="type-selector" class="controls">
-                              <input type="radio" name="type" id="changetype-all" checked="checked">
+                        <div class="col-md-10 col-md-offset-1">
+                          <div id="modificarmapa" style="display: none;">
+                            <input id="modificarpac-input" class="controls" type="text" placeholder="Enter a location" style="z-index: 9999999 !important;"/>
+                            <div id="modificartype-selector" class="controls">
+                              <input type="radio" name="type" id="modificarchangetype-all" checked="checked">
                               <label for="changetype-all">All</label>
                             </div>
-                            <input type="hidden" id="lat" ng-module="lat" />
-                            <input type="hidden" id="lng" ng-module="lng" />
-
-                            <div id="map" style="width: 500px; height: 300px; margin: 0px; right: 0px;"></div>
-
+                            <input type="hidden" id="modificarlat" ng-module="modificarlat" />
+                            <input type="hidden" id="modificarlng" ng-module="modificarlng" />
+                      
+                            <div id="modificarmap" style="width: 100%; height: 400px; margin: 0px; right: 0px;"></div>
+                      
                           </div>
                         </div>
                       </div>
+
                       <div class="row" style="margin-top: 10px;">
                         <div class="col-md-2 col-md-offset-10">
                           <button style="margin-bottom: 10px; width: 100%;" type="submit" class="Boton Primary">

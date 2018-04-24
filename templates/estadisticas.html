@@ -50,7 +50,7 @@
           </div>
           <div class="row" style="margin-bottom: 10px; margin-top: 10px;">
             <div class="col-md-2 col-md-offset-1">
-              <button style="width: 100%; margin-top: 5px; right: 0;" class="Boton Chicle" ng-click="ObtenerZonas()">Actualizar</button>
+              <button style="width: 100%; margin-top: 5px; right: 0;" class="Boton Chicle" ng-click="Actualizar()">Actualizar</button>
             </div>
           </div>
 
@@ -91,7 +91,8 @@
                     </tr>
                   </thead>
                   <tbody ng-show="vistaactual == 'Zonas'" style="color: #73879C;">
-                    <tr ng-repeat="zona in Zonas" style="cursor: pointer;" ng-click="getClinicas(zona.zona)">
+                    <tr><td><input type="text" ng-model="filter.zona" class="form-control" placeholder="Filtrar por zona.."></td></tr>
+                    <tr ng-repeat="zona in Zonas | filter:filter" style="cursor: pointer;" ng-click="getClinicas(zona.zona)">
                       <td style="vertical-align: middle;">{{zona.zona}}</td>
                       <td style="vertical-align: middle;">{{zona.confirmados}}</td>
                       <td style="vertical-align: middle;">{{zona.pendientes}}</td>
@@ -110,7 +111,8 @@
                     </tr>
                   </tbody>
                   <tbody ng-show="vistaactual == 'Clinicas'" style="color: #73879C;">
-                    <tr ng-repeat="clinica in Clinicas" style="cursor: pointer;" ng-click="getSolicitudes(clinica)">
+                    <tr><td><input type="text" ng-model="filter2.nombre" class="form-control" placeholder="Filtrar por clinica.."></td></tr>
+                    <tr ng-repeat="clinica in Clinicas | filter:filter2.nombre" style="cursor: pointer;" ng-click="getSolicitudes(clinica)">
                       <td style="vertical-align: middle;">{{clinica.nombre}}</td>
                       <td style="vertical-align: middle;">{{clinica.confirmados}}</td>
                       <td style="vertical-align: middle;">{{clinica.pendientes}}</td>
@@ -125,7 +127,7 @@
                       <td style="background-color: #c76084; color: white;">{{totalClinicas.total}}</td>
                     </tr>
                     <tr style="color: #103067;">
-                      <td ng-if="Clinicas.length == 0">Cargando..</td>
+                      <td colspan="5" ng-if="Clinicas.length == 0">Cargando..</td>
                     </tr>
                   </tbody>
                   <tbody ng-repeat="solicitud in Solicitudes" ng-show="vistaactual == 'Solicitudes'" style="color: #73879C;">
@@ -180,7 +182,7 @@
                   </tbody>
                   <tbody ng-if="Solicitudes.length == 0">
                     <tr style="color: #103067;">
-                      <td>Cargando..</td>
+                      <td colspan="5">Cargando..</td>
                     </tr>
                   </tbody>
                 </table>
