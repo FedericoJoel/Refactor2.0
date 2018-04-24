@@ -207,9 +207,9 @@
                           <b>Clinica: </b>
                           <font color="darkred">{{solicitudexpandida.climed.nombre}}</font>
                         </p>
-                        <p>
+                        <p ng-if="solicitudexpandida.tipo != 3">
                           <b>Médico Sugerido:</b>
-                          <font color="darkred">{{solicitudexpandida.medico}}
+                          <font color="darkred">{{solicitudexpandida.medico}}</font>
                         </p>
                     </h5>
                   </div>
