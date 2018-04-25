@@ -460,7 +460,11 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'FECHAS': new Date(),
         'ESTADO': 'Pendiente'
     }
-      
+    
+    $scope.solicitudesAbiertas = []
+    var agregarSolicitudAbierta = function(solicitud){
+      $scope.solicitudesAbiertas.push(solicitud)
+    }
 
     var crear = function(){
 
@@ -642,11 +646,13 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     }
 
-    $scope.asignarseSolicitud = function (idSolicitud) {
+    $scope.asignarseSolicitud = function (solicitud) {
       $http.post('http://des.gestionarturnos.com/solicitud/abrir', {
-          'id': idSolicitud
+          'id': solicitud.id
         })
-
+        .success(function (response) {
+          agregarSolicitudAbierta(solicitud)
+        })
         .error(function (response) {
           UserSrv.alertError('Hubo un error al asignar la solicitud. Intente nuevamente.');
         })
@@ -679,7 +685,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     }
     $scope.Detallar = function (solicitud) {
-      $scope.asignarseSolicitud(solicitud.id)
+      $scope.asignarseSolicitud(solicitud)
       $scope.solicitudexpandida = solicitud;
       $scope.datoexpandida = solicitud;
       $scope.idexpandida = solicitud.id;
