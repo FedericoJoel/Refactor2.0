@@ -117,8 +117,8 @@
               </thead>
               <tbody>
                 <tr style="cursor: pointer;" data-toggle="modal" data-target="#detalleSolicitud" ng-repeat="solicitud in solicitudes | filter:filtroFechaDesde | filter:filtroFechaHasta | filter:filtroTipo | filter:filtroEstado  as filteredElems track by $index"
-                  ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)" ng-click="Detallar(solicitud)">
-                  <td>{{solicitud.afiliado.dni}}</td>
+                  ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)" ng-click="Detallar(solicitud)" ng-class="{'disabled-row': (solicitudesAbiertas.indexOf(solicitud) != -1)}">
+                  <td>{{solicitud.afiliado.dni}},{{solicitudesAbiertas.indexOf(solicitud)}}</td>
                   <td ng-if="solicitud.tipo != '3'">{{solicitud.climed.nombre}}</td>
                   <td ng-if="solicitud.tipo == '3'">ESTUDIO</td>
                   <td ng-if="solicitud.tipo != '3'">{{solicitud.medico}}</td>
@@ -199,11 +199,18 @@
                         <font color="darkred">{{solicitudexpandida.especialidad.nombre}}</font>
                       </p>
                       <p ng-if="solicitudexpandida.tipo == 3">
-                        <b>Estudio: </b>{{solicitudexpandida.OBS}}</p>
-                      <p>
-                        <b>Médico Sugerido:</b>
-                        <font color="darkred">{{solicitudexpandida.medico}}</font>
+                        <b>Estudio: </b>
+                        <font color="darkred">{{solicitudexpandida.especialidad.nombre}}</font>
                       </p>
+                      <p>
+                        <p ng-if="solicitudexpandida.tipo == 3">
+                          <b>Clinica: </b>
+                          <font color="darkred">{{solicitudexpandida.climed.nombre}}</font>
+                        </p>
+                        <p ng-if="solicitudexpandida.tipo != 3">
+                          <b>Médico Sugerido:</b>
+                          <font color="darkred">{{solicitudexpandida.medico}}</font>
+                        </p>
                     </h5>
                   </div>
                   <div class="col-md-8" style="overflow: auto;">
