@@ -2,7 +2,8 @@
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
         
-      function initMap(j) {
+      function initMapa(j) {
+        console.log(j);
         if(j == 1) {
         document.getElementById('altamapa').style.display = "block";
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -87,7 +88,13 @@
         setupClickListener('changetype-establishment', ['establishment']);
         setupClickListener('changetype-geocode', ['geocode']);  
 
-      } else {document.getElementById('altamapa').style.display = "block";};
+      } 
+      else {
+        document.getElementById('altamapa').style.display = "block";
+        latitude = -34.5991567;
+        longitude = -58.369587499999966;
+        map.setCenter(new google.maps.LatLng(latitude, longitude));
+      };
     }
 
       // This example requires the Places library. Include the libraries=places
