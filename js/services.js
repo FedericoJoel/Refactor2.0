@@ -222,11 +222,11 @@ app.factory('APIInterceptor', function ($q, $rootScope) {
 
 app.service('Permisos', [function ($stateProvider, $urlRouterProvider) {
 
-  this.tienePermiso = function (pantalla) {
-    var permisos = localStorage.getItem('permisos').split(',')
-  
-     return permisos.some(permiso => permiso == pantalla );
-  };
+    this.tienePermiso = function (pantalla) {
+      var permisos = localStorage.getItem('permisos').split(',')
+    
+      return permisos.some(permiso => permiso == pantalla );
+    };
 }]);
 
 app.service('CargarDatos', ['$http', function ($http) {
@@ -256,7 +256,7 @@ app.service('CargarDatos', ['$http', function ($http) {
         'NAFILIADO': index,
         'GRUPOF': null
       }
-      $http.post('http://des.gestionarturnos.com/afiliado', data)
+      $http.post('https://guarded-oasis-37936.herokuapp.com/afiliado', data)
 
         .success(function (response) {
           index++
@@ -277,7 +277,7 @@ app.service('CargarDatos', ['$http', function ($http) {
       'obrasSociales': [1],
       'PARTICULAR': 1
     }
-    $http.post('http://des.gestionarturnos.com/climed', data)
+    $http.post('https://guarded-oasis-37936.herokuapp.com/climed', data)
 
       .success(function (response) {
         index++

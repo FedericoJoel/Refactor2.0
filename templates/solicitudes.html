@@ -194,6 +194,10 @@
                         <b>Clínica: </b>
                         <font color="darkred">{{solicitudexpandida.climed.nombre}}</font>
                       </p>
+                      <p ng-if="solicitudexpandida.tipo !== 3">
+                        <b>Teléfono Clínica: </b>
+                        <font color="darkred">{{solicitudexpandida.climed.telefono}}</font>
+                      </p>
                       <p ng-if="solicitudexpandida.tipo == 2">
                         <b>Especialidad: </b>
                         <font color="darkred">{{solicitudexpandida.especialidad.nombre}}</font>
@@ -206,6 +210,10 @@
                         <p ng-if="solicitudexpandida.tipo == 3">
                           <b>Clinica: </b>
                           <font color="darkred">{{solicitudexpandida.climed.nombre}}</font>
+                        </p>
+                        <p ng-if="solicitudexpandida.tipo == 3">
+                          <b>Teléfono Clinica: </b>
+                          <font color="darkred">{{solicitudexpandida.climed.telefono}}</font>
                         </p>
                         <p ng-if="solicitudexpandida.tipo != 3">
                           <b>Médico Sugerido:</b>
@@ -238,7 +246,7 @@
                           <tr ng-repeat="historial in solicitudexpandida.turnos">
                             <td>{{historial.fecha | date:'MM/dd/yyyy'}}</td>
                             <td>{{historial.hora}}</td>
-                            <td>{{historial.climed.nombre}}</td>
+                            <td>{{historial.medicoAsignado}}</td>
                             <td ng-if="historial.confirmacion == 0" style="background-color: orange; color: white;">A CONFIRMAR</td>
                             <td ng-if="historial.confirmacion == 1" style="background-color: darkred; color: white;">RECHAZADO</td>
                             <td ng-if="historial.confirmacion == 2" style="background-color: #1a873e; color: white;">CONFIRMADO</td>
