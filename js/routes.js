@@ -105,8 +105,8 @@ app.run(function($rootScope,$state) {
         $rootScope.$on('$stateChangeSuccess',
           function (event, toState, toParams, fromState, fromParams) {
             console.log(fromState)
-            if(fromState.name == 'solicitudes' && toState.name != 'solicitudes'){
-              var socket = io.connect('http://gestionar.herokuapp.com:80');
+            if((fromState.name == 'solicitudes' && toState.name != 'solicitudes') || (fromState.name == 'auditoria' && toState.name != 'auditoria')){
+              var socket = io.connect('http://node-gestionar.herokuapp.com:80');
               socket.emit('deleteClient', localStorage.getItem('user_id'))
             }
           }

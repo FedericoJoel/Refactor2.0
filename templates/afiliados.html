@@ -118,7 +118,7 @@
                         <a style="color:red;">{{errorText.DIRECCION}}</a>
                         </i>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-1">
                         <label for="piso" style="color: #1E4599">
                           <i class="fa fa-fw fa-phone"></i>Piso</label>
                         <input type="number" class="form-control" ng-model="piso" placeholder="Piso">
@@ -126,14 +126,28 @@
                           <a style="color:red;">{{errorText.PISO}}</a>
                         </i>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-1">
                         <label for="departamento" style="color: #1E4599">
                           <i class="fa fa-fw fa-mobile"></i>DPTO</label>
                         <input type="number" class="form-control" ng-model="departamento" placeholder="Departamento">
                         </i>
                         <a style="color:red;">{{errorText.DEPARTAMENTO}}</i>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-2">
+                        <label for="Localidad" style="color: #1E4599">
+                          <i class="fa fa-fw fa-mobile"></i>Localidad</label>
+                        <input type="text" class="form-control" ng-model="localidad" placeholder="Localidad">
+                        </i>
+                        <a style="color:red;">{{errorText.LOCALIDAD}}</i>
+                      </div>
+                      <div class="col-md-1">
+                        <label for="cp" style="color: #1E4599">
+                          <i class="fa fa-fw fa-mobile"></i>CP</label>
+                        <input type="number" class="form-control" ng-model="codigo_postal" placeholder="CP">
+                        </i>
+                        <a style="color:red;">{{errorText.CP}}</i>
+                      </div>
+                      <div class="col-md-3">
                         <label for="email" style="color: #1E4599">
                           <i class="fa fa-fw fa-email"></i>Email</label>
                         <input type="text" class="form-control" ng-model="email" placeholder="Email" required>
@@ -481,7 +495,7 @@
                             <a style="color:red;">{{errorText.DIRECCION}}</a>
                           </i>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                           <label for="piso" style="color: #1E4599">
                             <i class="fa fa-fw fa-phone"></i>Piso</label>
                           <input type="number" class="form-control" ng-model="afiliadoModificando.piso" placeholder="Piso">
@@ -489,18 +503,31 @@
                             <a style="color:red;">{{errorText.PISO}}</a>
                           </i>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                           <label for="departamento" style="color: #1E4599">
-                            <i class="fa fa-fw fa-mobile"></i>Departamento</label>
-                          <input type="text" class="form-control" ng-model="afiliadoModificando.departamento" placeholder="Departamento">
-                          <i>
-                            <a style="color:red;">{{errorText.DEPARTAMENTO}}</a>
+                            <i class="fa fa-fw fa-mobile"></i>DPTO</label>
+                          <input type="number" class="form-control" ng-model="afiliadoModificando.departamento" placeholder="Departamento">
                           </i>
+                          <a style="color:red;">{{errorText.DEPARTAMENTO}}</i>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
+                          <label for="Localidad" style="color: #1E4599">
+                            <i class="fa fa-fw fa-mobile"></i>Localidad</label>
+                          <input type="text" class="form-control" ng-model="afiliadoModificando.localidad" placeholder="Localidad">
+                          </i>
+                          <a style="color:red;">{{errorText.LOCALIDAD}}</i>
+                        </div>
+                        <div class="col-md-1">
+                          <label for="cp" style="color: #1E4599">
+                            <i class="fa fa-fw fa-mobile"></i>CP</label>
+                          <input type="number" class="form-control" ng-model="afiliadoModificando.codigo_postal" placeholder="CP">
+                          </i>
+                          <a style="color:red;">{{errorText.CP}}</i>
+                        </div>
+                        <div class="col-md-3">
                           <label for="email" style="color: #1E4599">
                             <i class="fa fa-fw fa-email"></i>Email</label>
-                          <input type="text" class="form-control" ng-model="afiliadoModificando.email" placeholder="Email" required>
+                          <input type="text" class="form-control" ng-model="afiliadoModifcando.email" placeholder="Email" required>
                           <i>
                             <a style="color:red;">{{errorText.EMAIL}}</a>
                           </i>

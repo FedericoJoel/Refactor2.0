@@ -447,7 +447,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     })
 
     socket.on('actualizarSolicitudes', function (data) {
-      traerSolicitudes()
+      $scope.traerSolicitudes()
     })
 
 
@@ -488,7 +488,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.cantidadpaginas = [];
     $scope.Cargando = "Cargando...";
     $scope.tipos = ['Todos', 'Clinico', 'Especialista', 'Estudio'];
-    $scope.estados = ['Todos', 'Pendiente', 'Abierto', 'Rechazado', 'En Espera'];
+    $scope.estados = ['Todos', 'Pendiente', 'En Espera'];
     $scope.numeritos = ['10', '15', '20', '25', '50'];
     $scope.filtrotipo = $scope.tipos[0];
     $scope.filtroestado = $scope.estados[0];
@@ -512,6 +512,20 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           console.log(response);
         })
     }
+
+    $scope.traerSolicitudes = function() {
+      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/solicitudesEnProceso')
+
+        .success(function (response) {
+
+          $scope.solicitudes = response;
+          $scope.solicitudesNoFiltradas = response;
+          $scope.paginar();
+          $scope.Cargando = "";
+          console.log(response);
+      })
+    }
+
     $scope.selectorear = function (x) {
       $scope.se = [];
       $scope.se[x.id] = true;
@@ -730,7 +744,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     })
 
     socket.on('actualizarSolicitudes', function (data) {
-      traerSolicitudes()
+      $scope.traerSolicitudes()
     })
 
     $scope.filtroClimed = function (solicitud) {
@@ -845,6 +859,19 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           console.log(response);
         })
     }
+
+    $scope.traerSolicitudes = function() {
+      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/solicitudesParaAuditar')
+
+        .success(function (response) {
+
+          $scope.solicitudes = response;
+          $scope.paginar();
+          $scope.Cargando = "";
+          console.log(response);
+        })
+    }
+
     var traerEspecialidades = function () {
       $http.get('https://guarded-oasis-37936.herokuapp.com/especialidad/traerElementos')
         .success(function (response) {
@@ -1088,6 +1115,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'EMAIL': $scope.afiliadoModificando.email,
         'DNI': $scope.afiliadoModificando.dni,
         'PISO': $scope.afiliadoModificando.piso,
+        'LOCALIDAD': $scope.afiliadoModificando.localidad,
+        'CP' : $scope.afiliadoModificando.codigo_postal,
         'DEPARTAMENTO': $scope.afiliadoModificando.departamento,
         'TELEFONO': $scope.afiliadoModificando.telefono,
         'CELULAR': $scope.afiliadoModificando.celular,
@@ -1173,6 +1202,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'APELLIDO': $scope.apellido,
         'DIRECCION': $scope.domicilio,
         'CUIL': $scope.cuil,
+        'LOCALIDAD': $scope.localidad,
+        'CP': $scope.codigo_postal,
         'EMAIL': $scope.email,
         'DNI': $scope.dni,
         'PISO': $scope.piso,
