@@ -637,7 +637,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       return array;
     }
 
-    $scope.EnviarTurno = function (fecha, hora, medico) {
+    $scope.EnviarTurno = function (fecha, hora, medico,form) {
 
       $scope.fecha = moment(fecha).format('YYYY-MM-DD');
       $scope.hora = moment(hora).format('hh:mm:ss');
@@ -654,7 +654,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
         .success(function (response) {
           $scope.enviandoturno = false;
-          UserSrv.alertOk('La solicitud fue generada con exito.');
+          UserSrv.alertOk('El turno fue enviado con exito.');
           $scope.consultasolicitud($scope.solicitudexpandida.id);
           traerSolicitudes()
         })
@@ -909,7 +909,6 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.Detallar = function (id) {
       $("#tr" + id).slideToggle();
-
     }
 
     $scope.paginar = function () {
@@ -1143,7 +1142,6 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           $scope.modificando = false
         }).error(function (response) {
           $scope.errorText = response;
-          $scope.modificando = false;
           $scope.errorMsj = "*Revise los datos e intente nuevamente";
         })
     }
