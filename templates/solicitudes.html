@@ -117,7 +117,7 @@
               </thead>
               <tbody>
                 <tr style="cursor: pointer;" data-toggle="modal" data-target="#detalleSolicitud" ng-repeat="solicitud in solicitudes | filter:filtroFechaDesde | filter:filtroFechaHasta | filter:filtroTipo | filter:filtroEstado  as filteredElems track by $index"
-                  ng-if="($index <= (ActualPage * filtronumeritos)) && ($index >= (ActualPage-1)*filtronumeritos)" ng-click="Detallar(solicitud)" ng-class="{'disabled-row': (solicitudesAbiertas.indexOf(solicitud) != -1)}">
+                    ng-if="separarPaginas($index)" ng-click="Detallar(solicitud)" ng-class="{'disabled-row': (solicitudesAbiertas.indexOf(solicitud) != -1)}">
                   <td>{{solicitud.afiliado.dni}}</td>
                   <td ng-if="solicitud.tipo != '3'">{{solicitud.climed.nombre}}</td>
                   <td ng-if="solicitud.tipo == '3'">ESTUDIO</td>
@@ -143,7 +143,27 @@
               <tfoot>
                 <tr ng-if="solicitudes.length > 0">
                   <td colspan="6" style="text-align: center;">
-                    <paginado></paginado>
+                    <nav aria-label="Page navigation">
+                      <ul class="pagination" style="padding: 0px; margin: 0px;">
+                        <li>
+                          <a ng-click="disminuirPagina()">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                          </a>
+                        </li>
+                        <li ng-repeat="pag in getPaginas(filteredElems) track by $index" ng-class="{'active': ActualPage == pag}" ng-click="ChangePage(pag)"
+                            ng-show="pag <= primeraPagina +10 && primeraPagina <= pag ">
+                          <a>{{$index+1}}</a>
+                        </li>
+                        </a>
+                        </li>
+                        <li>
+                          <!-- <a ng-click="((getPaginas(filteredElems).length - primerapagina)> 10) && (primeraPagina = primeraPagina +5)">-->
+                          <a ng-click="aumentarPagina(filteredElems)">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
                   </td>
                 </tr>
               </tfoot>
