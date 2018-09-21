@@ -273,7 +273,7 @@
                       <td style="vertical-align: middle;">{{x.localidad}}</td>
                       <td style="vertical-align: middle;">{{x.domicilio}}</td>
                       <td style="vertical-align: middle;">{{x.telefono}}</td>
-                      <td style="vertical-align: middle;">
+                      <td style="vertical-align: middle; display: flex;">
                         <button ng-disabled="modificando" data-toggle="modal" data-target="#Modificar" class="Boton Primary" style="padding: 5px;"
                           ng-click="Editar(x)">
                           <i class="fa fa-fw fa-edit"></i> 
@@ -339,7 +339,7 @@
                         <div class="col-md-3">
                           <label for="telefono" style="color: #1E4599">
                             <i class="fa fa-fw fa-phone"></i>Telefono</label>
-                          <input type="number" class="form-control" ng-model="medicoModif.telefono" placeholder="Telefono" required>
+                          <input type="text" class="form-control" ng-model="medicoModif.telefono" placeholder="Telefono" required>
                           <i>
                             <a style="color:red;">{{errorText.TELEFONO}}</a>
                           </i>

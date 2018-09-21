@@ -65,7 +65,7 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label for="numerito">Cantidad de Registros</label>
-                  <select style="width: 30%;" id="numerito" ng-model="filtronumeritos" ng-options="x for x in numeritos" data-ng-change="paginar()"
+                  <select style="width: 30%;" id="numerito" ng-model="filtronumeritos" ng-options="x for x in numeritos" data-ng-change="elemsPorPagina = filtronumeritos"
                     placeholder="Tipo.." class="form-control">
                   </select>
                 </div>
