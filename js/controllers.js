@@ -1601,8 +1601,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           'LOCALIDAD': $scope.medicoModif.localidad,
           'ZONA': $scope.medicoModif.zona,
           'PARTICULAR': $scope.medicoModif.particular,
-          'latitude': $scope.modificarlat,
-          'longitude': $scope.modificarlng,
+          'latitude': $scope.modificarlat == '' ? $scope.medicoModif.latitud : $scope.modificarlat,
+          'longitude': $scope.modificarlng == '' ? $scope.medicoModif.longitud : $scope.modificarlng,
           'TELEFONO': $scope.medicoModif.telefono,
           'obrasSociales': $scope.ObrasSocialesAgregarMod.map(OS => OS.id),
           'especialidades': $scope.medicoModif.especialidades.map(Esp => Esp.id)
