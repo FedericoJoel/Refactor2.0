@@ -1704,7 +1704,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $scope.ObrasSocialesAgregar = [];
       $scope.especialidadesAgregar = [];
       $scope.OSEnvio = [];
-      $scope.especialidadesenvio = [];
+      $scope.especialidadesEnvio = [];
       $scope.especialidadesAgregarMod = [];
       $scope.especialidadesEnvioMod = [];
 

@@ -219,7 +219,14 @@
                         <b>Nombre y Apellido:</b>
                         <font color="darkred">{{solicitudexpandida.afiliado.nombre}}</font>
                       </p>
-
+                      <p>
+                        <b>RANGO HORAIRO:</b>
+                        <font color="darkred">{{solicitudexpandida.rango}}</font>
+                      </p>
+                      <p ng-if="solicitudexpandida.obsFamiliar != ''">
+                        <b>OBS FAMILIAR:</b>
+                        <font color="darkred">{{solicitudexpandida.obsFamiliar}}</font>
+                      </p>
                       <p ng-if="solicitudexpandida.tipo !== 3">
                         <b>Clínica: </b>
                         <font color="darkred">{{solicitudexpandida.climed.nombre}}</font>
@@ -236,7 +243,6 @@
                         <b>Estudio: </b>
                         <font color="darkred">{{solicitudexpandida.especialidad.nombre}}</font>
                       </p>
-                      <p>
                         <p ng-if="solicitudexpandida.tipo == 3">
                           <b>Clinica: </b>
                           <font color="darkred">{{solicitudexpandida.climed.nombre}}</font>
