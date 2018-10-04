@@ -223,9 +223,10 @@
                         <b>RANGO HORAIRO:</b>
                         <font color="darkred">{{solicitudexpandida.rango}}</font>
                       </p>
-                      <p ng-if="solicitudexpandida.obsFamiliar != ''">
-                        <b>OBS FAMILIAR:</b>
+                      <p ng-if="solicitudexpandida.obsFamiliar != '' && solicitudexpandida.obsFamiliar != null">
+                        <b>OBSERVACIÓN:</b>
                         <font color="darkred">{{solicitudexpandida.obsFamiliar}}</font>
+                        <button class="Boton Danger" style="padding: 2px;" data-toggle="modal" data-target="#jorgelin">Ver datos de Familiares</button>
                       </p>
                       <p ng-if="solicitudexpandida.tipo !== 3">
                         <b>Clínica: </b>
@@ -471,5 +472,53 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="jorgelin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Datos de Familiares</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4">
+              <i class="fa fa-search"></i>
+              <b>Nombre</b>
+            </div>
+            <div class="col-md-8">
+              <input class="form-control" type="text" ng-model="buscafam" placeholder="Nombre..">
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 10px;">
+            <div id="BuscaUser2" class="col-md-12" style="overflow: auto; max-height: 400px;">
+
+                <table class="table table-bordered">
+                  <thead>
+                    <tr class="subtitulo" style="color: white">
+                      <td>NOMBRE</td>
+                      <td>DNI</td>
+                      <td>NACIMIENTO</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="x in solicitudexpandida.afiliado.familiares | filter: buscafam">
+                      <td>{{x.nombre}}</td>
+                      <td>{{x.dni}}</td>
+                      <td>{{x.nacimiento | date:'dd/MM/yyyy'}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
 </div>

@@ -690,10 +690,21 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $http.post('https://guarded-oasis-37936.herokuapp.com/turno', data)
 
         .success(function (response) {
-          $scope.enviandoturno = false;
-          UserSrv.alertOk('El turno fue enviado con exito.');
-          $scope.consultasolicitud($scope.solicitudexpandida.id);
-          traerSolicitudes()
+          var data2 = {
+            'email': $scope.solicitudexpandida.afiliado.email,
+            'afiliado': $scope.solicitudexpandida.afiliado.nombre,
+            'fecha': data.FECHAT,
+            'hora': data.HORAT,
+            'clinica': $scope.solicitudexpandida.climed.nombre,
+            'domicilio': $scope.solicitudexpandida.climed.domicilio
+          }
+          $http.post('/enviarMail.php', data2)
+          .success(function (response) {
+            $scope.enviandoturno = false;
+            UserSrv.alertOk('El turno fue enviado con exito.');
+            $scope.consultasolicitud($scope.solicitudexpandida.id);
+            traerSolicitudes()
+          })
         })
 
     }
@@ -863,7 +874,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
       $mdDialog.show(confirm).then(function (motivo) {
         $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/rechazar', {
-            'id': id,
+            'id': id.id,
             'MOTIVO': motivo
           })
 
