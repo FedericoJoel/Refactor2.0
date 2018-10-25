@@ -693,18 +693,28 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           var data2 = {
             'email': $scope.solicitudexpandida.afiliado.email,
             'afiliado': $scope.solicitudexpandida.afiliado.nombre,
-            'fecha': data.FECHAT,
+            'fecha': moment($scope.fecha).format('DD-MM-YYYY'),
             'hora': data.HORAT,
             'clinica': $scope.solicitudexpandida.climed.nombre,
             'domicilio': $scope.solicitudexpandida.climed.domicilio
           }
-          $http.post('/enviarMail.php', data2)
-          .success(function (response) {
-            $scope.enviandoturno = false;
-            UserSrv.alertOk('El turno fue enviado con exito.');
-            $scope.consultasolicitud($scope.solicitudexpandida.id);
-            traerSolicitudes()
-          })
+          if($scope.solicitudexpandida.afiliado.obra_social.nombre == 'Cobertec'){
+            $http.post('/enviarMail.php', data2)
+              .success(function (response) {
+              $scope.enviandoturno = false;
+              UserSrv.alertOk('El turno fue enviado con exito.');
+              $scope.consultasolicitud($scope.solicitudexpandida.id);
+              traerSolicitudes()
+            })
+          } else {
+            $http.post('/enviarMailSana.php', data2)
+              .success(function (response) {
+              $scope.enviandoturno = false;
+              UserSrv.alertOk('El turno fue enviado con exito.');
+              $scope.consultasolicitud($scope.solicitudexpandida.id);
+              traerSolicitudes()
+            })
+          }
         })
 
     }
@@ -853,6 +863,10 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       },
       'fecha': undefined
     }
+
+    $scope.yer = function (x){
+      $scope.yero = x;
+    }
     $scope.formatDate = function (date) {
 
       var b = moment(date).format('YYYY-MM-DD');
@@ -902,6 +916,22 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         .success(function (response) {
 
           $scope.solicitudes = response;
+          $scope.paginar();
+          $scope.Cargando = "";
+          console.log(response);
+        })
+    }
+
+    $scope.VerFoto = function(x){
+      $scope.fotoAutorizacion = "http://www.gestionarturnos.com/certificados/" + x;
+    }
+
+    $scope.ObtenerHistorial = function () {
+      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/historialAuditoria')
+
+        .success(function (response) {
+
+          $scope.historial = response;
           $scope.paginar();
           $scope.Cargando = "";
           console.log(response);
@@ -2407,7 +2437,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
         $http.post('https://guarded-oasis-37936.herokuapp.com/especialidad', {
             'NOMBRE': $scope.espeAlta.nombre,
-            'ESTUDIO': $scope.espeAlta.estudio
+            'ESTUDIO': $scope.espeAlta.estudio,
+            'DIRECTO': $scope.espeAlta.directo
           })
           .success(function (response) {
             UserSrv.alertOk('Especialidad/Estudio creado con exito.');
@@ -2426,7 +2457,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         $http.put('https://guarded-oasis-37936.herokuapp.com/especialidad/' + $scope.espeModif.id, {
             'NOMBRE': $scope.espeModif.nombre,
             'ESTUDIO': $scope.espeModif.estudio,
-            'IDESPECIALIDAD': $scope.espeModif.id
+            'IDESPECIALIDAD': $scope.espeModif.id,
+            'DIRECTO': $scope.espeModif.directo
           })
           .success(function (response) {
             UserSrv.alertOk('Editado con exito.');
@@ -2594,11 +2626,12 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         };
       }
 
-      $scope.expandir = function (id) {
-        $scope.expandida = id;
+      $scope.expandir = function (solicitud) {
+        $scope.expandida = solicitud.id;
         $scope.Turnos = undefined;
+        $scope.datosNuevos = solicitud;
         $http.post('https://guarded-oasis-37936.herokuapp.com/reporteSolicitudes/turnos', {
-            'id_solicitud': id
+            'id_solicitud': solicitud.id
           })
           .success(function (response) {
             $scope.Turnos = response;

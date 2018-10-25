@@ -217,7 +217,11 @@
                       </p>
                       <p>
                         <b>Nombre y Apellido:</b>
-                        <font color="darkred">{{solicitudexpandida.afiliado.nombre}}</font>
+                        <font color="darkred">{{solicitudexpandida.afiliado.nombre}} {{solicitudexpandida.afiliado.apellido}}</font>
+                      </p>
+                      <p>
+                        <b>Teléfono Afiliado:</b>
+                        <font color="darkred">{{solicitudexpandida.afiliado.telefono}}</font>
                       </p>
                       <p>
                         <b>RANGO HORAIRO:</b>
@@ -272,6 +276,7 @@
                             <td>MEDICO</td>
                             <td>RESPUESTA</td>
                             <td>MOTIVO</td>
+                            <td>ENVIADO EL</td>
                           </tr>
                         </thead>
                         <tbody>
@@ -281,13 +286,14 @@
                             </td>
                           </tr>
                           <tr ng-repeat="historial in solicitudexpandida.turnos">
-                            <td>{{historial.fecha | date:'MM/dd/yyyy'}}</td>
+                            <td>{{historial.fecha | date:'dd/MM/yyyy'}}</td>
                             <td>{{historial.hora}}</td>
                             <td>{{historial.medicoAsignado}}</td>
                             <td ng-if="historial.confirmacion == 0" style="background-color: orange; color: white;">A CONFIRMAR</td>
                             <td ng-if="historial.confirmacion == 1" style="background-color: darkred; color: white;">RECHAZADO</td>
                             <td ng-if="historial.confirmacion == 2" style="background-color: #1a873e; color: white;">CONFIRMADO</td>
                             <td>{{historial.motivo}}</td>
+                            <td>{{historial.fechaCreacion}}</td>
                           </tr>
                           <tr ng-show="enviandoturno">
                             <td colspan="5">

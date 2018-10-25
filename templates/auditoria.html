@@ -2,95 +2,236 @@
 
   <md-content class="main-card">
     <div id="mensaje"></div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="titulo">
-          Auditoria de Solicitudes
-        </div>
-      </div>
-    </div>
-    
-        <md-content class="" style="background: linear-gradient(white, white);padding: 30px">
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="Auditar Solicitudes" ng-click="">
+        <md-content>
           <div class="row">
             <div class="col-md-12">
-              <div class="subtitulo">
-                Solicitudes
+              <div class="titulo">
+                Auditoria de Solicitudes
               </div>
             </div>
           </div>
-          <div class="row" style="padding-left: 15px; padding-right: 15px;">
-            <table class="table table-hover table-bordered" style="margin-bottom: 0px;">
-              <thead>
-                <tr style="background-color: white; color: white;" ng-click="getPrimeraPagina()">
-                  <td>
-                    <input type="text" class="form-control" ng-model="filtro.afiliado.nombre" placeholder="Filtrar por nombre.." style="background-color: transparent; border-radius: 0px; color: #337ab7; font-weight: bold;">
-                  </td>
-                  <td>
-                    <input type="text" class="form-control" ng-model="searchClimed" placeholder="Filtrar por clínica.." style="background-color: transparent; border-radius: 0px; color: #337ab7; font-weight: bold;">
-                  </td>
-                  <td>
-                    <input type="date" class="form-control" ng-model="fecha" ng-change="formatDate(fecha)">
-                  </td>
-                  <td style="width: 18%;">
-                    <button type="button" class="Boton Brand" style="width: 100%;" ng-click="limpiarFiltros()">
-                      <i class="fa fa-filter"></i> LIMPIAR FILTROS</button>
-                  </td>
-                </tr>
-                <tr style="color: #1E4599; background-color: #f5f5f5; text-align: center; vertical-align: middle;">
-                  <td>
-                    AFILIADO
-                  </td>
-                  <td>
-                    CLÍNICA/MÉDICO
-                  </td>
-                  <td>
-                    FECHA
-                  </td>
-                  <td style="width: 18%;">
 
-                  </td>
-                </tr>
-              </thead>
-              <tbody>
+          <md-content class="" style="background: linear-gradient(white, white);padding: 30px">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="subtitulo">
+                  Solicitudes
+                </div>
+              </div>
+            </div>
+            <div class="row" style="padding-left: 15px; padding-right: 15px;">
+              <table class="table table-hover table-bordered" style="margin-bottom: 0px;">
+                <thead>
+                  <tr style="background-color: white; color: white;" ng-click="getPrimeraPagina()">
+                    <td>
+                      <input type="text" class="form-control" ng-model="filtro.afiliado.nombre" placeholder="Filtrar por nombre.."
+                        style="background-color: transparent; border-radius: 0px; color: #337ab7; font-weight: bold;">
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" ng-model="searchClimed" placeholder="Filtrar por clínica.."
+                        style="background-color: transparent; border-radius: 0px; color: #337ab7; font-weight: bold;">
+                    </td>
+                    <td>
+                      <input type="date" class="form-control" ng-model="fecha" ng-change="formatDate(fecha)">
+                    </td>
+                    <td style="width: 18%;">
+                      <button type="button" class="Boton Brand" style="width: 100%;" ng-click="limpiarFiltros()">
+                        <i class="fa fa-filter"></i> LIMPIAR FILTROS</button>
+                    </td>
+                  </tr>
+                  <tr style="color: #1E4599; background-color: #f5f5f5; text-align: center; vertical-align: middle;">
+                    <td>
+                      AFILIADO
+                    </td>
+                    <td>
+                      CLÍNICA/MÉDICO
+                    </td>
+                    <td>
+                      FECHA
+                    </td>
+                    <td style="width: 18%;">
 
-                <tr>
-                  <td colspan="6" style="color: #337ab7;" ng-if="solicitudes == undefined">
-                    <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando.. </td>
-                </tr>
-                <tr ng-repeat="x in solicitudes | filter: filtroClimed | filter: filtro as filteredElems" style="text-align: center; vertical-align: middle;"
-                  ng-if="separarPaginas($index)">
-                  <td style="vertical-align: middle;">
-                    <b>{{x.afiliado.nafiliado}}</b> {{x.afiliado.nombre}} {{x.afiliado.apellido}}
-                  </td>
-                  <td style="vertical-align: middle;">
-                    {{x.climed.nombre}}
-                  </td>
-                  <td style="vertical-align: middle;">
-                    {{x.fecha | date:'dd/MM/yyyy'}}
-                  </td>
-                  <td style="vertical-align: middle;">
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
 
-                    <button type="button" ng-click="Auditar(x)" class="Boton Primary" data-toggle="modal" data-target="#auditar" style="padding: 2px; width: 100%;">
-                      <i class="fa fa-fw fa-eye"></i> Auditar solicitud</button>
-                  </td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="6" style="text-align: center;">
-                    <paginado></paginado>
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
+                  <tr>
+                    <td colspan="6" style="color: #337ab7;" ng-if="solicitudes == undefined">
+                      <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando.. </td>
+                  </tr>
+                  <tr ng-repeat="x in solicitudes | filter: filtroClimed | filter: filtro as filteredElems" style="text-align: center; vertical-align: middle;"
+                    ng-if="separarPaginas($index)">
+                    <td ng-if="x.obsFamiliar == null" style="vertical-align: middle;">
+                      <b>{{x.afiliado.nafiliado}}</b> {{x.afiliado.nombre}} {{x.afiliado.apellido}}
+                    </td>
+                    <td ng-if="x.obsFamiliar != null" style="vertical-align: middle;">
+                      <b>{{x.obsFamiliar}}</b> <button class="Boton Danger" ng-click="yer(x)" style="padding: 2px;"
+                        data-toggle="modal" data-target="#jorgelin">Ver datos de Familiares</button>
+                    </td>
+                    <td style="vertical-align: middle;">
+                      {{x.climed.nombre}}
+                    </td>
+                    <td style="vertical-align: middle;">
+                      {{x.fecha | date:'dd/MM/yyyy'}}
+                    </td>
+                    <td style="vertical-align: middle;">
+
+                      <button type="button" ng-click="Auditar(x)" class="Boton Primary" data-toggle="modal" data-target="#auditar"
+                        style="padding: 2px; width: 100%;">
+                        <i class="fa fa-fw fa-eye"></i> Auditar solicitud</button>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="6" style="text-align: center;">
+                      <paginado></paginado>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+          </md-content>
 
         </md-content>
-  
+      </md-tab>
+      <md-tab label="Historico Auditoria" ng-click="ObtenerHistorial()" style="position:fixed;">
+        <md-content>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="titulo">
+                Historial
+              </div>
+            </div>
+          </div>
+          <div class="row" style="padding: 10px;">
+            <div class="col-md-12">
+
+              <div class="panel panel-default col-md-12" style="margin-top: 20px; padding: 0px;">
+                <!-- Default panel contents -->
+                <div class="subtitulo">Solicitudes</div>
+
+                <!-- Table -->
+                <table class="table table-hover table-striped table-bordered">
+                  <thead>
+                    <tr ng-click="getPrimeraPagina()">
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro.nafiliado">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro.nombre">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro.apellido">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro.dni">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro.obra_social">
+                      </td>
+                      <td></td>
+                    </tr>
+                    <tr style="color: #1E4599; background-color: #f5f5f5">
+                      <td style="width: 10%;">
+                        <a ng-click="sortType = 'nafiliado'; sortReverse = !sortReverse">
+                          Nº Afiliado
+                          <span ng-show="sortType == 'nafiliado' && !sortReverse" class="fa fa-caret-down"></span>
+                          <span ng-show="sortType == 'nafiliado' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                      </td>
+                      <td>
+                        <a ng-click="sortType = 'nombre'; sortReverse = !sortReverse">
+                          Nombre
+                          <span ng-show="sortType == 'nombre' && !sortReverse" class="fa fa-caret-down"></span>
+                          <span ng-show="sortType == 'nombre' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                      </td>
+                      <td>
+                        <a ng-click="sortType = 'fecha'; sortReverse = !sortReverse">
+                          Fecha
+                          <span ng-show="sortType == 'fecha' && !sortReverse" class="fa fa-caret-down"></span>
+                          <span ng-show="sortType == 'fecha' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                      </td>
+                      <td style="width: 10%;">
+                        <a ng-click="sortType = 'fecha'; sortReverse = !sortReverse">
+                          Autorizacion
+                          <span ng-show="sortType == 'fecha' && !sortReverse" class="fa fa-caret-down"></span>
+                          <span ng-show="sortType == 'fecha' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                      </td>
+                      <td>
+                        <a ng-click="sortType = 'obrasocial'; sortReverse = !sortReverse">
+                          Obra social
+                          <span ng-show="sortType == 'obrasocial' && !sortReverse" class="fa fa-caret-down"></span>
+                          <span ng-show="sortType == 'obrasocial' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                      </td>
+                      <td>Opciones</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colspan="6" style="color: #337ab7;" ng-if="historial == undefined">
+                        <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando.. </td>
+                    </tr>
+                    <tr ng-repeat="x in historial | orderBy:sortType:sortReverse | filter:filtro as filteredElems track by $index"
+                      ng-if="separarPaginas($index)">
+                      <td style="vertical-align: middle;">{{x.afiliado.nafiliado}}</td>
+                      <td style="vertical-align: middle;">{{x.afiliado.nombre}} {{x.afiliado.apellido}}</td>
+                      <td style="vertical-align: middle;">{{x.fecha}}</td>
+                      <td style="vertical-align: middle;">
+                          <button type="button" ng-click="VerFoto(x.foto)" class="Boton Primary" data-toggle="modal" data-target="#fotoAutorizacion"
+                          style="padding: 2px; width: 100%;">
+                          <i class="fa fa-fw fa-eye"></i> Ver</button>
+                      </td>
+                      <td style="vertical-align: middle;">{{x.obra_social.nombre}}</td>
+                      <td style="vertical-align: middle;">
+                        <button ng-disabled="modificando" class="Boton Primary" style="padding: 5px;" ng-click="Editar(x)">
+                          <i class="fa fa-fw fa-edit"></i>
+                        </button>
+                        <button ng-disabled="modificando" class="Boton Danger" style="margin-left: 5px; padding: 5px;"
+                          ng-click="Eliminar($event,x)">
+                          <i class="fa fa-fw fa-trash"></i>
+                        </button>
+
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="6" style="text-align: center;">
+                        <paginado></paginado>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row" ng-show="modificando" style="padding: 10px;">
+            <div class="col-md-12">
+              <div class="panel panel-default col-md-12" style="margin-top: 20px; padding: 0px;">
+                <div class="subtitulo">Editando Afiliado
+                  <button type="button" ng-click="afiliadoModificando = undefined; modificando = false; ObtenerAfiliados();"
+                    class="close" aria-hidden="true">&times;</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </md-content>
+      </md-tab>
+    </md-tabs>
   </md-content>
 </div>
 
-<div class="modal fade" id="auditar" tabindex="-1" style="z-index: 9999999; overflow-y:auto" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="auditar" tabindex="-1" style="z-index: 9999999; overflow-y:auto" role="dialog"
+  aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -241,7 +382,8 @@
                   <i ng-show="x.agregado == true" style="color: orange;" class="glyphicon glyphicon-remove-sign" ng-click="quitarEspecialidad(x, 'especialidades')"></i>
                 </div> -->
               <div class="col-md-6" style="text-align: right;">
-                <button type="button" ng-click="agregarClinica(x)" ng-disabled="clinicasAgregar.length > 0" class="Boton" ng-class="{'Brand': agregarEspecialidad.indexOf(x) == -1, 'Success': agregarEspecialidad.indexOf(x) != -1}">Añadir</button>
+                <button type="button" ng-click="agregarClinica(x)" ng-disabled="clinicasAgregar.length > 0" class="Boton"
+                  ng-class="{'Brand': agregarEspecialidad.indexOf(x) == -1, 'Success': agregarEspecialidad.indexOf(x) != -1}">Añadir</button>
               </div>
             </div>
           </li>
@@ -254,3 +396,66 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="jorgelin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Datos de Familiares</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-4">
+            <i class="fa fa-search"></i>
+            <b>Nombre</b>
+          </div>
+          <div class="col-md-8">
+            <input class="form-control" type="text" ng-model="buscafam" placeholder="Nombre..">
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+          <div id="BuscaUser2" class="col-md-12" style="overflow: auto; max-height: 400px;">
+
+            <table class="table table-bordered">
+              <thead>
+                <tr class="subtitulo" style="color: white">
+                  <td>NOMBRE</td>
+                  <td>DNI</td>
+                  <td>NACIMIENTO</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="x in yero.afiliado.familiares | filter: buscafam">
+                  <td>{{x.nombre}}</td>
+                  <td>{{x.dni}}</td>
+                  <td>{{x.nacimiento | date:'dd/MM/yyyy'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="fotoAutorizacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Autorización</h4>
+        </div>
+        <div class="modal-body">
+          <img src="{{fotoAutorizacion}}" style="width: 100%; height: 100%;">
+        </div>
+      </div>
+    </div>
+  </div>

@@ -204,6 +204,7 @@ app.factory('APIInterceptor', function ($q, $rootScope) {
       // optional method
       'response': function (response) {
         // do something on success
+        console.log(response.data.length)
         return response;
       },
       // optional method

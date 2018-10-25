@@ -39,6 +39,18 @@
                         </div>
                       </div>
 
+                      <div class="form-group row">
+                        <div class="col-md-6 col-md-offset-3">
+                          <label for="estudio" style="color: #1E4599"><i class="fa fa-fw fa-medkit"></i>Acceso directo</label>
+                          <select class="form-control" ng-model="espeAlta.directo" required>
+                            <option value="">Seleccione ...</option>
+                            <option ng-value="1">Si</option>
+                            <option ng-value="0">No</option>
+                          </select>
+                          <i><a style="color:red;">{{errorText.DIRECTO}}</a></i>
+                        </div>
+                      </div>
+
                     <div class="row" style="margin-top: 10px;">
                       <i><div style="color:red" class="col-md-3 col-md-offset-3">{{errorMsj}}</div></i>
                       <div class="col-md-3">
@@ -99,6 +111,13 @@
                                 <span ng-show="sortType == 'estudio' && sortReverse" class="fa fa-caret-up"></span>
                               </a>
                         </td>
+                        <td style="width: 10%;">
+                          <a ng-click="sortType = 'directo'; sortReverse = !sortReverse">
+                              Directo
+                              <span ng-show="sortType == 'directo' && !sortReverse" class="fa fa-caret-down"></span>
+                              <span ng-show="sortType == 'directo' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                      </td>
                         <td></td>
                       </tr>
                     </thead>
@@ -111,6 +130,10 @@
                         <td style="vertical-align: middle;">
                           <div ng-if="x.estudio == 1">Si</div>
                           <div ng-if="x.estudio == 0">No</div>
+                        </td>
+                        <td style="vertical-align: middle;">
+                          <div ng-if="x.directo == 1">Si</div>
+                          <div ng-if="x.directo == 0">No</div>
                         </td>
                         <td style="vertical-align: middle;">
                           <button ng-disabled="modificando" data-toggle="modal" data-target="#Modificar" class="Boton Primary" style="padding: 5px;" ng-click="Editar(x)">
@@ -159,6 +182,19 @@
                           </select>
                           <i>
                             <a style="color:red;">{{errorText.ESTUDIO}}</a>
+                          </i>
+                        </div>
+                      </div>
+
+                      <div class="form-group row" style="margin-top: 30px;">
+                        <div class="col-md-6 col-md-offset-3">
+                          <label for="direccion" style="color: #1E4599"><i class="fa fa-fw fa-h-square"></i>Acceso Directo</label>
+                          <select class="form-control" ng-model="espeModif.directo">
+                            <option ng-value="1" ng-selected="espeModif.directo == 1">Si</option>
+                            <option ng-value="0" ng-selected="espeModif.directo == 0">No</option>
+                          </select>
+                          <i>
+                            <a style="color:red;">{{errorText.DIRECTO}}</a>
                           </i>
                         </div>
                       </div>

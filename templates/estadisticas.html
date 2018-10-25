@@ -131,7 +131,7 @@
                     </tr>
                   </tbody>
                   <tbody ng-repeat="solicitud in Solicitudes" ng-show="vistaactual == 'Solicitudes'" style="color: #73879C;">
-                    <tr style="cursor: pointer;" ng-click="expandir(solicitud.id)">
+                    <tr style="cursor: pointer;" ng-click="expandir(solicitud)">
                       <td style="vertical-align: middle;">{{solicitud.id}}</td>
                       <td style="vertical-align: middle;">{{solicitud.estado}}</td>
                       <td style="vertical-align: middle;">{{solicitud.motivo}}</td>
@@ -158,6 +158,7 @@
                               </tr>
                             </thead>
                             <tbody>
+                              <tr style="border: 1px solid black; padding: 10px;">Nombre del afiliado: <b>{{datosNuevos.NombreAfiliado}}</b> | DNI: <b>{{datosNuevos.DniAfiliado}}</b> | N° Afiliado: <b>{{datosNuevos.nAfiliado}}</b></tr>
                               <tr ng-repeat="turno in Turnos" style="text-align: center;">
                                 <td style="color: orange;" ng-if="turno.confirmacion == 0">
                                   A CONFIRMAR
