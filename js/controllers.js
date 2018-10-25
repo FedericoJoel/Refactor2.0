@@ -441,43 +441,43 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
   .controller('solicitudesCrt', function ($scope, $http, $mdDialog, UserSrv, $filter, Permisos) {
     /*Esto esta copiado de la directiva del paginador */
-      $scope.primeraPagina = 1 // La primera pagina de laspaginas mostradas en el footer para paginar
-      $scope.ActualPage =1 // pagina en la que estoy posicionado
-      $scope.elemsPorPagina = 10
-      var aumentoPaginas = 5
-      $scope.changeElemsPorPagina = function(cant){
-          elemsPorPagina = cantidad
+    $scope.primeraPagina = 1 // La primera pagina de laspaginas mostradas en el footer para paginar
+    $scope.ActualPage = 1 // pagina en la que estoy posicionado
+    $scope.elemsPorPagina = 10
+    var aumentoPaginas = 5
+    $scope.changeElemsPorPagina = function (cant) {
+      elemsPorPagina = cantidad
+    }
+    $scope.getPaginas = function (elems) { // Devuelve un array con un numero ascendente por cada elemento de la lista, necesario cuando la lista se modifica por algun filtro
+      if (elems) {
+        var cantPaginas = (new Array(Math.ceil(elems.length / $scope.elemsPorPagina)).fill(0).map((x, index) => index + 1))
+        return cantPaginas
       }
-      $scope.getPaginas = function (elems) { // Devuelve un array con un numero ascendente por cada elemento de la lista, necesario cuando la lista se modifica por algun filtro
-          if (elems) {
-              var cantPaginas = (new Array(Math.ceil(elems.length / $scope.elemsPorPagina)).fill(0).map((x, index) => index + 1))
-              return cantPaginas
-          }
+    }
+    $scope.aumentarPagina = function (algo) { // Mueve el numero de pag mostradas en el footer para arriba una cant igual a aumentoPaginas
+      if (($scope.getPaginas(algo).length - $scope.primeraPagina) > $scope.elemsPorPagina) {
+        $scope.primeraPagina = $scope.primeraPagina + aumentoPaginas
       }
-      $scope.aumentarPagina = function (algo) { // Mueve el numero de pag mostradas en el footer para arriba una cant igual a aumentoPaginas
-          if (($scope.getPaginas(algo).length - $scope.primeraPagina) >  $scope.elemsPorPagina) {
-              $scope.primeraPagina = $scope.primeraPagina + aumentoPaginas
-          }
-      }
-      $scope.disminuirPagina = function () { // Mueve el numero de pag mostradas en el footer para abajo una cant igual a aumentoPaginas
-          if($scope.primeraPagina > 1)
-              $scope.primeraPagina = $scope.primeraPagina - aumentoPaginas
-      }
-      $scope.ChangePage = function (pag) {
-          $scope.ActualPage = pag;
-      }
-      $scope.separarPaginas= function(index){ // Pagina la tabla, dejando visibles una cant de paginas igual a elemsPorPagina
-          var x1 = (index <= ($scope.ActualPage *  $scope.elemsPorPagina))
+    }
+    $scope.disminuirPagina = function () { // Mueve el numero de pag mostradas en el footer para abajo una cant igual a aumentoPaginas
+      if ($scope.primeraPagina > 1)
+        $scope.primeraPagina = $scope.primeraPagina - aumentoPaginas
+    }
+    $scope.ChangePage = function (pag) {
+      $scope.ActualPage = pag;
+    }
+    $scope.separarPaginas = function (index) { // Pagina la tabla, dejando visibles una cant de paginas igual a elemsPorPagina
+      var x1 = (index <= ($scope.ActualPage * $scope.elemsPorPagina))
 
-          var x2 = (index >= ($scope.ActualPage - 1) *  $scope.elemsPorPagina)
+      var x2 = (index >= ($scope.ActualPage - 1) * $scope.elemsPorPagina)
 
-          return x1 && x2
-      }
-      $scope.getPrimeraPagina= function(){
-          $scope.ActualPage =1
-          $scope.primeraPagina =1
-      }
-      /*Esto esta copiado de la directiva del paginador */
+      return x1 && x2
+    }
+    $scope.getPrimeraPagina = function () {
+      $scope.ActualPage = 1
+      $scope.primeraPagina = 1
+    }
+    /*Esto esta copiado de la directiva del paginador */
     var socket = io.connect("http://node-gestionar.herokuapp.com:80");
     socket.emit('storeClientInfo', {
       customId: localStorage.getItem('user_id')
@@ -497,10 +497,39 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       'FECHAS': new Date(),
       'ESTADO': 'Pendiente'
     }
-    
+
     $scope.solicitudesAbiertas = []
-    var agregarSolicitudAbierta = function(solicitud){
+    var agregarSolicitudAbierta = function (solicitud) {
       $scope.solicitudesAbiertas.push(solicitud)
+    }
+
+    $scope.clinicasCambioR = function () {
+      $scope.cargandoClinicasCambio = true;
+      $http.get('https://guarded-oasis-37936.herokuapp.com/climed/traerElementos')
+
+        .success(function (response) {
+
+          $scope.clinicasCambio = response;
+          $scope.cargandoClinicasCambio = false;
+        })
+    }
+
+    $scope.cambiandoClinica = 0;
+
+    $scope.cambiarClinica = function (IDCLI, IDS,x) {
+      $scope.cambiandoClinica = IDCLI;
+      $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/actualizarClinica', {
+          'id': IDS,
+          'IDCLIMED': IDCLI
+        })
+
+        .success(function (response) {
+          $scope.cambiandoClinica = 0;
+          UserSrv.alertOk('La clínica de la solicitud fue actualizada con éxito.');
+          $scope.solicitudexpandida.climed.nombre = x.nombre;
+          $scope.solicitudexpandida.climed.telefono = x.telefono;
+          traerSolicitudes()
+        })
     }
 
 
@@ -550,7 +579,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         })
     }
 
-    $scope.traerSolicitudes = function() {
+    $scope.traerSolicitudes = function () {
       $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/solicitudesEnProceso')
 
         .success(function (response) {
@@ -560,7 +589,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           $scope.paginar();
           $scope.Cargando = "";
           console.log(response);
-      })
+        })
     }
 
     $scope.selectorear = function (x) {
@@ -674,7 +703,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       return array;
     }
 
-    $scope.EnviarTurno = function (fecha, hora, medico,form) {
+    $scope.EnviarTurno = function (fecha, hora, medico, obsturno) {
 
       $scope.fecha = moment(fecha).format('YYYY-MM-DD');
       $scope.hora = moment(hora).format('hh:mm:ss');
@@ -685,7 +714,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'MEDICOASIGNADO': medico,
         'FECHAT': $scope.fecha,
         'HORAT': $scope.hora,
-        'CONFIRMACION': 0
+        'CONFIRMACION': 0,
+        'OBS': obsturno
       }
       $http.post('https://guarded-oasis-37936.herokuapp.com/turno', data)
 
@@ -698,22 +728,22 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
             'clinica': $scope.solicitudexpandida.climed.nombre,
             'domicilio': $scope.solicitudexpandida.climed.domicilio
           }
-          if($scope.solicitudexpandida.afiliado.obra_social.nombre == 'Cobertec'){
+          if ($scope.solicitudexpandida.afiliado.obra_social.nombre == 'Cobertec') {
             $http.post('/enviarMail.php', data2)
               .success(function (response) {
-              $scope.enviandoturno = false;
-              UserSrv.alertOk('El turno fue enviado con exito.');
-              $scope.consultasolicitud($scope.solicitudexpandida.id);
-              traerSolicitudes()
-            })
+                $scope.enviandoturno = false;
+                UserSrv.alertOk('El turno fue enviado con exito.');
+                $scope.consultasolicitud($scope.solicitudexpandida.id);
+                traerSolicitudes()
+              })
           } else {
             $http.post('/enviarMailSana.php', data2)
               .success(function (response) {
-              $scope.enviandoturno = false;
-              UserSrv.alertOk('El turno fue enviado con exito.');
-              $scope.consultasolicitud($scope.solicitudexpandida.id);
-              traerSolicitudes()
-            })
+                $scope.enviandoturno = false;
+                UserSrv.alertOk('El turno fue enviado con exito.');
+                $scope.consultasolicitud($scope.solicitudexpandida.id);
+                traerSolicitudes()
+              })
           }
         })
 
@@ -864,7 +894,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       'fecha': undefined
     }
 
-    $scope.yer = function (x){
+    $scope.yer = function (x) {
       $scope.yero = x;
     }
     $scope.formatDate = function (date) {
@@ -922,7 +952,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         })
     }
 
-    $scope.VerFoto = function(x){
+    $scope.VerFoto = function (x) {
       $scope.fotoAutorizacion = "http://www.gestionarturnos.com/certificados/" + x;
     }
 
@@ -938,7 +968,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         })
     }
 
-    $scope.traerSolicitudes = function() {
+    $scope.traerSolicitudes = function () {
       $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/solicitudesParaAuditar')
 
         .success(function (response) {
@@ -1193,7 +1223,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'DNI': $scope.afiliadoModificando.dni,
         'PISO': $scope.afiliadoModificando.piso,
         'LOCALIDAD': $scope.afiliadoModificando.localidad,
-        'CP' : $scope.afiliadoModificando.codigo_postal,
+        'CP': $scope.afiliadoModificando.codigo_postal,
         'DEPARTAMENTO': $scope.afiliadoModificando.departamento,
         'TELEFONO': $scope.afiliadoModificando.telefono,
         'CELULAR': $scope.afiliadoModificando.celular,
@@ -1987,660 +2017,600 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
   ////////////////////////////////
   .controller('farmaciasCrt', function ($scope, UserSrv, $http, $mdDialog, Permisos) {
 
-      $scope.primeraosegunda = 1;
-      $scope.altaMapaInicializador = 0;
-      $scope.lat = '';
-      $scope.lng = '';
-      $scope.ObrasSocialesAgregar = [];
-      $scope.PS = Permisos;
-      $scope.ObrasSocialesAgregar = [];
-      $scope.OSEnvio = [];
+    $scope.primeraosegunda = 1;
+    $scope.altaMapaInicializador = 0;
+    $scope.lat = '';
+    $scope.lng = '';
+    $scope.ObrasSocialesAgregar = [];
+    $scope.PS = Permisos;
+    $scope.ObrasSocialesAgregar = [];
+    $scope.OSEnvio = [];
 
 
-      $scope.cerrarEditar = function () {
-        $scope.farmaciaModif = undefined;
-        $scope.esconderMapaModificar = true;
-        $scope.modificando = false;
-        $scope.ObtenerOS();
-        // limpiarcampos();
-      }
+    $scope.cerrarEditar = function () {
+      $scope.farmaciaModif = undefined;
+      $scope.esconderMapaModificar = true;
+      $scope.modificando = false;
+      $scope.ObtenerOS();
+      // limpiarcampos();
+    }
 
-      $scope.Mapa = function () {
-        $scope.esconderMapa = false;
-        $scope.altaMapaInicializador++;
-        initMap($scope.altaMapaInicializador);
-      }
+    $scope.Mapa = function () {
+      $scope.esconderMapa = false;
+      $scope.altaMapaInicializador++;
+      initMap($scope.altaMapaInicializador);
+    }
 
-      $scope.Editar = function (x) {
-        $scope.farmaciaModif = x;
-        $scope.modificando = true;
-        $scope.ObrasSocialesAgregar = x.obrasSociales;
-        $scope.initMapModificar($scope.primeraosegunda, $scope.farmaciaModif.latitude, $scope.farmaciaModif.longitude);
-      }
+    $scope.Editar = function (x) {
+      $scope.farmaciaModif = x;
+      $scope.modificando = true;
+      $scope.ObrasSocialesAgregar = x.obrasSociales;
+      $scope.initMapModificar($scope.primeraosegunda, $scope.farmaciaModif.latitude, $scope.farmaciaModif.longitude);
+    }
 
-      $scope.AgregarOS = function (x) {
-        $scope.ObrasSocialesAgregar.push(x);
-        $scope.OSEnvio.push(x.id);
-      }
+    $scope.AgregarOS = function (x) {
+      $scope.ObrasSocialesAgregar.push(x);
+      $scope.OSEnvio.push(x.id);
+    }
 
-      $scope.QuitarOS = function (x) {
-        var indice = $scope.ObrasSocialesAgregar.indexOf(x);
-        $scope.ObrasSocialesAgregar.splice(indice, 1);
-        $scope.OSEnvio.splice(indice, 1);
-      }
+    $scope.QuitarOS = function (x) {
+      var indice = $scope.ObrasSocialesAgregar.indexOf(x);
+      $scope.ObrasSocialesAgregar.splice(indice, 1);
+      $scope.OSEnvio.splice(indice, 1);
+    }
 
-      $scope.borrarOS = function () {
-        $scope.ObrasSocialesAgregar = []
-      }
+    $scope.borrarOS = function () {
+      $scope.ObrasSocialesAgregar = []
+    }
 
-      $scope.ObtenerFarmacias = function () {
-        $scope.Cargando = 'Cargando..';
-        $http.get('https://guarded-oasis-37936.herokuapp.com/farmacia/traerElementos')
+    $scope.ObtenerFarmacias = function () {
+      $scope.Cargando = 'Cargando..';
+      $http.get('https://guarded-oasis-37936.herokuapp.com/farmacia/traerElementos')
 
-          .success(function (response) {
-            $scope.farmacias = response
-            $scope.ObrasSocialesAgregar = []
-          })
-
-      }
-
-      $scope.ObtenerOS = function () {
-        $http.get('https://guarded-oasis-37936.herokuapp.com/obraSocial/traerElementos')
-          .success(function (response) {
-            $scope.obrasSociales = response;
-            $scope.CargandoOS = "Seleccione..";
-            console.log(response);
-          })
-      }
-
-      $scope.Alta = function () {
-        var data = {
-          'NOMBRE': $scope.nombre,
-          'DIRECCION': $scope.direccion,
-          'LOCALIDAD': $scope.localidad,
-          'TELEFONO': $scope.telefono,
-          'latitude': $scope.altalat,
-          'longitude': $scope.altalng,
-          'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id)
-        }
-        $http.post('https://guarded-oasis-37936.herokuapp.com/farmacia', data)
-          .success(function (response) {
-            console.log(response);
-            UserSrv.alertOk('Farmacia creada con exito.');
-            limpiarCampos();
-          }).error(function (response) {
-            $scope.errorText = response;
-            $scope.errorMsj = "*Revise los datos e intente nuevamente";
-          })
-      }
-
-      $scope.Eliminar = function (ev, id) {
-        var confirm = $mdDialog.confirm()
-          .title('¿Esta seguro de eliminar?')
-          .textContent('La farmacia sera eliminado de forma permantente')
-          .ariaLabel('Lucky day')
-          .targetEvent(ev)
-          .ok('Continuar')
-          .cancel('Cancelar');
-
-        $mdDialog.show(confirm).then(function () {
-          $http.delete('https://guarded-oasis-37936.herokuapp.com/farmacia/' + id.id)
-            .success(function (response) {
-              UserSrv.alertOk("Se elimino con exito.");
-              $scope.ObtenerFarmacias();
-            })
-            .error(function (response) {
-              UserSrv.alertError("Hubo un error al eliminar.");
-            })
+        .success(function (response) {
+          $scope.farmacias = response
+          $scope.ObrasSocialesAgregar = []
         })
 
+    }
+
+    $scope.ObtenerOS = function () {
+      $http.get('https://guarded-oasis-37936.herokuapp.com/obraSocial/traerElementos')
+        .success(function (response) {
+          $scope.obrasSociales = response;
+          $scope.CargandoOS = "Seleccione..";
+          console.log(response);
+        })
+    }
+
+    $scope.Alta = function () {
+      var data = {
+        'NOMBRE': $scope.nombre,
+        'DIRECCION': $scope.direccion,
+        'LOCALIDAD': $scope.localidad,
+        'TELEFONO': $scope.telefono,
+        'latitude': $scope.altalat,
+        'longitude': $scope.altalng,
+        'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id)
       }
+      $http.post('https://guarded-oasis-37936.herokuapp.com/farmacia', data)
+        .success(function (response) {
+          console.log(response);
+          UserSrv.alertOk('Farmacia creada con exito.');
+          limpiarCampos();
+        }).error(function (response) {
+          $scope.errorText = response;
+          $scope.errorMsj = "*Revise los datos e intente nuevamente";
+        })
+    }
 
-      $scope.LlenarModal = function (id) {
+    $scope.Eliminar = function (ev, id) {
+      var confirm = $mdDialog.confirm()
+        .title('¿Esta seguro de eliminar?')
+        .textContent('La farmacia sera eliminado de forma permantente')
+        .ariaLabel('Lucky day')
+        .targetEvent(ev)
+        .ok('Continuar')
+        .cancel('Cancelar');
 
-        $scope.Cargando = "Cargando...";
-        $http.post(UserSrv.GetPath() + "?seccion=farmacias&accion=listarid&id=" + id, {
-            'seccion': 'farmacias',
-            'accion': 'listarid'
-          })
-
+      $mdDialog.show(confirm).then(function () {
+        $http.delete('https://guarded-oasis-37936.herokuapp.com/farmacia/' + id.id)
           .success(function (response) {
-            $scope.Cargando = "";
-            console.log(response);
-            $scope.ID = response.ID;
-            $scope.direccion = response.DIRECCION;
-            $scope.nombre = response.NOMBRE;
-            $scope.localidad = response.LOCALIDAD;
-            $scope.latitude = response.latitude;
-            $scope.longitude = response.longitude;
-          })
-
-      }
-
-      $scope.Guardar = function (id) {
-        $http.put('https://guarded-oasis-37936.herokuapp.com/farmacia/' + $scope.farmaciaModif.id, {
-            'NOMBRE': $scope.farmaciaModif.nombre,
-            'DIRECCION': $scope.farmaciaModif.direccion,
-            'LOCALIDAD': $scope.farmaciaModif.localidad,
-            'TELEFONO': $scope.farmaciaModif.telefono,
-            'latitude': $scope.modificarlat,
-            'longitude': $scope.modificarlng,
-            'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id)
-          })
-
-          .success(function (response) {
-            UserSrv.alertOk('Se edito con exito.');
+            UserSrv.alertOk("Se elimino con exito.");
             $scope.ObtenerFarmacias();
-            $scope.modificando = true;
-            limpiarErrores();
-            $scope.cerrarEditar();
-          }).error(function (response) {
-            $scope.errorText = response;
-            $scope.errorMsj = "*Revise los datos e intente nuevamente";
           })
-      }
-
-      var limpiarErrores = function () {
-        $scope.errorText = null;
-        $scope.errorMsj = null;
-      }
-      var limpiarCampos = function () {
-        $scope.esconderMapa = true;
-        limpiarErrores();
-        $scope.nombre = null;
-        $scope.telefono = null;
-        $scope.ObrasSocialesAgregar = [];
-        $scope.errorText = null;
-        $scope.errorMsj = null;
-        $scope.direccion = null;
-        $scope.localidad = null;
-      }
-
-      $scope.initMapModificar = function (j, latitude, longitude) {
-        if (j == 1) {
-          $scope.primeraosegunda = 2;
-          document.getElementById('modificarmapa').style.display = "block";
-          latitud = parseFloat(latitude);
-          longitud = parseFloat(longitude);
-          console.log(latitud);
-          console.log(longitud);
-          console.log(latitude);
-          console.log(longitude);
-
-          var myLatLng = {
-            lat: latitud,
-            lng: longitud
-          };
-
-          $scope.mapModif = new google.maps.Map(document.getElementById('modificarmap'), {
-            center: myLatLng,
-            zoom: 13
-          });
-
-          var ubicacionInicialMarker = new google.maps.Marker({
-            map: $scope.mapModif,
-            position: myLatLng,
-            title: 'hola'
-          });
-
-          var input = /** @type {!HTMLInputElement} */ (
-            document.getElementById('modificarpac-input'));
-
-          var types = document.getElementById('modificartype-selector');
-          $scope.mapModif.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-          $scope.mapModif.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
-
-          var autocomplete = new google.maps.places.Autocomplete(input);
-          autocomplete.bindTo('bounds', $scope.mapModif);
-
-          var infowindow = new google.maps.InfoWindow();
-          var marker = new google.maps.Marker({
-            map: $scope.mapModif,
-            anchorPoint: new google.maps.Point(0, -29)
-          });
-          autocomplete.addListener('place_changed', function () {
-            ubicacionInicialMarker.setVisible(false);
-            infowindow.close();
-            marker.setVisible(false);
-            var place = autocomplete.getPlace();
-            if (!place.geometry) {
-              // User entered the name of a Place that was not suggested and
-              // pressed the Enter key, or the Place Details request failed.
-              window.alert("No details available for input: '" + place.name + "'");
-              return;
-            }
-
-            // If the place has a geometry, then present it on a map.
-            if (place.geometry.viewport) {
-              $scope.mapModif.fitBounds(place.geometry.viewport);
-            } else {
-              $scope.mapModif.setCenter(place.geometry.location);
-              $scope.mapModif.setZoom(17); // Why 17? Because it looks good.
-            }
-            marker.setIcon( /** @type {google.maps.Icon} */ ({
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(35, 35)
-            }));
-            marker.setPosition(place.geometry.location);
-            marker.setVisible(true);
-
-            var address = '';
-            if (place.address_components) {
-              address = [
-                (place.address_components[0] && place.address_components[0].short_name || ''),
-                (place.address_components[1] && place.address_components[1].short_name || ''),
-                (place.address_components[2] && place.address_components[2].short_name || '')
-              ].join(' ');
-            }
-
-            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-            infowindow.open($scope.mapModif, marker);
-            var latm = marker.getPosition().lat();
-            var lngm = marker.getPosition().lng();
-            $scope.modificarlat = latm;
-            $scope.modificarlng = lngm;
-            console.log($scope.modificarlat);
-            console.log($scope.modificarlng);
-          });
-
-          // Sets a listener on a radio button to change the filter type on Places
-          // Autocomplete.
-          function setupClickListener(id, types) {
-            var radioButton = document.getElementById(id);
-            radioButton.addEventListener('click', function () {
-              autocomplete.setTypes(types);
-            });
-          }
-          setupClickListener('changetype-all', []);
-          setupClickListener('changetype-address', ['address']);
-          setupClickListener('changetype-establishment', ['establishment']);
-          setupClickListener('changetype-geocode', ['geocode']);
-
-        } else {
-          document.getElementById('modificarmapa').style.display = "block";
-          latitud = parseFloat(latitude);
-          longitud = parseFloat(longitude);
-          pos = new google.maps.LatLng(latitud, longitud);
-          $scope.mapModif.setCenter(pos);
-          $scope.mapModif.setZoom(13);
-          var posClinica = {
-            lat: latitud,
-            lng: longitud
-          };
-
-          var ubicacionInicialMarker = new google.maps.Marker({
-            map: $scope.mapModif,
-            position: posClinica,
-            title: 'Clinica'
-          });
-
-        };
-      }
-
-      function initMap(j) {
-        console.log(j);
-        if (j == 1) {
-          document.getElementById('altamapa').style.display = "block";
-          $scope.map = new google.maps.Map(document.getElementById('map'), {
-            center: {
-              lat: -34.5991567,
-              lng: -58.369587499999966
-            },
-            zoom: 13
-          });
-          var input = /** @type {!HTMLInputElement} */ (
-            document.getElementById('pac-input'));
-
-          var types = document.getElementById('type-selector');
-          $scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-          $scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
-
-          var autocomplete = new google.maps.places.Autocomplete(input);
-          autocomplete.bindTo('bounds', $scope.map);
-
-          var infowindow = new google.maps.InfoWindow();
-          var marker = new google.maps.Marker({
-            map: $scope.map,
-            anchorPoint: new google.maps.Point(0, -29)
-          });
-          autocomplete.addListener('place_changed', function () {
-            infowindow.close();
-            marker.setVisible(false);
-            var place = autocomplete.getPlace();
-            if (!place.geometry) {
-              // User entered the name of a Place that was not suggested and
-              // pressed the Enter key, or the Place Details request failed.
-              window.alert("No details available for input: '" + place.name + "'");
-              return;
-            }
-
-            // If the place has a geometry, then present it on a map.
-            if (place.geometry.viewport) {
-              $scope.map.fitBounds(place.geometry.viewport);
-            } else {
-              $scope.map.setCenter(place.geometry.location);
-              $scope.map.setZoom(17); // Why 17? Because it looks good.
-            }
-            marker.setIcon( /** @type {google.maps.Icon} */ ({
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(35, 35)
-            }));
-            marker.setPosition(place.geometry.location);
-            marker.setVisible(true);
-
-            var address = '';
-            if (place.address_components) {
-              address = [
-                (place.address_components[0] && place.address_components[0].short_name || ''),
-                (place.address_components[1] && place.address_components[1].short_name || ''),
-                (place.address_components[2] && place.address_components[2].short_name || '')
-              ].join(' ');
-            }
-
-            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-            infowindow.open($scope.map, marker);
-            var lat = marker.getPosition().lat();
-            var lon = marker.getPosition().lng();
-            // var scopelat = angular.element(document.getElementById("lat")).scope();
-            // var scopelng = angular.element(document.getElementById("lng")).scope();
-            // scopelat.lat = lat;
-            // scopelng.lng = lon;
-            $scope.altalat = lat;
-            $scope.altalng = lon;
-            // scopelng.$apply();
-            // scopelat.$apply();
-
-          });
-
-          // Sets a listener on a radio button to change the filter type on Places
-          // Autocomplete.
-          function setupClickListener(id, types) {
-            var radioButton = document.getElementById(id);
-            radioButton.addEventListener('click', function () {
-              autocomplete.setTypes(types);
-            });
-          }
-          setupClickListener('changetype-all', []);
-          setupClickListener('changetype-address', ['address']);
-          setupClickListener('changetype-establishment', ['establishment']);
-          setupClickListener('changetype-geocode', ['geocode']);
-
-        } else {
-          document.getElementById('altamapa').style.display = "block";
-          latitude = -34.5991567;
-          longitude = -58.369587499999966;
-          pos = new google.maps.LatLng(latitude, longitude);
-          $scope.map.setCenter(pos);
-          $scope.map.setZoom(13);
-        };
-      };
-
-
-        $scope.ObtenerOS();
-        // $scope.initMapModificar($scope.primeraosegunda);
-
-
-
+          .error(function (response) {
+            UserSrv.alertError("Hubo un error al eliminar.");
+          })
       })
 
+    }
 
+    $scope.LlenarModal = function (id) {
 
-    ////////////////////////////////////////////////
-    //█▀▀ █▀▀ █▀▀█ █▀▀ █▀▀  ▀  █▀▀█ █    ▀  █▀▀▄ █▀▀█ █▀▀▄ █▀▀ █▀▀
-    //█▀▀ ▀▀█ ████ █▀▀ █    █  █▄▄█ █    █  █  █ █▄▄█ █  █ █▀▀ ▀▀█
-    //▀▀▀ ▀▀▀ █    ▀▀▀ ▀▀▀  ▀  ▀  ▀ ▀▀▀  ▀  ▀▀▀  ▀  ▀ ▀▀▀  ▀▀▀ ▀▀▀
-    ///////////////////////////////////////////////
-
-    .controller('especialidadesCrt', function ($scope, UserSrv, $http, $mdDialog, Permisos) {
-
-      $scope.sortType = 'nombre'; // el default
-      $scope.sortReverse = false;
-      $scope.PS = Permisos;
-
-
-
-      $scope.ObtenerEspecialidades = function () {
-        $scope.Cargando = "Cargando...";
-        $http.get('https://guarded-oasis-37936.herokuapp.com/especialidad/traerElementos')
-          .success(function (response) {
-            $scope.Especialidades = response;
-            $scope.Cargando = "";
-          })
-      }
-
-      $scope.Eliminar = function (ev, x) {
-
-        var confirm = $mdDialog.confirm()
-          .title('¿Esta seguro de eliminar?')
-          .textContent('La especialidad o estudio sera eliminado de forma permantente')
-          .ariaLabel('Lucky day')
-          .targetEvent(ev)
-          .ok('Continuar')
-          .cancel('Cancelar');
-
-        $mdDialog.show(confirm).then(function () {
-          $http.delete('https://guarded-oasis-37936.herokuapp.com/especialidad/' + x.id)
-            .success(function (response) {
-              UserSrv.alertOk("Se elimino con exito.");
-              $scope.ObtenerEspecialidades();
-            })
+      $scope.Cargando = "Cargando...";
+      $http.post(UserSrv.GetPath() + "?seccion=farmacias&accion=listarid&id=" + id, {
+          'seccion': 'farmacias',
+          'accion': 'listarid'
         })
-      }
 
-      $scope.Alta = function () {
-
-        $http.post('https://guarded-oasis-37936.herokuapp.com/especialidad', {
-            'NOMBRE': $scope.espeAlta.nombre,
-            'ESTUDIO': $scope.espeAlta.estudio,
-            'DIRECTO': $scope.espeAlta.directo
-          })
-          .success(function (response) {
-            UserSrv.alertOk('Especialidad/Estudio creado con exito.');
-            limpiarErrores();
-            limpiarCampos();
-          }).error(function (response) {
-            $scope.errorText = response;
-            $scope.errorMsj = "*Revise los datos e intente nuevamente";
-          })
-
-
-      }
-
-      $scope.Modificar = function () {
-
-        $http.put('https://guarded-oasis-37936.herokuapp.com/especialidad/' + $scope.espeModif.id, {
-            'NOMBRE': $scope.espeModif.nombre,
-            'ESTUDIO': $scope.espeModif.estudio,
-            'IDESPECIALIDAD': $scope.espeModif.id,
-            'DIRECTO': $scope.espeModif.directo
-          })
-          .success(function (response) {
-            UserSrv.alertOk('Editado con exito.');
-            limpiarErrores();
-            $scope.modificando = false
-          }).error(function (response) {
-            $scope.errorText = response;
-            $scope.errorMsj = "*Revise los datos e intente nuevamente";
-          })
-
-      }
-
-      $scope.Editar = function (x) {
-        $scope.espeModif = x;
-        $scope.modificando = true;
-      }
-
-      var limpiarErrores = function () {
-        $scope.errorText = null;
-        $scope.errorMsj = null;
-      }
-
-      var limpiarCampos = function () {
-        $scope.espeAlta.nombre = null;
-        $scope.espeAlta.estudio = 0;
-      }
-
-
-    })
-
-    .controller('recomendacionCrt', function ($scope, UserSrv, $http, $mdDialog, Permisos) {
-
-      $scope.sortType = 'nombre'; // el default
-      $scope.sortReverse = false;
-      $scope.PS = Permisos;
-      $scope.checkbox = [];
-      var envio = [];
-      console.log($scope.PS);
-
-      $scope.filtronumeritos = 10;
-      $scope.ActualPage = 1;
-      $scope.ObtenerRecomendaciones = function () {
-        $scope.Cargando = "Cargando...";
-        $http.get('https://guarded-oasis-37936.herokuapp.com/recomendacion/sinContactar')
-          .success(function (response) {
-            $scope.Recomendaciones = response;
-            console.log($scope.Recomendaciones);
-            $scope.Cargando = "";
-          })
-      }
-
-      $scope.makeIDS = function () {
-        envio = [];
-        angular.forEach($scope.checkbox, function (value, key) {
-          if (value != false) {
-            envio.push(key);
-          }
-        });
-        return envio;
-      }
-
-      $scope.marcarTodos = function () {
-        angular.forEach($scope.Recomendaciones, function (value, key) {
-          $scope.checkbox[value.id] = !$scope.checkbox[value.id];
-        });
-      }
-
-      $scope.muestroBoton = function () {
-        var resultado = false;
-        angular.forEach($scope.checkbox, function (value, key) {
-          if (value != false) {
-            resultado = true;
-          }
-        });
-        return resultado;
-      }
-
-      $scope.Contactar = function (id) {
-        $scope.makeIDS()
-        $http.post('https://guarded-oasis-37936.herokuapp.com/recomendacion/contactado', {
-            'ids': envio
-          })
-          .success(function (response) {
-            UserSrv.alertOk('Recomendacion/es marcada/s como contactada.');
-            $scope.ObtenerRecomendaciones();
-          }).error(function (response) {
-            $scope.errorText = response;
-            $scope.errorMsj = "*Revise los datos e intente nuevamente";
-          })
-      }
-
-      $scope.ObtenerRecomendaciones();
-
-
-    })
-
-
-    .controller('estadisticasCrt', function ($scope, UserSrv, $http, $mdDialog, Permisos) {
-
-
-      $scope.sortType = 'nombre'; // el default
-      $scope.fecha_creacion_desde = moment().format('Y') + '-' + moment().format('MM') + '-01';
-      $scope.fecha_creacion_hasta = moment().format('Y') + '-' + moment().format('MM') + '-' + moment().daysInMonth();
-      $scope.fecha_modificacion_desde = moment().format('Y') + '-' + moment().format('MM') + '-01';
-      $scope.fecha_modificacion_hasta = moment().format('Y') + '-' + moment().format('MM') + '-' + moment().daysInMonth();
-      $scope.sortReverse = false;
-      $scope.sortType = 'nombre'; // el default
-      $scope.sortReverse = false;
-      $scope.PS = Permisos;
-      $scope.vistaactual = "Zonas";
-      console.log($scope.PS);
-
-      $scope.filtronumeritos = 10;
-      $scope.ActualPage = 1;
-
-      $scope.setVista = function (vista) {
-        $scope.vistaactual = vista;
-        if ($scope.ultimaFechaCD != moment($scope.fecha_creacion_desde).format('YYYY-MM-DD') ||
-          $scope.ultimaFechaCH != moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD') ||
-          $scope.ultimaFechaMD != moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD') ||
-          $scope.ultimaFechaMH != moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD')
-        ) {
-          switch ($scope.vistaactual) {
-            case 'Zonas':
-              $scope.ObtenerZonas();
-              break;
-            case 'Clinicas':
-              $scope.getClinicas($scope.zonaactual);
-              break;
-            case 'Solicitudes':
-              $scope.getSolicitudes($scope.clinicaactual);
-              break;
-          }
-          $scope.ultimaFechaCD = moment($scope.fecha_creacion_desde).format('YYYY-MM-DD');
-          $scope.ultimaFechaCH = moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD');
-          $scope.ultimaFechaMD = moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD');
-          $scope.ultimaFechaMH = moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD');
-        }
-      }
-
-      $scope.formatDate = function (fecha) {
-        if (fecha == null) {
-          return ''
-        }
-        var fechaFormateada = moment(fecha).format('DD/MM/YYYY')
-        return fechaFormateada
-      }
-
-      function sumZonas(objeto) {
-        var pendientes = 0,
-          confirmados = 0,
-          rechazados = 0,
-          total = 0;
-        objeto.forEach(function (objeto) {
-          pendientes = pendientes + objeto.pendientes;
-          confirmados = confirmados + objeto.confirmados;
-          rechazados = rechazados + objeto.rechazados;
-          total = total + objeto.total;
+        .success(function (response) {
+          $scope.Cargando = "";
+          console.log(response);
+          $scope.ID = response.ID;
+          $scope.direccion = response.DIRECCION;
+          $scope.nombre = response.NOMBRE;
+          $scope.localidad = response.LOCALIDAD;
+          $scope.latitude = response.latitude;
+          $scope.longitude = response.longitude;
         })
-        return {
-          'pendientes': pendientes,
-          'confirmados': confirmados,
-          'rechazados': rechazados,
-          'total': total
+
+    }
+
+    $scope.Guardar = function (id) {
+      $http.put('https://guarded-oasis-37936.herokuapp.com/farmacia/' + $scope.farmaciaModif.id, {
+          'NOMBRE': $scope.farmaciaModif.nombre,
+          'DIRECCION': $scope.farmaciaModif.direccion,
+          'LOCALIDAD': $scope.farmaciaModif.localidad,
+          'TELEFONO': $scope.farmaciaModif.telefono,
+          'latitude': $scope.modificarlat,
+          'longitude': $scope.modificarlng,
+          'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id)
+        })
+
+        .success(function (response) {
+          UserSrv.alertOk('Se edito con exito.');
+          $scope.ObtenerFarmacias();
+          $scope.modificando = true;
+          limpiarErrores();
+          $scope.cerrarEditar();
+        }).error(function (response) {
+          $scope.errorText = response;
+          $scope.errorMsj = "*Revise los datos e intente nuevamente";
+        })
+    }
+
+    var limpiarErrores = function () {
+      $scope.errorText = null;
+      $scope.errorMsj = null;
+    }
+    var limpiarCampos = function () {
+      $scope.esconderMapa = true;
+      limpiarErrores();
+      $scope.nombre = null;
+      $scope.telefono = null;
+      $scope.ObrasSocialesAgregar = [];
+      $scope.errorText = null;
+      $scope.errorMsj = null;
+      $scope.direccion = null;
+      $scope.localidad = null;
+    }
+
+    $scope.initMapModificar = function (j, latitude, longitude) {
+      if (j == 1) {
+        $scope.primeraosegunda = 2;
+        document.getElementById('modificarmapa').style.display = "block";
+        latitud = parseFloat(latitude);
+        longitud = parseFloat(longitude);
+        console.log(latitud);
+        console.log(longitud);
+        console.log(latitude);
+        console.log(longitude);
+
+        var myLatLng = {
+          lat: latitud,
+          lng: longitud
         };
-      }
 
-      $scope.expandir = function (solicitud) {
-        $scope.expandida = solicitud.id;
-        $scope.Turnos = undefined;
-        $scope.datosNuevos = solicitud;
-        $http.post('https://guarded-oasis-37936.herokuapp.com/reporteSolicitudes/turnos', {
-            'id_solicitud': solicitud.id
-          })
+        $scope.mapModif = new google.maps.Map(document.getElementById('modificarmap'), {
+          center: myLatLng,
+          zoom: 13
+        });
+
+        var ubicacionInicialMarker = new google.maps.Marker({
+          map: $scope.mapModif,
+          position: myLatLng,
+          title: 'hola'
+        });
+
+        var input = /** @type {!HTMLInputElement} */ (
+          document.getElementById('modificarpac-input'));
+
+        var types = document.getElementById('modificartype-selector');
+        $scope.mapModif.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        $scope.mapModif.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', $scope.mapModif);
+
+        var infowindow = new google.maps.InfoWindow();
+        var marker = new google.maps.Marker({
+          map: $scope.mapModif,
+          anchorPoint: new google.maps.Point(0, -29)
+        });
+        autocomplete.addListener('place_changed', function () {
+          ubicacionInicialMarker.setVisible(false);
+          infowindow.close();
+          marker.setVisible(false);
+          var place = autocomplete.getPlace();
+          if (!place.geometry) {
+            // User entered the name of a Place that was not suggested and
+            // pressed the Enter key, or the Place Details request failed.
+            window.alert("No details available for input: '" + place.name + "'");
+            return;
+          }
+
+          // If the place has a geometry, then present it on a map.
+          if (place.geometry.viewport) {
+            $scope.mapModif.fitBounds(place.geometry.viewport);
+          } else {
+            $scope.mapModif.setCenter(place.geometry.location);
+            $scope.mapModif.setZoom(17); // Why 17? Because it looks good.
+          }
+          marker.setIcon( /** @type {google.maps.Icon} */ ({
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(35, 35)
+          }));
+          marker.setPosition(place.geometry.location);
+          marker.setVisible(true);
+
+          var address = '';
+          if (place.address_components) {
+            address = [
+              (place.address_components[0] && place.address_components[0].short_name || ''),
+              (place.address_components[1] && place.address_components[1].short_name || ''),
+              (place.address_components[2] && place.address_components[2].short_name || '')
+            ].join(' ');
+          }
+
+          infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+          infowindow.open($scope.mapModif, marker);
+          var latm = marker.getPosition().lat();
+          var lngm = marker.getPosition().lng();
+          $scope.modificarlat = latm;
+          $scope.modificarlng = lngm;
+          console.log($scope.modificarlat);
+          console.log($scope.modificarlng);
+        });
+
+        // Sets a listener on a radio button to change the filter type on Places
+        // Autocomplete.
+        function setupClickListener(id, types) {
+          var radioButton = document.getElementById(id);
+          radioButton.addEventListener('click', function () {
+            autocomplete.setTypes(types);
+          });
+        }
+        setupClickListener('changetype-all', []);
+        setupClickListener('changetype-address', ['address']);
+        setupClickListener('changetype-establishment', ['establishment']);
+        setupClickListener('changetype-geocode', ['geocode']);
+
+      } else {
+        document.getElementById('modificarmapa').style.display = "block";
+        latitud = parseFloat(latitude);
+        longitud = parseFloat(longitude);
+        pos = new google.maps.LatLng(latitud, longitud);
+        $scope.mapModif.setCenter(pos);
+        $scope.mapModif.setZoom(13);
+        var posClinica = {
+          lat: latitud,
+          lng: longitud
+        };
+
+        var ubicacionInicialMarker = new google.maps.Marker({
+          map: $scope.mapModif,
+          position: posClinica,
+          title: 'Clinica'
+        });
+
+      };
+    }
+
+    function initMap(j) {
+      console.log(j);
+      if (j == 1) {
+        document.getElementById('altamapa').style.display = "block";
+        $scope.map = new google.maps.Map(document.getElementById('map'), {
+          center: {
+            lat: -34.5991567,
+            lng: -58.369587499999966
+          },
+          zoom: 13
+        });
+        var input = /** @type {!HTMLInputElement} */ (
+          document.getElementById('pac-input'));
+
+        var types = document.getElementById('type-selector');
+        $scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        $scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', $scope.map);
+
+        var infowindow = new google.maps.InfoWindow();
+        var marker = new google.maps.Marker({
+          map: $scope.map,
+          anchorPoint: new google.maps.Point(0, -29)
+        });
+        autocomplete.addListener('place_changed', function () {
+          infowindow.close();
+          marker.setVisible(false);
+          var place = autocomplete.getPlace();
+          if (!place.geometry) {
+            // User entered the name of a Place that was not suggested and
+            // pressed the Enter key, or the Place Details request failed.
+            window.alert("No details available for input: '" + place.name + "'");
+            return;
+          }
+
+          // If the place has a geometry, then present it on a map.
+          if (place.geometry.viewport) {
+            $scope.map.fitBounds(place.geometry.viewport);
+          } else {
+            $scope.map.setCenter(place.geometry.location);
+            $scope.map.setZoom(17); // Why 17? Because it looks good.
+          }
+          marker.setIcon( /** @type {google.maps.Icon} */ ({
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(35, 35)
+          }));
+          marker.setPosition(place.geometry.location);
+          marker.setVisible(true);
+
+          var address = '';
+          if (place.address_components) {
+            address = [
+              (place.address_components[0] && place.address_components[0].short_name || ''),
+              (place.address_components[1] && place.address_components[1].short_name || ''),
+              (place.address_components[2] && place.address_components[2].short_name || '')
+            ].join(' ');
+          }
+
+          infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+          infowindow.open($scope.map, marker);
+          var lat = marker.getPosition().lat();
+          var lon = marker.getPosition().lng();
+          // var scopelat = angular.element(document.getElementById("lat")).scope();
+          // var scopelng = angular.element(document.getElementById("lng")).scope();
+          // scopelat.lat = lat;
+          // scopelng.lng = lon;
+          $scope.altalat = lat;
+          $scope.altalng = lon;
+          // scopelng.$apply();
+          // scopelat.$apply();
+
+        });
+
+        // Sets a listener on a radio button to change the filter type on Places
+        // Autocomplete.
+        function setupClickListener(id, types) {
+          var radioButton = document.getElementById(id);
+          radioButton.addEventListener('click', function () {
+            autocomplete.setTypes(types);
+          });
+        }
+        setupClickListener('changetype-all', []);
+        setupClickListener('changetype-address', ['address']);
+        setupClickListener('changetype-establishment', ['establishment']);
+        setupClickListener('changetype-geocode', ['geocode']);
+
+      } else {
+        document.getElementById('altamapa').style.display = "block";
+        latitude = -34.5991567;
+        longitude = -58.369587499999966;
+        pos = new google.maps.LatLng(latitude, longitude);
+        $scope.map.setCenter(pos);
+        $scope.map.setZoom(13);
+      };
+    };
+
+
+    $scope.ObtenerOS();
+    // $scope.initMapModificar($scope.primeraosegunda);
+
+
+
+  })
+
+
+
+  ////////////////////////////////////////////////
+  //█▀▀ █▀▀ █▀▀█ █▀▀ █▀▀  ▀  █▀▀█ █    ▀  █▀▀▄ █▀▀█ █▀▀▄ █▀▀ █▀▀
+  //█▀▀ ▀▀█ ████ █▀▀ █    █  █▄▄█ █    █  █  █ █▄▄█ █  █ █▀▀ ▀▀█
+  //▀▀▀ ▀▀▀ █    ▀▀▀ ▀▀▀  ▀  ▀  ▀ ▀▀▀  ▀  ▀▀▀  ▀  ▀ ▀▀▀  ▀▀▀ ▀▀▀
+  ///////////////////////////////////////////////
+
+  .controller('especialidadesCrt', function ($scope, UserSrv, $http, $mdDialog, Permisos) {
+
+    $scope.sortType = 'nombre'; // el default
+    $scope.sortReverse = false;
+    $scope.PS = Permisos;
+
+
+
+    $scope.ObtenerEspecialidades = function () {
+      $scope.Cargando = "Cargando...";
+      $http.get('https://guarded-oasis-37936.herokuapp.com/especialidad/traerElementos')
+        .success(function (response) {
+          $scope.Especialidades = response;
+          $scope.Cargando = "";
+        })
+    }
+
+    $scope.Eliminar = function (ev, x) {
+
+      var confirm = $mdDialog.confirm()
+        .title('¿Esta seguro de eliminar?')
+        .textContent('La especialidad o estudio sera eliminado de forma permantente')
+        .ariaLabel('Lucky day')
+        .targetEvent(ev)
+        .ok('Continuar')
+        .cancel('Cancelar');
+
+      $mdDialog.show(confirm).then(function () {
+        $http.delete('https://guarded-oasis-37936.herokuapp.com/especialidad/' + x.id)
           .success(function (response) {
-            $scope.Turnos = response;
-            //$scope.totalZonas = sumZonas(response);
-            console.log($scope.Turnos);
+            UserSrv.alertOk("Se elimino con exito.");
+            $scope.ObtenerEspecialidades();
           })
-      }
+      })
+    }
 
-      $scope.Actualizar = function () {
+    $scope.Alta = function () {
+
+      $http.post('https://guarded-oasis-37936.herokuapp.com/especialidad', {
+          'NOMBRE': $scope.espeAlta.nombre,
+          'ESTUDIO': $scope.espeAlta.estudio,
+          'DIRECTO': $scope.espeAlta.directo
+        })
+        .success(function (response) {
+          UserSrv.alertOk('Especialidad/Estudio creado con exito.');
+          limpiarErrores();
+          limpiarCampos();
+        }).error(function (response) {
+          $scope.errorText = response;
+          $scope.errorMsj = "*Revise los datos e intente nuevamente";
+        })
+
+
+    }
+
+    $scope.Modificar = function () {
+
+      $http.put('https://guarded-oasis-37936.herokuapp.com/especialidad/' + $scope.espeModif.id, {
+          'NOMBRE': $scope.espeModif.nombre,
+          'ESTUDIO': $scope.espeModif.estudio,
+          'IDESPECIALIDAD': $scope.espeModif.id,
+          'DIRECTO': $scope.espeModif.directo
+        })
+        .success(function (response) {
+          UserSrv.alertOk('Editado con exito.');
+          limpiarErrores();
+          $scope.modificando = false
+        }).error(function (response) {
+          $scope.errorText = response;
+          $scope.errorMsj = "*Revise los datos e intente nuevamente";
+        })
+
+    }
+
+    $scope.Editar = function (x) {
+      $scope.espeModif = x;
+      $scope.modificando = true;
+    }
+
+    var limpiarErrores = function () {
+      $scope.errorText = null;
+      $scope.errorMsj = null;
+    }
+
+    var limpiarCampos = function () {
+      $scope.espeAlta.nombre = null;
+      $scope.espeAlta.estudio = 0;
+    }
+
+
+  })
+
+  .controller('recomendacionCrt', function ($scope, UserSrv, $http, $mdDialog, Permisos) {
+
+    $scope.sortType = 'nombre'; // el default
+    $scope.sortReverse = false;
+    $scope.PS = Permisos;
+    $scope.checkbox = [];
+    var envio = [];
+    console.log($scope.PS);
+
+    $scope.filtronumeritos = 10;
+    $scope.ActualPage = 1;
+    $scope.ObtenerRecomendaciones = function () {
+      $scope.Cargando = "Cargando...";
+      $http.get('https://guarded-oasis-37936.herokuapp.com/recomendacion/sinContactar')
+        .success(function (response) {
+          $scope.Recomendaciones = response;
+          console.log($scope.Recomendaciones);
+          $scope.Cargando = "";
+        })
+    }
+
+    $scope.makeIDS = function () {
+      envio = [];
+      angular.forEach($scope.checkbox, function (value, key) {
+        if (value != false) {
+          envio.push(key);
+        }
+      });
+      return envio;
+    }
+
+    $scope.marcarTodos = function () {
+      angular.forEach($scope.Recomendaciones, function (value, key) {
+        $scope.checkbox[value.id] = !$scope.checkbox[value.id];
+      });
+    }
+
+    $scope.muestroBoton = function () {
+      var resultado = false;
+      angular.forEach($scope.checkbox, function (value, key) {
+        if (value != false) {
+          resultado = true;
+        }
+      });
+      return resultado;
+    }
+
+    $scope.Contactar = function (id) {
+      $scope.makeIDS()
+      $http.post('https://guarded-oasis-37936.herokuapp.com/recomendacion/contactado', {
+          'ids': envio
+        })
+        .success(function (response) {
+          UserSrv.alertOk('Recomendacion/es marcada/s como contactada.');
+          $scope.ObtenerRecomendaciones();
+        }).error(function (response) {
+          $scope.errorText = response;
+          $scope.errorMsj = "*Revise los datos e intente nuevamente";
+        })
+    }
+
+    $scope.ObtenerRecomendaciones();
+
+
+  })
+
+
+  .controller('estadisticasCrt', function ($scope, UserSrv, $http, $mdDialog, Permisos) {
+
+
+    $scope.sortType = 'nombre'; // el default
+    $scope.fecha_creacion_desde = moment().format('Y') + '-' + moment().format('MM') + '-01';
+    $scope.fecha_creacion_hasta = moment().format('Y') + '-' + moment().format('MM') + '-' + moment().daysInMonth();
+    $scope.fecha_modificacion_desde = moment().format('Y') + '-' + moment().format('MM') + '-01';
+    $scope.fecha_modificacion_hasta = moment().format('Y') + '-' + moment().format('MM') + '-' + moment().daysInMonth();
+    $scope.sortReverse = false;
+    $scope.sortType = 'nombre'; // el default
+    $scope.sortReverse = false;
+    $scope.PS = Permisos;
+    $scope.vistaactual = "Zonas";
+    console.log($scope.PS);
+
+    $scope.filtronumeritos = 10;
+    $scope.ActualPage = 1;
+
+    $scope.setVista = function (vista) {
+      $scope.vistaactual = vista;
+      if ($scope.ultimaFechaCD != moment($scope.fecha_creacion_desde).format('YYYY-MM-DD') ||
+        $scope.ultimaFechaCH != moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD') ||
+        $scope.ultimaFechaMD != moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD') ||
+        $scope.ultimaFechaMH != moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD')
+      ) {
         switch ($scope.vistaactual) {
           case 'Zonas':
             $scope.ObtenerZonas();
@@ -2652,73 +2622,133 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
             $scope.getSolicitudes($scope.clinicaactual);
             break;
         }
+        $scope.ultimaFechaCD = moment($scope.fecha_creacion_desde).format('YYYY-MM-DD');
+        $scope.ultimaFechaCH = moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD');
+        $scope.ultimaFechaMD = moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD');
+        $scope.ultimaFechaMH = moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD');
+      }
+    }
 
+    $scope.formatDate = function (fecha) {
+      if (fecha == null) {
+        return ''
+      }
+      var fechaFormateada = moment(fecha).format('DD/MM/YYYY')
+      return fechaFormateada
+    }
+
+    function sumZonas(objeto) {
+      var pendientes = 0,
+        confirmados = 0,
+        rechazados = 0,
+        total = 0;
+      objeto.forEach(function (objeto) {
+        pendientes = pendientes + objeto.pendientes;
+        confirmados = confirmados + objeto.confirmados;
+        rechazados = rechazados + objeto.rechazados;
+        total = total + objeto.total;
+      })
+      return {
+        'pendientes': pendientes,
+        'confirmados': confirmados,
+        'rechazados': rechazados,
+        'total': total
+      };
+    }
+
+    $scope.expandir = function (solicitud) {
+      $scope.expandida = solicitud.id;
+      $scope.Turnos = undefined;
+      $scope.datosNuevos = solicitud;
+      $http.post('https://guarded-oasis-37936.herokuapp.com/reporteSolicitudes/turnos', {
+          'id_solicitud': solicitud.id
+        })
+        .success(function (response) {
+          $scope.Turnos = response;
+          //$scope.totalZonas = sumZonas(response);
+          console.log($scope.Turnos);
+        })
+    }
+
+    $scope.Actualizar = function () {
+      switch ($scope.vistaactual) {
+        case 'Zonas':
+          $scope.ObtenerZonas();
+          break;
+        case 'Clinicas':
+          $scope.getClinicas($scope.zonaactual);
+          break;
+        case 'Solicitudes':
+          $scope.getSolicitudes($scope.clinicaactual);
+          break;
       }
 
-      $scope.ObtenerZonas = function () {
-        $scope.vistaactual = "Zonas";
-        $http.post('https://guarded-oasis-37936.herokuapp.com/reporteSolicitudes/zonas', {
-            'fecha_creacion_desde': moment($scope.fecha_creacion_desde).format('YYYY-MM-DD'),
-            'fecha_creacion_hasta': moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD'),
-            'fecha_modificacion_desde': moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD'),
-            'fecha_modificacion_hasta': moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD')
-          })
-          .success(function (response) {
-            $scope.Zonas = response;
-            $scope.totalZonas = sumZonas(response);
-            console.log($scope.Zonas);
-          })
-      }
+    }
 
-      $scope.getClinicas = function (zona) {
-        $scope.vistaactual = "Clinicas";
-        $scope.zonaactual = zona;
-        $http.post('https://guarded-oasis-37936.herokuapp.com/reporteSolicitudes/clinicas', {
-            'zona': zona,
-            'fecha_creacion_desde': moment($scope.fecha_creacion_desde).format('YYYY-MM-DD'),
-            'fecha_creacion_hasta': moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD'),
-            'fecha_modificacion_desde': moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD'),
-            'fecha_modificacion_hasta': moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD')
-          })
-          .success(function (response) {
-            $scope.Clinicas = response;
-            $scope.totalClinicas = sumZonas(response);
-            console.log($scope.Clinicas);
-          })
-      }
+    $scope.ObtenerZonas = function () {
+      $scope.vistaactual = "Zonas";
+      $http.post('https://guarded-oasis-37936.herokuapp.com/reporteSolicitudes/zonas', {
+          'fecha_creacion_desde': moment($scope.fecha_creacion_desde).format('YYYY-MM-DD'),
+          'fecha_creacion_hasta': moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD'),
+          'fecha_modificacion_desde': moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD'),
+          'fecha_modificacion_hasta': moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD')
+        })
+        .success(function (response) {
+          $scope.Zonas = response;
+          $scope.totalZonas = sumZonas(response);
+          console.log($scope.Zonas);
+        })
+    }
 
-      $scope.getSolicitudes = function (clinica) {
-        $scope.vistaactual = "Solicitudes";
-        $scope.clinicaactual = clinica.nombre;
-        $http.post('https://guarded-oasis-37936.herokuapp.com/reporteSolicitudes/solicitudes', {
-            'id_clinica': clinica.id_clinica,
-            'fecha_creacion_desde': moment($scope.fecha_creacion_desde).format('YYYY-MM-DD'),
-            'fecha_creacion_hasta': moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD'),
-            'fecha_modificacion_desde': moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD'),
-            'fecha_modificacion_hasta': moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD')
-          })
-          .success(function (response) {
-            $scope.Solicitudes = response
+    $scope.getClinicas = function (zona) {
+      $scope.vistaactual = "Clinicas";
+      $scope.zonaactual = zona;
+      $http.post('https://guarded-oasis-37936.herokuapp.com/reporteSolicitudes/clinicas', {
+          'zona': zona,
+          'fecha_creacion_desde': moment($scope.fecha_creacion_desde).format('YYYY-MM-DD'),
+          'fecha_creacion_hasta': moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD'),
+          'fecha_modificacion_desde': moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD'),
+          'fecha_modificacion_hasta': moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD')
+        })
+        .success(function (response) {
+          $scope.Clinicas = response;
+          $scope.totalClinicas = sumZonas(response);
+          console.log($scope.Clinicas);
+        })
+    }
 
-            console.log($scope.Solicitudes);
-          })
-      }
+    $scope.getSolicitudes = function (clinica) {
+      $scope.vistaactual = "Solicitudes";
+      $scope.clinicaactual = clinica.nombre;
+      $http.post('https://guarded-oasis-37936.herokuapp.com/reporteSolicitudes/solicitudes', {
+          'id_clinica': clinica.id_clinica,
+          'fecha_creacion_desde': moment($scope.fecha_creacion_desde).format('YYYY-MM-DD'),
+          'fecha_creacion_hasta': moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD'),
+          'fecha_modificacion_desde': moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD'),
+          'fecha_modificacion_hasta': moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD')
+        })
+        .success(function (response) {
+          $scope.Solicitudes = response
 
-      $scope.ObtenerRecomendaciones = function () {
-        $scope.Cargando = "Cargando...";
-        $http.get('https://guarded-oasis-37936.herokuapp.com/recomendacion/sinContactar')
-          .success(function (response) {
-            $scope.Recomendaciones = response;
-            console.log($scope.Recomendaciones);
-            $scope.Cargando = "";
-          })
-      }
+          console.log($scope.Solicitudes);
+        })
+    }
 
-      $scope.ObtenerZonas();
-      $scope.ultimaFechaCD = moment($scope.fecha_creacion_desde).format('YYYY-MM-DD');
-      $scope.ultimaFechaCH = moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD');
-      $scope.ultimaFechaMD = moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD');
-      $scope.ultimaFechaMH = moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD');
+    $scope.ObtenerRecomendaciones = function () {
+      $scope.Cargando = "Cargando...";
+      $http.get('https://guarded-oasis-37936.herokuapp.com/recomendacion/sinContactar')
+        .success(function (response) {
+          $scope.Recomendaciones = response;
+          console.log($scope.Recomendaciones);
+          $scope.Cargando = "";
+        })
+    }
+
+    $scope.ObtenerZonas();
+    $scope.ultimaFechaCD = moment($scope.fecha_creacion_desde).format('YYYY-MM-DD');
+    $scope.ultimaFechaCH = moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD');
+    $scope.ultimaFechaMD = moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD');
+    $scope.ultimaFechaMH = moment($scope.fecha_modificacion_hasta).format('YYYY-MM-DD');
 
 
-    })
+  })

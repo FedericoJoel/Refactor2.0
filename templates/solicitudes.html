@@ -20,7 +20,8 @@
                 <div class="form-group">
                   <center>
                     <label for="seleTipo">Tipo</label>
-                    <select id="seleTipo" ng-model="filtrotipo" ng-options="x for x in tipos" placeholder="Tipo.." class="form-control" ng-change="filtrarSolicitudes(filtroTipo)">
+                    <select id="seleTipo" ng-model="filtrotipo" ng-options="x for x in tipos" placeholder="Tipo.."
+                      class="form-control" ng-change="filtrarSolicitudes(filtroTipo)">
                     </select>
                   </center>
                 </div>
@@ -29,8 +30,8 @@
                 <div class="form-group">
                   <center>
                     <label for="seleTipo">Estado</label>
-                    <select id="seleEstado" ng-model="filtroestado" ng-options="x for x in estados" placeholder="Estado.." class="form-control"
-                      ng-change="filtrarSolicitudes(filtroEstado)">
+                    <select id="seleEstado" ng-model="filtroestado" ng-options="x for x in estados" placeholder="Estado.."
+                      class="form-control" ng-change="filtrarSolicitudes(filtroEstado)">
                     </select>
                   </center>
                 </div>
@@ -44,7 +45,8 @@
                       </label>
                     </div>
 
-                    <md-datepicker id="fechadesde" style="margin: 0px;" ng-model="fechadesde" md-placeholder="Desde.." ng-change="filtrarSolicitudes(filtroFechaDesde)"></md-datepicker>
+                    <md-datepicker id="fechadesde" style="margin: 0px;" ng-model="fechadesde" md-placeholder="Desde.."
+                      ng-change="filtrarSolicitudes(filtroFechaDesde)"></md-datepicker>
                   </center>
                 </div>
               </div>
@@ -65,8 +67,8 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label for="numerito">Cantidad de Registros</label>
-                  <select style="width: 30%;" id="numerito" ng-model="filtronumeritos" ng-options="x for x in numeritos" data-ng-change="elemsPorPagina = filtronumeritos"
-                    placeholder="Tipo.." class="form-control">
+                  <select style="width: 30%;" id="numerito" ng-model="filtronumeritos" ng-options="x for x in numeritos"
+                    data-ng-change="elemsPorPagina = filtronumeritos" placeholder="Tipo.." class="form-control">
                   </select>
                 </div>
               </div>
@@ -117,16 +119,14 @@
               </thead>
               <tbody>
                 <tr style="cursor: pointer;" data-toggle="modal" data-target="#detalleSolicitud" ng-repeat="solicitud in solicitudes | filter:filtroFechaDesde | filter:filtroFechaHasta | filter:filtroTipo | filter:filtroEstado  as filteredElems track by $index"
-                    ng-if="separarPaginas($index)" ng-click="Detallar(solicitud)" ng-class="{'disabled-row': (solicitudesAbiertas.indexOf(solicitud) != -1)}">
+                  ng-if="separarPaginas($index)" ng-click="Detallar(solicitud)" ng-class="{'disabled-row': (solicitudesAbiertas.indexOf(solicitud) != -1)}">
                   <td>{{solicitud.afiliado.dni}}</td>
-                  <td ng-if="solicitud.tipo != '3'">{{solicitud.climed.nombre}}</td>
-                  <td ng-if="solicitud.tipo == '3'">ESTUDIO</td>
-                  <td ng-if="solicitud.tipo != '3'">{{solicitud.medico}}</td>
-                  <td ng-if="solicitud.tipo == '3'">ESTUDIO</td>
+                  <td>{{solicitud.climed.nombre}}</td>
+                  <td>{{solicitud.medico}}</td>
                   <td>{{solicitud.fecha | date:'dd/MM/yyyy'}}</td>
-                  <td ng-if="solicitud.tipo == 1" style="background-color: #063f5f; color: white;">CLÍNICO</td>
+                  <td ng-if="solicitud.tipo == 1" style="background-color: #063f5f; color: white;">ACCESO DIRECTO</td>
                   <td ng-if="solicitud.tipo == 2" style="background-color: #1a873e; color: white;">ESPECIALISTA</td>
-                  <td ng-if="solicitud.tipo == 3" style="background-color: #bf6a0a; color: white;">ESTUDIO</td>
+                  <td ng-if="solicitud.tipo == 3" style="background-color: #bf6a0a; color: white;">AUTORIZACIÓN</td>
                   <td>{{solicitud.estado}}</td>
                 </tr>
                 <tr ng-if="solicitudes.length < 1">
@@ -135,9 +135,9 @@
                   </td>
                 </tr>
                 <tr ng-if="solicitudes.length == undefined">
-                    <td colspan="6" style="text-align: center;">
-                        <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando.. </td>
-                    </td>
+                  <td colspan="6" style="text-align: center;">
+                    <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando.. </td>
+                  </td>
                 </tr>
               </tbody>
               <tfoot>
@@ -150,8 +150,8 @@
                             <i class="fa fa-angle-left" aria-hidden="true"></i>
                           </a>
                         </li>
-                        <li ng-repeat="pag in getPaginas(filteredElems) track by $index" ng-class="{'active': ActualPage == pag}" ng-click="ChangePage(pag)"
-                            ng-show="pag <= primeraPagina +10 && primeraPagina <= pag ">
+                        <li ng-repeat="pag in getPaginas(filteredElems) track by $index" ng-class="{'active': ActualPage == pag}"
+                          ng-click="ChangePage(pag)" ng-show="pag <= primeraPagina +10 && primeraPagina <= pag ">
                           <a>{{$index+1}}</a>
                         </li>
                         </a>
@@ -205,7 +205,8 @@
                     <b>
                       <h4>DATOS GENERALES</h4>
                     </b>
-                    <hr></hr>
+                    <hr>
+                    </hr>
                     <h5>
                       <p>
                         <b>Estado:</b>
@@ -217,7 +218,8 @@
                       </p>
                       <p>
                         <b>Nombre y Apellido:</b>
-                        <font color="darkred">{{solicitudexpandida.afiliado.nombre}} {{solicitudexpandida.afiliado.apellido}}</font>
+                        <font color="darkred">{{solicitudexpandida.afiliado.nombre}}
+                          {{solicitudexpandida.afiliado.apellido}}</font>
                       </p>
                       <p>
                         <b>Teléfono Afiliado:</b>
@@ -230,13 +232,16 @@
                       <p ng-if="solicitudexpandida.obsFamiliar != '' && solicitudexpandida.obsFamiliar != null">
                         <b>OBSERVACIÓN:</b>
                         <font color="darkred">{{solicitudexpandida.obsFamiliar}}</font>
-                        <button class="Boton Danger" style="padding: 2px;" data-toggle="modal" data-target="#jorgelin">Ver datos de Familiares</button>
+                        <button class="Boton Danger" style="padding: 2px;" data-toggle="modal" data-target="#jorgelin">Ver
+                          datos de Familiares</button>
                       </p>
-                      <p ng-if="solicitudexpandida.tipo !== 3">
+                      <p>
                         <b>Clínica: </b>
                         <font color="darkred">{{solicitudexpandida.climed.nombre}}</font>
+                        <button class="Boton Primary" style="padding: 2px;" data-toggle="modal" data-target="#cambioClinica"
+                          ng-click="clinicasCambioR()">Cambiar</button>
                       </p>
-                      <p ng-if="solicitudexpandida.tipo !== 3">
+                      <p>
                         <b>Teléfono Clínica: </b>
                         <font color="darkred">{{solicitudexpandida.climed.telefono}}</font>
                       </p>
@@ -245,28 +250,21 @@
                         <font color="darkred">{{solicitudexpandida.especialidad.nombre}}</font>
                       </p>
                       <p ng-if="solicitudexpandida.tipo == 3">
-                        <b>Estudio: </b>
+                        <b>Especialidad: </b>
                         <font color="darkred">{{solicitudexpandida.especialidad.nombre}}</font>
                       </p>
-                        <p ng-if="solicitudexpandida.tipo == 3">
-                          <b>Clinica: </b>
-                          <font color="darkred">{{solicitudexpandida.climed.nombre}}</font>
-                        </p>
-                        <p ng-if="solicitudexpandida.tipo == 3">
-                          <b>Teléfono Clinica: </b>
-                          <font color="darkred">{{solicitudexpandida.climed.telefono}}</font>
-                        </p>
-                        <p ng-if="solicitudexpandida.tipo != 3">
-                          <b>Médico Sugerido:</b>
-                          <font color="darkred">{{solicitudexpandida.medico}}</font>
-                        </p>
+                      <p ng-if="solicitudexpandida.tipo != 3">
+                        <b>Médico Sugerido:</b>
+                        <font color="darkred">{{solicitudexpandida.medico}}</font>
+                      </p>
                     </h5>
                   </div>
                   <div class="col-md-8" style="overflow: auto;">
                     <b>
                       <h4>HISTORIAL DE CONFIRMACIONES</h4>
                     </b>
-                    <hr></hr>
+                    <hr>
+                    </hr>
                     <h5>
                       <table class="table table-bordered">
                         <thead>
@@ -281,7 +279,7 @@
                         </thead>
                         <tbody>
                           <tr>
-                            <td colspan="5" ng-show="solicitudexpandida.turnos.length == 0">
+                            <td colspan="6" ng-show="solicitudexpandida.turnos.length == 0">
                               <center>Esta solicitud no posee un historial previo.</center>
                             </td>
                           </tr>
@@ -289,14 +287,15 @@
                             <td>{{historial.fecha | date:'dd/MM/yyyy'}}</td>
                             <td>{{historial.hora}}</td>
                             <td>{{historial.medicoAsignado}}</td>
-                            <td ng-if="historial.confirmacion == 0" style="background-color: orange; color: white;">A CONFIRMAR</td>
+                            <td ng-if="historial.confirmacion == 0" style="background-color: orange; color: white;">A
+                              CONFIRMAR</td>
                             <td ng-if="historial.confirmacion == 1" style="background-color: darkred; color: white;">RECHAZADO</td>
                             <td ng-if="historial.confirmacion == 2" style="background-color: #1a873e; color: white;">CONFIRMADO</td>
                             <td>{{historial.motivo}}</td>
                             <td>{{historial.fechaCreacion}}</td>
                           </tr>
                           <tr ng-show="enviandoturno">
-                            <td colspan="5">
+                            <td colspan="6">
                               <i class="fa fa-spinner fa-spin fa-1x fa-fw"></i> Enviando turno..
                             </td>
                           </tr>
@@ -314,26 +313,37 @@
 
 
                     <div ng-show="(turnoc != 0 && turnoc != 2) || turnoc == undefined">
-                      <form ng-submit="EnviarTurno(fechaturno, horaturno, medicoturno)">
-                        <hr></hr>
-                        <div class="col-md-3">
+                      <form ng-submit="EnviarTurno(fechaturno, horaturno, medicoturno, obsturno)">
+                        <hr>
+                        </hr>
+                        <div class="col-md-2">
                           <label>
                             <i class="fa fa-calendar"></i> Fecha
                           </label>
-                          <input id="fechaturno" name="fechaturno" class="form-control" type="date" ng-model="fechaturno" required>
+                          <input id="fechaturno" name="fechaturno" class="form-control" type="date" ng-model="fechaturno"
+                            required>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                           <label>
                             <i class="fa fa-clock-o"></i> Hora</label>
 
-                          <input id="horaturno" name="horaturno" class="form-control" ng-model="horaturno" type="time" placeholder="HH:mm" required>
+                          <input id="horaturno" name="horaturno" class="form-control" ng-model="horaturno" type="time"
+                            placeholder="HH:mm" required>
                         </div>
 
                         <div class="col-md-3">
                           <label>
                             <i class="fa fa-user"></i> Medico</label>
-                          <input class="form-control" ng-model="medicoturno" type="text" placeholder="Medico..." required>
+                          <input class="form-control" ng-model="medicoturno" type="text" placeholder="Medico..."
+                            required>
+                        </div>
+
+                        <div class="col-md-3">
+                          <label>
+                            <i class="fa fa-info"></i> Observaciones</label>
+                          <input class="form-control" ng-model="obsturno" type="text" placeholder="Ingrese..."
+                            required>
                         </div>
 
                         <!-- <div class="col-md-3">
@@ -365,7 +375,8 @@
 
 
                     <div ng-if="turnoc == 0">
-                      <hr></hr>
+                      <hr>
+                      </hr>
 
                       <div class="col-md-12">
 
@@ -377,12 +388,14 @@
                     </div>
 
                     <div ng-if="turnoc == 2">
-                      <hr></hr>
+                      <hr>
+                      </hr>
 
                       <div class="col-md-12">
 
                         <div class="alert alert-info" role="alert">
-                          <i class="fa fa-clock-o"></i> Esta solicitud se encuentra confirmada para el día {{solicitudexpandida.turnos.fecha}}
+                          <i class="fa fa-clock-o"></i> Esta solicitud se encuentra confirmada para el día
+                          {{solicitudexpandida.turnos.fecha}}
                         </div>
 
                       </div>
@@ -440,8 +453,8 @@
           <div class="row" style="margin-top: 10px;">
             <div id="BuscaUser2" class="col-md-12" style="overflow: auto; max-height: 400px;">
               <ul class="list-group">
-                <li ng-repeat="x in Medicos | filter: buscamedico | filter: especialidadmedico" class="list-group-item noout" ng-click="selectorear(x)"
-                  ng-class="{'selectored': se[x.id], 'selector': !se[x.id]}">
+                <li ng-repeat="x in Medicos | filter: buscamedico | filter: especialidadmedico" class="list-group-item noout"
+                  ng-click="selectorear(x)" ng-class="{'selectored': se[x.id], 'selector': !se[x.id]}">
                   <div ng-if="se[x.id] == false || se[x.id] == undefined">
                     <div class="selector"></div>{{x.nombre}}
                     <span style="margin-top: 3px;float: right; height: 100%; background-color: #822588;" class="label label-info">
@@ -473,7 +486,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" ng-click="alert(idmediselected.nombre)" data-dismiss="modal" class="btn btn-primary" ng-disabled="se == undefined">Seleccionar</button>
+          <button type="button" ng-click="alert(idmediselected.nombre)" data-dismiss="modal" class="btn btn-primary"
+            ng-disabled="se == undefined">Seleccionar</button>
         </div>
       </div>
     </div>
@@ -502,22 +516,22 @@
           <div class="row" style="margin-top: 10px;">
             <div id="BuscaUser2" class="col-md-12" style="overflow: auto; max-height: 400px;">
 
-                <table class="table table-bordered">
-                  <thead>
-                    <tr class="subtitulo" style="color: white">
-                      <td>NOMBRE</td>
-                      <td>DNI</td>
-                      <td>NACIMIENTO</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="x in solicitudexpandida.afiliado.familiares | filter: buscafam">
-                      <td>{{x.nombre}}</td>
-                      <td>{{x.dni}}</td>
-                      <td>{{x.nacimiento | date:'dd/MM/yyyy'}}</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <table class="table table-bordered">
+                <thead>
+                  <tr class="subtitulo" style="color: white">
+                    <td>NOMBRE</td>
+                    <td>DNI</td>
+                    <td>NACIMIENTO</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="x in solicitudexpandida.afiliado.familiares | filter: buscafam">
+                    <td>{{x.nombre}}</td>
+                    <td>{{x.dni}}</td>
+                    <td>{{x.nacimiento | date:'dd/MM/yyyy'}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -526,5 +540,63 @@
   </div>
 
 
+  <div class="modal fade" id="cambioClinica" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Cambiar la Clínica de la Solicitud</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4">
+              <i class="fa fa-search"></i>
+              <b>Buscar</b>
+            </div>
+            <div class="col-md-8">
+              <input class="form-control" type="text" ng-model="buscacli" placeholder="NOMBRE o DIRECCION..">
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 10px;">
+            <div id="BuscaUser2" class="col-md-12" style="overflow: auto; max-height: 400px;">
+
+              <table class="table table-bordered">
+                <thead>
+                  <tr class="subtitulo" style="color: white">
+                    <td>NOMBRE</td>
+                    <td>DIRECCION</td>
+                    <td></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-if="cargandoClinicasCambio != true" ng-repeat="x in clinicasCambio | filter: buscacli">
+                    <td>{{x.nombre}}</td>
+                    <td>{{x.domicilio}}</td>
+                    <td>
+                      <button class="Boton Primary" style="padding: 2px; width: 100%;" ng-disabled="cambiandoClinica == x.id"
+                        ng-click="cambiarClinica(x.id,solicitudexpandida.id,x)">
+                        <p ng-if="cambiandoClinica == x.id">
+                          <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> CAMBIANDO..
+                        </p>
+                        <p ng-if="cambiandoClinica != x.id">
+                          SELECCIONAR
+                        </p>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr ng-if="cargandoClinicasCambio == true">
+                    <td colspan="3"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando..</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

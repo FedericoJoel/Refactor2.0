@@ -71,8 +71,11 @@
                       <b>{{x.obsFamiliar}}</b> <button class="Boton Danger" ng-click="yer(x)" style="padding: 2px;"
                         data-toggle="modal" data-target="#jorgelin">Ver datos de Familiares</button>
                     </td>
-                    <td style="vertical-align: middle;">
+                    <td ng-if="x.climed != null" style="vertical-align: middle;">
                       {{x.climed.nombre}}
+                    </td>
+                    <td ng-if="x.climed == null" style="vertical-align: middle;">
+                      {{x.medico}}
                     </td>
                     <td style="vertical-align: middle;">
                       {{x.fecha | date:'dd/MM/yyyy'}}
@@ -317,7 +320,7 @@
         </button>
         <h4 class="modal-title" id="myModalLabel">Especialidades</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="overflow: auto; max-height: 400px;">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search" ng-model="filtroEspecialidades.nombre">
           <div class="input-group-btn">
@@ -362,7 +365,7 @@
         </button>
         <h4 class="modal-title" id="myModalLabel">Clinicas</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="overflow: auto; max-height: 400px;">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search" ng-model="filtroClinicas.nombre">
           <div class="input-group-btn">
