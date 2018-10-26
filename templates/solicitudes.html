@@ -229,10 +229,6 @@
                         <b>Rango Horario:</b>
                         <font color="darkred">{{solicitudexpandida.rango}}</font>
                       </p>
-                      <p>
-                        <b>Especialidad:</b>
-                        <font color="darkred">{{solicitudexpandida.especialidad.nombre}}</font>
-                      </p>
                       <p ng-if="solicitudexpandida.obsFamiliar != '' && solicitudexpandida.obsFamiliar != null">
                         <b>Observacion:</b>
                         <font color="darkred">{{solicitudexpandida.obsFamiliar}}</font>
@@ -249,11 +245,7 @@
                         <b>Teléfono Clínica: </b>
                         <font color="darkred">{{solicitudexpandida.climed.telefono}}</font>
                       </p>
-                      <p ng-if="solicitudexpandida.tipo == 2">
-                        <b>Especialidad: </b>
-                        <font color="darkred">{{solicitudexpandida.especialidad.nombre}}</font>
-                      </p>
-                      <p ng-if="solicitudexpandida.tipo == 3">
+                      <p>
                         <b>Especialidad: </b>
                         <font color="darkred">{{solicitudexpandida.especialidad.nombre}}</font>
                       </p>
