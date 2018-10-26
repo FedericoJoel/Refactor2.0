@@ -81,7 +81,7 @@
   
   <div id="wrapper" ng-style="estiloWrapper">
     <div id="controllerpiola">
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-if="!enLogin">
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-if="!enLogin" style="background-color: #2c2d3a; border-color: #2c2d3a;">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -95,96 +95,10 @@
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-            <ul class="dropdown-menu message-dropdown">
-              <li class="message-preview">
-                <a href="#">
-                  <div class="media">
-                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                    <div class="media-body">
-                      <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                      <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                      <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="message-preview">
-                <a href="#">
-                  <div class="media">
-                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                    <div class="media-body">
-                      <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                      <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                      <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="message-preview">
-                <a href="#">
-                  <div class="media">
-                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                    <div class="media-body">
-                      <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                      <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                      <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="message-footer">
-                <a href="#">Read All New Messages</a>
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-            <ul class="dropdown-menu alert-dropdown">
-              <li>
-                <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-              </li>
-              <li>
-                <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-              </li>
-              <li>
-                <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-              </li>
-              <li>
-                <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-              </li>
-              <li>
-                <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-              </li>
-              <li>
-                <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a href="#">View All</a>
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{userName}} <b class="caret"></b></a>
+            <a style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{userName}} <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li>
-                <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-              </li>
-              <li>
-                <a href="#" ng-click="Juan()"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                <a href="#"><i class="fa fa-fw fa-key"></i> Cambiar Contraseña</a>
               </li>
               <li class="divider"></li>
               <li>
@@ -195,7 +109,7 @@
         </ul>
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav side-nav">
+          <ul class="nav navbar-nav side-nav" style="background-color: #2c2d3a;">
             <li style="">
               <a href="#" ui-sref="solicitudes" ng-show="PS.tienePermiso('solicitud')"><i class="fa fa-fw fa-calendar"></i> Solicitudes</a>
             </li>
@@ -207,19 +121,19 @@
               <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-cubes"></i> ABMS <i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="demo2" class="collapse">
                 <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('afiliado')">
-                  <a href="#" ui-sref="abmafi" style="color: black;" ><i class="fa fa-fw fa-users"></i> Afiliados</a>
+                  <a href="#" ui-sref="abmafi" style="color: black;" ><i class="fa fa-fw fa-dot-circle-o"></i> Afiliados</a>
                 </li>
                 <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('climed')">
-                  <a href="#" ui-sref="abmmed" style="color: black;"><i class="fa fa-fw fa-user-md"></i> Medicos</a>
+                  <a href="#" ui-sref="abmmed" style="color: black;"><i class="fa fa-fw fa-dot-circle-o"></i> Medicos</a>
                 </li>
                 <!--<li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('medico')">
                   <a href="#" ui-sref="abmcli" style="color: black;" ><i class="fa fa-fw fa-hospital-o"></i> Clínicas</a>
                 </li>-->
                 <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('farmacia')">
-                  <a href="#" ui-sref="abmfar" style="color: black;"><i class="fa fa-fw fa-medkit"></i> Farmacias</a>
+                  <a href="#" ui-sref="abmfar" style="color: black;"><i class="fa fa-fw fa-dot-circle-o"></i> Farmacias</a>
                 </li>
                 <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('especialidad')">
-                  <a href="#" ui-sref="abmesp" style="color: black;"><i class="fa fa-fw fa-stethoscope"></i> Especialidades</a>
+                  <a href="#" ui-sref="abmesp" style="color: black;"><i class="fa fa-fw fa-dot-circle-o"></i> Especialidades</a>
                 </li>
               </ul>
             </li>
