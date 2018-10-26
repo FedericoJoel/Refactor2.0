@@ -226,11 +226,15 @@
                         <font color="darkred">{{solicitudexpandida.afiliado.telefono}}</font>
                       </p>
                       <p>
-                        <b>RANGO HORAIRO:</b>
+                        <b>Rango Horario:</b>
                         <font color="darkred">{{solicitudexpandida.rango}}</font>
                       </p>
+                      <p>
+                        <b>Especialidad:</b>
+                        <font color="darkred">{{solicitudexpandida.especialidad.nombre}}</font>
+                      </p>
                       <p ng-if="solicitudexpandida.obsFamiliar != '' && solicitudexpandida.obsFamiliar != null">
-                        <b>OBSERVACIÓN:</b>
+                        <b>Observacion:</b>
                         <font color="darkred">{{solicitudexpandida.obsFamiliar}}</font>
                         <button class="Boton Danger" style="padding: 2px;" data-toggle="modal" data-target="#jorgelin">Ver
                           datos de Familiares</button>
