@@ -503,6 +503,11 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $scope.solicitudesAbiertas.push(solicitud)
     }
 
+    $scope.abrirFile = function() {
+      console.log('me apreto');
+      $('#autorizacionturno').click();
+    }
+
     $scope.clinicasCambioR = function () {
       $scope.cargandoClinicasCambio = true;
       $http.get('https://guarded-oasis-37936.herokuapp.com/climed/traerElementos')
@@ -666,9 +671,18 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           })
 
           .success(function (response) {
-            $mdDialog.hide()
-            UserSrv.alertOk('La solicitud fue rechazada con exito.');
-            traerSolicitudes()
+
+
+            var data2 = {
+            'idnotif': $scope.solicitudexpandida.afiliado.idnotif
+            }
+            $http.post('/sendNotiffRechazo.php', data2)
+              .success(function (response) {
+                $scope.enviandoturno = false;
+                $mdDialog.hide()
+                UserSrv.alertOk('La solicitud fue rechazada con exito.');
+                traerSolicitudes()
+              })
           })
 
       })
@@ -706,7 +720,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.EnviarTurno = function (fecha, hora, medico, obsturno) {
 
       $scope.fecha = moment(fecha).format('YYYY-MM-DD');
-      $scope.hora = moment(hora).format('hh:mm:ss');
+      $scope.hora = moment(hora).format('HH:mm:ss');
       $scope.enviandoturno = true;
 
       var data = {
@@ -721,30 +735,15 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
         .success(function (response) {
           var data2 = {
-            'email': $scope.solicitudexpandida.afiliado.email,
-            'afiliado': $scope.solicitudexpandida.afiliado.nombre,
-            'fecha': moment($scope.fecha).format('DD-MM-YYYY'),
-            'hora': data.HORAT,
-            'clinica': $scope.solicitudexpandida.climed.nombre,
-            'domicilio': $scope.solicitudexpandida.climed.domicilio
+            'idnotif': $scope.solicitudexpandida.afiliado.idnotif
           }
-          if ($scope.solicitudexpandida.afiliado.obra_social.nombre == 'Cobertec') {
-            $http.post('/enviarMail.php', data2)
+            $http.post('/sendNotiff.php', data2)
               .success(function (response) {
                 $scope.enviandoturno = false;
                 UserSrv.alertOk('El turno fue enviado con exito.');
                 $scope.consultasolicitud($scope.solicitudexpandida.id);
                 traerSolicitudes()
               })
-          } else {
-            $http.post('/enviarMailSana.php', data2)
-              .success(function (response) {
-                $scope.enviandoturno = false;
-                UserSrv.alertOk('El turno fue enviado con exito.');
-                $scope.consultasolicitud($scope.solicitudexpandida.id);
-                traerSolicitudes()
-              })
-          }
         })
 
     }
