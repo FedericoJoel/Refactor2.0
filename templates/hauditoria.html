@@ -3,103 +3,134 @@
   <md-content class="main-card">
     <div id="mensaje"></div>
     <md-tabs md-dynamic-height md-border-bottom>
-      <md-tab label="Auditar Solicitudes" ng-click="">
+      <md-tab label="Historico Auditoria"  ng-click="ObtenerHistorial()" style="position:fixed;" hidden>
         <md-content>
           <div class="row">
             <div class="col-md-12">
               <div class="titulo">
-                Auditoria de Solicitudes
+                Historial
               </div>
             </div>
           </div>
+          <div class="row" style="padding: 10px;">
+            <div class="col-md-12">
 
-          <md-content class="" style="background: linear-gradient(white, white);padding: 30px">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="subtitulo">
-                  Solicitudes
-                </div>
+              <div class="panel panel-default col-md-12" style="margin-top: 20px; padding: 0px;">
+                <!-- Default panel contents -->
+                <div class="subtitulo">Solicitudes</div>
+
+                <!-- Table -->
+                <table class="table table-hover table-striped table-bordered">
+                  <thead>
+                    <tr ng-click="getPrimeraPagina()">
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro2.afiliado.nafiliado">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro2.afiliado.nombre">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro2.afiliado.apellido">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro2.afiliado.dni">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro2.afiliado.obra_social">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" ng-model="filtro2.afiliado.estado">
+                      </td>
+                      <td></td>
+                    </tr>
+                    <tr style="color: #1E4599; background-color: #f5f5f5">
+                      <td style="width: 10%;">
+                        <a ng-click="sortType = 'nafiliado'; sortReverse = !sortReverse">
+                          Nº Afiliado
+                          <span ng-show="sortType == 'nafiliado' && !sortReverse" class="fa fa-caret-down"></span>
+                          <span ng-show="sortType == 'nafiliado' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                      </td>
+                      <td>
+                        <a ng-click="sortType = 'nombre'; sortReverse = !sortReverse">
+                          Nombre
+                          <span ng-show="sortType == 'nombre' && !sortReverse" class="fa fa-caret-down"></span>
+                          <span ng-show="sortType == 'nombre' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                      </td>
+                      <td>
+                        <a ng-click="sortType = 'fecha'; sortReverse = !sortReverse">
+                          Fecha
+                          <span ng-show="sortTygetPpe == 'fecha' && !sortReverse" class="fa fa-caret-down"></span>
+                          <span ng-show="sortType == 'fecha' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                      </td>
+                      <td style="width: 10%;">
+                        <a ng-click="sortType = 'fecha'; sortReverse = !sortReverse">
+                          Autorizacion
+                          <span ng-show="sortType == 'fecha' && !sortReverse" class="fa fa-caret-down"></span>
+                          <span ng-show="sortType == 'fecha' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                      </td>
+                      <td>
+                        <a ng-click="sortType = 'obrasocial'; sortReverse = !sortReverse">
+                          Obra social
+                          <span ng-show="sortType == 'obrasocial' && !sortReverse" class="fa fa-caret-down"></span>
+                          <span ng-show="sortType == 'obrasocial' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                      </td>
+                      <td>
+                        <a ng-click="sortType = 'estado'; sortReverse = !sortReverse">
+                          Estado
+                          <span ng-show="sortType == 'estado' && !sortReverse" class="fa fa-caret-down"></span>
+                          <span ng-show="sortType == 'estado' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                      </td>
+                      <td>Opciones</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colspan="7" style="color: #337ab7;" ng-if="historial == undefined">
+                        <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando.. </td>
+                    </tr>
+                    <tr ng-repeat="x in historial | orderBy:sortType:sortReverse | filter:filtro2 as filteredElems track by $index"
+                      ng-if="separarPaginas($index)">
+                      <td style="vertical-align: middle;">{{x.afiliado.nafiliado}}</td>
+                      <td style="vertical-align: middle;">{{x.afiliado.nombre}} {{x.afiliado.apellido}}</td>
+                      <td style="vertical-align: middle;">{{x.fecha | date:'dd/MM/yyyy'}}</td>
+                      <td style="vertical-align: middle;">
+                          <button type="button" ng-click="VerFoto(x.foto)" class="Boton Primary" data-toggle="modal" data-target="#fotoAutorizacion"
+                          style="padding: 2px; width: 100%;">
+                          <i class="fa fa-fw fa-eye"></i> Ver</button>
+                      </td>
+                      <td style="vertical-align: middle;">{{x.afiliado.obra_social.nombre}}</td>
+                      <td style="vertical-align: middle;">{{x.estado}}</td>
+                      <td style="vertical-align: middle;">
+                        <button ng-disabled="modificando" class="Boton Primary" style="padding: 5px;" ng-click="Auditar(x)" data-toggle="modal" data-target="#auditar">
+                          <i class="fa fa-fw fa-edit"></i>
+                        </button>
+                        <button ng-disabled="modificando" class="Boton Danger" style="margin-left: 5px; padding: 5px;"
+                          ng-click="Eliminar($event,x)">
+                          <i class="fa fa-fw fa-trash"></i>
+                        </button>
+
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="7" style="text-align: center;">
+                        <paginado></paginado>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="6">Cantidad de páginas totales: {{getPaginas(filteredElems).length}}</td>
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
             </div>
-            <div class="row" style="padding-left: 15px; padding-right: 15px;">
-              <table class="table table-hover table-bordered" style="margin-bottom: 0px;">
-                <thead>
-                  <tr style="background-color: white; color: white;" ng-click="getPrimeraPagina()">
-                    <td>
-                      <input type="text" class="form-control" ng-model="filtro.afiliado.nombre" placeholder="Filtrar por nombre.."
-                        style="background-color: transparent; border-radius: 0px; color: #337ab7; font-weight: bold;">
-                    </td>
-                    <td>
-                      <input type="text" class="form-control" ng-model="searchClimed" placeholder="Filtrar por clínica.."
-                        style="background-color: transparent; border-radius: 0px; color: #337ab7; font-weight: bold;">
-                    </td>
-                    <td>
-                      <input type="date" class="form-control" ng-model="fecha" ng-change="formatDate(fecha)">
-                    </td>
-                    <td style="width: 18%;">
-                      <button type="button" class="Boton Brand" style="width: 100%;" ng-click="limpiarFiltros()">
-                        <i class="fa fa-filter"></i> LIMPIAR FILTROS</button>
-                    </td>
-                  </tr>
-                  <tr style="color: #1E4599; background-color: #f5f5f5; text-align: center; vertical-align: middle;">
-                    <td>
-                      AFILIADO
-                    </td>
-                    <td>
-                      CLÍNICA/MÉDICO
-                    </td>
-                    <td>
-                      FECHA
-                    </td>
-                    <td style="width: 18%;">
-
-                    </td>
-                  </tr>
-                </thead>
-                <tbody>
-
-                  <tr>
-                    <td colspan="6" style="color: #337ab7;" ng-if="solicitudes == undefined">
-                      <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando.. </td>
-                  </tr>
-                  <tr ng-repeat="x in solicitudes | filter: filtroClimed | filter: filtro as filteredElems" style="text-align: center; vertical-align: middle;"
-                    ng-if="separarPaginas($index)">
-                    <td ng-if="x.obsFamiliar == null" style="vertical-align: middle;">
-                      <b>{{x.afiliado.nafiliado}}</b> {{x.afiliado.nombre}} {{x.afiliado.apellido}}
-                    </td>
-                    <td ng-if="x.obsFamiliar != null" style="vertical-align: middle;">
-                      <b>{{x.obsFamiliar}}</b> <button class="Boton Danger" ng-click="yer(x)" style="padding: 2px;"
-                        data-toggle="modal" data-target="#jorgelin">Ver datos de Familiares</button>
-                    </td>
-                    <td ng-if="x.climed != null" style="vertical-align: middle;">
-                      {{x.climed.nombre}}
-                    </td>
-                    <td ng-if="x.climed == null" style="vertical-align: middle;">
-                      {{x.medico}}
-                    </td>
-                    <td style="vertical-align: middle;">
-                      {{x.fecha | date:'dd/MM/yyyy'}}
-                    </td>
-                    <td style="vertical-align: middle;">
-
-                      <button type="button" ng-click="Auditar(x)" class="Boton Primary" data-toggle="modal" data-target="#auditar"
-                        style="padding: 2px; width: 100%;">
-                        <i class="fa fa-fw fa-eye"></i> Auditar solicitud</button>
-                    </td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="6" style="text-align: center;">
-                      <paginado></paginado>
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-
-          </md-content>
-
+          </div>
         </md-content>
       </md-tab>
     </md-tabs>
@@ -306,7 +337,7 @@
               </thead>
               <tbody>
                 <tr ng-repeat="x in yero.afiliado.familiares | filter: buscafam">
-                  <td>{{x.nombre}} {{x.apellido}}</td>
+                  <td>{{x.nombre}}</td>
                   <td>{{x.dni}}</td>
                   <td>{{x.nacimiento | date:'dd/MM/yyyy'}}</td>
                 </tr>

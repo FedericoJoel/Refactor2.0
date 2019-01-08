@@ -114,8 +114,26 @@
               <a href="#" ui-sref="solicitudes" ng-show="PS.tienePermiso('solicitud')"><i class="fa fa-fw fa-calendar"></i> Solicitudes</a>
             </li>
             <li style="">
-              <a href="#" ui-sref="auditoria" ng-show="PS.tienePermiso('auditoria')"><i class="fa fa-fw fa-thumbs-up"></i> Auditoría de Solicitudes</a>
+              <a href="#" ui-sref="historialCompleto" ng-show="PS.tienePermiso('historialCompleto')"><i class="fa fa-fw fa-calendar"></i> Historial completo</a>
             </li>
+
+            <li ng-show="PS.tienePermiso('auditoria') || PS.tienePermiso('hauditoria')">
+              <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-thumbs-up"></i> Auditoría de Solicitudes <i class="fa fa-fw fa-caret-down"></i></a>
+              <ul id="demo2" class="collapse">
+                <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('auditoria')">
+                  <a href="#" ui-sref="auditoria" style="color: black;" ><i class="fa fa-fw fa-thumbs-up"></i> Auditar Solicitudes</a>
+                </li>
+                <li style="background-color: aliceblue; color: white;" ng-show="PS.tienePermiso('hauditoria')">
+                  <a href="#" ui-sref="hauditoria" style="color: black;"><i class="fa fa-fw fa-calendar"></i> Historial de Auditoría</a>
+                </li>
+              </ul>
+            </li>
+
+
+
+
+
+
              <!--ng-show="PS.tienePermiso('afiliados')|PS.tienePermiso('afiliados')|PS.tienePermiso('medicos')|PS.tienePermiso('clinicas')|PS.tienePermiso('farmacias')|PS.tienePermiso('especialidades')"-->
             <li ng-show="PS.tienePermiso('afiliado') || PS.tienePermiso('climed') || PS.tienePermiso('farmacia') || PS.tienePermiso('especialidad')">
               <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-cubes"></i> ABMS <i class="fa fa-fw fa-caret-down"></i></a>

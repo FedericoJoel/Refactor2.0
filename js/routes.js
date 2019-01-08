@@ -69,6 +69,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: "auditoriaCrt"
     })
 
+    .state('historialCompleto', {
+      url: "/historialCompleto",
+      templateUrl: "templates/hcompleto.html",
+      controller: "historialCompletoCrt"
+    })
+
+    .state('hauditoria', {
+      url: "/hauditoria",
+      templateUrl: "templates/hauditoria.html",
+      controller: "historialAuditoriaCrt"
+    })
+
     .state('recomendacion', {
       url: "/recomendacion",
       templateUrl: "templates/recomendacion.html",

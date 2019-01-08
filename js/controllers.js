@@ -861,6 +861,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
                 console.log(response);
                 UserSrv.alertOk('La solicitud fue validada con exito.');
                 traerSolicitudes()
+                $scope.ObtenerHistorial();
                 $('#auditar').modal('hide');
               }).error(function (response) {
                 $('#auditar').modal('hide');
@@ -925,6 +926,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
             $mdDialog.hide()
             UserSrv.alertOk('La solicitud fue rechazada con exito.');
             traerSolicitudes()
+            $scope.ObtenerHistorial();
           }).error(function (response) {
             $('#auditar').modal('hide');
             UserSrv.alertError('Hubo un error en el rechazo de la solicitud. Intente nuevamente.');
@@ -1053,6 +1055,577 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
   })
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//╭╮ ╭╮   ╭╮         ╭╮ ╭━━━╮    ╭╮╭╮
+//┃┃ ┃┃  ╭╯╰╮        ┃┃ ┃╭━╮┃    ┃┣╯╰╮
+//┃╰━╯┣┳━┻╮╭╋━━┳━┳┳━━┫┃ ┃┃ ┃┣╮╭┳━╯┣╮╭╋━━┳━┳┳━━╮
+//┃╭━╮┣┫━━┫┃┃╭╮┃╭╋┫╭╮┃┃ ┃╰━╯┃┃┃┃╭╮┣┫┃┃╭╮┃╭╋┫╭╮┃
+//┃┃ ┃┃┣━━┃╰┫╰╯┃┃┃┃╭╮┃╰╮┃╭━╮┃╰╯┃╰╯┃┃╰┫╰╯┃┃┃┃╭╮┃
+//╰╯ ╰┻┻━━┻━┻━━┻╯╰┻╯╰┻━╯╰╯ ╰┻━━┻━━┻┻━┻━━┻╯╰┻╯╰╯
+
+
+
+  .controller('historialAuditoriaCrt', function ($scope, $http, $mdDialog, UserSrv, $filter, Permisos) {
+
+    $scope.ActualPage = 1;
+    $scope.cantidadpaginas = [];
+    $scope.Cargando = "Cargando...";
+    $scope.tipos = ['Todos', 'Clinico', 'Especialista', 'Estudio'];
+    $scope.estados = ['Todos', 'Pendiente', 'Abierto', 'Rechazado', 'En Espera'];
+    $scope.numeritos = ['10', '15', '20', '25', '50'];
+    $scope.filtrotipo = $scope.tipos[0];
+    $scope.filtroestado = $scope.estados[0];
+    $scope.filtronumeritos = $scope.numeritos[0];
+    $scope.PS = Permisos;
+    /*$http.post(UserSrv.GetPath(), {
+        'seccion': 'solicitudes',
+        'accion': 'listar',
+        'id': '',
+        'dni': ''
+      })*/
+
+    var socket = io.connect('http://node-gestionar.herokuapp.com:80');
+    socket.emit('storeClientInfo', {
+      customId: localStorage.getItem('user_id')
+    })
+
+    socket.on('actualizarSolicitudes', function (data) {
+      $scope.traerSolicitudes()
+    })
+
+    $scope.filtroClimed = function (solicitud) {
+      if ($scope.searchClimed == undefined) {
+        return true
+      }
+      if (solicitud.climed == null || solicitud.climed.nombre.indexOf($scope.searchClimed) > -1) {
+        return true
+      } else {
+        return false
+      }
+    }
+
+    $scope.getPaginas = function (elems) { // Devuelve un array con un numero ascendente por cada elemento de la lista, necesario cuando la lista se modifica por algun filtro
+      if (elems) {
+        var cantPaginas = (new Array(Math.ceil(elems.length / $scope.elemsPorPagina)).fill(0).map((x, index) => index + 1))
+        return cantPaginas
+      }
+    }
+
+    $scope.separarPaginas = function (index) { // Pagina la tabla, dejando visibles una cant de paginas igual a elemsPorPagina
+      var x1 = (index <= ($scope.ActualPage * $scope.elemsPorPagina))
+
+      var x2 = (index >= ($scope.ActualPage - 1) * $scope.elemsPorPagina)
+
+      return x1 && x2
+    }
+
+    $scope.Autorizar = function (id) {
+      if ($scope.especialidadesAgregar.length > 0) { // Osea que es una solicitud de estudio
+        var data = {
+          'id': id,
+          'ESPECIALIDAD': $scope.especialidadesAgregar[0].id,
+          'IDCLIMED': $scope.clinicasAgregar[0].id
+        }
+        $http.post('https://guarded-oasis-37936.herokuapp.com/auditoria/autorizarEstudio', data)
+          .success(function (response) {
+            $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/autorizar', {
+                'id': id
+              })
+              .success(function (response) {
+                console.log(response);
+                UserSrv.alertOk('La solicitud fue validada con exito.');
+                $scope.ObtenerHistorial();
+                $('#auditar').modal('hide');
+              }).error(function (response) {
+                $('#auditar').modal('hide');
+                UserSrv.alertError('Hubo un error en la validacion de la solicitud. Intente nuevamente.');
+              })
+          }).error(function (response) {
+            $('#auditar').modal('hide');
+            UserSrv.alertError('Hubo un error en la asignacion de la solicitud. Intente nuevamente.');
+          })
+
+      } else {
+        $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/autorizar', {
+            'id': id
+          })
+          .success(function (response) {
+            console.log(response);
+            UserSrv.alertOk('La solicitud fue validada con exito.');
+            $('#auditar').modal('hide');
+          }).error(function (response) {
+            $('#auditar').modal('hide');
+            UserSrv.alertError('Hubo un error en la validacion de la solicitud. Intente nuevamente.');
+          })
+      }
+    }
+    $scope.filtro = {
+      'afiliado': {
+        'nombre': undefined
+      },
+      'fecha': undefined
+    }
+
+    $scope.yer = function (x) {
+      $scope.yero = x;
+    }
+    $scope.formatDate = function (date) {
+
+      var b = moment(date).format('YYYY-MM-DD');
+      $scope.filtro.fecha = b
+
+    }
+    $scope.Rechazar = function (ev, id) {
+
+      $('#auditar').modal('hide');
+      var confirm = $mdDialog.prompt()
+        .title('Ingrese el motivo por el cual desea rechazar solicitud')
+        .textContent('')
+        .placeholder('Ej: Demaciados rechazos de turno')
+        .ariaLabel('Motivo')
+        .ok('Enviar')
+        .cancel('Cancelar');
+
+      // $mdDialog.show(confirm);
+
+      $mdDialog.show(confirm).then(function (motivo) {
+        $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/rechazar', {
+            'id': id.id,
+            'MOTIVO': motivo
+          })
+
+          .success(function (response) {
+            $mdDialog.hide()
+            UserSrv.alertOk('La solicitud fue rechazada con exito.');
+            $scope.ObtenerHistorial();
+          }).error(function (response) {
+            $('#auditar').modal('hide');
+            UserSrv.alertError('Hubo un error en el rechazo de la solicitud. Intente nuevamente.');
+          })
+
+      })
+    }
+
+    $scope.ChangePage = function (pag) {
+
+      $scope.ActualPage = pag;
+      $scope.paginar();
+    }
+
+    $scope.VerFoto = function (x) {
+      $scope.fotoAutorizacion = "http://www.gestionarturnos.com/certificados/" + x;
+    }
+
+    $scope.ObtenerHistorial = function () {
+      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/historialAuditoria')
+
+        .success(function (response) {
+
+          $scope.historial = response;
+          $scope.paginar();
+          $scope.Cargando = "";
+          console.log(response);
+        })
+    }
+
+    var traerEspecialidades = function () {
+      $http.get('https://guarded-oasis-37936.herokuapp.com/especialidad/traerElementos')
+        .success(function (response) {
+          $scope.Especialidades = response;
+        })
+    }
+    $scope.quitarEspecialidad = function (especialidad) {
+      $scope.especialidadesAgregar = []
+    }
+    $scope.especialidadesAgregar = []
+    $scope.agregarEspecialidad = function (especialidad) {
+      $scope.especialidadesAgregar.push(especialidad)
+      especialidad.agregado = true
+      $('#Espes').modal('hide');
+    }
+
+    var traerClinicas = function () {
+      $http.get('https://guarded-oasis-37936.herokuapp.com/climed/traerElementos')
+        .success(function (response) {
+          $scope.Clinicas = response;
+        })
+    }
+    $scope.quitarClinicas = function (clinica) {
+      $scope.clinicasAgregar = []
+    }
+    $scope.clinicasAgregar = []
+    $scope.agregarClinica = function (clinica) {
+      $scope.clinicasAgregar.push(clinica)
+      $('#Climed').modal('hide');
+    }
+
+    $scope.ObtenerHistorial()
+    traerClinicas()
+    traerEspecialidades()
+
+    $scope.Detallar = function (id) {
+      $("#tr" + id).slideToggle();
+    }
+
+    $scope.paginar = function () {
+      var i = 0;
+      $scope.cantidadpaginas = [];
+      for (i = 0; i < (Object.keys($scope.historial).length / $scope.filtronumeritos); i++) {
+        $scope.cantidadpaginas[i] = i + 1;
+      }
+    }
+
+    $scope.Auditar = function (x) {
+      $scope.especialidadesAgregar = []
+      $scope.clinicasAgregar = []
+      $scope.y = x;
+      console.log($scope.y);
+      /*$http.post('https://guarded-oasis-37936.herokuapp.com/auditoria/abrir', {
+        'id': idSolicitud
+      })
+
+        .error(function (response) {
+          UserSrv.alertError('Hubo un error al asignar la solicitud. Intente nuevamente.');
+        })*/
+    }
+
+    $scope.limpiarFiltros = function () {
+      $scope.filtro = {
+        'afiliado': {
+          'nombre': undefined
+        },
+        'fecha': undefined
+      }
+      $scope.searchClimed = ''
+    }
+
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .controller('historialCompletoCrt', function ($scope, $http, $mdDialog, UserSrv, $filter, Permisos) {
+
+    $scope.primeraPagina = 1 // La primera pagina de laspaginas mostradas en el footer para paginar
+    $scope.ActualPage = 1 // pagina en la que estoy posicionado
+    $scope.elemsPorPagina = 10
+    var aumentoPaginas = 5
+    $scope.changeElemsPorPagina = function (cant) {
+      elemsPorPagina = cantidad
+    }
+    $scope.getPaginas = function (elems) { // Devuelve un array con un numero ascendente por cada elemento de la lista, necesario cuando la lista se modifica por algun filtro
+      if (elems) {
+        var cantPaginas = (new Array(Math.ceil(elems.length / $scope.elemsPorPagina)).fill(0).map((x, index) => index + 1))
+        return cantPaginas
+      }
+    }
+    $scope.aumentarPagina = function (algo) { // Mueve el numero de pag mostradas en el footer para arriba una cant igual a aumentoPaginas
+      if (($scope.getPaginas(algo).length - $scope.primeraPagina) > $scope.elemsPorPagina) {
+        $scope.primeraPagina = $scope.primeraPagina + aumentoPaginas
+      }
+    }
+    $scope.disminuirPagina = function () { // Mueve el numero de pag mostradas en el footer para abajo una cant igual a aumentoPaginas
+      if ($scope.primeraPagina > 1)
+        $scope.primeraPagina = $scope.primeraPagina - aumentoPaginas
+    }
+    $scope.ChangePage = function (pag) {
+      $scope.ActualPage = pag;
+    }
+    $scope.separarPaginas = function (index) { // Pagina la tabla, dejando visibles una cant de paginas igual a elemsPorPagina
+      var x1 = (index <= ($scope.ActualPage * $scope.elemsPorPagina))
+
+      var x2 = (index >= ($scope.ActualPage - 1) * $scope.elemsPorPagina)
+
+      return x1 && x2
+    }
+
+    $scope.getPrimeraPagina = function () {
+      $scope.ActualPage = 1
+      $scope.primeraPagina = 1
+    }
+
+    var data = {
+      'IDCLIMED': 1,
+      'ESPECIALIDAD': 1,
+      'DNISOLICITANTE': 3,
+      'IDAFILIADO': 3,
+      'MEDICO': 'asdf',
+      'FECHAS': new Date(),
+      'ESTADO': 'Pendiente'
+    }
+
+    $scope.solicitudesAbiertas = []
+    var agregarSolicitudAbierta = function (solicitud) {
+      $scope.solicitudesAbiertas.push(solicitud)
+    }
+
+    $scope.cambiandoClinica = 0;
+
+    $scope.ActualPage = 1;
+    $scope.idmediselected = {
+      'id': undefined,
+      'nombre': undefined
+    }
+    $scope.cantidadpaginas = [];
+    $scope.Cargando = "Cargando...";
+    $scope.tipos = ['Todos', 'Acceso Directo', 'Autorizacion'];
+    $scope.estados = ['Todos', 'Confirmado', 'Rechazado'];
+    $scope.numeritos = ['10', '15', '20', '25', '50'];
+    $scope.filtrotipo = $scope.tipos[0];
+    $scope.filtroestado = $scope.estados[0];
+    $scope.filtronumeritos = $scope.numeritos[0];
+    $scope.PS = Permisos;
+    /*$http.post(UserSrv.GetPath(), {
+        'seccion': 'solicitudes',
+        'accion': 'listar',
+        'id': '',
+        'dni': ''
+      })*/
+    var traerSolicitudes = function () {
+      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/historialCompleto')
+
+        .success(function (response) {
+
+          $scope.solicitudes = response;
+          $scope.solicitudesNoFiltradas = response;
+          $scope.paginar();
+          $scope.Cargando = "";
+          console.log(response);
+        })
+    }
+
+    $scope.traerSolicitudes = function () {
+      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/historialCompleto')
+
+        .success(function (response) {
+
+          $scope.solicitudes = response;
+          $scope.solicitudesNoFiltradas = response;
+          $scope.paginar();
+          $scope.Cargando = "";
+          console.log(response);
+        })
+    }
+
+    $scope.selectorear = function (x) {
+      $scope.se = [];
+      $scope.se[x.id] = true;
+      $scope.idmediselected.id = x.id;
+      $scope.idmediselected.nombre = x.nombre;
+    }
+
+    traerSolicitudes()
+
+    $http.get('https://guarded-oasis-37936.herokuapp.com/climed/traerElementos')
+
+      .success(function (response) {
+
+        $scope.Medicos = response;
+        console.log(response);
+        $scope.espes = $scope.getEspes(response);
+
+      })
+
+    $scope.ChangePage = function (pag) {
+
+      $scope.ActualPage = pag;
+      $scope.paginar();
+
+    }
+
+    function DialogController($scope, $mdDialog, items) {
+      $scope.items = items;
+      $scope.closeDialog = function () {
+        $mdDialog.hide();
+      }
+    }
+
+    var getNumeroEsp = function (tipo) {
+      switch (tipo) {
+        case 'Acceso Directo':
+          return 1;
+        case 'Autorizacion':
+          return 3;
+        default:
+          return;
+      }
+    }
+    $scope.filtroTipo = solicitud => ($scope.filtrotipo == undefined) ? true : ($scope.filtrotipo == 'Todos') ? true : solicitud.tipo == getNumeroEsp($scope.filtrotipo);
+    $scope.filtroEstado = solicitud => ($scope.filtroestado == undefined) ? true : ($scope.filtroestado == 'Todos') ? true : solicitud.estado == $scope.filtroestado;
+    $scope.filtroFechaDesde = solicitud => ($scope.fechadesde == undefined) ? true : moment(solicitud.fecha).isSameOrAfter($scope.fechadesde, 'day');
+    $scope.filtroFechaHasta = solicitud => ($scope.fechahasta == undefined) ? true : moment(solicitud.fecha).isSameOrBefore($scope.fechahasta, 'day')
+
+    /*$scope.filtrarSolicitudes = function(funcionFiltrado){
+      $scope.solicitudes = $scope.solicitudesNoFiltradas.filter(funcionFiltrado)
+    }*/
+
+
+
+    $scope.getEspes = function (source) {
+      var espes = [];
+      for (i = 0; i <= source.length - 1; i++) {
+        espes.push(source[i].especialidades[0].nombre);
+      }
+      espes = espes.filter(function (value, index) {
+        return espes.indexOf(value) == index
+      });
+      console.log(espes);
+      return espes;
+    }
+
+    $scope.maping = function (source) {
+      var tamaño = source.length;
+      var array = [];
+      for (i = 0; i < tamaño; i++) {
+        if (source[i].tipo == 1 || source[i].revisado == 1) {
+          //source[i].splice(i-1, 1);
+
+          //tamaño = tamaño - 1;
+          array.push(source[i]);
+
+        }
+      }
+      return array;
+    }
+
+    $scope.EnviarTurno = function (fecha, hora, medico, obsturno) {
+
+      $scope.fecha = moment(fecha).format('YYYY-MM-DD');
+      $scope.hora = moment(hora).format('HH:mm:ss');
+      $scope.enviandoturno = true;
+
+      var data = {
+        'IDSOLICITUD': $scope.solicitudexpandida.id,
+        'MEDICOASIGNADO': medico,
+        'FECHAT': $scope.fecha,
+        'HORAT': $scope.hora,
+        'CONFIRMACION': 0,
+        'OBS': obsturno
+      }
+      $http.post('https://guarded-oasis-37936.herokuapp.com/turno', data)
+
+        .success(function (response) {
+          var data2 = {
+            'idnotif': $scope.solicitudexpandida.afiliado.idnotif
+          }
+            $http.post('/sendNotiff.php', data2)
+              .success(function (response) {
+                $scope.enviandoturno = false;
+                UserSrv.alertOk('El turno fue enviado con exito.');
+                $scope.consultasolicitud($scope.solicitudexpandida.id);
+                traerSolicitudes()
+              })
+        })
+
+    }
+
+    $scope.consultasolicitud = function (id) {
+      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/' + id)
+
+        .success(function (response) {
+          $scope.solicitudexpandida = response;
+          $scope.validarConfirmacion($scope.solicitudexpandida);
+        })
+    }
+
+    $scope.paginar = function () {
+      var i = 0;
+      var last = 0;
+      $scope.cantidadpaginas = [];
+      for (i = 0; i < (Object.keys($scope.solicitudes).length / $scope.filtronumeritos); i++) {
+        $scope.cantidadpaginas[i] = i + 1;
+      }
+    }
+
+    $scope.validarConfirmacion = function (solicitud) {
+      $scope.turnoc = undefined;
+      for (i = 0; i < solicitud.turnos.length; i++) {
+        $scope.turnoc = solicitud.turnos[i].confirmacion;
+      }
+
+
+    }
+    $scope.Detallar = function (solicitud) {
+      $scope.solicitudexpandida = solicitud;
+      $scope.datoexpandida = solicitud;
+      $scope.idexpandida = solicitud.id;
+      $scope.validarConfirmacion(solicitud);
+
+    }
+
+    $scope.CerrarDetalle = function () {
+
+      $scope.idexpandida = undefined;
+
+    }
+
+  })
 
 
   .filter('startFrom', function () {
