@@ -718,7 +718,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       return array;
     }
 
-    $scope.uploadPic = function(fele){
+    $scope.uploadPic = function(data){
       var file = $('#autorizacionturnopdf')[0].files[0]
       var d = new Date();
       tiempo = d.getTime();
@@ -733,10 +733,22 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         },
       });
       
-      file.upload.then(function(response) {
-        return true
-      }, function(response) {
-        return false
+      file.upload.then(function (response) {
+        $http.post('https://guarded-oasis-37936.herokuapp.com/turno', data)
+          .success(function (response) {
+            var data2 = {
+              'idnotif': $scope.solicitudexpandida.afiliado.idnotif
+            }
+            $http.post('/sendNotiff.php', data2)
+              .success(function (response) {
+                $scope.enviandoturno = false;
+                UserSrv.alertOk('El turno fue enviado con exito.');
+                $scope.consultasolicitud($scope.solicitudexpandida.id);
+                traerSolicitudes()
+              })
+          })
+      }, function (response) {
+        UserSrv.alertError('Hubo un error al asignar la solicitud. Intente nuevamente.');
       });
     }
 
@@ -755,21 +767,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'FILEAUTORIZACION': $scope.filerenamedGlobal
       }
 
-        if ($scope.uploadPic(autorizacionturnopdf)){
-          $http.post('https://guarded-oasis-37936.herokuapp.com/turno', data)
-          .success(function (response) {
-            var data2 = {
-              'idnotif': $scope.solicitudexpandida.afiliado.idnotif
-            }
-            $http.post('/sendNotiff.php', data2)
-              .success(function (response) {
-                $scope.enviandoturno = false;
-                UserSrv.alertOk('El turno fue enviado con exito.');
-                $scope.consultasolicitud($scope.solicitudexpandida.id);
-                traerSolicitudes()
-              })
-          })
-        }
+      $scope.uploadPic(data)
+          
     }
 
     $scope.asignarseSolicitud = function (solicitud) {
