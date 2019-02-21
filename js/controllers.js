@@ -439,7 +439,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
   })
 
 
-  .controller('solicitudesCrt', function ($scope, $http, $mdDialog, UserSrv, $filter, Permisos) {
+  .controller('solicitudesCrt', function (Upload, $scope, $http, $mdDialog, UserSrv, $filter, Permisos) {
     /*Esto esta copiado de la directiva del paginador */
     $scope.primeraPagina = 1 // La primera pagina de laspaginas mostradas en el footer para paginar
     $scope.ActualPage = 1 // pagina en la que estoy posicionado
@@ -505,7 +505,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.abrirFile = function() {
       console.log('me apreto');
-      $('#autorizacionturno').click();
+      $('#autorizacionturnopdf').click();
+      console.log($('#autorizacionturnopdf')[0])
     }
 
     $scope.clinicasCambioR = function () {
@@ -717,8 +718,29 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       return array;
     }
 
-    $scope.EnviarTurno = function (fecha, hora, medico, obsturno) {
+    $scope.uploadPic = function(fele){
+      var file = $('#autorizacionturnopdf')[0].files[0]
+      var d = new Date();
+      tiempo = d.getTime();
+      var filename = tiempo.toString() + 'autorizacionSol' + $scope.solicitudexpandida.id + '.pdf';
+      console.log('comienza a cargar la foto');
+      var filerenamed = Upload.rename(file, filename);
+      $scope.filerenamedGlobal = filerenamed
+      file.upload = Upload.upload({
+        url: 'http://www.gestionarturnos.com/uploadAutorizacion.php',
+        data: {
+          file: filerenamed
+        },
+      });
+      
+      file.upload.then(function(response) {
+        return true
+      }, function(response) {
+        return false
+      });
+    }
 
+    $scope.EnviarTurno = function (fecha, hora, medico, obsturno, autorizacionturnopdf) {
       $scope.fecha = moment(fecha).format('YYYY-MM-DD');
       $scope.hora = moment(hora).format('HH:mm:ss');
       $scope.enviandoturno = true;
@@ -729,14 +751,16 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'FECHAT': $scope.fecha,
         'HORAT': $scope.hora,
         'CONFIRMACION': 0,
-        'OBS': obsturno
+        'OBS': obsturno,
+        'FILEAUTORIZACION': $scope.filerenamedGlobal
       }
-      $http.post('https://guarded-oasis-37936.herokuapp.com/turno', data)
 
-        .success(function (response) {
-          var data2 = {
-            'idnotif': $scope.solicitudexpandida.afiliado.idnotif
-          }
+        if ($scope.uploadPic(autorizacionturnopdf)){
+          $http.post('https://guarded-oasis-37936.herokuapp.com/turno', data)
+          .success(function (response) {
+            var data2 = {
+              'idnotif': $scope.solicitudexpandida.afiliado.idnotif
+            }
             $http.post('/sendNotiff.php', data2)
               .success(function (response) {
                 $scope.enviandoturno = false;
@@ -744,8 +768,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
                 $scope.consultasolicitud($scope.solicitudexpandida.id);
                 traerSolicitudes()
               })
-        })
-
+          })
+        }
     }
 
     $scope.asignarseSolicitud = function (solicitud) {

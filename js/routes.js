@@ -1,4 +1,4 @@
-var app = angular.module('GestionarApp', ['ui.router', 'GestionarApp.controllers']);
+var app = angular.module('GestionarApp', ['ui.router', 'ngFileUpload','GestionarApp.controllers']);
 
 
 

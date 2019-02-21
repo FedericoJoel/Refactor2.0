@@ -320,7 +320,7 @@
 
 
                     <div ng-show="(turnoc != 0 && turnoc != 2) || turnoc == undefined">
-                      <form ng-submit="EnviarTurno(fechaturno, horaturno, medicoturno, obsturno)">
+                      <form ng-submit="EnviarTurno(fechaturno, horaturno, medicoturno, obsturno, autorizacionturnopdf)">
                         <hr>
                         </hr>
                         <div class="col-md-2">
@@ -359,8 +359,8 @@
                           <button style="width: 100%;" style="padding: 2px;" ng-click="abrirFile()" class="Boton Danger" type="button">
                             <i class="fa fa-file-pdf-o fa-lg"></i> Adjuntar</button>
                             
-                          <input style="display: none;" id="autorizacionturno" name="autorizacionturno" ng-model="autorizacionturno" type="file"
-                            required hidden>
+                          <input style="display: none;" id="autorizacionturnopdf" name="autorizacionturnopdf" ng-model="autorizacionturnopdf" type="file"
+                            required>
                         </div>
 
                         <!-- <div class="col-md-3">
