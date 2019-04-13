@@ -115,6 +115,7 @@
                   <td>FECHA DE LA SOLICITUD</td>
                   <td>TIPO</td>
                   <td>ESTADO</td>
+                  <td>ESTADO AUDITORÍA</td>
                 </tr>
                 <tr>
                   <td><input style="border-radius: 2px; border: 1px solid grey; width: 100%;" type="text" ng-model="filtroDNI" ng-change="filtrarSolicitudes(filtroDNI)"></td>
@@ -136,9 +137,10 @@
                   <td ng-if="solicitud.tipo == 2" style="background-color: #1a873e; color: white;">ESPECIALISTA</td>
                   <td ng-if="solicitud.tipo == 3" style="background-color: #bf6a0a; color: white;">AUTORIZACIÓN</td>
                   <td>{{solicitud.estado}}</td>
+                  <td>{{(solicitud.turnos == null || solicitud.turnos == undefined || solicitud.turnos.length < 1) && solicitud.estado == 'Rechazado' && solicitud.revisado == 1 ? 'Rechazada' : (solicitud.tipo != 1 ? 'Aprobada' : 'N/A') }}</td>
                 </tr>
                 <tr ng-if="solicitudes.length < 1">
-                  <td colspan="6" style="text-align: center;">
+                  <td colspan="7" style="text-align: center;">
                     No se han encontrado solicitudes pendientes.
                   </td>
                 </tr>
@@ -175,7 +177,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="6">Cantidad de páginas totales: {{getPaginas(filteredElems).length}}</td>
+                  <td colspan="7">Cantidad de páginas totales: {{getPaginas(filteredElems).length}}</td>
                 </tr>
               </tfoot>
             </table>

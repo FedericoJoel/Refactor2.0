@@ -39,7 +39,7 @@
                         <input type="text" class="form-control" ng-model="filtro2.afiliado.obra_social">
                       </td>
                       <td>
-                        <input type="text" class="form-control" ng-model="filtro2.afiliado.estado">
+                        <input type="text" class="form-control" ng-model="filtro2.estado">
                       </td>
                       <td></td>
                     </tr>
@@ -86,12 +86,19 @@
                           <span ng-show="sortType == 'estado' && sortReverse" class="fa fa-caret-up"></span>
                         </a>
                       </td>
+                      <td>
+                        <a ng-click="sortType = 'estado'; sortReverse = !sortReverse">
+                          Estado Auditoria
+                          <span ng-show="sortType == 'estado' && !sortReverse" class="fa fa-caret-down"></span>
+                          <span ng-show="sortType == 'estado' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                      </td>
                       <td>Opciones</td>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td colspan="7" style="color: #337ab7;" ng-if="historial == undefined">
+                      <td colspan="8" style="color: #337ab7;" ng-if="historial == undefined">
                         <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Cargando.. </td>
                     </tr>
                     <tr ng-repeat="x in historial | orderBy:sortType:sortReverse | filter:filtro2 as filteredElems track by $index"
@@ -106,6 +113,7 @@
                       </td>
                       <td style="vertical-align: middle;">{{x.afiliado.obra_social.nombre}}</td>
                       <td style="vertical-align: middle;">{{x.estado}}</td>
+                      <td style="vertical-align: middle;">{{x.turnos == null && x.estado == 'Rechazado' && x.revisado == 1 ? 'Rechazada' : 'Aprobada' }}</td>
                       <td style="vertical-align: middle;">
                         <button ng-disabled="modificando" class="Boton Primary" style="padding: 5px;" ng-click="Auditar(x)" data-toggle="modal" data-target="#auditar">
                           <i class="fa fa-fw fa-edit"></i>
@@ -119,12 +127,12 @@
                   </tbody>
                   <tfoot>
                     <tr>
-                      <td colspan="7" style="text-align: center;">
+                      <td colspan="8" style="text-align: center;">
                         <paginado></paginado>
                       </td>
                     </tr>
                     <tr>
-                      <td colspan="6">Cantidad de páginas totales: {{getPaginas(filteredElems).length}}</td>
+                      <td colspan="8">Cantidad de páginas totales: {{getPaginas(filteredElems).length}}</td>
                     </tr>
                   </tfoot>
                 </table>

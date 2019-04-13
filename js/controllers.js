@@ -719,37 +719,53 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.uploadPic = function(data){
-      var file = $('#autorizacionturnopdf')[0].files[0]
-      var d = new Date();
-      tiempo = d.getTime();
-      var filename = tiempo.toString() + 'autorizacionSol' + $scope.solicitudexpandida.id + '.pdf';
-      console.log('comienza a cargar la foto');
-      var filerenamed = Upload.rename(file, filename);
-      $scope.filerenamedGlobal = filerenamed
-      file.upload = Upload.upload({
-        url: 'http://www.gestionarturnos.com/uploadAutorizacion.php',
-        data: {
-          file: filerenamed
-        },
-      });
-      
-      file.upload.then(function (response) {
+      if($scope.solicitudexpandida.tipo != 1){
+        var file = $('#autorizacionturnopdf')[0].files[0]
+        var d = new Date();
+        tiempo = d.getTime();
+        var filename = tiempo.toString() + 'autorizacionSol' + $scope.solicitudexpandida.id + '.pdf';
+        console.log('comienza a cargar la foto');
+        var filerenamed = Upload.rename(file, filename);
+        $scope.filerenamedGlobal = filerenamed
+        file.upload = Upload.upload({
+          url: 'http://www.gestionarturnos.com/uploadAutorizacion.php',
+          data: {
+            file: filerenamed
+          },
+        });
+        
+        file.upload.then(function (response) {
+          $http.post('https://guarded-oasis-37936.herokuapp.com/turno', data)
+            .success(function (response) {
+              var data2 = {
+                'idnotif': $scope.solicitudexpandida.afiliado.idnotif
+              }
+              $http.post('/sendNotiff.php', data2)
+                .success(function (response) {
+                  $scope.enviandoturno = false;
+                  UserSrv.alertOk('El turno fue enviado con exito.');
+                  $scope.consultasolicitud($scope.solicitudexpandida.id);
+                  traerSolicitudes()
+                })
+            })
+        }, function (response) {
+          UserSrv.alertError('Hubo un error al asignar la solicitud. Intente nuevamente.');
+        });
+      }else{
         $http.post('https://guarded-oasis-37936.herokuapp.com/turno', data)
-          .success(function (response) {
-            var data2 = {
-              'idnotif': $scope.solicitudexpandida.afiliado.idnotif
-            }
-            $http.post('/sendNotiff.php', data2)
-              .success(function (response) {
-                $scope.enviandoturno = false;
-                UserSrv.alertOk('El turno fue enviado con exito.');
-                $scope.consultasolicitud($scope.solicitudexpandida.id);
-                traerSolicitudes()
-              })
-          })
-      }, function (response) {
-        UserSrv.alertError('Hubo un error al asignar la solicitud. Intente nuevamente.');
-      });
+            .success(function (response) {
+              var data2 = {
+                'idnotif': $scope.solicitudexpandida.afiliado.idnotif
+              }
+              $http.post('/sendNotiff.php', data2)
+                .success(function (response) {
+                  $scope.enviandoturno = false;
+                  UserSrv.alertOk('El turno fue enviado con exito.');
+                  $scope.consultasolicitud($scope.solicitudexpandida.id);
+                  traerSolicitudes()
+                })
+            })
+      }
     }
 
     $scope.EnviarTurno = function (fecha, hora, medico, obsturno, autorizacionturnopdf) {
