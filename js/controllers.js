@@ -12,7 +12,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'name': $scope.name,
         'password': $scope.password
       }
-      $http.post('https://guarded-oasis-37936.herokuapp.com/login', data)
+      $http.post('https://gestionardesarrollo.herokuapp.com/login', data)
 
         .success(function (response) {
           var token = response.data.token
@@ -67,7 +67,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'id_perfil': $scope.id_perfil,
         'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id)
       }
-      $http.post('https://guarded-oasis-37936.herokuapp.com/user', data)
+      $http.post('https://gestionardesarrollo.herokuapp.com/user', data)
 
         .success(function (response) {
           limpiarCampos()
@@ -86,7 +86,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.ChangePassword = function () {
       if ($scope.nuevaContrasena != undefined && $scope.nuevaContrasena != '' && $scope.nuevaContrasena != null) {
-        $http.post('https://guarded-oasis-37936.herokuapp.com/user/cambiarPassword', {
+        $http.post('https://gestionardesarrollo.herokuapp.com/user/cambiarPassword', {
             'id': $scope.userCambio.id,
             'password': $scope.nuevaContrasena
           })
@@ -102,7 +102,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.Guardar = function () {
-      $http.put('https://guarded-oasis-37936.herokuapp.com/user/' + $scope.userModificando.id, {
+      $http.put('https://gestionardesarrollo.herokuapp.com/user/' + $scope.userModificando.id, {
           'name': $scope.userModificando.name,
           'id_perfil': $scope.userModificando.id_perfil,
           'id': $scope.userModificando.id,
@@ -138,7 +138,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         .cancel('Cancelar');
 
       $mdDialog.show(confirm).then(function () {
-        $http.delete('https://guarded-oasis-37936.herokuapp.com/user/' + x.id)
+        $http.delete('https://gestionardesarrollo.herokuapp.com/user/' + x.id)
           .success(function (response) {
             UserSrv.alertOk("Se elimino con exito.");
             $scope.traerUsuarios();
@@ -180,7 +180,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
     $scope.traerUsuarios = function () {
 
-      $http.get('https://guarded-oasis-37936.herokuapp.com/user/traerElementos')
+      $http.get('https://gestionardesarrollo.herokuapp.com/user/traerElementos')
 
         .success(function (response) {
 
@@ -192,7 +192,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
     traerPerfiles = function () {
 
-      $http.get('https://guarded-oasis-37936.herokuapp.com/perfil/traerElementos')
+      $http.get('https://gestionardesarrollo.herokuapp.com/perfil/traerElementos')
 
         .success(function (response) {
 
@@ -203,7 +203,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
     $scope.traerOS = function () {
 
-      $http.get('https://guarded-oasis-37936.herokuapp.com/obraSocial/traerElementos')
+      $http.get('https://gestionardesarrollo.herokuapp.com/obraSocial/traerElementos')
         .success(function (response) {
           $scope.obrasSociales = response;
           $scope.CargandoOS = "Seleccione..";
@@ -511,7 +511,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.clinicasCambioR = function () {
       $scope.cargandoClinicasCambio = true;
-      $http.get('https://guarded-oasis-37936.herokuapp.com/climed/traerElementos')
+      $http.get('https://gestionardesarrollo.herokuapp.com/climed/traerElementos')
 
         .success(function (response) {
 
@@ -524,7 +524,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.cambiarClinica = function (IDCLI, IDS,x) {
       $scope.cambiandoClinica = IDCLI;
-      $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/actualizarClinica', {
+      $http.post('https://gestionardesarrollo.herokuapp.com/solicitud/actualizarClinica', {
           'id': IDS,
           'IDCLIMED': IDCLI
         })
@@ -541,7 +541,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     var crear = function () {
 
-      $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/createClinico', data)
+      $http.post('https://gestionardesarrollo.herokuapp.com/solicitud/createClinico', data)
 
         .success(function (response) {
           crear()
@@ -573,7 +573,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'dni': ''
       })*/
     var traerSolicitudes = function () {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/solicitudesEnProceso')
+      $http.get('https://gestionardesarrollo.herokuapp.com/solicitud/solicitudesEnProceso')
 
         .success(function (response) {
 
@@ -586,7 +586,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.traerSolicitudes = function () {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/solicitudesEnProceso')
+      $http.get('https://gestionardesarrollo.herokuapp.com/solicitud/solicitudesEnProceso')
 
         .success(function (response) {
 
@@ -607,7 +607,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     traerSolicitudes()
 
-    $http.get('https://guarded-oasis-37936.herokuapp.com/climed/traerElementos')
+    $http.get('https://gestionardesarrollo.herokuapp.com/climed/traerElementos')
 
       .success(function (response) {
 
@@ -666,7 +666,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       // $mdDialog.show(confirm);
 
       $mdDialog.show(confirm).then(function (motivo) {
-        $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/rechazar', {
+        $http.post('https://gestionardesarrollo.herokuapp.com/solicitud/rechazar', {
             'id': id,
             'MOTIVO': motivo
           })
@@ -735,7 +735,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         });
         
         file.upload.then(function (response) {
-          $http.post('https://guarded-oasis-37936.herokuapp.com/turno', data)
+          $http.post('https://gestionardesarrollo.herokuapp.com/turno', data)
             .success(function (response) {
               var data2 = {
                 'idnotif': $scope.solicitudexpandida.afiliado.idnotif
@@ -752,7 +752,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           UserSrv.alertError('Hubo un error al asignar la solicitud. Intente nuevamente.');
         });
       }else{
-        $http.post('https://guarded-oasis-37936.herokuapp.com/turno', data)
+        $http.post('https://gestionardesarrollo.herokuapp.com/turno', data)
             .success(function (response) {
               var data2 = {
                 'idnotif': $scope.solicitudexpandida.afiliado.idnotif
@@ -788,7 +788,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.asignarseSolicitud = function (solicitud) {
-      $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/abrir', {
+      $http.post('https://gestionardesarrollo.herokuapp.com/solicitud/abrir', {
           'id': solicitud.id
         })
         .success(function (response) {
@@ -800,7 +800,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.consultasolicitud = function (id) {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/' + id)
+      $http.get('https://gestionardesarrollo.herokuapp.com/solicitud/' + id)
 
         .success(function (response) {
           $scope.solicitudexpandida = response;
@@ -891,9 +891,9 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           'ESPECIALIDAD': $scope.especialidadesAgregar[0].id,
           'IDCLIMED': $scope.clinicasAgregar[0].id
         }
-        $http.post('https://guarded-oasis-37936.herokuapp.com/auditoria/autorizarEstudio', data)
+        $http.post('https://gestionardesarrollo.herokuapp.com/auditoria/autorizarEstudio', data)
           .success(function (response) {
-            $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/autorizar', {
+            $http.post('https://gestionardesarrollo.herokuapp.com/solicitud/autorizar', {
                 'id': id
               })
               .success(function (response) {
@@ -912,7 +912,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           })
 
       } else {
-        $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/autorizar', {
+        $http.post('https://gestionardesarrollo.herokuapp.com/solicitud/autorizar', {
             'id': id
           })
           .success(function (response) {
@@ -956,7 +956,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       // $mdDialog.show(confirm);
 
       $mdDialog.show(confirm).then(function (motivo) {
-        $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/rechazar', {
+        $http.post('https://gestionardesarrollo.herokuapp.com/solicitud/rechazar', {
             'id': id.id,
             'MOTIVO': motivo
           })
@@ -981,7 +981,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     var traerSolicitudes = function () {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/solicitudesParaAuditar')
+      $http.get('https://gestionardesarrollo.herokuapp.com/solicitud/solicitudesParaAuditar')
 
         .success(function (response) {
 
@@ -997,7 +997,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.ObtenerHistorial = function () {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/historialAuditoria')
+      $http.get('https://gestionardesarrollo.herokuapp.com/solicitud/historialAuditoria')
 
         .success(function (response) {
 
@@ -1009,7 +1009,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.traerSolicitudes = function () {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/solicitudesParaAuditar')
+      $http.get('https://gestionardesarrollo.herokuapp.com/solicitud/solicitudesParaAuditar')
 
         .success(function (response) {
 
@@ -1021,7 +1021,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     var traerEspecialidades = function () {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/especialidad/traerElementos')
+      $http.get('https://gestionardesarrollo.herokuapp.com/especialidad/traerElementos')
         .success(function (response) {
           $scope.Especialidades = response;
         })
@@ -1037,7 +1037,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     var traerClinicas = function () {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/climed/traerElementos')
+      $http.get('https://gestionardesarrollo.herokuapp.com/climed/traerElementos')
         .success(function (response) {
           $scope.Clinicas = response;
         })
@@ -1072,7 +1072,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $scope.clinicasAgregar = []
       $scope.y = x;
       console.log($scope.y);
-      /*$http.post('https://guarded-oasis-37936.herokuapp.com/auditoria/abrir', {
+      /*$http.post('https://gestionardesarrollo.herokuapp.com/auditoria/abrir', {
         'id': idSolicitud
       })
 
@@ -1192,9 +1192,9 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           'ESPECIALIDAD': $scope.especialidadesAgregar[0].id,
           'IDCLIMED': $scope.clinicasAgregar[0].id
         }
-        $http.post('https://guarded-oasis-37936.herokuapp.com/auditoria/autorizarEstudio', data)
+        $http.post('https://gestionardesarrollo.herokuapp.com/auditoria/autorizarEstudio', data)
           .success(function (response) {
-            $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/autorizar', {
+            $http.post('https://gestionardesarrollo.herokuapp.com/solicitud/autorizar', {
                 'id': id
               })
               .success(function (response) {
@@ -1212,7 +1212,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           })
 
       } else {
-        $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/autorizar', {
+        $http.post('https://gestionardesarrollo.herokuapp.com/solicitud/autorizar', {
             'id': id
           })
           .success(function (response) {
@@ -1255,7 +1255,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       // $mdDialog.show(confirm);
 
       $mdDialog.show(confirm).then(function (motivo) {
-        $http.post('https://guarded-oasis-37936.herokuapp.com/solicitud/rechazar', {
+        $http.post('https://gestionardesarrollo.herokuapp.com/solicitud/rechazar', {
             'id': id.id,
             'MOTIVO': motivo
           })
@@ -1283,7 +1283,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.ObtenerHistorial = function () {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/historialAuditoria')
+      $http.get('https://gestionardesarrollo.herokuapp.com/solicitud/historialAuditoria')
 
         .success(function (response) {
 
@@ -1295,7 +1295,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     var traerEspecialidades = function () {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/especialidad/traerElementos')
+      $http.get('https://gestionardesarrollo.herokuapp.com/especialidad/traerElementos')
         .success(function (response) {
           $scope.Especialidades = response;
         })
@@ -1311,7 +1311,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     var traerClinicas = function () {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/climed/traerElementos')
+      $http.get('https://gestionardesarrollo.herokuapp.com/climed/traerElementos')
         .success(function (response) {
           $scope.Clinicas = response;
         })
@@ -1346,7 +1346,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $scope.clinicasAgregar = []
       $scope.y = x;
       console.log($scope.y);
-      /*$http.post('https://guarded-oasis-37936.herokuapp.com/auditoria/abrir', {
+      /*$http.post('https://gestionardesarrollo.herokuapp.com/auditoria/abrir', {
         'id': idSolicitud
       })
 
@@ -1487,7 +1487,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'dni': ''
       })*/
     var traerSolicitudes = function () {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/historialCompleto')
+      $http.get('https://gestionardesarrollo.herokuapp.com/solicitud/historialCompleto')
 
         .success(function (response) {
 
@@ -1500,7 +1500,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.traerSolicitudes = function () {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/historialCompleto')
+      $http.get('https://gestionardesarrollo.herokuapp.com/solicitud/historialCompleto')
 
         .success(function (response) {
 
@@ -1521,7 +1521,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     traerSolicitudes()
 
-    $http.get('https://guarded-oasis-37936.herokuapp.com/climed/traerElementos')
+    $http.get('https://gestionardesarrollo.herokuapp.com/climed/traerElementos')
 
       .success(function (response) {
 
@@ -1607,7 +1607,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'CONFIRMACION': 0,
         'OBS': obsturno
       }
-      $http.post('https://guarded-oasis-37936.herokuapp.com/turno', data)
+      $http.post('https://gestionardesarrollo.herokuapp.com/turno', data)
 
         .success(function (response) {
           var data2 = {
@@ -1625,7 +1625,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.consultasolicitud = function (id) {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/solicitud/' + id)
+      $http.get('https://gestionardesarrollo.herokuapp.com/solicitud/' + id)
 
         .success(function (response) {
           $scope.solicitudexpandida = response;
@@ -1767,7 +1767,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       }
     }
     //CargarDatos.CargarAfiliados()
-    $http.get('https://guarded-oasis-37936.herokuapp.com/obraSocial/traerElementos')
+    $http.get('https://gestionardesarrollo.herokuapp.com/obraSocial/traerElementos')
       .success(function (response) {
         $scope.obrasSociales = response;
         $scope.CargandoOS = "Seleccione..";
@@ -1776,7 +1776,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.ObtenerAfiliados = function () {
       $scope.Cargando = "Cargando...";
-      $http.get('https://guarded-oasis-37936.herokuapp.com/afiliado/traerElementos')
+      $http.get('https://gestionardesarrollo.herokuapp.com/afiliado/traerElementos')
 
         .success(function (response) {
           $scope.afiliados = response;
@@ -1851,7 +1851,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           'nafiliado': familiar.nafiliado
         }))
       }
-      $http.put('https://guarded-oasis-37936.herokuapp.com/afiliado/' + $scope.afiliadoModificando.id, data)
+      $http.put('https://gestionardesarrollo.herokuapp.com/afiliado/' + $scope.afiliadoModificando.id, data)
 
         .success(function (response) {
 
@@ -1877,7 +1877,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         .cancel('Cancelar');
 
       $mdDialog.show(confirm).then(function () {
-        $http.delete('https://guarded-oasis-37936.herokuapp.com/afiliado/' + x.id)
+        $http.delete('https://gestionardesarrollo.herokuapp.com/afiliado/' + x.id)
           .success(function (response) {
             UserSrv.alertOk("Se elimino con exito.");
             $scope.ObtenerAfiliados();
@@ -1933,7 +1933,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'PLAN': $scope.plan,
         'familiares': $scope.familiares.map(familiar => mapear(familiar))
       }
-      $http.post('https://guarded-oasis-37936.herokuapp.com/afiliado', data)
+      $http.post('https://gestionardesarrollo.herokuapp.com/afiliado', data)
 
         .success(function (response) {
           console.log(response);
@@ -1990,13 +1990,13 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.filtronumeritos = 15;
     $scope.PS = Permisos;
     $scope.CargandoOS = "Cargando.."
-    $http.get('https://guarded-oasis-37936.herokuapp.com/obraSocial/traerElementos')
+    $http.get('https://gestionardesarrollo.herokuapp.com/obraSocial/traerElementos')
       .success(function (response) {
         $scope.obrasSociales = response;
         $scope.CargandoOS = "Seleccione..";
         console.log(response);
       })
-    $http.get('https://guarded-oasis-37936.herokuapp.com/especialidad/traerElementos')
+    $http.get('https://gestionardesarrollo.herokuapp.com/especialidad/traerElementos')
       .success(function (response) {
         $scope.Especialidades = response.map(esp => ({
           'nombre': esp.nombre,
@@ -2038,7 +2038,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.Guardar = function () {
-      $http.put('https://guarded-oasis-37936.herokuapp.com/climed/' + $scope.clinicaModificando.id, {
+      $http.put('https://gestionardesarrollo.herokuapp.com/climed/' + $scope.clinicaModificando.id, {
           'NOMBRE': $scope.clinicaModificando.nombre,
           'DIRECCION': $scope.clinicaModificando.domicilio,
           'LOCALIDAD': $scope.clinicaModificando.localidad,
@@ -2060,7 +2060,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       var txt;
       var r = confirm("Desea eliminar a la clinica " + x.nombre + "?");
       if (r == true) {
-        $http.delete('https://guarded-oasis-37936.herokuapp.com/climed/' + x.id)
+        $http.delete('https://gestionardesarrollo.herokuapp.com/climed/' + x.id)
 
           .success(function (response) {
             alert('OK');
@@ -2095,7 +2095,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id),
         'especialidades': $scope.especialidades.map(esp => esp.id)
       }
-      $http.post('https://guarded-oasis-37936.herokuapp.com/climed', data)
+      $http.post('https://gestionardesarrollo.herokuapp.com/climed', data)
 
         .success(function (response) {
           limpiarcampos()
@@ -2124,7 +2124,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.ObtenerClinicas = function () {
       $scope.Cargando = "Cargando...";
-      $http.get('https://guarded-oasis-37936.herokuapp.com/climed/traerElementos')
+      $http.get('https://gestionardesarrollo.herokuapp.com/climed/traerElementos')
 
         .success(function (response) {
           $scope.clinicas = response;
@@ -2172,13 +2172,13 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     //CargarDatos.CargarMedicos()
 
-    $http.get('https://guarded-oasis-37936.herokuapp.com/obraSocial/traerElementos')
+    $http.get('https://gestionardesarrollo.herokuapp.com/obraSocial/traerElementos')
       .success(function (response) {
         $scope.obrasSociales = response;
         $scope.CargandoOS = "Seleccione..";
         console.log(response);
       })
-    $http.get('https://guarded-oasis-37936.herokuapp.com/especialidad/traerElementos')
+    $http.get('https://gestionardesarrollo.herokuapp.com/especialidad/traerElementos')
       .success(function (response) {
         $scope.Especialidades = response;
       })
@@ -2248,7 +2248,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.ObtenerMedicos = function () {
       $scope.Cargando = "Cargando...";
-      $http.get('https://guarded-oasis-37936.herokuapp.com/climed/traerElementos')
+      $http.get('https://gestionardesarrollo.herokuapp.com/climed/traerElementos')
 
         .success(function (response) {
           $scope.medicos = response
@@ -2277,7 +2277,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.Guardar = function () {
       console.log($scope.modificarlat);
       console.log($scope.modificarlng);
-      $http.put('https://guarded-oasis-37936.herokuapp.com/climed/' + $scope.medicoModif.id, {
+      $http.put('https://gestionardesarrollo.herokuapp.com/climed/' + $scope.medicoModif.id, {
           'NOMBRE': $scope.medicoModif.nombre,
           'DIRECCION': $scope.medicoModif.domicilio,
           'LOCALIDAD': $scope.medicoModif.localidad,
@@ -2312,7 +2312,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         .cancel('Cancelar');
 
       $mdDialog.show(confirm).then(function () {
-        $http.delete('https://guarded-oasis-37936.herokuapp.com/climed/' + x.id)
+        $http.delete('https://gestionardesarrollo.herokuapp.com/climed/' + x.id)
           .success(function (response) {
             UserSrv.alertOk("Se elimino con exito.");
             $scope.ObtenerMedicos();
@@ -2341,7 +2341,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'obrasSociales': $scope.OSEnvio,
         'PARTICULAR': $scope.medicoAlta.particular
       }
-      $http.post('https://guarded-oasis-37936.herokuapp.com/climed', data)
+      $http.post('https://gestionardesarrollo.herokuapp.com/climed', data)
 
         .success(function (response) {
           limpiarcampos();
@@ -2676,7 +2676,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.ObtenerFarmacias = function () {
       $scope.Cargando = 'Cargando..';
-      $http.get('https://guarded-oasis-37936.herokuapp.com/farmacia/traerElementos')
+      $http.get('https://gestionardesarrollo.herokuapp.com/farmacia/traerElementos')
 
         .success(function (response) {
           $scope.farmacias = response
@@ -2686,7 +2686,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.ObtenerOS = function () {
-      $http.get('https://guarded-oasis-37936.herokuapp.com/obraSocial/traerElementos')
+      $http.get('https://gestionardesarrollo.herokuapp.com/obraSocial/traerElementos')
         .success(function (response) {
           $scope.obrasSociales = response;
           $scope.CargandoOS = "Seleccione..";
@@ -2704,7 +2704,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'longitude': $scope.altalng,
         'obrasSociales': $scope.ObrasSocialesAgregar.map(OS => OS.id)
       }
-      $http.post('https://guarded-oasis-37936.herokuapp.com/farmacia', data)
+      $http.post('https://gestionardesarrollo.herokuapp.com/farmacia', data)
         .success(function (response) {
           console.log(response);
           UserSrv.alertOk('Farmacia creada con exito.');
@@ -2725,7 +2725,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         .cancel('Cancelar');
 
       $mdDialog.show(confirm).then(function () {
-        $http.delete('https://guarded-oasis-37936.herokuapp.com/farmacia/' + id.id)
+        $http.delete('https://gestionardesarrollo.herokuapp.com/farmacia/' + id.id)
           .success(function (response) {
             UserSrv.alertOk("Se elimino con exito.");
             $scope.ObtenerFarmacias();
@@ -2759,7 +2759,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     }
 
     $scope.Guardar = function (id) {
-      $http.put('https://guarded-oasis-37936.herokuapp.com/farmacia/' + $scope.farmaciaModif.id, {
+      $http.put('https://gestionardesarrollo.herokuapp.com/farmacia/' + $scope.farmaciaModif.id, {
           'NOMBRE': $scope.farmaciaModif.nombre,
           'DIRECCION': $scope.farmaciaModif.direccion,
           'LOCALIDAD': $scope.farmaciaModif.localidad,
@@ -3048,7 +3048,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.ObtenerEspecialidades = function () {
       $scope.Cargando = "Cargando...";
-      $http.get('https://guarded-oasis-37936.herokuapp.com/especialidad/traerElementos')
+      $http.get('https://gestionardesarrollo.herokuapp.com/especialidad/traerElementos')
         .success(function (response) {
           $scope.Especialidades = response;
           $scope.Cargando = "";
@@ -3066,7 +3066,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         .cancel('Cancelar');
 
       $mdDialog.show(confirm).then(function () {
-        $http.delete('https://guarded-oasis-37936.herokuapp.com/especialidad/' + x.id)
+        $http.delete('https://gestionardesarrollo.herokuapp.com/especialidad/' + x.id)
           .success(function (response) {
             UserSrv.alertOk("Se elimino con exito.");
             $scope.ObtenerEspecialidades();
@@ -3076,7 +3076,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.Alta = function () {
 
-      $http.post('https://guarded-oasis-37936.herokuapp.com/especialidad', {
+      $http.post('https://gestionardesarrollo.herokuapp.com/especialidad', {
           'NOMBRE': $scope.espeAlta.nombre,
           'ESTUDIO': $scope.espeAlta.estudio,
           'DIRECTO': $scope.espeAlta.directo
@@ -3095,7 +3095,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.Modificar = function () {
 
-      $http.put('https://guarded-oasis-37936.herokuapp.com/especialidad/' + $scope.espeModif.id, {
+      $http.put('https://gestionardesarrollo.herokuapp.com/especialidad/' + $scope.espeModif.id, {
           'NOMBRE': $scope.espeModif.nombre,
           'ESTUDIO': $scope.espeModif.estudio,
           'IDESPECIALIDAD': $scope.espeModif.id,
@@ -3143,7 +3143,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.ActualPage = 1;
     $scope.ObtenerRecomendaciones = function () {
       $scope.Cargando = "Cargando...";
-      $http.get('https://guarded-oasis-37936.herokuapp.com/recomendacion/sinContactar')
+      $http.get('https://gestionardesarrollo.herokuapp.com/recomendacion/sinContactar')
         .success(function (response) {
           $scope.Recomendaciones = response;
           console.log($scope.Recomendaciones);
@@ -3179,7 +3179,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.Contactar = function (id) {
       $scope.makeIDS()
-      $http.post('https://guarded-oasis-37936.herokuapp.com/recomendacion/contactado', {
+      $http.post('https://gestionardesarrollo.herokuapp.com/recomendacion/contactado', {
           'ids': envio
         })
         .success(function (response) {
@@ -3271,7 +3271,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $scope.expandida = solicitud.id;
       $scope.Turnos = undefined;
       $scope.datosNuevos = solicitud;
-      $http.post('https://guarded-oasis-37936.herokuapp.com/reporteSolicitudes/turnos', {
+      $http.post('https://gestionardesarrollo.herokuapp.com/reporteSolicitudes/turnos', {
           'id_solicitud': solicitud.id
         })
         .success(function (response) {
@@ -3298,7 +3298,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.ObtenerZonas = function () {
       $scope.vistaactual = "Zonas";
-      $http.post('https://guarded-oasis-37936.herokuapp.com/reporteSolicitudes/zonas', {
+      $http.post('https://gestionardesarrollo.herokuapp.com/reporteSolicitudes/zonas', {
           'fecha_creacion_desde': moment($scope.fecha_creacion_desde).format('YYYY-MM-DD'),
           'fecha_creacion_hasta': moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD'),
           'fecha_modificacion_desde': moment($scope.fecha_modificacion_desde).format('YYYY-MM-DD'),
@@ -3314,7 +3314,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.getClinicas = function (zona) {
       $scope.vistaactual = "Clinicas";
       $scope.zonaactual = zona;
-      $http.post('https://guarded-oasis-37936.herokuapp.com/reporteSolicitudes/clinicas', {
+      $http.post('https://gestionardesarrollo.herokuapp.com/reporteSolicitudes/clinicas', {
           'zona': zona,
           'fecha_creacion_desde': moment($scope.fecha_creacion_desde).format('YYYY-MM-DD'),
           'fecha_creacion_hasta': moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD'),
@@ -3331,7 +3331,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.getSolicitudes = function (clinica) {
       $scope.vistaactual = "Solicitudes";
       $scope.clinicaactual = clinica.nombre;
-      $http.post('https://guarded-oasis-37936.herokuapp.com/reporteSolicitudes/solicitudes', {
+      $http.post('https://gestionardesarrollo.herokuapp.com/reporteSolicitudes/solicitudes', {
           'id_clinica': clinica.id_clinica,
           'fecha_creacion_desde': moment($scope.fecha_creacion_desde).format('YYYY-MM-DD'),
           'fecha_creacion_hasta': moment($scope.fecha_creacion_hasta).format('YYYY-MM-DD'),
@@ -3347,7 +3347,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
 
     $scope.ObtenerRecomendaciones = function () {
       $scope.Cargando = "Cargando...";
-      $http.get('https://guarded-oasis-37936.herokuapp.com/recomendacion/sinContactar')
+      $http.get('https://gestionardesarrollo.herokuapp.com/recomendacion/sinContactar')
         .success(function (response) {
           $scope.Recomendaciones = response;
           console.log($scope.Recomendaciones);
