@@ -718,7 +718,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       return array;
     }
 
-    $scope.uploadPic = function(data){
+    $scope.uploadPic = function(){
       if($scope.solicitudexpandida.tipo != 1){
         var file = $('#autorizacionturnopdf')[0].files[0]
         var d = new Date();
@@ -727,6 +727,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         console.log('comienza a cargar la foto');
         var filerenamed = Upload.rename(file, filename);
         $scope.filerenamedGlobal = filerenamed
+        $scope.datasa.FILEAUTORIZACION = filerenamed.ngfName
+        console.log($scope.datasa)
         file.upload = Upload.upload({
           url: 'http://www.gestionarturnos.com/uploadAutorizacion.php',
           data: {
@@ -735,7 +737,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         });
         
         file.upload.then(function (response) {
-          $http.post('https://gestionardesarrollo.herokuapp.com/turno', data)
+          $http.post('https://gestionardesarrollo.herokuapp.com/turno', $scope.datasa)
             .success(function (response) {
               var data2 = {
                 'idnotif': $scope.solicitudexpandida.afiliado.idnotif
@@ -752,7 +754,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
           UserSrv.alertError('Hubo un error al asignar la solicitud. Intente nuevamente.');
         });
       }else{
-        $http.post('https://gestionardesarrollo.herokuapp.com/turno', data)
+        $http.post('https://gestionardesarrollo.herokuapp.com/turno', $scope.datasa)
             .success(function (response) {
               var data2 = {
                 'idnotif': $scope.solicitudexpandida.afiliado.idnotif
@@ -773,7 +775,7 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $scope.hora = moment(hora).format('HH:mm:ss');
       $scope.enviandoturno = true;
 
-      var data = {
+      $scope.datasa = {
         'IDSOLICITUD': $scope.solicitudexpandida.id,
         'MEDICOASIGNADO': medico,
         'FECHAT': $scope.fecha,
@@ -782,8 +784,8 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         'OBS': obsturno,
         'FILEAUTORIZACION': $scope.filerenamedGlobal
       }
-
-      $scope.uploadPic(data)
+      
+      $scope.uploadPic()
           
     }
 
