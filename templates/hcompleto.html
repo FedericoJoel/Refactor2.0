@@ -129,8 +129,8 @@
               <tbody>
                 <tr style="cursor: pointer;" data-toggle="modal" data-target="#detalleSolicitud" ng-repeat="solicitud in solicitudes | filter:filtroDNI | filter:filtroClinica | filter:filtroFechaDesde | filter:filtroFechaHasta | filter:filtroTipo | filter:filtroEstado | filter:filtroNombre  as filteredElems track by $index"
                   ng-if="separarPaginas($index)" ng-click="Detallar(solicitud)" ng-class="{'disabled-row': (solicitudesAbiertas.indexOf(solicitud) != -1)}">
-                  <td>{{solicitud.afiliado.dni}}</td>
-                  <td>{{solicitud.afiliado.nombre}} {{solicitud.afiliado.apellido}}</td>
+                  <td>{{solicitud.obsFamiliar == null ? solicitud.afiliado.dni : getDNIFamiliar(solicitud)}}</td>
+                  <td>{{solicitud.obsFamiliar == null ? solicitud.afiliado.nombre + ' ' + solicitud.afiliado.apellido : solicitud.obsFamiliar.match(Regex)[0] + ' ' + getApellidoFamiliar(solicitud)}}</td>
                   <td>{{solicitud.climed.nombre}}</td>
                   <td>{{solicitud.fecha | date:'dd/MM/yyyy'}}</td>
                   <td ng-if="solicitud.tipo == 1" style="background-color: #063f5f; color: white;">ACCESO DIRECTO</td>
@@ -226,12 +226,11 @@
                       </p>
                       <p>
                         <b>DNI:</b>
-                        <font color="darkred">{{solicitudexpandida.afiliado.dni}}</font>
+                        <font color="darkred">{{solicitudexpandida.obsFamiliar == null ? solicitudexpandida.afiliado.dni : getDNIFamiliar(solicitudexpandida)}}</font>
                       </p>
                       <p>
                         <b>Nombre y Apellido:</b>
-                        <font color="darkred">{{solicitudexpandida.afiliado.nombre}}
-                          {{solicitudexpandida.afiliado.apellido}}</font>
+                        <font color="darkred">{{solicitudexpandida.obsFamiliar == null ? solicitudexpandida.afiliado.nombre + ' ' + solicitudexpandida.afiliado.apellido : solicitudexpandida.obsFamiliar.match(Regex)[0] + ' ' + getApellidoFamiliar(solicitudexpandida)}}</font>
                       </p>
                       <p>
                         <b>Teléfono Afiliado:</b>
@@ -240,12 +239,6 @@
                       <p>
                         <b>Rango Horario:</b>
                         <font color="darkred">{{solicitudexpandida.rango}}</font>
-                      </p>
-                      <p ng-if="solicitudexpandida.obsFamiliar != '' && solicitudexpandida.obsFamiliar != null">
-                        <b>Observacion:</b>
-                        <font color="darkred">{{solicitudexpandida.obsFamiliar}}</font>
-                        <button class="Boton Danger" style="padding: 2px;" data-toggle="modal" data-target="#jorgelin">Ver
-                          datos de Familiares</button>
                       </p>
                       <p>
                         <b>Clínica: </b>

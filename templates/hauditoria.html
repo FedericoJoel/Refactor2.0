@@ -103,8 +103,8 @@
                     </tr>
                     <tr ng-repeat="x in historial | orderBy:sortType:sortReverse | filter:filtro2 as filteredElems track by $index"
                       ng-if="separarPaginas($index)">
-                      <td style="vertical-align: middle;">{{x.afiliado.nafiliado}}</td>
-                      <td style="vertical-align: middle;">{{x.afiliado.nombre}} {{x.afiliado.apellido}}</td>
+                      <td style="vertical-align: middle;">{{x.obsFamiliar == null ? x.afiliado.nafiliado : getNafiliadoFamiliar(x)}}</td>
+                      <td style="vertical-align: middle;">{{x.obsFamiliar == null ? x.afiliado.nombre + ' ' + x.afiliado.apellido : x.obsFamiliar.match(Regex)[0] + ' ' + getApellidoFamiliar(x)}}</td>
                       <td style="vertical-align: middle;">{{x.fecha | date:'dd/MM/yyyy'}}</td>
                       <td style="vertical-align: middle;">
                           <button type="button" ng-click="VerFoto(x.foto)" class="Boton Primary" data-toggle="modal" data-target="#fotoAutorizacion"

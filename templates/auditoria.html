@@ -64,12 +64,8 @@
                   </tr>
                   <tr ng-repeat="x in solicitudes | filter: filtroClimed | filter: filtro as filteredElems" style="text-align: center; vertical-align: middle;"
                     ng-if="separarPaginas($index)">
-                    <td ng-if="x.obsFamiliar == null" style="vertical-align: middle;">
-                      <b>{{x.afiliado.nafiliado}}</b> {{x.afiliado.nombre}} {{x.afiliado.apellido}}
-                    </td>
-                    <td ng-if="x.obsFamiliar != null" style="vertical-align: middle;">
-                      <b>{{x.obsFamiliar}}</b> <button class="Boton Danger" ng-click="yer(x)" style="padding: 2px;"
-                        data-toggle="modal" data-target="#jorgelin">Ver datos de Familiares</button>
+                    <td style="vertical-align: middle;">
+                        <b>{{x.obsFamiliar == null ? x.afiliado.nafiliado : getNafiliadoFamiliar(x)}}</b> {{x.obsFamiliar == null ? x.afiliado.nombre + ' ' + x.afiliado.apellido : x.obsFamiliar.match(Regex)[0] + ' ' + getApellidoFamiliar(x)}}
                     </td>
                     <td ng-if="x.climed != null" style="vertical-align: middle;">
                       {{x.climed.nombre}}

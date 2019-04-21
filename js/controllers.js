@@ -444,7 +444,35 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.primeraPagina = 1 // La primera pagina de laspaginas mostradas en el footer para paginar
     $scope.ActualPage = 1 // pagina en la que estoy posicionado
     $scope.elemsPorPagina = 10
+    $scope.Regex = '(?<=familiar ).*$'
     var aumentoPaginas = 5
+
+    $scope.getApellidoFamiliar = function(sol){
+      var nombreFamiliar = sol.obsFamiliar.match($scope.Regex)[0]
+      var apellidoRegex = nombreFamiliar
+      var Fencontrado = 'hola'
+      for (i = 0; i < sol.afiliado.familiares.length; i++) {
+        var match = sol.afiliado.familiares[i].nombre.match(apellidoRegex)
+        if(match != null && match != undefined && match != ''){
+          Fencontrado = sol.afiliado.familiares[i].apellido
+        }
+      }
+      return Fencontrado
+    }
+
+    $scope.getDNIFamiliar = function(sol){
+      var nombreFamiliar = sol.obsFamiliar.match($scope.Regex)[0]
+      var apellidoRegex = nombreFamiliar
+      var Fencontrado = 'hola'
+      for (i = 0; i < sol.afiliado.familiares.length; i++) {
+        var match = sol.afiliado.familiares[i].nombre.match(apellidoRegex)
+        if(match != null && match != undefined && match != ''){
+          Fencontrado = sol.afiliado.familiares[i].dni
+        }
+      }
+      return Fencontrado
+    }
+
     $scope.changeElemsPorPagina = function (cant) {
       elemsPorPagina = cantidad
     }
@@ -859,6 +887,32 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.filtroestado = $scope.estados[0];
     $scope.filtronumeritos = $scope.numeritos[0];
     $scope.PS = Permisos;
+    $scope.Regex = '(?<=familiar ).*$'
+    $scope.getApellidoFamiliar = function(sol){
+      var nombreFamiliar = sol.obsFamiliar.match($scope.Regex)[0]
+      var apellidoRegex = nombreFamiliar
+      var Fencontrado = 'hola'
+      for (i = 0; i < sol.afiliado.familiares.length; i++) {
+        var match = sol.afiliado.familiares[i].nombre.match(apellidoRegex)
+        if(match != null && match != undefined && match != ''){
+          Fencontrado = sol.afiliado.familiares[i].apellido
+        }
+      }
+      return Fencontrado
+    }
+
+    $scope.getNafiliadoFamiliar = function(sol){
+      var nombreFamiliar = sol.obsFamiliar.match($scope.Regex)[0]
+      var apellidoRegex = nombreFamiliar
+      var Fencontrado = 'hola'
+      for (i = 0; i < sol.afiliado.familiares.length; i++) {
+        var match = sol.afiliado.familiares[i].nombre.match(apellidoRegex)
+        if(match != null && match != undefined && match != ''){
+          Fencontrado = sol.afiliado.familiares[i].nafiliado
+        }
+      }
+      return Fencontrado
+    }
     /*$http.post(UserSrv.GetPath(), {
         'seccion': 'solicitudes',
         'accion': 'listar',
@@ -1161,6 +1215,33 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
       $scope.traerSolicitudes()
     })
 
+    $scope.Regex = '(?<=familiar ).*$'
+    $scope.getApellidoFamiliar = function(sol){
+      var nombreFamiliar = sol.obsFamiliar.match($scope.Regex)[0]
+      var apellidoRegex = nombreFamiliar
+      var Fencontrado = 'hola'
+      for (i = 0; i < sol.afiliado.familiares.length; i++) {
+        var match = sol.afiliado.familiares[i].nombre.match(apellidoRegex)
+        if(match != null && match != undefined && match != ''){
+          Fencontrado = sol.afiliado.familiares[i].apellido
+        }
+      }
+      return Fencontrado
+    }
+
+    $scope.getNafiliadoFamiliar = function(sol){
+      var nombreFamiliar = sol.obsFamiliar.match($scope.Regex)[0]
+      var apellidoRegex = nombreFamiliar
+      var Fencontrado = 'hola'
+      for (i = 0; i < sol.afiliado.familiares.length; i++) {
+        var match = sol.afiliado.familiares[i].nombre.match(apellidoRegex)
+        if(match != null && match != undefined && match != ''){
+          Fencontrado = sol.afiliado.familiares[i].nafiliado
+        }
+      }
+      return Fencontrado
+    }
+
     $scope.filtroClimed = function (solicitud) {
       if ($scope.searchClimed == undefined) {
         return true
@@ -1417,6 +1498,33 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.ActualPage = 1 // pagina en la que estoy posicionado
     $scope.elemsPorPagina = 10
     var aumentoPaginas = 5
+    $scope.Regex = '(?<=familiar ).*$'
+    $scope.getApellidoFamiliar = function(sol){
+      var nombreFamiliar = sol.obsFamiliar.match($scope.Regex)[0]
+      var apellidoRegex = nombreFamiliar
+      var Fencontrado = 'hola'
+      for (i = 0; i < sol.afiliado.familiares.length; i++) {
+        var match = sol.afiliado.familiares[i].nombre.match(apellidoRegex)
+        if(match != null && match != undefined && match != ''){
+          Fencontrado = sol.afiliado.familiares[i].apellido
+        }
+      }
+      return Fencontrado
+    }
+
+    $scope.getDNIFamiliar = function(sol){
+      var nombreFamiliar = sol.obsFamiliar.match($scope.Regex)[0]
+      var apellidoRegex = nombreFamiliar
+      var Fencontrado = 'hola'
+      for (i = 0; i < sol.afiliado.familiares.length; i++) {
+        var match = sol.afiliado.familiares[i].nombre.match(apellidoRegex)
+        if(match != null && match != undefined && match != ''){
+          Fencontrado = sol.afiliado.familiares[i].dni
+        }
+      }
+      return Fencontrado
+    }
+
     $scope.changeElemsPorPagina = function (cant) {
       elemsPorPagina = cantidad
     }
