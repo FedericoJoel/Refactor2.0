@@ -18,7 +18,7 @@ $fromName = 'Cobertec';
 $subject = 'Autorización para su turno en '.$data->climed; 
 
 //attachment file path
-$file = "../autorizaciones/".$data->file;
+$file = "autorizaciones/".$data->file;
 
 //email body content
 $htmlContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
