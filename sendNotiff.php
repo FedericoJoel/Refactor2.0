@@ -9,7 +9,7 @@ $dataR = json_decode(file_get_contents("php://input"));
 $var = $dataR->idnotif;
 
 function sendPushNotification($to = '', $data = array(), $var){
-	$apiKey = 'AIzaSyDqgXoNhc4_7AHjrFMOtjXNbaZ2nl_RuPI';
+	$apiKey = 'AIzaSyCXJAuGhrcmO4gZZg1Lrrk9rP82AdZgJa0';
 	$fields = array('to' => $var, 'notification' => $data);
 
 	$headers = array('Authorization: key='.$apiKey, 'Content-Type: application/json');
