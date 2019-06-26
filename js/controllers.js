@@ -1876,6 +1876,23 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
         }
       }
     }
+
+    $scope.obtenerNroAfiliadoModif = function (familiar, indice) {
+      if (familiar.relacion == undefined) return null
+      if (familiar.relacion == 'Conyugue') {
+        familiar.nafiliado = $scope.familiar.dni.toString() + '/c1';
+        //$scope.$apply();
+      } else {
+        if (indice < getIndexConyugue()) {
+          familiar.nafiliado = $scope.familiar.dni.toString() + '/h' + (indice + 1);
+          // $scope.$apply();
+        } else {
+          familiar.nafiliado = $scope.familiar.dni.toString() + '/h' + indice;
+          //$scope.$apply();
+        }
+      }
+    }
+
     //CargarDatos.CargarAfiliados()
     $http.get('https://guarded-oasis-37936.herokuapp.com/obraSocial/traerElementos')
       .success(function (response) {
