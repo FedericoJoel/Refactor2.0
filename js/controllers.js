@@ -1880,14 +1880,14 @@ angular.module('GestionarApp.controllers', ['angular-loading-bar', 'GestionarApp
     $scope.obtenerNroAfiliadoModif = function (familiar, indice) {
       if (familiar.relacion == undefined) return null
       if (familiar.relacion == 'Conyugue') {
-        familiar.nafiliado = $scope.familiar.dni.toString() + '/c1';
+        familiar.nafiliado = $scope.afiliadoModificando.dni.toString() + '/c1';
         //$scope.$apply();
       } else {
         if (indice < getIndexConyugue()) {
-          familiar.nafiliado = $scope.familiar.dni.toString() + '/h' + (indice + 1);
+          familiar.nafiliado = $scope.afiliadoModificando.dni.toString() + '/h' + (indice + 1);
           // $scope.$apply();
         } else {
-          familiar.nafiliado = $scope.familiar.dni.toString() + '/h' + indice;
+          familiar.nafiliado = $scope.afiliadoModificando.dni.toString() + '/h' + indice;
           //$scope.$apply();
         }
       }
